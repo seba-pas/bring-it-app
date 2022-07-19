@@ -4,20 +4,19 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-
-    "Province",
-
+    "Confirmed",
     {
       id: {
-        type: DataTypes.STRING, //asi viene de la API del gobierno
+        type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,        
+        primaryKey: true,
+        autoIncrement: true
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },     
-    },
+      status: {
+        type: DataTypes.ENUM(["En espera de compra", "Compra confirmada", "En viaje para entrega", "Entregado"]),
+        allowNull: true,
+      },  
+    },  
     {
         timestamps: false
     }

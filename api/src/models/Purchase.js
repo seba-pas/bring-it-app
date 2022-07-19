@@ -4,9 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
- DatabaseAgustina
-    "Category",
-
+    "Purchase",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -14,18 +12,23 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      name: {
+      totalPrice: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      waitingTime: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      arrivalCity: {
         type: DataTypes.STRING,
         allowNull: false,
-      },  
-      //incluyo imagen x si la necesitan para el listado de categorias del front    
-      image: {
-        type: DataTypes.TEXT,
-        allowNull: true,
       }      
     },
     {
-        timestamps: false
+        timestamps: true,
+        createdAt: false,
+        updatedAt: "Last update"
     }
   );
 };
