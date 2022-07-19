@@ -5,16 +5,21 @@ export default function NavBar() {
   return (
     <header>
         <div>
-            <img src="" alt="" />
+            <NavLink exact to='/'>
+                <img src="" alt="Logo no encontrado" />
+            </NavLink>
         </div>
         <nav>
             <ul>
-                <li>
-                    <NavLink to='/Login' >Log In</NavLink>
-                    <NavLink to='/Register' >Register</NavLink>
-                    <NavLink to='About' >About</NavLink>
+                <div>
+                    <button>
+                        <NavLink to='/Login'>Ingresar</NavLink>
+                    </button>
+                    <button>
+                        <NavLink to='/Register'>Registrarse</NavLink>
+                    </button>
 
-                </li>
+                </div>
             </ul>
 
         </nav>
