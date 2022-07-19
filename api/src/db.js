@@ -67,7 +67,9 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
+
 const { Product, Category, Business, City, Province, Purchase, Confirmed } = sequelize.models;
+
 
 // Aca vendrian las relaciones
 Product.belongsToMany(Category, {through: "product_category"});
@@ -81,6 +83,7 @@ Business.belongsTo(City);
 
 Province.hasMany(City);
 City.belongsTo(Province);
+
 
 // Esta relación cambia de 1 a N, a N a N y se regula con el stock
 Purchase.belongsToMany(Product, {through: "purchase_product"});
@@ -97,6 +100,7 @@ Confirmed.belongsTo(Purchase);
 //Descomentar cuando este el modelo Travel creado e importado
 //Confirmed.hasOne(Travel);
 //Travel.belongsTo(Confirmed);
+>>>>>>> main
 
 
 
