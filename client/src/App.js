@@ -1,12 +1,12 @@
 import "./App.css";
 import React from "react";
-// import Home from "./components/Home";
+import Login from "./components/Login.jsx";
 
 function App() {
   return (
     <div>
-      <h1>BRING ITsssss</h1>
-      {/* <Home/> */}
+      {/* <h1>BRING ITsssss</h1> */}
+      <Login/> 
     </div>
   );
 }
