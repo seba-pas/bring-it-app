@@ -1,10 +1,14 @@
 import React from "react";
 import CarouselHomeP from "./CarrouselHomeP";
+import NavBar from "./NavBar";
+import styles from "../styles/HomePersonas.module.css";
 
 export default function HomePersonas() {
   return (
     <div>
-      <div className="encabezado">
+      <NavBar />
+
+      <div className={styles.encabezado}>
         <h1>Bienvenido a Bring-It</h1>
         <h2>Seccion Personas</h2>
         <h3>
@@ -14,10 +18,10 @@ export default function HomePersonas() {
           magnam aliquam quaerat voluptatem".
         </h3>
       </div>
-      <div classNAme="carrousel">
+      <div className={styles.carousel}>
         <CarouselHomeP />
       </div>
-      <div className="infoPagos">
+      <div className={styles.infopagos}>
         <p>
           Pagos seguros Tu pago está protegido y nunca será entregado al viajero
           hasta que confirmes la entrega.
