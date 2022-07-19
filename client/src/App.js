@@ -5,7 +5,7 @@ import React from "react";
 function App() {
   return (
     <div>
-      <h1>BRING ITss</h1>
+      <h1>BRING ITsssss</h1>
       {/* <Home/> */}
     </div>
   );
