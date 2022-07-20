@@ -1,13 +1,13 @@
-
 import React from "react";
 import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
 import styles from "../styles/NavBar.module.css";
+import SearchBar from "./SearchBar";
 
 export default function NavBar() {
   return (
     <div className={styles.navbar}>
-      <nav>
+      <div className={styles.imagen}>
         <NavLink exact to="/">
           <img
             src={image}
@@ -15,17 +15,18 @@ export default function NavBar() {
             alt="Logo no encontrado"
           />
         </NavLink>
-        <div className={styles.contbotones}>
-          <NavLink to="/Login">
-            <button>INGRESAR</button>
-          </NavLink>
-
-
-          <NavLink to="/Register">
-            <button>REGISTRARSE</button>
-          </NavLink>
-        </div>
-      </nav>
+      </div>
+      <div className={styles.SearchBar}>
+        <SearchBar />
+      </div>
+      <div className={styles.contbotones}>
+        <NavLink to="/Login">
+          <button>INGRESAR</button>
+        </NavLink>
+        <NavLink to="/Register">
+          <button>REGISTRARSE</button>
+        </NavLink>
+      </div>
     </div>
   );
 }
