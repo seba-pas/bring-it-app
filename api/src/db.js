@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-
+//hola como va 
 let sequelize =
   process.env.NODE_ENV === "production"
     ? new Sequelize({
@@ -30,7 +30,7 @@ let sequelize =
         ssl: true,
       })
     : new Sequelize(
-        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`,
+        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/bringit`,
         { logging: false, native: false }
       );
 
@@ -67,11 +67,46 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Dog, Temperament } = sequelize.models;
+
+const { Product, Category, Business, City, Province, Purchase, Confirmed } = sequelize.models;
+
 
 // Aca vendrian las relaciones
-Temperament.belongsToMany(Dog, { through: "dogs_temperament" });
-Dog.belongsToMany(Temperament, { through: "dogs_temperament" });
+Product.belongsToMany(Category, {through: "product_category"});
+Category.belongsToMany(Product, {through: "product_category"});
+
+Product.belongsToMany(Business, {through: "product_business"});
+Business.belongsToMany(Product, {through: "product_business"});
+
+City.hasMany(Business);
+Business.belongsTo(City);
+
+Province.hasMany(City);
+City.belongsTo(Province);
+
+
+// Esta relación cambia de 1 a N, a N a N y se regula con el stock
+Purchase.belongsToMany(Product, {through: "purchase_product"});
+Product.belongsToMany(Purchase, {through: "purchase_product"});
+
+// Esta relación nos hace ruido pero no nos cierra ninguna otra alternativa mejor
+Purchase.hasOne(Confirmed);
+Confirmed.belongsTo(Purchase);
+
+//Descomentar cuando este el modelo User creado e importado
+//User.hasMany(Purchase);
+//Purchase.belongsTo(User);
+
+//Descomentar cuando este el modelo Travel creado e importado
+//Confirmed.hasOne(Travel);
+//Travel.belongsTo(Confirmed);
+>>>>>>> main
+
+
+
+
+
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
