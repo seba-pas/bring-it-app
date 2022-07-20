@@ -80,6 +80,7 @@ function Login() {
           >
             Sign up
           </button>
+          {/* Auth */}
         </div>
       </div>
     </div>
