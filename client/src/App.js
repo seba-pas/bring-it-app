@@ -3,13 +3,17 @@ import React from "react";
 import NavBar from "./components/NavBar";
 // import Home from "./components/Home";
 // import HomePersonas from "./components/HomePersonas";
-
+import ProductCard from "./components/ProductCard";
 
 function App() {
   return (
     <div>
-      <NavBar/>
-      <h1>BRING ITsssss</h1>
+      <div>
+
+      <NavBar />
+      </div>
+
+      <ProductCard />
       {/* <Home/> */}
       {/* <HomePersonas /> */}
     </div>
