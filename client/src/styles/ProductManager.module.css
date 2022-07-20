@@ -1,0 +1,111 @@
+.ProductManager {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+
+.container {
+    width: 99vw;
+    height: 99vh;
+    margin: 0.5vh 0.5vw;
+    /* top: 0; */
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(31, 1fr);
+    grid-template-rows: repeat(31, 1fr);
+
+}
+
+.ProductManager,
+.container {
+
+    position: absolute;
+
+}
+
+.nameContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    border: solid 2px rgb(38, 38, 241);
+    grid-row: 5/10;
+    grid-column: 2/14;
+    justify-content: center;
+    align-items: left;
+
+}
+
+.priceContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    border: solid 2px rgb(38, 38, 241);
+    grid-row: 5/10;
+    grid-column: 18/30;
+    justify-content: center;
+    align-items: left;
+
+}
+
+.stockContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    border: solid 2px rgb(38, 38, 241);
+    grid-row: 10/15;
+    grid-column: 2/14;
+    justify-content: center;
+    align-items: left;
+
+}
+
+.weightContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241);
+    grid-row: 10/15;
+    grid-column: 18/30;
+    justify-content: center;
+    align-items: left;
+
+}
+
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241);
+    grid-row: 15/20;
+    grid-column: 2/14;
+    justify-content: center;
+    align-items: left;
+
+}
+
+.categoriesContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241);
+    grid-row: 15/20;
+    grid-column: 18/30;
+    justify-content: center;
+    align-items: center;
+
+}
