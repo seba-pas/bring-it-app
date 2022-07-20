@@ -1,7 +1,7 @@
 import React from "react";
-import CarouselHomeP from "./CarrouselHomeP";
 import NavBar from "./NavBar";
 import styles from "../styles/HomePersonas.module.css";
+import CarrouselHomeP from "./CarrouselHomeP";
 
 export default function HomePersonas() {
   return (
@@ -19,7 +19,7 @@ export default function HomePersonas() {
         </h3>
       </div>
       <div className={styles.carousel}>
-        <CarouselHomeP />
+        <CarrouselHomeP />
       </div>
       <div className={styles.infopagos}>
         <p>
