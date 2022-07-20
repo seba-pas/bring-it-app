@@ -4,9 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
- DatabaseAgustina
     "Category",
-
     {
       id: {
         type: DataTypes.INTEGER,

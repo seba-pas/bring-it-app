@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import image from '../components/img/logoCUT.png'
+import SearchBar from './SearchBar';
 
 export default function NavBar() {
   return (
@@ -10,6 +11,7 @@ export default function NavBar() {
                 <img src={image} style={{width:'auto', height: '100px'}} alt="Logo no encontrado" />
             </NavLink>
         </div>
+        <SearchBar/>
         <nav>
             <ul>
                 <div>
