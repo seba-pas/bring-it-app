@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styles from "../styles/HomeBusiness.module.css"
+
 
 
 function ProductCard({ image, productName, amount, description }) {

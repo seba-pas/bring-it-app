@@ -14,11 +14,11 @@ function App() {
   return (
     <div>
 
-      <HomeBusiness />
-      {/* <ProductManager /> */}
+      {/* <HomeBusiness /> */}
+      <ProductManager />
 
-      <NavBar/>
-      <h1>BRING ITsssss</h1>
+      {/* <NavBar /> */}
+      {/* <h1>BRING ITsssss</h1> */}
       {/* <Home/> */}
       {/* <HomePersonas /> */}
     </div>

@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from "../styles/ProductManager.module.css"
 function ProductManager() {
+
+    const [input, setInput] = useState({
+        product: "",
+    })
     const handleCategoriesChange = (event) => {
+
+
+
         event.preventDefault();
         // setInput((prevInput) => {
         //     if (event.target.value === "") {
@@ -33,7 +40,7 @@ function ProductManager() {
                     <input
                         type="text"
                         name="product"
-                    // value={input.product}
+                        value={input.product}
                     // onChange={handleInputChange}
                     ></input>
                 </div>
@@ -59,6 +66,11 @@ function ProductManager() {
                 <div className={styles.weightContainer}>
                     <label>Peso:</label>
                     <input></input>
+
+                </div>
+                <div className={styles.descriptionContainer}>
+                    <label>Descripción:</label>
+                    <textarea></textarea>
 
                 </div>
                 <div className={styles.imageContainer}>

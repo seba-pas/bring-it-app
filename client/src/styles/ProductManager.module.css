@@ -32,7 +32,7 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    border: solid 2px rgb(38, 38, 241);
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 5/10;
     grid-column: 2/14;
     justify-content: center;
@@ -46,7 +46,7 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    border: solid 2px rgb(38, 38, 241);
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 5/10;
     grid-column: 18/30;
     justify-content: center;
@@ -60,7 +60,7 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    border: solid 2px rgb(38, 38, 241);
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 10/15;
     grid-column: 2/14;
     justify-content: center;
@@ -71,10 +71,10 @@
 .weightContainer {
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.093);
+    /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
-    backdrop-filter: blur(4px);
-    border: solid 2px rgb(38, 38, 241);
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 10/15;
     grid-column: 18/30;
     justify-content: center;
@@ -82,13 +82,13 @@
 
 }
 
-.imageContainer {
+.descriptionContainer {
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.093);
+    /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
-    backdrop-filter: blur(4px);
-    border: solid 2px rgb(38, 38, 241);
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 15/20;
     grid-column: 2/14;
     justify-content: center;
@@ -99,13 +99,27 @@
 .categoriesContainer {
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.093);
+    /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
-    backdrop-filter: blur(4px);
-    border: solid 2px rgb(38, 38, 241);
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 15/20;
     grid-column: 18/30;
     justify-content: center;
     align-items: center;
+
+}
+
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 20/25;
+    grid-column: 2/14;
+    justify-content: center;
+    align-items: left;
 
 }
