@@ -1,3 +1,4 @@
+
 import React from "react";
 import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
@@ -18,6 +19,7 @@ export default function NavBar() {
           <NavLink to="/Login">
             <button>INGRESAR</button>
           </NavLink>
+
 
           <NavLink to="/Register">
             <button>REGISTRARSE</button>
