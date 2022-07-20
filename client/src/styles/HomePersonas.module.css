@@ -1,0 +1,20 @@
+<<<<<<< HEAD
+.carousel {
+  width: 80%;
+  height: auto;
+  display: flex;
+  justify-content:center;
+  align-content: center;
+}
+
+.infopagos {
+  background-color: rgba(64, 202, 206, 0.508);
+=======
+
+
+.infopagos {
+  background-color: rgba(53, 142, 183, 0.405);
+  color: black;
+>>>>>>> d3ad13e8968a0b601ee63119b42baa3a957390d5
+}
+
