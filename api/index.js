@@ -19,16 +19,18 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
+const { db } = require('./src/db');
+const { City } = require('./src/db');
+const json1 = require('./src/json/municipios.json');
 
-
+const municipios = json1.municipios;
 
 // // Syncing all the models at once.
 
-
-
-
-conn.sync({ force: false }).then(() => {
-  server.listen(process.env.PORT, () => {
+conn.sync({ force: true }).then(() => {
+  server.listen(3001, async() => {
+    await City.bulkCreate(municipios);
+    console.log('Municipios cargados correctamente')
     console.log("BRING IT ON! Listening..."); // eslint-disable-line no-console
   });
 });
