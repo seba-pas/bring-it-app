@@ -2,7 +2,8 @@ import "./App.css";
 import React from "react";
 import NavBar from "./components/NavBar";
 // import Home from "./components/Home";
-import HomePersonas from "./components/HomePersonas";
+// import HomePersonas from "./components/HomePersonas";
+
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <NavBar/>
       <h1>BRING ITsssss</h1>
       {/* <Home/> */}
-      <HomePersonas />
+      {/* <HomePersonas /> */}
     </div>
   );
 }
