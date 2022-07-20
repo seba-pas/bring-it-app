@@ -8,17 +8,19 @@ import NavBar from "./components/NavBar";
 
 // import Home from "./components/Home";
 // import HomePersonas from "./components/HomePersonas";
-
+import ProductCard from "./components/ProductCard";
 
 function App() {
   return (
     <div>
 
-      <HomeBusiness />
-      {/* <ProductManager /> */}
+      <div>
 
-      <NavBar/>
-      <h1>BRING ITsssss</h1>
+      <NavBar />
+      </div>
+
+      <ProductCard />
+
       {/* <Home/> */}
       {/* <HomePersonas /> */}
     </div>

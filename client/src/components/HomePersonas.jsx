@@ -19,7 +19,7 @@ export default function HomePersonas() {
         </h3>
       </div>
       <div className={styles.carousel}>
-        <CarrouselHomeP />
+        
       </div>
       <div className={styles.infopagos}>
         <p>

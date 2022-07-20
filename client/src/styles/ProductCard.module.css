@@ -1,10 +1,58 @@
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
+
+.container {
+  margin-top: 100px;
+  
+  background-color: rgba(255, 255, 255, 0.975);
+  text-decoration: none;
+  transition: width 0.8s ease;
+  width: 20%;
+  height: 515px;
+  /* border-radius: 15px; */
+  margin: 50px;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 8px 16px 0 rgba(0, 0, 0, 0.35);
+  padding-bottom: 10px;
 }
 
-th,
-td {
-    padding: 10px 10px;
-    /* border: 1px solid #000; */
+.container img {
+  width: 100%;
+  height: auto;
+
+}
+
+.container:hover {
+  width: 24%;
+  
+}
+
+.containertext {
+  font-family: 'Montserrat', sans-serif;
+  margin-left: 7%;
+  width: 80%;  
+}
+.name {
+  margin-bottom: 10px;
+  font-size: 35px;
+  font-weight: bolder;
+
+}
+.empresa {
+  margin-top: 0px;
+  font-size: 18px;
+  float: right;
+  margin-bottom: 10px;
+}
+.province {
+  display: flex;
+}
+.description {
+  font-weight: 400;
+  font-size: 20px;
+}
+.price {
+  margin-top: 10px;
+  font-weight: 300;
+  font-size: 55px;
+
 }
