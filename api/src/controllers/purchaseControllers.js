@@ -7,8 +7,13 @@ async function getPurchase (){
     const purchase= await Purchase.findAll({
         include: [{model: User}, {model: Product}]        
     });
-    return purchase;
+    if (purchase) {
+        return purchase;        
+    } else {
+        return 'No HAY PURCHASE';
+    }
 };
+
 
 module.exports = {
     getPurchase

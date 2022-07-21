@@ -1,71 +1,97 @@
 const { Router } = require("express");
-const {Purchase, User} = require('../db');
-const {getDbPedidos} = require( '../controlers/getDBPedidos');
-const {pedidosById} = require('../controlers/pedidosById');
-const productRoutes = require ("./purchaseRoutes");
+const {Purchase, User, Travel} = require('../db');
+
+
+const productRoutes = require ("./productRoutes");
+const categoryRoutes = require ("./categoryRoutes");
+const businessRoutes = require ("./businessRoutes");
+const cityRoutes = require ("./cityRoutes");
+const provinceRoutes = require ("./provinceRoutes");
+const purchaseRouters= require('./purchaseRoutes');
+const postPurchaseRoutes= require('./postPurchaseRoutes');
 
 const router = Router();
 
-router.post('/purchase', async (req, res)=>{
-    try {
-        let {
-            id,
-            idProduct,
-            idUser,
-            totalPrice,
-            arrivalCity,
-            waitingTime
-        }= req.body;
+//Configuración de routers
+router.use ('/product', productRoutes);
+router.use ('/category', categoryRoutes);
+router.use ('/business', businessRoutes);
+router.use ('/city', cityRoutes);
+router.use ('/province', provinceRoutes);
 
-        const createdPurchase = await Purchase.create({
-            id,
-            totalPrice,
-            arrivalCity,
-            waitingTime
+//Configuracion de rutas Purchase
+router.use('/purchase', purchaseRouters);
+router.use('/purchase', postPurchaseRoutes);
+
+
+//CREATE travel
+router.post('/api/travel', async(req,res) => {
+ const { id, UserEmail, TravelProvince, TravelCity, ArrivalProvince, ArrivalCity, startDate, ArrivalDate} = req.body ; 
+ if (!UserEmail || !TravelProvince || !TravelCity || !ArrivalProvince || !ArrivalCity || !startDate || !ArrivalDate) {
+     res.status(404).send('Faltan datos para crear el viaje')
+ } else {
+     try{
+         const newTravel = await Travel.create({
+             id,
+            UserEmail,
+            TravelProvince, 
+            TravelCity, 
+            ArrivalProvince, 
+            ArrivalCity, 
+            startDate, 
+            ArrivalDate
+         })
+         res.status(201).send('Viaje creado')
+     } catch (e) {
+        res.send('error:'+ e.message)
+    }
+ }
+})
+
+//DELETE TRAVEL
+router.delete('/api/travel/:id', async(req,res) => {
+        try{
+            let {id} = req.params;
+            await Travel.destroy({
+                where: {id: id}
+            });
+            res.status(201).send('Viajes eliminados:')
+        } catch (e) {
+           res.send('error:'+ e.message)
+       }
+   })
+
+//UPDATE TRAVEL
+router.put('/api/travel/:id', async(req,res) => {
+    try{
+        const {id} = req.params;
+        const modification = req.body; //json con atributos a modificar y nuevos valores
+        const q = await Travel.update(modification, {
+            where: {id: id}
         });
-        await createdPurchase.addUser(idUser)
-        await createdPurchase.addProduct(idProduct);
+        res.status(201).send(`${q} Viajes modificados`)
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
+})
 
-        res.status(200).send('Create Purchase completed');
-        
-    } catch (error) {
-        res.status(404).send(error.message)
+//CREATE User
+router.post('/api/user', async(req,res) => {
+    const {email, password, name, lastname, age, nationality} = req.body ; 
+    if (!email || !password || !name || !lastname || !age|| !nationality) {
+        res.status(404).send('Faltan datos para crear el usuario')
+    } else {
+        try{
+            const newUser = await User.create({
+                email, password, name, lastname, age, nationality
+            })
+            res.status(201).send('Usuario creado')
+        } catch (e) {
+           res.send('error:'+ e.message)
+       }
     }
+   })
 
-});
-
-
-
-router.get ('/pedidos', async (req, res)=>{
-    try {
-        return res.status(200).send(getDbPedidos());
-    } catch (error) {
-        return res.status(404).send(error.message);
-    }
-});
-
-router.delete('/pedidos/:id'), async (req, res)=>{
-    const {id}=req.params
-    try {
-        await Purchase.destroy({
-            where:{
-                id,
-            }
-        })
-        res.status(200).send('se elimino correctamente')
-    } catch (error) {
-        console.log(id)
-        res.status(404).send(error.message)
-    }
-};
-router.get('/pedidos/:id', async (req, res)=>{
-    try {
-        res.status(404).send(pedidosById(req));
-        
-    } catch (error) {
-        res.status(404).send(message.error)
-    }
-});
-router.use ('/purchase', purchaseRoutes);
+// router.use ('/purchase', purchaseRoutes);
 
 module.exports = router;
