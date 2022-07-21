@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "Confirmed",
+    "confirmed",
     {
       id: {
         type: DataTypes.INTEGER,

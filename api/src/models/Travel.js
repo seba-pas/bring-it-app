@@ -4,26 +4,28 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "Travel",
+    "travel",
     {
       id: {
-        type: DataTypes.STRING, 
-        allowNull: false,
-        primaryKey: true,  
+        type: DataTypes.INTEGER, 
+        primaryKey: true, 
         autoincrement: true      
       },
-      idUser: {
-        type: DataTypes.INTEGER,
-    },
-      IdTravelCity: {
-        type: DataTypes.INTEGER,
-        // references: {
-        //     model: City , 
-        //     key: 'id'
-        // }
+    TravelProvince: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },     
+      TravelCity: {
+        type: DataTypes.STRING,
+        allowNull: false
       },     
-      idArrivalCity: {
-          type: DataTypes.INTEGER
+      ArrivalProvince: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },     
+      ArrivalCity: {
+          type: DataTypes.STRING,
+          allowNull: false
       }, 
       startDate: {
           type: DataTypes.DATEONLY, 

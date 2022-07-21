@@ -3,8 +3,10 @@ const { DataTypes } = require("sequelize");
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("Business",
-   {
+
+  sequelize.define(
+    "business",
+    {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -29,7 +31,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       logo: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       province: {

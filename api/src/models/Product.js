@@ -4,9 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-
-    "Product",
-
+    "product",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -34,6 +32,11 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+
       //businessId y categoryId no van definidas aca, se vinculan en las tablas intermedias: products_categories y products_business
     },
     {

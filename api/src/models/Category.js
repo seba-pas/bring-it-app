@@ -3,8 +3,8 @@ const { DataTypes } = require("sequelize");
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("Category",
-
+  sequelize.define(
+    "category",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       },  
       //incluyo imagen x si la necesitan para el listado de categorias del front    
       image: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: true,
       }      
     },

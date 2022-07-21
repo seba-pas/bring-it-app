@@ -66,7 +66,6 @@ router.get('/pedidos/:id', async (req, res)=>{
         res.status(404).send(message.error)
     }
 });
-
 router.use ('/purchase', purchaseRoutes);
 
 module.exports = router;

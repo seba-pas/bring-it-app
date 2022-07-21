@@ -1,31 +1,44 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
-import image from '../components/img/logoCUT.png'
-
+import React from "react";
+import { NavLink } from "react-router-dom";
+import image from "../components/img/logoCUT.png";
+import styles from "../styles/NavBar.module.css";
+import SearchBar from "./SearchBar";
+import useModal from "./UseModal";
+import Modal from "./Modal";
+//seba
 export default function NavBar() {
+  const [isOpenLoginModal, openLoginModal, closeLoginModal] = useModal();
   return (
-    <header>
-        <div>
-            <NavLink exact to='/'>
-                <img src={image} style={{width:'auto', height: '100px'}} alt="Logo no encontrado" />
-            </NavLink>
-        </div>
-        <nav>
-            <ul>
-                <div>
-                    <button>
-                        <NavLink to='/Login'>Ingresar</NavLink>
-                    </button>
-                    <button>
-                        <NavLink to='/Register'>Registrarse</NavLink>
-                    </button>
+    <div className={styles.navbar}>
+      <div className={styles.imagen}>
+        <NavLink exact to="/">
+          <img
+            src={image}
+            style={{ width: "auto", height: "100px" }}
+            alt="Logo no encontrado"
+          />
+        </NavLink>
+      </div>
+      <div className={styles.SearchBar}>
+        <SearchBar />
+      </div>
+      <div className={styles.contbotones}>
+        <NavLink to="/Login">
+          <button>INGRESAR</button>
+        </NavLink>
+        <button onClick={openLoginModal}>REGISTRARSE</button>
 
-                </div>
-            </ul>
-
-        </nav>
-
-    </header>
-  )
+        <Modal isOpen={isOpenLoginModal} 
+        closeModal={closeLoginModal}>
+          <h1>Quieres registrarte como:</h1>
+          <NavLink to="/RegisterBusiness">
+            <button>Empresa</button>
+          </NavLink>
+          <NavLink to="/RegisterUser">
+            <button>Persona</button>
+          </NavLink>
+        </Modal>
+      </div>
+    </div>
+  );
 }
-

@@ -27,9 +27,10 @@ const municipios = json1.municipios;
 
 // // Syncing all the models at once.
 
-conn.sync({ force: true }).then(() => {
+
+conn.sync({ force: false}).then(() => {
   server.listen(3001, async() => {
-    await City.bulkCreate(municipios);
+    // await City.bulkCreate(municipios);
     console.log('Municipios cargados correctamente')
     console.log("BRING IT ON! Listening..."); // eslint-disable-line no-console
   });
