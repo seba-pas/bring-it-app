@@ -5,26 +5,19 @@ function SoldProductCard({ image, productName, amount, description, clientName, 
     return (
         <tr>
 
-            <th><h5>{productName}</h5></th>
-            <th><h5>{amount}</h5></th>
-            <th><h5>{description}</h5></th>
-            <th><h5>{clientName}</h5></th>
-            <th><h5>{clientPhone}</h5></th>
-            <th><h5>{BringerName}</h5></th>
-            <th><h5>{BringerContact}</h5></th>
+            <th><h6>{productName}</h6></th>
+            <th><h6>{amount}</h6></th>
+            <th><h6>{description}</h6></th>
+            <th><h6>{clientName}</h6></th>
+            <th><h6>{clientPhone}</h6></th>
+            <th><h6>{BringerName}</h6></th>
+            <th><h6>{BringerContact}</h6></th>
             <th><input type="checkbox" id="cbox1" value="first_checkbox" /></th>
         </tr>
     )
 }
 
 export default SoldProductCard
-
-
-    // < div className = { styles.cardContainer } >
-
-
-    //         
-
 
 
 
