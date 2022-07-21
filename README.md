@@ -29,4 +29,9 @@ PASOS PARA CREADO DE BRANCH
 *(EN ESTA)
 
 
+//PARA BORRAR UNA BRANCH 
+
+>> GIT BRANCH -D nombredelabranch
+
+
 
