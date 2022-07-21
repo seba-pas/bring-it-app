@@ -9,7 +9,11 @@ import Modal from "./Modal";
 export default function NavBar() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [isOpenLoginModal, openLoginModal ,closeLoginModal ] = useModal();
+=======
+  const [isOpenLoginModal, openLoginModal, closeLoginModal] = useModal();
+>>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
 =======
   const [isOpenLoginModal, openLoginModal, closeLoginModal] = useModal();
 >>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
@@ -34,6 +38,7 @@ export default function NavBar() {
         <NavLink to="/Login">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           <button >INGRESAR</button>
         </NavLink>
         <button onClick={openLoginModal}>REGISTRARSE</button>
@@ -51,6 +56,8 @@ export default function NavBar() {
 =======
 =======
 >>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
+=======
+>>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
           <button>INGRESAR</button>
         </NavLink>
         <button onClick={openLoginModal}>REGISTRARSE</button>
@@ -66,6 +73,9 @@ export default function NavBar() {
           </NavLink>
         </Modal>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
+=======
 >>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
 =======
 >>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
