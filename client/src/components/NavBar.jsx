@@ -21,7 +21,7 @@ export default function NavBar() {
       </div>
       <div className={styles.contbotones}>
         <NavLink to="/Login">
-          <button>INGRESAR</button>
+          <button >INGRESAR</button>
         </NavLink>
         <NavLink to="/Register">
           <button>REGISTRARSE</button>

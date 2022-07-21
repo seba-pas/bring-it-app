@@ -13,22 +13,19 @@
 }
 
 .SearchBar {
-  margin-left: 300px;
-  margin-top: 55px;
+  /* margin-left: 300px; */
+  margin-top: 45px;
+
+  margin-right: 100px;
 }
 .SearchBar input {
   border: 3px solid #41d4cf;
   color: #41d4cf;
   height: 32px;
   width: 250px;
-
-
-
-
 }
 .SearchBar button{
     margin-left: 10px;
-
 }
 .SearchBar input::placeholder {
   color: #41d4cf;
@@ -37,9 +34,11 @@
 }
 
 .contbotones {
+  display: flex;
   margin-top: 55px;
-
-  margin-left: 24%;
+}
+.contbotones button{
+  margin-right: 10px;
 }
 
 .navbar button {
@@ -50,7 +49,7 @@
   font-weight: bold;
   border-radius: 5px;
   font-size: 15px;
-
+  
   height: 40px;
   width: 130px;
 }

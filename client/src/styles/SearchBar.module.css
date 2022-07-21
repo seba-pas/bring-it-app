@@ -1,0 +1,14 @@
+.divButtonSearch{
+    /* display: inline;
+    font-size: 20px;
+    border: solid 1px black; */
+}
+.divContainer{
+    margin-top: 10px;
+}
+div input{
+    padding: 14px;
+    height: 40px;
+}
+.buttonSearch{
+}
