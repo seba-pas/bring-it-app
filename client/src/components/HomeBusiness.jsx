@@ -118,66 +118,77 @@ function HomeBusiness() {
 
     let products = [
         {
+            id: 0,
             name: "zapatos",
             amount: 35,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 1,
             name: "vinos",
             amount: 2,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 2,
             name: "cerveza",
             amount: 1,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 3,
             name: "reloj",
             amount: 35,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 4,
             name: "cadena",
             amount: 3,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 5,
             name: "pantalon",
             amount: 10,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 6,
             name: "audifonos",
             amount: 17,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 7,
             name: "guitarra",
             amount: 8,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 8,
             name: "libro",
             amount: 1,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 9,
             name: "camara",
             amount: 11,
             description: "assdd",
             productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
         },
         {
+            id: 10,
             name: "teclado",
             amount: 18,
             description: "assdd",
@@ -219,12 +230,12 @@ function HomeBusiness() {
                         <thead>
                             <tr>
                                 <th>Producto</th>
-                                <th>cantidad</th>
+                                <th>Cantidad</th>
                                 <th>Descripción</th>
                                 <th>Nombre</th>
-                                <th>telefono</th>
+                                <th>Teléfono</th>
                                 <th>Viajero</th>
-                                <th>telefono</th>
+                                <th>Teléfono</th>
                                 <th>Enviado</th>
                             </tr>
                         </thead>
@@ -233,12 +244,11 @@ function HomeBusiness() {
                             {soldProducts.map(c => {
                                 return (
 
+
                                     <SoldProductCard image={c.productImage} productName={c.productName} amount={c.amount} description={c.description} clientName={c.clientName} clientPhone={c.clientPhone} date={c.date} BringerPending={c.BringerPending} BringerName={c.BringerName} BringerContact={c.BringerContact} />
 
 
-                                    // <div key={c.id}>
 
-                                    // </div>
                                 )
                             })}
                         </tbody>
@@ -250,10 +260,11 @@ function HomeBusiness() {
                     {<table>
                         <thead>
                             <tr>
-                                <th>imagen</th>
+                                <th>Imagen</th>
                                 <th>Producto</th>
-                                <th>cantidad</th>
+                                <th>Cantidad</th>
                                 <th>Descripción</th>
+                                <th>Actions</th>
 
                             </tr>
                         </thead>
@@ -262,7 +273,8 @@ function HomeBusiness() {
                             {products.map(c => {
                                 return (
 
-                                    <ProductCardBusiness image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
+                                    <ProductCardBusiness id={c.id} image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
+
 
 
                                     // <div key={c.id}>
@@ -280,10 +292,11 @@ function HomeBusiness() {
                     {<table>
                         <thead>
                             <tr>
-                                <th>imagen</th>
+                                <th>Imagen</th>
                                 <th>Producto</th>
                                 <th>cantidad</th>
                                 <th>Descripción</th>
+                                <th>Actions</th>
 
                             </tr>
                         </thead>
@@ -292,7 +305,7 @@ function HomeBusiness() {
                             {products.filter(e => e.amount <= 3).map(c => {
                                 return (
 
-                                    <ProductCardBusiness image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
+                                    <ProductCardBusiness id={c.id} image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
 
 
                                     // <div key={c.id}>
@@ -308,7 +321,7 @@ function HomeBusiness() {
                 <div className={styles.btnContainer}>
                     <NavLink to='/productmanager'>
 
-                        <button>Agregar Productos</button>
+                        <button className={styles.btn}>+</button>
                     </NavLink>
                 </div>
 

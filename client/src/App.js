@@ -14,12 +14,14 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        
-        <Route exact path="/" component={LandingPage}/>
-        <Route exact path="/persona" component={HomePersonas}/>
+
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/persona" component={HomePersonas} />
         <Route exact path="/empresas" component={HomeBusiness} />
+        <Route path="/productmanager/:id" component={ProductManager} />
+        <Route exact path="/productmanager" component={ProductManager} />
       </Switch>
-      
+
       {/* <div>
       <RegisterUser
       <NavBar />
