@@ -3,8 +3,11 @@ import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar";
+import useModal from "./UseModal";
+import Modal from "./Modal";
 //seba
 export default function NavBar() {
+  const [isOpenLoginModal, openLoginModal ,closeLoginModal ] = useModal();
   return (
     <div className={styles.navbar}>
       <div className={styles.imagen}>
@@ -23,9 +26,18 @@ export default function NavBar() {
         <NavLink to="/Login">
           <button >INGRESAR</button>
         </NavLink>
-        <NavLink to="/Register">
-          <button>REGISTRARSE</button>
-        </NavLink>
+        <button onClick={openLoginModal}>REGISTRARSE</button>
+       
+       <Modal isOpen={isOpenLoginModal} 
+       closeModal={closeLoginModal}>
+         <h1>Quieres registrarte como:</h1>
+         <NavLink to="/RegisterBusiness">
+           <button>Empresa</button>
+         </NavLink>
+         <NavLink to="/RegisterUser">
+           <button>Persona</button>
+         </NavLink>
+       </Modal>
       </div>
     </div>
   );
