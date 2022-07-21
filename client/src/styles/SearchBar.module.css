@@ -4,6 +4,8 @@
     border: solid 1px black; */
 }
 .divContainer{
+    display: flex;
+    justify-content: space-between;
     margin-top: 10px;
 }
 div input{
@@ -11,4 +13,5 @@ div input{
     height: 40px;
 }
 .buttonSearch{
+    border-radius: 50%;
 }
