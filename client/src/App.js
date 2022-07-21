@@ -14,15 +14,16 @@ function App() {
   return (
     <div>
 
-      <div>
+      {/* <div>
 
       <NavBar />
-      </div>
+      </div> */}
 
-      <ProductCard />
+      {/* <ProductCard /> */}
 
       {/* <Home/> */}
-      {/* <HomePersonas /> */}
+      {/* <HomeBusiness /> */}
+      <ProductManager />
     </div>
   );
 }
