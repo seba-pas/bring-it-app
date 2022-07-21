@@ -1,0 +1,17 @@
+.divButtonSearch{
+    /* display: inline;
+    font-size: 20px;
+    border: solid 1px black; */
+}
+.divContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+div input{
+    padding: 14px;
+    height: 40px;
+}
+.buttonSearch{
+    border-radius: 50%;
+}

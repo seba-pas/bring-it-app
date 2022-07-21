@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from "../styles/HomeBusiness.module.css"
 import SoldProductCard from './SoldProductCard';
-import ProductCard from './ProductCard';
+import ProductCardBusiness from './ProductCardBusiness';
 
 function HomeBusiness() {
 
@@ -262,7 +262,7 @@ function HomeBusiness() {
                             {products.map(c => {
                                 return (
 
-                                    <ProductCard image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
+                                    <ProductCardBusiness image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
 
 
                                     // <div key={c.id}>
@@ -292,7 +292,7 @@ function HomeBusiness() {
                             {products.filter(e => e.amount <= 3).map(c => {
                                 return (
 
-                                    <ProductCard image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
+                                    <ProductCardBusiness image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
 
 
                                     // <div key={c.id}>

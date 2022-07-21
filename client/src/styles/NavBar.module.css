@@ -2,33 +2,31 @@
   display: flex;
   align-content: space-around;
   margin-bottom: 120px;
-  /* border-bottom: solid 1px rgba(0, 0, 0, 0.364); */
+  border-bottom: solid 1px rgba(0, 0, 0, 0.364); 
   padding-bottom: 25px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.08);
 }
 
 .imagen {
-    margin-top: 10px;
+    margin-top: 15px;
   margin-right: 300px;
 }
 
 .SearchBar {
-  margin-left: 300px;
-  margin-top: 55px;
+  /* margin-left: 300px; */
+  margin-top: 45px;
+  margin-right: 100px;
 }
 .SearchBar input {
   border: 3px solid #41d4cf;
   color: #41d4cf;
-  height: 32px;
+  height: 37px;
   width: 250px;
-
-
-
-
+  padding-bottom: 20px;
 }
 .SearchBar button{
     margin-left: 10px;
-
+    border-radius: 50%;
 }
 .SearchBar input::placeholder {
   color: #41d4cf;
@@ -37,9 +35,12 @@
 }
 
 .contbotones {
+  display: flex;
   margin-top: 55px;
-
-  margin-left: 24%;
+  margin-left: 180px;
+}
+.contbotones button{
+  margin-right: 10px;
 }
 
 .navbar button {
@@ -50,7 +51,7 @@
   font-weight: bold;
   border-radius: 5px;
   font-size: 15px;
-
+  
   height: 40px;
   width: 130px;
 }
