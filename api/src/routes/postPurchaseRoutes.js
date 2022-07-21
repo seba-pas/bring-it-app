@@ -2,7 +2,7 @@ const { Router } = require("express");
 const {Purchase, User, Product} = require('../db');
 
 const router = Router();
-
+// no anda
 router.post('/purchase', async (req, res)=>{
     try {
         let {

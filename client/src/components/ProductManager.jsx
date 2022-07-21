@@ -80,6 +80,7 @@ function ProductManager() {
                 <div className={styles.nameContainer}>
                     <label htmlFor='product'>Producto:</label>
                     <input
+                        // className={}
                         type="text"
                         name="product"
                         value={input.product}
@@ -146,6 +147,9 @@ function ProductManager() {
 
                 </div>
                 <div className={styles.categoriesContainer}>
+                    <div>
+                        Categorias
+                    </div>
                     <div>
                         <select name="selectCategories" value="selectCategories" onChange={handleInputChange}>
                             <option value="">{input.category}</option>

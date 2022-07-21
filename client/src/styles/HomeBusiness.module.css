@@ -54,7 +54,7 @@
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 8/30;
-    grid-column: 2/19;
+    grid-column: 2/20;
     justify-content: center;
     align-items: center;
     overflow: auto;
@@ -68,7 +68,7 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 8/24;
+    grid-row: 8/23;
     grid-column: 21/35;
     justify-content: center;
     align-items: center;
@@ -93,16 +93,16 @@
 
 .btnContainer {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: c; */
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
     /* border: solid 2px rgb(241, 38, 38); */
-    grid-row: 32/35;
-    grid-column: 17/20;
+    grid-row: 24/25;
+    grid-column: 33/35;
     justify-content: center;
     align-items: center;
-    overflow: auto;
+    /* overflow: auto; */
 
 }
 
@@ -115,4 +115,16 @@ th,
 td {
     padding: 1px 5px;
     /* border: 1px solid #000; */
+}
+
+.btn {
+    border: solid 2px #41d4cf;
+    border-radius: 9px;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #41d4cf;
 }

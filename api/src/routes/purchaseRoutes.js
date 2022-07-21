@@ -4,7 +4,7 @@ const {getPurchase} = require( '../controllers/purchaseControllers');
 
 const router = Router();
 
-
+//probar
 router.get ('/purchase', async (req, res)=>{
     try {
         return res.status(200).send( getPurchase());

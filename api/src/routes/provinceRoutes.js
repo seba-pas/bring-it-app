@@ -4,6 +4,7 @@ const { Province } = require ('../db');
 const router = Router();
 
 //POST Province (ruta interna nuestra, ahora hay q cargar a mano (postman), luego vendran los datos de un json)
+// http://localhost:3001/api/province
 router.post('/', async (req,res) => {
     //el id tiene q ser un string, segun el modelo Province
     const {id, name} = req.body;    
