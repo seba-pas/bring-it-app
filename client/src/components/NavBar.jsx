@@ -7,7 +7,11 @@ import useModal from "./UseModal";
 import Modal from "./Modal";
 //seba
 export default function NavBar() {
+<<<<<<< HEAD
   const [isOpenLoginModal, openLoginModal ,closeLoginModal ] = useModal();
+=======
+  const [isOpenLoginModal, openLoginModal, closeLoginModal] = useModal();
+>>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
   return (
     <div className={styles.navbar}>
       <div className={styles.imagen}>
@@ -24,6 +28,7 @@ export default function NavBar() {
       </div>
       <div className={styles.contbotones}>
         <NavLink to="/Login">
+<<<<<<< HEAD
           <button >INGRESAR</button>
         </NavLink>
         <button onClick={openLoginModal}>REGISTRARSE</button>
@@ -38,6 +43,22 @@ export default function NavBar() {
            <button>Persona</button>
          </NavLink>
        </Modal>
+=======
+          <button>INGRESAR</button>
+        </NavLink>
+        <button onClick={openLoginModal}>REGISTRARSE</button>
+
+        <Modal isOpen={isOpenLoginModal} 
+        closeModal={closeLoginModal}>
+          <h1>Quieres registrarte como:</h1>
+          <NavLink to="/RegisterBusiness">
+            <button>Empresa</button>
+          </NavLink>
+          <NavLink to="/RegisterUser">
+            <button>Persona</button>
+          </NavLink>
+        </Modal>
+>>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
       </div>
     </div>
   );
