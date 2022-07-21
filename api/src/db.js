@@ -68,15 +68,17 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-const { Product, Category, Business, City, Province, Purchase, Confirmed } = sequelize.models;
+const { Product, Category, Business, City, Province, Purchase, Confirmed, User, Travel } = sequelize.models;
 
 
 // Aca vendrian las relaciones
 Product.belongsToMany(Category, {through: "product_category"});
 Category.belongsToMany(Product, {through: "product_category"});
 
-Business.hasMany(Product);
-Product.belongsTo(Business);
+
+Business.hasMany(Product);  
+Product.belongsTo(Business); 
+
 
 City.hasMany(Business);
 Business.belongsTo(City);
@@ -94,12 +96,16 @@ Purchase.hasOne(Confirmed);
 Confirmed.belongsTo(Purchase);
 
 //Descomentar cuando este el modelo User creado e importado
-//User.hasMany(Purchase);
-//Purchase.belongsTo(User);
+User.hasMany(Purchase);
+Purchase.belongsTo(User);
+
+User.hasMany(Travel);
+Travel.belongsTo(User);
 
 //Descomentar cuando este el modelo Travel creado e importado
-//Confirmed.hasOne(Travel);
-//Travel.belongsTo(Confirmed);
+Travel.hasMany(Confirmed);
+Confirmed.belongsTo(Travel);
+
 
 
 

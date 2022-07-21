@@ -4,20 +4,16 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-
     "city",
-
     {
       id: {
         type: DataTypes.STRING, //asi viene de la API del gobierno
         allowNull: false,
         primaryKey: true,        
       },
-
-      name: {
+      nombre: {
         type: DataTypes.STRING,
         //allowNull: false,
-
       },     
     },
     {

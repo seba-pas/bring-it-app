@@ -1,12 +1,8 @@
-.carousel {
-  width: 80%;
-  height: auto;
-  display: flex;
-  justify-content:center;
-  align-content: center;
-}
+
 
 .infopagos {
-  background-color: rgba(64, 202, 206, 0.508);
+  background-color: rgba(53, 142, 183, 0.250
+  );
+  color: black;
 }
 
