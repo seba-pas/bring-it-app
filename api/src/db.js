@@ -79,6 +79,7 @@ Category.belongsToMany(Product, {through: "product_category"});
 Business.hasMany(Product);  
 Product.belongsTo(Business); 
 
+
 City.hasMany(Business);
 Business.belongsTo(City);
 
@@ -104,6 +105,7 @@ Travel.belongsTo(User);
 //Descomentar cuando este el modelo Travel creado e importado
 Travel.hasMany(Confirmed);
 Confirmed.belongsTo(Travel);
+
 
 
 
