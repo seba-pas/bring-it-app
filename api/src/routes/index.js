@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {Purchase, User, Travel} = require('../db');
+const {Purchase, User, Travel, Product, Business} = require('../db');
 
 const router = Router();
 const getDbPedidos = async ()=>{
@@ -64,14 +64,17 @@ router.put('/api/travel/:id', async(req,res) => {
     try{
         const {id} = req.params;
         const modification = req.body; //json con atributos a modificar y nuevos valores
-        const q = await Travel.update(modification, {
+        const q = await Product.update(modification, {
             where: {id: id}
         });
-        res.status(201).send(`${q} Viajes modificados`)
+        res.status(201).send(`${q} Productos modificados`)
     } catch (e) {
        res.send('error:'+ e.message)
    }
 })
+
+
+
 
 //CREATE User
 router.post('/api/user', async(req,res) => {
@@ -89,6 +92,63 @@ router.post('/api/user', async(req,res) => {
        }
     }
    })
+
+   //NUEVO
+//UPDATE USER
+router.put('/api/user/:email', async(req,res) => {
+    try{
+        const {email} = req.params;
+        const modification = req.body; //json con atributos a modificar y nuevos valores
+        const q = await User.update(modification, {
+            where: {email: email}
+        });
+        res.status(201).send(`${q} Usuarios modificadas`)
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
+})
+
+//UPDATE PRODUCT
+router.put('/api/product/:id', async(req,res) => {
+    try{
+        const {id} = req.params;
+        const modification = req.body; //json con atributos a modificar y nuevos valores
+        const q = await Travel.update(modification, {
+            where: {id: id}
+        });
+        res.status(201).send(`${q} Productos modificados`)
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
+})
+
+//DELETE PRODUCT
+router.delete('/api/product/:id', async(req,res) => {
+    try{
+        let {id} = req.params;
+        await Product.destroy({
+            where: {id: id}
+        });
+        res.status(201).send('Productos eliminados:')
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
+})
+
+//UPDATE BUSINESS
+router.put('/api/business/:email', async(req,res) => {
+    try{
+        const {email} = req.params;
+        const modification = req.body; //json con atributos a modificar y nuevos valores
+        const q = await Business.update(modification, {
+            where: {email: email}
+        });
+        res.status(201).send(`${q} Empresas modificadas`)
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
+})
+
 
 
 
