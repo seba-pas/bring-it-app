@@ -93,6 +93,8 @@ router.post('/api/user', async(req,res) => {
     }
    })
 
+
+
    //NUEVO
 //UPDATE USER
 router.put('/api/user/:email', async(req,res) => {
@@ -108,6 +110,8 @@ router.put('/api/user/:email', async(req,res) => {
    }
 })
 
+
+
 //UPDATE PRODUCT
 router.put('/api/product/:id', async(req,res) => {
     try{
@@ -121,6 +125,7 @@ router.put('/api/product/:id', async(req,res) => {
        res.send('error:'+ e.message)
    }
 })
+
 
 //DELETE PRODUCT
 router.delete('/api/product/:id', async(req,res) => {
