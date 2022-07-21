@@ -8,24 +8,25 @@
 }
 
 .imagen {
-    margin-top: 10px;
+    margin-top: 15px;
   margin-right: 300px;
 }
 
 .SearchBar {
   /* margin-left: 300px; */
   margin-top: 45px;
-
   margin-right: 100px;
 }
 .SearchBar input {
   border: 3px solid #41d4cf;
   color: #41d4cf;
-  height: 32px;
+  height: 37px;
   width: 250px;
+  padding-bottom: 20px;
 }
 .SearchBar button{
     margin-left: 10px;
+    border-radius: 50%;
 }
 .SearchBar input::placeholder {
   color: #41d4cf;
@@ -36,6 +37,7 @@
 .contbotones {
   display: flex;
   margin-top: 55px;
+  margin-left: 180px;
 }
 .contbotones button{
   margin-right: 10px;
