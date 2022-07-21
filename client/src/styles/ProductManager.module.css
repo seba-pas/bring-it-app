@@ -32,7 +32,7 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    border: solid 2px rgb(38, 38, 241);
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 5/10;
     grid-column: 2/14;
     justify-content: center;
@@ -46,7 +46,7 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    border: solid 2px rgb(38, 38, 241);
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 5/10;
     grid-column: 18/30;
     justify-content: center;
@@ -60,7 +60,7 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    border: solid 2px rgb(38, 38, 241);
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 10/15;
     grid-column: 2/14;
     justify-content: center;
@@ -74,7 +74,7 @@
     background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);
-    border: solid 2px rgb(38, 38, 241);
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 10/15;
     grid-column: 18/30;
     justify-content: center;
@@ -85,10 +85,10 @@
 .descriptionContainer {
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.093);
+    /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
-    backdrop-filter: blur(4px);
-    border: solid 2px rgb(38, 38, 241);
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 15/20;
     grid-column: 2/14;
     justify-content: center;
@@ -99,10 +99,10 @@
 .imageContainer {
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.093);
+    /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
-    backdrop-filter: blur(4px);
-    border: solid 2px rgb(38, 38, 241);
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 20/25;
     grid-column: 2/14;
     justify-content: center;
@@ -113,10 +113,10 @@
 .categoriesContainer {
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.093);
+    /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
-    backdrop-filter: blur(4px);
-    border: solid 2px rgb(38, 38, 241);
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 15/20;
     grid-column: 18/30;
     justify-content: center;
@@ -127,9 +127,9 @@
 .subButton {
     display: flex;
     flex-direction: column;
-    /* background-color: rgba(255, 255, 255, 0.093); */
+    /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 27/30;
     grid-column: 27/30;
@@ -138,7 +138,24 @@
 }
 
 .btn {
+    border: solid 2px #41d4cf;
+    border-radius: 9px;
+    width: 8rem;
+    height: 4rem;
+    font-size: 1.5rem;
     display: flex;
-    font-size: large;
+    justify-content: center;
+    align-items: center;
+    color: #41d4cf;
+}
 
+input {
+    background-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: #41d4cf;
+    border-bottom-color: #41d4cf;
+    border-right-color: #41d4cf;
+    color: black;
+    font-size: 1.3rem;
 }
