@@ -100,7 +100,7 @@ Confirmed.belongsTo(Purchase);
 //Descomentar cuando este el modelo Travel creado e importado
 //Confirmed.hasOne(Travel);
 //Travel.belongsTo(Confirmed);
->>>>>>> main
+
 
 
 
