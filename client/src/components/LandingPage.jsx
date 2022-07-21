@@ -1,11 +1,11 @@
 import React from 'react'
-import NavBar from './NavBar'
 
+import NavBarLanding from './NavBarLanding'
 // import ProductCard from './ProductCard.jsx'
 export default function LandingPage(){
   return (
     <div>
-      <NavBar/>
+      <NavBarLanding/>
       <div >
         <h1>Hola bring it</h1>
         {/* <ProductCard/> */}
