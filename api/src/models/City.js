@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
 
-    "City",
+    "city",
 
     {
       id: {
@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
 
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        //allowNull: false,
 
       },     
     },

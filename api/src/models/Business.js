@@ -4,9 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
- DatabaseAgustina
-    "Business",
-
+    "business",
     {
       email: {
         type: DataTypes.STRING,
@@ -32,7 +30,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       logo: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       province: {

@@ -75,8 +75,8 @@ const { Product, Category, Business, City, Province, Purchase, Confirmed } = seq
 Product.belongsToMany(Category, {through: "product_category"});
 Category.belongsToMany(Product, {through: "product_category"});
 
-Product.belongsToMany(Business, {through: "product_business"});
-Business.belongsToMany(Product, {through: "product_business"});
+Business.hasMany(Product);
+Product.belongsTo(Business);
 
 City.hasMany(Business);
 Business.belongsTo(City);
@@ -100,7 +100,6 @@ Confirmed.belongsTo(Purchase);
 //Descomentar cuando este el modelo Travel creado e importado
 //Confirmed.hasOne(Travel);
 //Travel.belongsTo(Confirmed);
->>>>>>> main
 
 
 
