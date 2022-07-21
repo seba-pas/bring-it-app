@@ -4,9 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-
     "Province",
-
     {
       id: {
         type: DataTypes.STRING, //asi viene de la API del gobierno
