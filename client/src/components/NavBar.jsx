@@ -8,7 +8,11 @@ import Modal from "./Modal";
 //seba
 export default function NavBar() {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [isOpenLoginModal, openLoginModal ,closeLoginModal ] = useModal();
+=======
+  const [isOpenLoginModal, openLoginModal, closeLoginModal] = useModal();
+>>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
 =======
   const [isOpenLoginModal, openLoginModal, closeLoginModal] = useModal();
 >>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
@@ -29,6 +33,7 @@ export default function NavBar() {
       <div className={styles.contbotones}>
         <NavLink to="/Login">
 <<<<<<< HEAD
+<<<<<<< HEAD
           <button >INGRESAR</button>
         </NavLink>
         <button onClick={openLoginModal}>REGISTRARSE</button>
@@ -44,6 +49,8 @@ export default function NavBar() {
          </NavLink>
        </Modal>
 =======
+=======
+>>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
           <button>INGRESAR</button>
         </NavLink>
         <button onClick={openLoginModal}>REGISTRARSE</button>
@@ -58,6 +65,9 @@ export default function NavBar() {
             <button>Persona</button>
           </NavLink>
         </Modal>
+<<<<<<< HEAD
+>>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
+=======
 >>>>>>> e69c554dd2286e011e59a15178f8e8e8d52e12d8
       </div>
     </div>
