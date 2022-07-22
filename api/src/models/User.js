@@ -24,16 +24,13 @@ module.exports = (sequelize) => {
           type: DataTypes.STRING,
           allowNull: false
       }, 
-      age: {
-          type: DataTypes.INTEGER, 
+      birthDate: {
+          type: DataTypes.DATEONLY, 
           allowNull: false
       },
-      nationality: {
-        type: DataTypes.STRING, 
-        allowNull: false
-    },
     review: {
-        type: DataTypes.STRING // DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
+        type: DataTypes.STRING, // DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
+        allowNull: true
     },
     },
     {

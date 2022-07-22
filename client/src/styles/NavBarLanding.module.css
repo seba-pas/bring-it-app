@@ -10,35 +10,17 @@
   
   .imagen {
       margin-top: 15px;
-    margin-right: 620px;
+      margin-right: 40.5%;
   }
   
-  .SearchBar {
-    /* margin-left: 300px; */
-    margin-top: 45px;
-    margin-right: 100px;
-  }
-  .SearchBar input {
-    border: 3px solid #41d4cf;
-    color: #41d4cf;
-    height: 37px;
-    width: 250px;
-    padding-bottom: 20px;
-  }
-  .SearchBar button{
-      margin-left: 10px;
-      border-radius: 50%;
-  }
-  .SearchBar input::placeholder {
-    color: #41d4cf;
-  
-  
-  }
+
+
   
   .contbotones2 {
     display: flex;
     margin-top: 55px;
-    margin-left: 250px;
+    margin-left: 18%;
+    
   }
   .contbotones2 button{
     margin-right: 10px;

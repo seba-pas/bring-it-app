@@ -7,7 +7,7 @@ async function getPurchase() {
     const purchase = await Purchase.findAll({
         include: [{model: User}, {model: Product}]        
     });
-    if (purchase) {
+    if (purchase!== '') {
         return purchase;        
     } else {
         return 'No HAY PURCHASE';
