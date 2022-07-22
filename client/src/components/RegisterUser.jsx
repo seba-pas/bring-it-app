@@ -26,7 +26,7 @@ function RegisterUser() {
           <option value="2">Two</option>
           <option value="3">Three</option>
         </Form.Select>
-        <input type="date" />
+        <input type="date"/>
         <Button variant="primary" type="submit">
           Submit
         </Button>
