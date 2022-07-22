@@ -1,33 +1,155 @@
-import React from "react";
+import { useHistory } from "react-router-dom";
+import { addUser } from "../actions/index.js";
+import { React, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useDispatch } from "react-redux";
+
 import style from "../styles/RegisterUser.module.css";
 
 function RegisterUser() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [errors, setErrors] = useState({});
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+    name: "",
+    lastName: "",
+    age: "",
+    nationality: [],
+  });
+
+  function handleChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  }
+  /* function handleSelect(e) {
+    if (!input.nationality.includes(e.target.value)) {
+      setInput({
+        ...input,
+        nationality: [...input.nationality, e.target.value],
+      });
+    } else {
+      setInput({
+        ...input,
+      });
+    }
+    if (input.nationality.length === 3) {
+      alert("¡El perro no puede tener más de tres nationalityos!");
+    } else if (input.nationality.length < 3) {
+      setInput({
+        ...input,
+        nationality: [...input.nationality, e.target.value],
+      });
+    }
+  } */
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (
+      input.email !== "" &&
+      input.password !== "" &&
+      input.name !== "" &&
+      input.lastName !== "" &&
+      input.age !== "" &&
+      input.nationality.length !== 0
+    ) {
+      dispatch(console.log(addUser(input)));
+      alert("El usuario fue creada con exito!");
+      setInput({
+        email: "",
+        password: "",
+        name: "",
+        lastName: "",
+        age: "",
+        nationality: [],
+      });
+      history.push("/persona");
+    } else {
+      alert("¡Faltan los elementos necesarios!");
+    }
+  }
   return (
     <div className={style.divContainer}>
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
+          <Form.Control
+            placeholder="Enter email"
+            type="email"
+            value={input.email}
+            name="email"
+            id="email"
+            required
+            onChange={(e) => handleChange(e)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={(e) => handleChange(e)}
+            value={input.password}
+            name="password"
+            id="password"
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Nombre</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Ingrese su nombre"
+            onChange={(e) => handleChange(e)}
+            value={input.name}
+            name="name"
+            id="name"
+            required
+          />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+        <Form.Group className="mb-3">
+          <Form.Label>Apellido</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Ingrese su apellido"
+            onChange={(e) => handleChange(e)}
+            value={input.lastName}
+            name="lastName"
+            id="lastName"
+            required
+          />
         </Form.Group>
-        <Form.Select aria-label="Default select example">
-          <option>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </Form.Select>
-        <input type="date"/>
-        <Button variant="primary" type="submit">
+        <Form.Group className="mb-3">
+          <Form.Label>Fecha nacimiento</Form.Label>
+          <Form.Control
+            type="date"
+            placeholder="Fecha de nacimiento"
+            onChange={(e) => handleChange(e)}
+            value={input.age}
+            name="age"
+            id="age"
+            required
+          />
+        </Form.Group>
+        {/* <Form.Select
+          className="mt-5"
+          aria-label="Default select example"
+          onChange={(e) => handleSelect(e)}
+        >
+          {nationality.map((nation) => (
+            <option value={nation.name} key={nation.id}>
+              {nation.name}
+            </option>
+          ))}
+        </Form.Select> */}
+
+        <Button variant="primary" className="mt-5" type="submit">
+
           Submit
         </Button>
       </Form>
@@ -36,27 +158,3 @@ function RegisterUser() {
 }
 
 export default RegisterUser;
-{
-  /* <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
-          Email address
-        </label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleFormControlInput1"
-          placeholder="name@example.com"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">
-          Example textarea
-        </label>
-        <textarea
-          class="form-control"
-          id="exampleFormControlTextarea1"
-          rows="3"
-        ></textarea>
-      </div>
-    </div> */
-}

@@ -1,4 +1,5 @@
 const { Router } = require("express");
+
 const { Purchase, User, Travel, Product, Business } = require('../db');
 
 
@@ -11,6 +12,7 @@ const provinceRoutes = require("./provinceRoutes");
 const purchaseRouters = require('./purchaseRoutes');
 const userRoutes = require('./userRoutes');
 const travelRoutes = require('./travelRoutes');
+
 
 
 const router = Router();
@@ -26,7 +28,6 @@ router.use('/travel', travelRoutes);
 
 //Configuracion de rutas Purchase
 router.use('/purchase', purchaseRouters);
-
 
 
 
