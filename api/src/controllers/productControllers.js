@@ -18,7 +18,6 @@ async function getProductById (id){
 async function addProduct (product){
     console.log(product);
     // const CategoryId = product.CategoryId; //viene del front. Es un arreglo de ids de category, arreglo de enteros        
-     
     try {        
         const newProduct = await Product.create ({...product});
         console.log(`en el try despues del create`);       

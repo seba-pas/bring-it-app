@@ -8,7 +8,7 @@ const router = Router();
 router.post('/', async (req,res) => {
     console.log(req.body);
     try {
-        const addedProduct = await addProduct ({...req.body});         
+        const addedProduct = await addProduct ({...req.body});           
         return res.send (`Producto agregado correctamente`);
     } catch (error) {
         return res.status(404).send(`error: ` + error);
