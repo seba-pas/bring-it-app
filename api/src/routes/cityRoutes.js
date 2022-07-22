@@ -1,7 +1,9 @@
 const { Router } = require ("express");
 const { City } = require ('../db');
+const { getAllCities } = require('../controllers/cityControllers');
 
 const router = Router();
+
 
 //POST City (ruta interna nuestra, ahora hay q cargar a mano (postman), luego vendran los datos de un json)
 // http://localhost:3001/api/city
@@ -15,6 +17,10 @@ router.post('/', async (req,res) => {
         return res.status(404).send('error:'+ error.message);
     }
 });
+
+
+
+router.get('/', getAllCities);
 
 
 module.exports = router;

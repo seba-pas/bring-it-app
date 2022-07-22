@@ -7,13 +7,9 @@ const categoryRoutes = require ("./categoryRoutes");
 const businessRoutes = require ("./businessRoutes");
 const cityRoutes = require ("./cityRoutes");
 const provinceRoutes = require ("./provinceRoutes");
-<<<<<<< HEAD
-const purchaseRouters= require('./purchaseRoutes');
-const postPurchaseRoutes= require('./postPurchaseRoutes');
-=======
+const purchaseRoute= require('./purchaseRoutes');
 const userRoutes = require ("./userRoutes");
 const travelRoutes = require ("./travelRoutes");
->>>>>>> 50aa726cc426f8162cf1eb12c668fd19740d4100
 
 const router = Router();
 
@@ -22,16 +18,14 @@ router.use ('/product', productRoutes);
 router.use ('/category', categoryRoutes);
 router.use ('/business', businessRoutes);
 router.use ('/city', cityRoutes);
-router.use ('/province', provinceRoutes);
+router.use ('/provinces', provinceRoutes);
 router.use ('/user', userRoutes);
 router.use ('/travel', travelRoutes);
 
 //Configuracion de rutas Purchase
-router.use('/purchase', purchaseRouters);
-router.use('/purchase', postPurchaseRoutes);
+router.use('/purchase', purchaseRoute);
 
 
-<<<<<<< HEAD
 //CREATE travel
 router.post('/api/travel', async(req,res) => {
  const { id, UserEmail, TravelProvince, TravelCity, ArrivalProvince, ArrivalCity, startDate, ArrivalDate} = req.body ; 
@@ -101,8 +95,6 @@ router.post('/api/user', async(req,res) => {
    })
 
 // router.use ('/purchase', purchaseRoutes);
-=======
 
->>>>>>> 50aa726cc426f8162cf1eb12c668fd19740d4100
 
 module.exports = router;
