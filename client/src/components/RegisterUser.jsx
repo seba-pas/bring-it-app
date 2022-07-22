@@ -16,9 +16,8 @@ function RegisterUser() {
     email: "",
     password: "",
     name: "",
-    lastName: "",
-    age: "",
-    nationality: [],
+    lastname: "",
+    // age: "",
   });
 
   function handleChange(e) {
@@ -53,19 +52,16 @@ function RegisterUser() {
       input.email !== "" &&
       input.password !== "" &&
       input.name !== "" &&
-      input.lastName !== "" &&
-      input.age !== "" &&
-      input.nationality.length !== 0
+      input.lastname !== "" 
     ) {
-      dispatch(console.log(addUser(input)));
+      dispatch(addUser(input));
       alert("El usuario fue creada con exito!");
       setInput({
         email: "",
         password: "",
         name: "",
-        lastName: "",
-        age: "",
-        nationality: [],
+        lastname: "",
+        // age: "",
       });
       history.push("/persona");
     } else {
@@ -118,13 +114,13 @@ function RegisterUser() {
             type="text"
             placeholder="Ingrese su apellido"
             onChange={(e) => handleChange(e)}
-            value={input.lastName}
-            name="lastName"
-            id="lastName"
+            value={input.lastname}
+            name="lastname"
+            id="lastname"
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        {/* <Form.Group className="mb-3">
           <Form.Label>Fecha nacimiento</Form.Label>
           <Form.Control
             type="date"
@@ -135,7 +131,7 @@ function RegisterUser() {
             id="age"
             required
           />
-        </Form.Group>
+        </Form.Group> */}
         {/* <Form.Select
           className="mt-5"
           aria-label="Default select example"
