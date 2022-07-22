@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
 import { addBusiness } from "../actions/index.js";
+import NavBarRegisters from "./NavBarRegisters.jsx";
 import swal from "sweetalert";
 // import style from "../styles/RegisterBusiness.module.css";
 
@@ -56,6 +57,8 @@ function RegisterBusiness() {
 
   return (
     <div>
+      <NavBarRegisters />
+
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
