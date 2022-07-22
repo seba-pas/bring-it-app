@@ -5,6 +5,7 @@ const {getPurchase} = require( '../controllers/purchaseControllers');
 const router = Router();
 
 //ruta de actualizacion purchase
+
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { totalPrice, waitingTime, arrivalCity } = req.body;
@@ -53,7 +54,25 @@ router.get('/:id', async (req, res)=>{
     };
 });
 
-// ruta funcionando
+
+//ruta get para purchase por id
+router.get('/:id', async (req, res)=>{
+    const {id}= req.params;
+    let purchase= await getPurchase();
+    if (id){
+        let idPurchase= await purchase.filter(e=>e.id==id);
+        if (idPurchase.length!==0) {
+            res.status(200).send(idPurchase)
+            
+        } else {
+            res.status(200).send('no se ecnontro Purchese');
+        };
+    }else{
+        res.status(200).send('ingrese ID')
+    };
+});
+
+// ruta funcionando todos los purchase
 router.get ('/', async (req, res)=>{
     const  allPurchase= await getPurchase();
     try {
@@ -62,12 +81,12 @@ router.get ('/', async (req, res)=>{
         res.status(404).send(error.message);
     }
 });
+
 // ruta funcionando sin email y producto
 router.post('/', async (req, res)=>{
     try {
         let {
             // id,
-            // idProduct,
             // email,
             totalPrice,
             waitingTime,
@@ -81,7 +100,7 @@ router.post('/', async (req, res)=>{
             arrivalCity
         });
         // await createdPurchase.addUser(email);
-        // await createdPurchase.addProduct(id=idProduct);
+        // await createdPurchase.addProduct(id);
 
         res.status(200).send('Purchase completed');
         

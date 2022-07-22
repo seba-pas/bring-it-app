@@ -6,9 +6,8 @@ module.exports = (sequelize) => {
   sequelize.define(
     "product",
     {
-      idProduct: {
+      id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         primaryKey: true,
         autoIncrement: true
       },
@@ -30,13 +29,12 @@ module.exports = (sequelize) => {
       },
       stock: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false // poner default value 0 
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false
       },
-
       //businessId y categoryId no van definidas aca, se vinculan en las tablas intermedias: products_categories y products_business
     },
     {

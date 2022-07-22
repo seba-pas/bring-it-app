@@ -1,23 +1,24 @@
-import { useHistory } from "react-router-dom";
-import { addUser } from "../actions/index.js";
 import { React, useState } from "react";
+import { useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { addBusiness } from "../actions/index.js";
 
-import style from "../styles/RegisterUser.module.css";
+// import style from "../styles/RegisterBusiness.module.css";
 
-function RegisterUser() {
+function RegisterBusiness() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     email: "",
     password: "",
-    name: "",
-    lastname: "",
-    // age: "",
+    businessName: "",
+    cuit: "",
+    address: "",
+    // provincia: [],
   });
 
   function handleChange(e) {
@@ -27,59 +28,64 @@ function RegisterUser() {
     });
   }
   /* function handleSelect(e) {
-    if (!input.nationality.includes(e.target.value)) {
+    if (!input.provincia.includes(e.target.value)) {
       setInput({
         ...input,
-        nationality: [...input.nationality, e.target.value],
+        provincia: [...input.provincia, e.target.value],
       });
     } else {
       setInput({
         ...input,
       });
     }
-    if (input.nationality.length === 3) {
-      alert("¡El perro no puede tener más de tres nationalityos!");
-    } else if (input.nationality.length < 3) {
+    if (input.provincia.length === 3) {
+      alert("¡El perro no puede tener más de tres provinciaos!");
+    } else if (input.provincia.length < 3) {
       setInput({
         ...input,
-        nationality: [...input.nationality, e.target.value],
+        provincia: [...input.provincia, e.target.value],
       });
     }
   } */
   function handleSubmit(e) {
+    debugger;
     e.preventDefault();
     if (
       input.email !== "" &&
       input.password !== "" &&
-      input.name !== "" &&
-      input.lastname !== "" 
+      input.businessName !== "" &&
+      input.cuit !== "" &&
+      input.address !== ""
+    //   input.provincia.length !== 0
     ) {
-      dispatch(addUser(input));
-      alert("El usuario fue creada con exito!");
+      dispatch(addBusiness(input));
+      alert("La empresa fue creada con exito!");
       setInput({
         email: "",
         password: "",
-        name: "",
-        lastname: "",
-        // age: "",
+        businessName: "",
+        cuit: "",
+        address: ""
+       
       });
-      history.push("/persona");
+      history.push("/empresas");
     } else {
       alert("¡Faltan los elementos necesarios!");
     }
   }
+
   return (
-    <div className={style.divContainer}>
+    <div>
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
           <Form.Control
-            placeholder="Enter email"
             type="email"
             value={input.email}
             name="email"
             id="email"
             required
+            placeholder="Enter email"
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>
@@ -96,56 +102,54 @@ function RegisterUser() {
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Nombre</Form.Label>
+          <Form.Label>Empresa nombre </Form.Label>
           <Form.Control
             type="text"
+            placeholder="Ingrese el nombre de la empresa"
+            onChange={(e) => handleChange(e)}
+            value={input.businessName}
+            name="businessName"
+            id="businessName"
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Cuit</Form.Label>
+          <Form.Control
+            type="number"
+            value={input.cuit}
+            name="cuit"
+            id="cuit"
+            required
             placeholder="Ingrese su nombre"
             onChange={(e) => handleChange(e)}
-            value={input.name}
-            name="name"
-            id="name"
-            required
           />
         </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Apellido</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese su apellido"
-            onChange={(e) => handleChange(e)}
-            value={input.lastname}
-            name="lastname"
-            id="lastname"
-            required
-          />
-        </Form.Group>
-        {/* <Form.Group className="mb-3">
-          <Form.Label>Fecha nacimiento</Form.Label>
-          <Form.Control
-            type="date"
-            placeholder="Fecha de nacimiento"
-            onChange={(e) => handleChange(e)}
-            value={input.age}
-            name="age"
-            id="age"
-            required
-          />
-        </Form.Group> */}
         {/* <Form.Select
           className="mt-5"
           aria-label="Default select example"
           onChange={(e) => handleSelect(e)}
         >
-          {nationality.map((nation) => (
-            <option value={nation.name} key={nation.id}>
-              {nation.name}
+          {provincia.map((prov) => (
+            <option value={prov.name} key={prov.id}>
+              {prov.name}
             </option>
           ))}
         </Form.Select> */}
+        <Form.Group className="mb-3">
+          <Form.Label>Direccion</Form.Label>
+          <Form.Control
+            type="text"
+            value={input.address}
+            name="address"
+            id="address"
+            required
+            placeholder="Ingresa tu direccion"
+            onChange={(e) => handleChange(e)}
+          />
+        </Form.Group>
 
         <Button variant="primary" className="mt-5" type="submit">
-
           Submit
         </Button>
       </Form>
@@ -153,4 +157,4 @@ function RegisterUser() {
   );
 }
 
-export default RegisterUser;
+export default RegisterBusiness;

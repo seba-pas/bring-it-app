@@ -9,13 +9,12 @@
 
 .imagen {
     margin-top: 15px;
-  margin-right: 300px;
+    margin-right: 20%; 
 }
 
 .SearchBar {
-  /* margin-left: 300px; */
   margin-top: 45px;
-  margin-right: 100px;
+  margin-right: 5%;
 }
 .SearchBar input {
   border: 3px solid #41d4cf;
@@ -30,14 +29,12 @@
 }
 .SearchBar input::placeholder {
   color: #41d4cf;
-
-
 }
 
 .contbotones {
   display: flex;
   margin-top: 55px;
-  margin-left: 180px;
+  margin-left: 5%;
 }
 .contbotones button{
   margin-right: 10px;
@@ -61,4 +58,3 @@
   background-color: #41d4cf; /* Green */
   color: white;
 }
-/* seba */
