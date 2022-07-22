@@ -9,7 +9,6 @@ const businessRoutes = require("./businessRoutes");
 const cityRoutes = require("./cityRoutes");
 const provinceRoutes = require("./provinceRoutes");
 const purchaseRouters = require('./purchaseRoutes');
-const postPurchaseRoutes = require('./postPurchaseRoutes');
 const userRoutes = require('./userRoutes');
 const travelRoutes = require('./travelRoutes');
 
