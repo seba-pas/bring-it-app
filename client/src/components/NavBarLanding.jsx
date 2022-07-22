@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
-import swal from "sweetalert"
+import swal from "sweetalert";
 import Form from "react-bootstrap/Form";
 
 import styles from "../styles/NavBarLanding.module.css";
@@ -37,9 +37,16 @@ export default function NavBarLanding() {
       setInput({
         email: "",
         password: "",
+        // user: true,
+        // empresa: false,
       });
+      // if (user !== true) {
+      //   history.push("/empresas");
+      // } else {
+      //   history.push("/persona");
+      // }
       //Aca hacer una logica, si el mail esta creado con empresa
-      //history.push("/empresas")
+      //
       //Si el mail figura para un usuario history.push("/persona")
       history.push("/empresas");
     } else {
@@ -98,7 +105,18 @@ export default function NavBarLanding() {
                   required
                 />
               </Form.Group>
-              <Button variant="info" type="submit" style={{ marginLeft: "33%" }}>
+
+              {/* <Form.Group>
+                <Form.Label>Como estas registrado</Form.Label>
+                <Form.Check inline label="Empresa" name="group1" />
+
+                <Form.Check inline label="Usuario" name="group1" />
+              </Form.Group> */}
+              <Button
+                variant="info"
+                type="submit"
+                style={{ marginLeft: "33%" }}
+              >
                 Iniciar sesion
               </Button>
             </Form>
