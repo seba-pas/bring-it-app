@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_PRODUCTS, GET_PRODUCTS_DETAIL, POST_USER, POST_PRODUCT, PUT_PRODUCT, POST_BUSINESS } from "./actionsTypes";
+import { GET_ALL_PRODUCTS, GET_PRODUCTS_DETAIL, POST_USER, POST_PRODUCT, PUT_PRODUCT, POST_BUSINESS, GET_ALL_PRODUCTS_NAME } from "./actionsTypes";
 
 
 //Comienzan action PRODUCT
@@ -30,6 +30,20 @@ export const getAllProductsDetail = (id) => {
     }
   };
 };
+
+export const getAllProductsName = (name) => {
+  return async function (dispatch){
+    try {
+      const res = await axios(`http://localhost:3001/api/product?name=${name}`);
+      return dispatch({
+        type: GET_ALL_PRODUCTS_NAME,
+        payload: res.data
+      })
+    } catch (error) {
+      alert('No existe ese producto')
+    }
+  }
+}
 
 export const addProduct = (body) => {
   return async function (dispatch) {

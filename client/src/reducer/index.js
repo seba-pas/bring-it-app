@@ -43,8 +43,19 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         changeProduct: action.payload,
       };
-    // case "FILTROS FELI":
-    //   return {};
+    case 'GET_ALL_PRODUCTS_NAME':
+      if(action.payload.length === 0){
+          return {
+              ...state,
+              error: 'not found'
+          }
+      } else {
+
+          return {
+              ...state,
+              products: action.payload
+          }
+      }
 
     default:
       return {

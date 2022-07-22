@@ -17,12 +17,12 @@ async function getProductById (id){
 //Funcion del POST Product (es necesario q existan categorias y business cargadas)
 async function addProduct (product){
     console.log(product);
-    const CategoryId = product.CategoryId; //viene del front. Es un arreglo de ids de category, arreglo de enteros        
+    // const CategoryId = product.CategoryId; //viene del front. Es un arreglo de ids de category, arreglo de enteros        
      
     try {        
         const newProduct = await Product.create ({...product});
         console.log(`en el try despues del create`);       
-        await newProduct.addCategory (CategoryId);        
+        // await newProduct.addCategory (CategoryId);        
     } catch (error) {
         throw new error (`No se puedo agregar el producto a la base de datos, ${error}`);
     }
