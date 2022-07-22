@@ -109,3 +109,19 @@ export function addBusiness(body) {
     }
   }
 }
+
+//COMIENZA ORDENAMIENTOS
+
+export const orderByName = (payload) => {
+  return {
+      type: ORDER_BY_NAME,
+      payload
+  }
+}
+
+export const orderByPrice = (payload) => {
+  return {
+    type: ORDER_BY_PRICE,
+    payload
+  }
+}
