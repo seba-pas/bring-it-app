@@ -3,17 +3,85 @@ import { useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-// import { useHistory } from "react-router-dom";
-// import { addUser } from "../actions/index.js";
+import { useHistory } from "react-router-dom";
+import { addUser } from "../actions/index.js";
 
 // import style from "../styles/RegisterBusiness.module.css";
 
 function RegisterBusiness() {
-  
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [errors, setErrors] = useState({});
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+    empresaNombre: "",
+    cuit: "",
+    direccion: "",
+    provincia: [],
+  });
+
+  function handleChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    setErrors(
+      validate({
+        ...input,
+        [e.target.name]: e.target.name,
+      })
+    );
+  }
+  function handleSelect(e) {
+    if (!input.provincia.includes(e.target.value)) {
+      setInput({
+        ...input,
+        provincia: [...input.provincia, e.target.value],
+      });
+    } else {
+      setInput({
+        ...input,
+      });
+    }
+    if (input.provincia.length === 3) {
+      alert("¡El perro no puede tener más de tres provinciaos!");
+    } else if (input.provincia.length < 3) {
+      setInput({
+        ...input,
+        provincia: [...input.provincia, e.target.value],
+      });
+    }
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (
+      input.email !== "" &&
+      input.password !== "" &&
+      input.empresaNombre !== "" &&
+      input.cuit !== "" &&
+      input.direccion !== "" &&
+      input.provincia.length !== 0
+    ) {
+      dispatch(addUser(input));
+      alert("La empresa fue creada con exito!");
+      setInput({
+        email: "",
+        password: "",
+        empresaNombre: "",
+        cuit: "",
+        direccion: "",
+        provincia: []
+      });
+      history.push("/empresas");
+    } else {
+      alert("¡Faltan los elementos necesarios!");
+    }
+  }
 
   return (
     <div>
-      <Form onSubmit={(e) => handleSubmit(e)}>
+      <Form>
         <Form.Group
           className="mb-3"
           controlId="formBasicEmail"
@@ -66,11 +134,16 @@ function RegisterBusiness() {
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>
-        <Form.Select className="mt-5" aria-label="Default select example">
-          <option>Selecciona tu pronvincia</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <Form.Select
+          className="mt-5"
+          aria-label="Default select example"
+          onChange={(e) => handleSelect(e)}
+        >
+          {provincia.map((prov) => (
+            <option value={prov.name} key={prov.id}>
+              {prov.name}
+            </option>
+          ))}
         </Form.Select>
         <Form.Group className="mb-3">
           <Form.Label>Direccion</Form.Label>

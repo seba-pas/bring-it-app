@@ -15,10 +15,10 @@ function RegisterUser() {
   const [input, setInput] = useState({
     email: "",
     password: "",
-    nombre: "",
-    apellido: "",
-    fechaNacimiento: "",
-    nacionalidad: [],
+    name: "",
+    lastName: "",
+    age: "",
+    nationality: [],
   });
 
   function handleChange(e) {
@@ -27,26 +27,45 @@ function RegisterUser() {
       [e.target.name]: e.target.value,
     });
   }
-
+  function handleSelect(e) {
+    if (!input.nationality.includes(e.target.value)) {
+      setInput({
+        ...input,
+        nationality: [...input.nationality, e.target.value],
+      });
+    } else {
+      setInput({
+        ...input,
+      });
+    }
+    if (input.nationality.length === 3) {
+      alert("¡El perro no puede tener más de tres nationalityos!");
+    } else if (input.nationality.length < 3) {
+      setInput({
+        ...input,
+        nationality: [...input.nationality, e.target.value],
+      });
+    }
+  }
   function handleSubmit(e) {
     e.preventDefault();
     if (
       input.email !== "" &&
       input.password !== "" &&
-      input.nombre !== "" &&
-      input.apellido !== "" &&
-      input.fechaNacimiento !== "" &&
-      input.nacionalidad.length !== 0
+      input.name !== "" &&
+      input.lastName !== "" &&
+      input.age !== "" &&
+      input.nationality.length !== 0
     ) {
       dispatch(console.log(addUser(input)));
       alert("El usuario fue creada con exito!");
       setInput({
         email: "",
         password: "",
-        nombre: "",
-        apellido: "",
-        fechaNacimiento: "",
-        nacionalidad: [],
+        name: "",
+        lastName: "",
+        age: "",
+        nationality: [],
       });
       history.push("/persona");
     } else {
@@ -86,9 +105,9 @@ function RegisterUser() {
             type="text"
             placeholder="Ingrese su nombre"
             onChange={(e) => handleChange(e)}
-            value={input.nombre}
-            name="nombre"
-            id="nombre"
+            value={input.name}
+            name="name"
+            id="name"
             required
           />
         </Form.Group>
@@ -98,9 +117,9 @@ function RegisterUser() {
             type="text"
             placeholder="Ingrese su apellido"
             onChange={(e) => handleChange(e)}
-            value={input.apellido}
-            name="apellido"
-            id="apellido"
+            value={input.lastName}
+            name="lastName"
+            id="lastName"
             required
           />
         </Form.Group>
@@ -110,17 +129,22 @@ function RegisterUser() {
             type="date"
             placeholder="Fecha de nacimiento"
             onChange={(e) => handleChange(e)}
-            value={input.fechaNacimiento}
-            name="fechaNacimiento"
-            id="fechaNacimiento"
+            value={input.age}
+            name="age"
+            id="age"
             required
           />
         </Form.Group>
-        <Form.Select className="mt-5" aria-label="Default select example">
-          <option>Selecciona tu nacionalidad</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <Form.Select
+          className="mt-5"
+          aria-label="Default select example"
+          onChange={(e) => handleSelect(e)}
+        >
+          {nationality.map((nation) => (
+            <option value={nation.name} key={nation.id}>
+              {nation.name}
+            </option>
+          ))}
         </Form.Select>
 
         <Button variant="primary" className="mt-5" type="submit">
