@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import style from "../styles/RegisterUser.module.css";
 
-function RegisterUser() {
+function RegisterBusiness() {
   return (
     <div className={style.divContainer}>
       <Form>
@@ -26,7 +26,7 @@ function RegisterUser() {
           <option value="2">Two</option>
           <option value="3">Three</option>
         </Form.Select>
-        <input type="date" />
+        <input type="date"/>
         <Button variant="primary" type="submit">
           Submit
         </Button>
@@ -35,7 +35,7 @@ function RegisterUser() {
   );
 }
 
-export default RegisterUser;
+export default RegisterBusiness;
 {
   /* <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">

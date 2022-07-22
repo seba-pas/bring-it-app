@@ -1,5 +1,5 @@
 import React from 'react'
-
+// import ModalRegister from './Modal'
 import NavBarLanding from './NavBarLanding'
 // import ProductCard from './ProductCard.jsx'
 export default function LandingPage(){
@@ -9,7 +9,7 @@ export default function LandingPage(){
       <div >
         <h1>Hola bring it</h1>
         {/* <ProductCard/> */}
-        
+        {/* <ModalRegister/> */}
       </div>
 
     </div>
