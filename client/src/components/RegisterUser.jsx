@@ -41,9 +41,7 @@ import style from "../styles/RegisterUser.module.css";
 //   } else {
 //     errors.lastname = console.log("✅Hecho!");
 //   }
-  
 
-  
 //   return errors;
 // }
 function RegisterUser() {
@@ -55,7 +53,7 @@ function RegisterUser() {
     password: "",
     name: "",
     lastname: "",
-    // age: "",
+    birthDate: "",
   });
 
   function handleChange(e) {
@@ -63,6 +61,7 @@ function RegisterUser() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    console.log(input.birthDate)
     // setErrors(
     //   validate({
     //     ...input,
@@ -96,7 +95,8 @@ function RegisterUser() {
       input.email !== "" &&
       input.password !== "" &&
       input.name !== "" &&
-      input.lastname !== ""
+      input.lastname !== "" &&
+      input.birthDate !== ""
     ) {
       dispatch(addUser(input));
       alert("El usuario fue creada con exito!");
@@ -105,7 +105,7 @@ function RegisterUser() {
         password: "",
         name: "",
         lastname: "",
-        // age: "",
+        birthDate: "",
       });
       history.push("/persona");
     } else {
@@ -164,18 +164,18 @@ function RegisterUser() {
             required
           />
         </Form.Group>
-        {/* <Form.Group className="mb-3">
+        <Form.Group className="mb-3">
           <Form.Label>Fecha nacimiento</Form.Label>
           <Form.Control
             type="date"
             placeholder="Fecha de nacimiento"
             onChange={(e) => handleChange(e)}
-            value={input.age}
-            name="age"
-            id="age"
+            value={input.birthDate}
+            name="birthDate"
+            id="birthDate"
             required
           />
-        </Form.Group> */}
+        </Form.Group>
         {/* <Form.Select
           className="mt-5"
           aria-label="Default select example"
