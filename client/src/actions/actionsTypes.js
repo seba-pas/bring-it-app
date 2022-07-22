@@ -3,3 +3,4 @@ export const GET_PRODUCTS_DETAIL = 'GET_PRODUCTS_DETAIL'
 export const POST_USER = 'POST_USER';
 export const POST_PRODUCT = 'POST_PRODUCT';
 export const PUT_PRODUCT = 'PUT_PRODUCT';
+export const POST_BUSINESS = 'POST_BUSINESS';
