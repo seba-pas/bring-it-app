@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import swal from 'sweetalert'
 import style from "../styles/RegisterUser.module.css";
+import NavBarLanding from "./NavBarLanding.jsx"
 // function validate(input) {
 //   let errors = {};
 
@@ -61,7 +62,6 @@ function RegisterUser() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input.birthDate)
     // setErrors(
     //   validate({
     //     ...input,
@@ -114,6 +114,7 @@ function RegisterUser() {
   }
   return (
     <div className={style.divContainer}>
+      <NavBarLanding/>
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
