@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
-import { addUser } from "../actions/index.js";
+import { addBusiness } from "../actions/index.js";
 
 // import style from "../styles/RegisterBusiness.module.css";
 
@@ -15,10 +15,10 @@ function RegisterBusiness() {
   const [input, setInput] = useState({
     email: "",
     password: "",
-    empresaNombre: "",
+    businessName: "",
     cuit: "",
-    direccion: "",
-    provincia: [],
+    address: "",
+    // provincia: [],
   });
 
   function handleChange(e) {
@@ -26,7 +26,6 @@ function RegisterBusiness() {
       ...input,
       [e.target.name]: e.target.value,
     });
-   
   }
   /* function handleSelect(e) {
     if (!input.provincia.includes(e.target.value)) {
@@ -49,24 +48,25 @@ function RegisterBusiness() {
     }
   } */
   function handleSubmit(e) {
+    debugger;
     e.preventDefault();
     if (
       input.email !== "" &&
       input.password !== "" &&
-      input.empresaNombre !== "" &&
+      input.businessName !== "" &&
       input.cuit !== "" &&
-      input.direccion !== "" &&
-      input.provincia.length !== 0
+      input.address !== ""
+    //   input.provincia.length !== 0
     ) {
-      dispatch(addUser(input));
+      dispatch(addBusiness(input));
       alert("La empresa fue creada con exito!");
       setInput({
         email: "",
         password: "",
-        empresaNombre: "",
+        businessName: "",
         cuit: "",
-        direccion: "",
-        provincia: []
+        address: ""
+       
       });
       history.push("/empresas");
     } else {
@@ -76,11 +76,8 @@ function RegisterBusiness() {
 
   return (
     <div>
-      <Form>
-        <Form.Group
-          className="mb-3"
-          onSubmit={(e) => handleSubmit(e)}
-        >
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
@@ -92,7 +89,7 @@ function RegisterBusiness() {
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" >
+        <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -110,9 +107,9 @@ function RegisterBusiness() {
             type="text"
             placeholder="Ingrese el nombre de la empresa"
             onChange={(e) => handleChange(e)}
-            value={input.empresaNombre}
-            name="empresaNombre"
-            id="empresaNombre"
+            value={input.businessName}
+            name="businessName"
+            id="businessName"
             required
           />
         </Form.Group>
@@ -143,9 +140,9 @@ function RegisterBusiness() {
           <Form.Label>Direccion</Form.Label>
           <Form.Control
             type="text"
-            value={input.direccion}
-            name="direccion"
-            id="direccion"
+            value={input.address}
+            name="address"
+            id="address"
             required
             placeholder="Ingresa tu direccion"
             onChange={(e) => handleChange(e)}
@@ -159,6 +156,5 @@ function RegisterBusiness() {
     </div>
   );
 }
-
 
 export default RegisterBusiness;
