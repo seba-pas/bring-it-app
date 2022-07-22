@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
 import { addBusiness } from "../actions/index.js";
-
+import swal from "sweetalert";
 // import style from "../styles/RegisterBusiness.module.css";
 
 function RegisterBusiness() {
@@ -40,7 +40,7 @@ function RegisterBusiness() {
       input.province !== ""
     ) {
       dispatch(addBusiness(input));
-      alert("La empresa fue creada con exito!");
+      swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
       setInput({
         email: "",
         password: "",

@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
-
+import swal from 'sweetalert'
 import style from "../styles/RegisterUser.module.css";
 // function validate(input) {
 //   let errors = {};
@@ -99,7 +99,7 @@ function RegisterUser() {
       input.birthDate !== ""
     ) {
       dispatch(addUser(input));
-      alert("El usuario fue creada con exito!");
+      swal("Buen trabajo!", "El usuario fue creado con exito!", "success");
       setInput({
         email: "",
         password: "",
