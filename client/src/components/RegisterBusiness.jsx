@@ -26,7 +26,6 @@ function RegisterBusiness() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input);
   }
 
   function handleSubmit(e) {
