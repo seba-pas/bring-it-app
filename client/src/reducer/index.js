@@ -5,6 +5,8 @@ const initialState = {
   user: {},
   product: {},
   changeProduct: {},
+  business: {},
+  product: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -43,7 +45,7 @@ export default function rootReducer(state = initialState, action) {
       };
     // case "FILTROS FELI":
     //   return {};
-    
+
     default:
       return {
         ...state,
