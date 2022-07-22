@@ -1,9 +1,21 @@
 import React from "react";
 import NavBar from "./NavBar";
 import styles from "../styles/HomePersonas.module.css";
-import CarrouselHomeP from "./CarrouselHomeP";
+import ProductCards from "./ProductCards";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllProducts } from "../actions";
 
 export default function HomePersonas() {
+
+const PRODUCTS = useSelector((state) => state.products)
+const dispatch = useDispatch()
+
+useEffect(() => {
+  dispatch(getAllProducts())
+
+}, [dispatch])
+
   return (
     <div>
       <NavBar />
@@ -18,8 +30,8 @@ export default function HomePersonas() {
           magnam aliquam quaerat voluptatem".
         </h3>
       </div>
-      <div className={styles.carousel}>
-        
+      <div className={styles.cardsDiv}>
+        <ProductCards products={PRODUCTS} />
       </div>
       <div className={styles.infopagos}>
         <p>
