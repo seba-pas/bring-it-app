@@ -4,13 +4,6 @@ const {getPurchase} = require( '../controllers/purchaseControllers');
 
 const router = Router();
 
-<<<<<<< HEAD
-// GET ALL PURCHASES
-router.get ('/', async (req, res)=>{
-    try {
-        const purchases = await getPurchase()
-        res.status(200).send(purchases);
-=======
 //ruta de actualizacion purchase
 router.put("/:id", async (req,res) => {
 	const {id} = req.params;
@@ -56,7 +49,6 @@ router.get ('/', async (req, res)=>{
     const  allPurchase= await getPurchase();
     try {
         res.status(200).send(allPurchase);
->>>>>>> ec5c144140327417c9791108b4e55d2b2b62a4b6
     } catch (error) {
         res.status(404).send(error.message);
     }
