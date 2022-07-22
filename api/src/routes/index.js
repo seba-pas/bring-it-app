@@ -26,7 +26,7 @@ router.use('/travel', travelRoutes);
 
 //Configuracion de rutas Purchase
 router.use('/purchase', purchaseRouters);
-router.use('/purchase', postPurchaseRoutes);
+
 
 
 
