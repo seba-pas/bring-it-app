@@ -5,13 +5,7 @@ import styles from "../styles/ProductCard.module.css";
 // import { Link } from "react-router-dom";
 
 export default function ProductCard({name, description, image, price, empresa, province}) {
-  const name = "IPhone 1TB";
-  const description = "El cel esta joya se me cayo del balcon nomas";
-  const image = imagen;
-  const price = 2500.0;
-  const empresa = "Bring-it";
-  const province = "Mendoza";
-
+  
   return (
     <div className={styles.container}>
       {/* <Link style={{textDecoration:'none'}} to={`products/${id}`} > */}

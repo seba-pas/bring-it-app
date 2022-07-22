@@ -1,12 +1,52 @@
 import React from "react";
 import NavBar from "./NavBar";
 import styles from "../styles/HomePersonas.module.css";
-import CarrouselHomeP from "./CarrouselHomeP";
+// import CarrouselHomeP from "./CarrouselHomeP";
+import { useEffect, useState } from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import ProductCards from "./ProductCards";
+import Pagination from "./Pagination";
+import { getAllProducts } from "../actions";
 
 export default function HomePersonas() {
+  const dispatch = useDispatch();
+  const PRODUCTS = useSelector((state => state.products));
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(1);
+  const indexOfLastProduct = currentPage * productsPerPage; // 10
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
+  const currentProducts = PRODUCTS.slice(indexOfFirstProduct, indexOfLastProduct);
+
+
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber)
+}
+
+useEffect(() => {
+  dispatch(getAllProducts())      
+},[dispatch])
+
+//funcion para volver a cargar los productos
+function handleClick(e){
+  e.preventDefault();
+  dispatch(getAllProducts());
+  setCurrentPage(1);
+}
+
+
   return (
     <div>
       <NavBar />
+
+      <Pagination
+      productsPerPage = {productsPerPage}
+      PRODUCTS = {PRODUCTS.length}
+      paginado = {paginado}
+      />
+      <button onClick={e => handleClick(e)} >Volver</button>
+
+      <ProductCards currentProducts={currentProducts } />
 
       <div className={styles.encabezado}>
         <h1>Bienvenido a Bring-It</h1>

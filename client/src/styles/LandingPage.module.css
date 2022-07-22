@@ -1,0 +1,78 @@
+.divContainer{
+    display: grid;
+    grid-template-columns: 55% 40%;
+    grid-gap: 5px;
+}
+
+.containerButton{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+    
+    
+}
+
+.containerButton button{
+    width: 35%;
+    margin-right: 40px;
+    font-family: "Montserrat", sans-serif;
+    background-color: white;
+    color: #41d4cf;
+    border: 3px solid #41d4cf;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 15px;
+
+}
+
+.containerButton button:hover {
+    transition: background-color 1s ease;
+    background-color: #41d4cf; /* Green */
+    color: white;
+  }
+
+.img{
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+}
+
+.imagenesProductos{
+    width: 60%;
+    height: 80%;
+    object-fit: cover;
+}
+.imgProduct{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 100%;
+}
+
+.comoFunciona{
+    font-weight: 700;
+}
+
+.pasoPorPasos{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    height: 210px;
+    margin: 40px;
+    border: solid 1px black;
+}
+.pasoPorInfo{
+    display: flex;
+    grid-template-columns: 20% 80%;
+    height: 210px;
+}
+.imgPaso1{
+    width: 100%;
+    object-fit: cover;
+    height: 50%;
+}
+
+.tabs{
+    text-align: center;
+}
