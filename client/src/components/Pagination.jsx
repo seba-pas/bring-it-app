@@ -1,20 +1,21 @@
-import React from 'react'
+import React from "react";
+import styles from '../styles/Pagination.module.css'
 
-export default function Pagination() {
+export default function Pagination({productsPerPage, PRODUCTS, paginado}) {
 
     const pageNumbers = [];
     
-    for(let i = 1; i <= Math.ceil(); i++)
+    for(let i = 1; i <= Math.ceil(PRODUCTS/productsPerPage); i++)
     pageNumbers.push(i)
 
   return (
-    <nav>
+    <nav className={styles.paginado}>
         {pageNumbers.length === 1 ?
         <div></div>:
             (pageNumbers.map(num => {
                 return(
                     <div key={num}>
-                        <button onClick={() => pagination(num)}>{num}</button>
+                        <button onClick={() => paginado(num)}>{num}</button>
                     </div>
                 )
             }))
@@ -22,4 +23,5 @@ export default function Pagination() {
     </nav>
   )
 }
+
 
