@@ -27,7 +27,7 @@ function RegisterUser() {
       [e.target.name]: e.target.value,
     });
   }
-  function handleSelect(e) {
+  /* function handleSelect(e) {
     if (!input.nationality.includes(e.target.value)) {
       setInput({
         ...input,
@@ -46,7 +46,7 @@ function RegisterUser() {
         nationality: [...input.nationality, e.target.value],
       });
     }
-  }
+  } */
   function handleSubmit(e) {
     e.preventDefault();
     if (
@@ -135,7 +135,7 @@ function RegisterUser() {
             required
           />
         </Form.Group>
-        <Form.Select
+        {/* <Form.Select
           className="mt-5"
           aria-label="Default select example"
           onChange={(e) => handleSelect(e)}
@@ -145,7 +145,7 @@ function RegisterUser() {
               {nation.name}
             </option>
           ))}
-        </Form.Select>
+        </Form.Select> */}
 
         <Button variant="primary" className="mt-5" type="submit">
           Submit

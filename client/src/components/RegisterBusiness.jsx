@@ -26,14 +26,9 @@ function RegisterBusiness() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    setErrors(
-      validate({
-        ...input,
-        [e.target.name]: e.target.name,
-      })
-    );
+   
   }
-  function handleSelect(e) {
+  /* function handleSelect(e) {
     if (!input.provincia.includes(e.target.value)) {
       setInput({
         ...input,
@@ -52,7 +47,7 @@ function RegisterBusiness() {
         provincia: [...input.provincia, e.target.value],
       });
     }
-  }
+  } */
   function handleSubmit(e) {
     e.preventDefault();
     if (
@@ -84,7 +79,6 @@ function RegisterBusiness() {
       <Form>
         <Form.Group
           className="mb-3"
-          controlId="formBasicEmail"
           onSubmit={(e) => handleSubmit(e)}
         >
           <Form.Label>Email address</Form.Label>
@@ -98,7 +92,7 @@ function RegisterBusiness() {
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" >
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -134,7 +128,7 @@ function RegisterBusiness() {
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>
-        <Form.Select
+        {/* <Form.Select
           className="mt-5"
           aria-label="Default select example"
           onChange={(e) => handleSelect(e)}
@@ -144,7 +138,7 @@ function RegisterBusiness() {
               {prov.name}
             </option>
           ))}
-        </Form.Select>
+        </Form.Select> */}
         <Form.Group className="mb-3">
           <Form.Label>Direccion</Form.Label>
           <Form.Control
