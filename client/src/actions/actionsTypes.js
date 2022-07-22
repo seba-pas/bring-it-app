@@ -4,3 +4,4 @@ export const POST_USER = 'POST_USER';
 export const POST_PRODUCT = 'POST_PRODUCT';
 export const PUT_PRODUCT = 'PUT_PRODUCT';
 export const POST_BUSINESS = 'POST_BUSINESS';
+export const GET_ALL_PRODUCTS_NAME = 'GET_ALL_PRODUCTS';
