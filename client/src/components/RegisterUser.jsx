@@ -7,17 +7,53 @@ import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 
 import style from "../styles/RegisterUser.module.css";
+// function validate(input) {
+//   let errors = {};
 
+//   if (
+//     !input.email ||
+//     [(v) => !!v || "Este campo es requerido"] + $ / g.test(input.email)
+//   ) {
+//     error.email = alert("Este campo es requerido");
+//   } else {
+//     error.email = console.log("✅Hecho!");
+//   }
+// // al menos una letra
+//   //, al menos un numero, al menos una letra mayúscula, al menos 8 caracteres, no permite espacios.
+//   if (
+//     !input.password ||
+//     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/g.test(input.password)
+//   ) {
+//     error.password = alert(
+//       "La contraseña debe tener al menos:1 num, letra mayuscula, 8 caracteres,sin espacios "
+//     );
+//   } else {
+//     error.password = console.log("✅Hecho!");
+//   }
+
+//   if (!input.name || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.name)) {
+//     errors.name = alert("La primera letra debe estar en mayúscula");
+//   } else {
+//     errors.name = console.log("✅Hecho!");
+//   }
+//   if (!input.lastname || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.lastname)) {
+//     errors.lastname = alert("La primera letra debe estar en mayúscula");
+//   } else {
+//     errors.lastname = console.log("✅Hecho!");
+//   }
+
+//   return errors;
+// }
 function RegisterUser() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     email: "",
     password: "",
     name: "",
     lastname: "",
-    // age: "",
+    birthDate: "",
   });
 
   function handleChange(e) {
@@ -25,6 +61,13 @@ function RegisterUser() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    console.log(input.birthDate)
+    // setErrors(
+    //   validate({
+    //     ...input,
+    //     [e.target.name]: e.target.name,
+    //   })
+    // );
   }
   /* function handleSelect(e) {
     if (!input.nationality.includes(e.target.value)) {
@@ -52,7 +95,8 @@ function RegisterUser() {
       input.email !== "" &&
       input.password !== "" &&
       input.name !== "" &&
-      input.lastname !== "" 
+      input.lastname !== "" &&
+      input.birthDate !== ""
     ) {
       dispatch(addUser(input));
       alert("El usuario fue creada con exito!");
@@ -61,7 +105,7 @@ function RegisterUser() {
         password: "",
         name: "",
         lastname: "",
-        // age: "",
+        birthDate: "",
       });
       history.push("/persona");
     } else {
@@ -120,18 +164,18 @@ function RegisterUser() {
             required
           />
         </Form.Group>
-        {/* <Form.Group className="mb-3">
+        <Form.Group className="mb-3">
           <Form.Label>Fecha nacimiento</Form.Label>
           <Form.Control
             type="date"
             placeholder="Fecha de nacimiento"
             onChange={(e) => handleChange(e)}
-            value={input.age}
-            name="age"
-            id="age"
+            value={input.birthDate}
+            name="birthDate"
+            id="birthDate"
             required
           />
-        </Form.Group> */}
+        </Form.Group>
         {/* <Form.Select
           className="mt-5"
           aria-label="Default select example"
@@ -145,7 +189,6 @@ function RegisterUser() {
         </Form.Select> */}
 
         <Button variant="primary" className="mt-5" type="submit">
-
           Submit
         </Button>
       </Form>
