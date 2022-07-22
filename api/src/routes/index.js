@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { Purchase, User, Travel, Product, Business } = require('../db');
 
 
+
 const productRoutes = require("./productRoutes");
 const categoryRoutes = require("./categoryRoutes");
 const businessRoutes = require("./businessRoutes");
@@ -11,6 +12,7 @@ const purchaseRouters = require('./purchaseRoutes');
 const postPurchaseRoutes = require('./postPurchaseRoutes');
 const userRoutes = require('./userRoutes');
 const travelRoutes = require('./travelRoutes');
+
 
 const router = Router();
 
@@ -26,6 +28,7 @@ router.use('/travel', travelRoutes);
 //Configuracion de rutas Purchase
 router.use('/purchase', purchaseRouters);
 router.use('/purchase', postPurchaseRoutes);
+
 
 
 //CREATE travel
@@ -94,8 +97,10 @@ router.post('/api/user', async (req, res) => {
             res.send('error:' + e.message)
         }
     }
+
 })
 
 // router.use ('/purchase', purchaseRoutes);
 
-module.exports = router;
+
+   module.exports = router;
