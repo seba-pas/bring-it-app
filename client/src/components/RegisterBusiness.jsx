@@ -18,7 +18,7 @@ function RegisterBusiness() {
     businessName: "",
     cuit: "",
     address: "",
-    // provincia: [],
+    province: "",
   });
 
   function handleChange(e) {
@@ -26,37 +26,18 @@ function RegisterBusiness() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    console.log(input);
   }
-  /* function handleSelect(e) {
-    if (!input.provincia.includes(e.target.value)) {
-      setInput({
-        ...input,
-        provincia: [...input.provincia, e.target.value],
-      });
-    } else {
-      setInput({
-        ...input,
-      });
-    }
-    if (input.provincia.length === 3) {
-      alert("¡El perro no puede tener más de tres provinciaos!");
-    } else if (input.provincia.length < 3) {
-      setInput({
-        ...input,
-        provincia: [...input.provincia, e.target.value],
-      });
-    }
-  } */
+
   function handleSubmit(e) {
-    debugger;
     e.preventDefault();
     if (
       input.email !== "" &&
       input.password !== "" &&
       input.businessName !== "" &&
       input.cuit !== "" &&
-      input.address !== ""
-    //   input.provincia.length !== 0
+      input.address !== "" &&
+      input.province !== ""
     ) {
       dispatch(addBusiness(input));
       alert("La empresa fue creada con exito!");
@@ -65,8 +46,8 @@ function RegisterBusiness() {
         password: "",
         businessName: "",
         cuit: "",
-        address: ""
-       
+        address: "",
+        province: "",
       });
       history.push("/empresas");
     } else {
@@ -121,10 +102,24 @@ function RegisterBusiness() {
             name="cuit"
             id="cuit"
             required
-            placeholder="Ingrese su nombre"
+            placeholder="Ingrese su numero de Cuit"
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Provincia</Form.Label>
+          <Form.Control
+            type="text"
+            value={input.province}
+            name="province"
+            id="province"
+            required
+            placeholder="Ingrese su Provincia"
+            onChange={(e) => handleChange(e)}
+          />
+        </Form.Group>
+
         {/* <Form.Select
           className="mt-5"
           aria-label="Default select example"
