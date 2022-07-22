@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import style from "../styles/RegisterBusiness.module.css";
+// import style from "../styles/RegisterBusiness.module.css";
 
 function RegisterBusiness() {
   return (
@@ -10,22 +10,47 @@ function RegisterBusiness() {
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Control
+            type="email"
+            value={input.email}
+            name="email"
+            id="email"
+            required
+            placeholder="Enter email"
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={input.password}
+            name="password"
+            id="password"
+            required
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Empresa nombre </Form.Label>
           <Form.Control
             type="text"
             placeholder="Ingrese el nombre de la empresa"
+            value={input.empresaNombre}
+            name="empresaNombre"
+            id="empresaNombre"
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Cuit</Form.Label>
-          <Form.Control type="number" placeholder="Ingrese su nombre" />
+          <Form.Control
+            type="number"
+            value={input.cuit}
+            name="cuit"
+            id="cuit"
+            required
+            placeholder="Ingrese su nombre"
+          />
         </Form.Group>
         <Form.Select className="mt-5" aria-label="Default select example">
           <option>Selecciona tu pronvincia</option>
@@ -35,7 +60,14 @@ function RegisterBusiness() {
         </Form.Select>
         <Form.Group className="mb-3">
           <Form.Label>Direccion</Form.Label>
-          <Form.Control type="text" placeholder="Ingresa tu direccion" />
+          <Form.Control
+            type="text"
+            value={input.direccion}
+            name="direccion"
+            id="direccion"
+            required
+            placeholder="Ingresa tu direccion"
+          />
         </Form.Group>
 
         <Button variant="primary" className="mt-5" type="submit">

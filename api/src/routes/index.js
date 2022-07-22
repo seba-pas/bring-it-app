@@ -7,13 +7,11 @@ const categoryRoutes = require ("./categoryRoutes");
 const businessRoutes = require ("./businessRoutes");
 const cityRoutes = require ("./cityRoutes");
 const provinceRoutes = require ("./provinceRoutes");
-<<<<<<< HEAD
+
 const purchaseRouters= require('./purchaseRoutes');
 const postPurchaseRoutes= require('./postPurchaseRoutes');
-=======
 const userRoutes = require ("./userRoutes");
 const travelRoutes = require ("./travelRoutes");
->>>>>>> 50aa726cc426f8162cf1eb12c668fd19740d4100
 
 const router = Router();
 
@@ -31,7 +29,6 @@ router.use('/purchase', purchaseRouters);
 router.use('/purchase', postPurchaseRoutes);
 
 
-<<<<<<< HEAD
 //CREATE travel
 router.post('/api/travel', async(req,res) => {
  const { id, UserEmail, TravelProvince, TravelCity, ArrivalProvince, ArrivalCity, startDate, ArrivalDate} = req.body ; 
@@ -101,8 +98,6 @@ router.post('/api/user', async(req,res) => {
    })
 
 // router.use ('/purchase', purchaseRoutes);
-=======
 
->>>>>>> 50aa726cc426f8162cf1eb12c668fd19740d4100
 
 module.exports = router;
