@@ -11,6 +11,16 @@ async function addCategory (category){
     }
 }
 
+async function getCategory (){
+    try {
+        const foundCategories = await Category.findAll({});       
+        return foundCategories;        
+    } catch (error) {
+        throw new Error (`No se encontraron categorías cargadas en la base de datos, ${error}`);
+    }     
+}
+
 module.exports = {
-    addCategory
+    addCategory,
+    getCategory
 };
