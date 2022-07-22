@@ -11,7 +11,7 @@ function HomeBusiness() {
     const gState = useSelector((state) => state);
     const dispatch = useDispatch();
     const user = {
-        email: "wf@gmail.com",
+        email: "wfDD@gmail.com",
         password: "123456",
         businessName: "bring it app",
         cuit: "asd",
