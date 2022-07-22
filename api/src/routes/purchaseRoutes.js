@@ -4,6 +4,13 @@ const {getPurchase} = require( '../controllers/purchaseControllers');
 
 const router = Router();
 
+<<<<<<< HEAD
+// GET ALL PURCHASES
+router.get ('/', async (req, res)=>{
+    try {
+        const purchases = await getPurchase()
+        res.status(200).send(purchases);
+=======
 //ruta de actualizacion purchase
 router.put("/:id", async (req,res) => {
 	const {id} = req.params;
@@ -49,6 +56,7 @@ router.get ('/', async (req, res)=>{
     const  allPurchase= await getPurchase();
     try {
         res.status(200).send(allPurchase);
+>>>>>>> ec5c144140327417c9791108b4e55d2b2b62a4b6
     } catch (error) {
         res.status(404).send(error.message);
     }
@@ -81,6 +89,54 @@ router.post('/', async (req, res)=>{
     }
 
 });
+
+
+
+// POST PURCHASES
+router.post('/', async (req, res)=>{
+    const { totalPrice, waitingTime, arrivalCity } = req.body;
+
+    try {
+        const createdPurchase = await Purchase.create({
+            // id,
+            totalPrice,
+            waitingTime,
+            arrivalCity
+        });
+        // await createdPurchase.addUser(email);
+        // await createdPurchase.addProduct(id=idProduct);
+
+        res.status(200).send('Purchase completed');
+        
+    } catch (error) {
+        res.status(404).send(`Error at postPurchase route: ${error}`);
+    }
+
+});
+
+
+
+
+// UPDATE
+
+router.put('/edit/:id', async (req, res) => {
+    const { id } = req.params;
+    const { totalPrice, waitingTime, arrivalCity } = req.body;
+    try {
+        const updatedPurchase = await Purchase.update({
+            totalPrice,
+            waitingTime,
+            arrivalCity
+        }, {
+            where: {
+                id
+            }
+        });
+        res.status(200).send(`Purchase updated successfully`);
+    } catch(err) {
+        res.status(500).send(`Error at update route: ${err}`);
+    }
+})
 
 
 module.exports = router;
