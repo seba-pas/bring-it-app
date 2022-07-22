@@ -5,9 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
-import swal from 'sweetalert'
+import swal from "sweetalert";
 import style from "../styles/RegisterUser.module.css";
-import NavBarLanding from "./NavBarLanding.jsx"
+import NavBarRegisters from "./NavBarRegisters.jsx";
 // function validate(input) {
 //   let errors = {};
 
@@ -52,6 +52,7 @@ function RegisterUser() {
   const [input, setInput] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
     name: "",
     lastname: "",
     birthDate: "",
@@ -62,38 +63,17 @@ function RegisterUser() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    // setErrors(
-    //   validate({
-    //     ...input,
-    //     [e.target.name]: e.target.name,
-    //   })
-    // );
   }
-  /* function handleSelect(e) {
-    if (!input.nationality.includes(e.target.value)) {
-      setInput({
-        ...input,
-        nationality: [...input.nationality, e.target.value],
-      });
-    } else {
-      setInput({
-        ...input,
-      });
-    }
-    if (input.nationality.length === 3) {
-      alert("¡El perro no puede tener más de tres nationalityos!");
-    } else if (input.nationality.length < 3) {
-      setInput({
-        ...input,
-        nationality: [...input.nationality, e.target.value],
-      });
-    }
-  } */
   function handleSubmit(e) {
     e.preventDefault();
+    if(input.password !== input.confirmPassword){
+      alert('Las contraseñas no coinciden')
+      return
+    }
     if (
       input.email !== "" &&
       input.password !== "" &&
+      input.password === input.confirmPassword &&
       input.name !== "" &&
       input.lastname !== "" &&
       input.birthDate !== ""
@@ -114,7 +94,7 @@ function RegisterUser() {
   }
   return (
     <div className={style.divContainer}>
-      <NavBarLanding/>
+      <NavBarRegisters />
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
@@ -131,12 +111,24 @@ function RegisterUser() {
         <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            type="password"
+            type="text"
             placeholder="Password"
             onChange={(e) => handleChange(e)}
             value={input.password}
             name="password"
             id="password"
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Confirmar password</Form.Label>
+          <Form.Control
+            type="confirmPassword"
+            placeholder="Confirmar password"
+            onChange={(e) => handleChange(e)}
+            value={input.confirmPassword}
+            name="confirmPassword"
+            id="confirmPassword"
             required
           />
         </Form.Group>

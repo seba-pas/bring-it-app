@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
@@ -8,15 +8,13 @@ import image from "../components/img/logoCUT.png";
 import swal from "sweetalert";
 import Form from "react-bootstrap/Form";
 
-import styles from "../styles/NavBarLanding.module.css";
+import styles from "../styles/NavBarRegisters.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 //seba
-export default function NavBarLanding() {
-  const [show, setShow] = useState(false);
+export default function NavBarRegisters() {
   const [showLogin, setShowLogin] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -37,8 +35,8 @@ export default function NavBarLanding() {
       setInput({
         email: "",
         password: "",
-        empresa:false,
-        usuario: true,  
+        // user: true,
+        // empresa: false,
       });
       // if (user !== true) {
       //   history.push("/empresas");
@@ -57,9 +55,6 @@ export default function NavBarLanding() {
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => setShowLogin(true);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   return (
     <div className={styles.navbarLanding}>
       <div className={styles.imagen}>
@@ -73,6 +68,9 @@ export default function NavBarLanding() {
       </div>
       <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
+        <Link to="/">
+          <button>HOME</button>
+        </Link>
         <button onClick={handleShowLogin}>INGRESAR</button>
 
         <Modal show={showLogin} onHide={handleCloseLogin}>
@@ -106,12 +104,6 @@ export default function NavBarLanding() {
                 />
               </Form.Group>
 
-              {/* <Form.Group>
-                <Form.Label>Como estas registrado</Form.Label>
-                <Form.Check inline label="Empresa" name="group1" />
-
-                <Form.Check inline label="Usuario" name="group1" />
-              </Form.Group> */}
               <Button
                 variant="info"
                 type="submit"
@@ -130,31 +122,6 @@ export default function NavBarLanding() {
         {/* <NavLink to="/Login">
           <button>INGRESAR</button>
         </NavLink> */}
-        <button onClick={handleShow}>REGISTRARSE</button>
-
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Bienvenido</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div>Como prefieres registrarte:</div>
-            <div>
-              <NavLink to="/RegisterBusiness">
-                <Button color="secondary" style={{ marginRight: "20px" }}>
-                  Empresa
-                </Button>
-              </NavLink>
-              <NavLink to="/RegisterUser">
-                <Button color="secondary">Usuario</Button>
-              </NavLink>
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </div>
   );
