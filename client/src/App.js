@@ -4,7 +4,9 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
 import ProductManager from "./components/ProductManager.jsx";
 import HomeBusiness from "./components/HomeBusiness.jsx";
-import HomePersonas from "./components/HomePersonas";
+import HomePersonas from "./components/HomePersonas.jsx";
+import RegisterUser from "./components/RegisterUser.jsx";
+import RegisterBusiness from "./components/RegisterBusiness.jsx";
 // import NavBar from "./components/NavBar";
 
 // import Home from "./components/Home";
@@ -19,6 +21,8 @@ function App() {
         <Route exact path="/empresas" component={HomeBusiness} />
         <Route path="/productmanager/:id" component={ProductManager} />
         <Route exact path="/productmanager" component={ProductManager} />
+        <Route exact path="/RegisterUser" component={RegisterUser} />
+        <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
       </Switch>
     </div>
   );
