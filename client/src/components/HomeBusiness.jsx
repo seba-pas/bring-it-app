@@ -1,10 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from "../styles/HomeBusiness.module.css"
 import SoldProductCard from './SoldProductCard';
 import ProductCardBusiness from './ProductCardBusiness';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBusiness } from '../actions';
 
 function HomeBusiness() {
+
+    const gState = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const user = {
+        email: "wfDD@gmail.com",
+        password: "123456",
+        businessName: "bring it app",
+        cuit: "asd",
+        taxBracket: "Categoría tributaria 1",
+        logo: "21213132asdfadfa",
+        province: "Buenos Aires",
+        address: "1213213"
+    }
+
+    useEffect(() => {
+        dispatch(addBusiness(user));
+
+    }, [dispatch]);
 
     const [input, setInput] = useState({
 
@@ -115,6 +135,7 @@ function HomeBusiness() {
             BringerContact: 3213 - 5445 - 55,
         },
     ]
+
 
     let products = [
         {

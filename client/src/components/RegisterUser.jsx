@@ -111,6 +111,7 @@ function RegisterUser() {
             required
           />
         </Form.Group>
+
         <Form.Group className="mb-3">
           <Form.Label>Apellido</Form.Label>
           <Form.Control
@@ -148,6 +149,7 @@ function RegisterUser() {
         </Form.Select> */}
 
         <Button variant="primary" className="mt-5" type="submit">
+
           Submit
         </Button>
       </Form>
