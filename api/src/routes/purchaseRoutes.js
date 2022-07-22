@@ -7,7 +7,7 @@ const router = Router();
 //probar
 router.get ('/purchase', async (req, res)=>{
     try {
-        return res.status(200).send( getPurchase());
+        return res.status(200).send(getPurchase());
     } catch (error) {
         return res.status(404).send(error.message);
     }
