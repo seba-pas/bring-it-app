@@ -14,9 +14,11 @@ import "bootstrap/dist/css/bootstrap.css";
 export default function NavBarLanding() {
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
+  const [didMount, setDidMount] = useState(true);
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -26,29 +28,44 @@ export default function NavBarLanding() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input);
   }
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(email,password);
-    if (
-      input.email !== "" &&
-      input.password !== "" 
-    ) {
+    //if (user === true){
+    // dispatch(loginUser(input))
+    // }if else (empresa === true){
+    //dispatch(loginBusiness(input))
+    //}
+    /* 
+      user === "Datos correctos"
+    */
+
+    if (input.email !== "" && input.password !== "") {
       dispatch(login(input));
-      swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-      setInput({
-        email: "",
-        password: "",
-      });
-      history.push("/empresas");
     } else {
       alert("¡Faltan los elementos necesarios!");
     }
   }
-  /* useEffect(() => {
-    dispatch(login())      
-  },[dispatch]) */
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return;
+    } else {
+      if (user === "Usuario no encontrado") {
+        alert("El usuario no existe");
+      } else if (user === "Datos incorrectos") {
+        alert("Datos incorrectos");
+      } else {
+        swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+        setInput({
+          email: "",
+          password: "",
+        });
+        // history.push("/persona");
+      }
+    }
+  }, [user]);
+
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => setShowLogin(true);
 
