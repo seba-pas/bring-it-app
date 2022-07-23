@@ -15,7 +15,7 @@ export default function ProductCards({ currentProducts }) {
           description={el.description}
           image={el.image}
           id={el.id}
-          // categories={el.categories[0].name}
+
         />
       ))}
     </div>
