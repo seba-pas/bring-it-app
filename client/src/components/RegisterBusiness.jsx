@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
 import { addBusiness } from "../actions/index.js";
+import NavBarRegisters from "./NavBarRegisters.jsx";
 import swal from "sweetalert";
 // import style from "../styles/RegisterBusiness.module.css";
 
@@ -15,6 +16,7 @@ function RegisterBusiness() {
   const [input, setInput] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
     businessName: "",
     cuit: "",
     address: "",
@@ -30,9 +32,14 @@ function RegisterBusiness() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (input.password !== input.confirmPassword) {
+      swal("Las contraseñas no coinciden", "Por favor vuelva a ingresar su contraseña", "error");
+      return;
+    }
     if (
       input.email !== "" &&
       input.password !== "" &&
+      input.password === input.confirmPassword &&
       input.businessName !== "" &&
       input.cuit !== "" &&
       input.address !== "" &&
@@ -50,12 +57,14 @@ function RegisterBusiness() {
       });
       history.push("/empresas");
     } else {
-      alert("¡Faltan los elementos necesarios!");
+      swal("Faltan datos por llenar", "Por favor ingrese todos los datos", "error");
     }
   }
 
   return (
     <div>
+      <NavBarRegisters />
+
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
@@ -78,6 +87,18 @@ function RegisterBusiness() {
             value={input.password}
             name="password"
             id="password"
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Confirmar password</Form.Label>
+          <Form.Control
+            type="confirmPassword"
+            placeholder="Confirmar password"
+            onChange={(e) => handleChange(e)}
+            value={input.confirmPassword}
+            name="confirmPassword"
+            id="confirmPassword"
             required
           />
         </Form.Group>

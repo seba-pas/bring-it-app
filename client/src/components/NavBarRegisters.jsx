@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
 import swal from "sweetalert";
 import Form from "react-bootstrap/Form";
-import { login } from "../actions/index.js";
-import styles from "../styles/NavBarLanding.module.css";
+
+import styles from "../styles/NavBarRegisters.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 //seba
-export default function NavBarLanding() {
-  const [show, setShow] = useState(false);
+export default function NavBarRegisters() {
   const [showLogin, setShowLogin] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
+
   function handleChange(e) {
     setInput({
       ...input,
@@ -30,30 +29,31 @@ export default function NavBarLanding() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(email,password);
-    if (
-      input.email !== "" &&
-      input.password !== "" 
-    ) {
-      dispatch(login(input));
+    if (input.email !== "" && input.password !== "") {
+      // dispatch(createLogin(input));
       swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
       setInput({
         email: "",
         password: "",
+        // user: true,
+        // empresa: false,
       });
+      // if (user !== true) {
+      //   history.push("/empresas");
+      // } else {
+      //   history.push("/persona");
+      // }
+      //Aca hacer una logica, si el mail esta creado con empresa
+      //
+      //Si el mail figura para un usuario history.push("/persona")
       history.push("/empresas");
     } else {
       alert("¡Faltan los elementos necesarios!");
     }
   }
-  /* useEffect(() => {
-    dispatch(login())      
-  },[dispatch]) */
+
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => setShowLogin(true);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   return (
     <div className={styles.navbarLanding}>
@@ -68,6 +68,9 @@ export default function NavBarLanding() {
       </div>
       <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
+        <Link to="/">
+          <button>HOME</button>
+        </Link>
         <button onClick={handleShowLogin}>INGRESAR</button>
 
         <Modal show={showLogin} onHide={handleCloseLogin}>
@@ -101,12 +104,6 @@ export default function NavBarLanding() {
                 />
               </Form.Group>
 
-              {/* <Form.Group>
-                <Form.Label>Como estas registrado</Form.Label>
-                <Form.Check inline label="Empresa" name="group1" />
-
-                <Form.Check inline label="Usuario" name="group1" />
-              </Form.Group> */}
               <Button
                 variant="info"
                 type="submit"
@@ -125,31 +122,6 @@ export default function NavBarLanding() {
         {/* <NavLink to="/Login">
           <button>INGRESAR</button>
         </NavLink> */}
-        <button onClick={handleShow}>REGISTRARSE</button>
-
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Bienvenido</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div>Como prefieres registrarte:</div>
-            <div>
-              <NavLink to="/RegisterBusiness">
-                <Button color="secondary" style={{ marginRight: "20px" }}>
-                  Empresa
-                </Button>
-              </NavLink>
-              <NavLink to="/RegisterUser">
-                <Button color="secondary">Usuario</Button>
-              </NavLink>
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </div>
   );

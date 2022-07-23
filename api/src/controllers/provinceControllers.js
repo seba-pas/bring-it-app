@@ -10,7 +10,6 @@ const apiProvince = async(req, res) => {
 	try {
 		const apiProvinces = await axios(`https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre&max=24`);
 		const getProvinces = apiProvinces.data.provincias;
-		console.log(getProvinces)
 		const savedProvinces = getProvinces.map(async(p) => {
 			const provinces = await Province.findOrCreate({
 				where: {

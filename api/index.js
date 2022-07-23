@@ -30,9 +30,8 @@ const { apiProvince } = require('./src/controllers/provinceControllers')
 // // Syncing all the models at once.
 
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false}).then(() => {
   server.listen(3001, async() => {
-    // await City.bulkCreate(municipios); 
     await apiProvince()
     await apiCity() 
     console.log("BRING IT ON! Listening..."); // eslint-disable-line no-console

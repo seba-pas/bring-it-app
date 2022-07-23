@@ -72,3 +72,7 @@
     object-fit: cover;
     height: 50%;
 }
+
+.tabs{
+    text-align: center;
+}

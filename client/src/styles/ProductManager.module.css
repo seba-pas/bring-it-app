@@ -137,6 +137,20 @@
     align-items: center;
 }
 
+.backButton {
+    display: flex;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 27/30;
+    grid-column: 2/3;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 .btn {
     border: solid 2px #41d4cf;
     border-radius: 9px;

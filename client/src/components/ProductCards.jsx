@@ -8,13 +8,14 @@ export default function ProductCards({ currentProducts }) {
     <div className={styles.grid}>
       {currentProducts.map((el) => (
         <ProductCard
-          key={el.productId}
+          key={el.id}
           name={el.name}
           price={el.price}
           weight={el.weight}
           description={el.description}
           image={el.image}
-          id={el.productId}
+          id={el.id}
+
         />
       ))}
     </div>

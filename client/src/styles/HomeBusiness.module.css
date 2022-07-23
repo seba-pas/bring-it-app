@@ -47,7 +47,8 @@
 
 
 .soldProductsContainer {
-    display: flex;
+    display: none;
+    /* display: flex; */
     flex-wrap: wrap;
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
@@ -68,8 +69,10 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 8/23;
-    grid-column: 21/35;
+    grid-row: 8/31;
+    /* grid-row: 8/23; */
+    grid-column: 2/17;
+    /* grid-column: 21/35; */
     justify-content: center;
     align-items: center;
     overflow: auto;
@@ -83,8 +86,9 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
     border: solid 2px rgb(241, 38, 38);
-    grid-row: 25/35;
-    grid-column: 21/35;
+    grid-row: 8/31;
+    /* grid-row: 25/35; */
+    grid-column: 18/35;
     justify-content: center;
     align-items: center;
     overflow: auto;
@@ -98,8 +102,10 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
     /* border: solid 2px rgb(241, 38, 38); */
-    grid-row: 24/25;
-    grid-column: 33/35;
+    grid-row: 30/31;
+    /* grid-row: 24/25; */
+    grid-column: 16/17;
+    /* grid-column: 33/35; */
     justify-content: center;
     align-items: center;
     /* overflow: auto; */
