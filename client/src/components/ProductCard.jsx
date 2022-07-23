@@ -14,7 +14,7 @@ export default function ProductCard({
 }) {
   return (
     <div className={styles.container}>
-      <Link style={{ textDecoration: "none" }} to={`products/${id}`}>
+      <Link style={{ textDecoration: "none" }} to={`product/${id}`}>
         <img
           className={styles.imagen}
           src={image}

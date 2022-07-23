@@ -1,4 +1,6 @@
 import axios from "axios";
+
+
 import {
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_DETAIL,
@@ -10,8 +12,10 @@ import {
   DELETE_PRODUCT,
   ORDER_BY_PRICE,
   GET_CATEGORIES,
-  FILTER_BY_CATEGORY
+  FILTER_BY_CATEGORY,
+  SET_PRODUCT_DETAIL
 } from "./actionsTypes";
+
 
 
 //Comienzan action PRODUCT
