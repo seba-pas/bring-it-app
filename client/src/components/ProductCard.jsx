@@ -4,7 +4,7 @@ import imagen from "./img/iphone.jpg";
 import styles from "../styles/ProductCard.module.css";
 // import { Link } from "react-router-dom";
 
-export default function ProductCard({name, description, image, price, empresa, province}) {
+export default function ProductCard({name, description, image, price, empresa, province, categories}) {
   
   return (
     <div className={styles.container}>
@@ -19,6 +19,7 @@ export default function ProductCard({name, description, image, price, empresa, p
         <h1 className={styles.price}>${price}</h1>
         <p className={styles.description}>{description}</p>
         <a className={styles.empresa}>
+        <span>{categories}</span>
           by {empresa} <br />({province})
         </a>
       </div>

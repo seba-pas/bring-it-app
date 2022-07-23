@@ -6,14 +6,17 @@ import { useEffect, useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
-import { getAllProducts } from "../actions";
+import { getAllProducts, orderByPrice, filterByCategory, getCategories } from "../actions";
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state => state.products));
+  const CATEGORY = useSelector((state => state.categories));
+  const [orden, setOrden] = useState('');
 
+  console.log(PRODUCTS)
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(2);
   const indexOfLastProduct = currentPage * productsPerPage; // 10
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
   const currentProducts = PRODUCTS.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -24,14 +27,32 @@ export default function HomePersonas() {
 }
 
 useEffect(() => {
-  dispatch(getAllProducts())      
+  dispatch(getAllProducts())   
+  dispatch(getCategories())   
 },[dispatch])
+
 
 //funcion para volver a cargar los productos
 function handleClick(e){
   e.preventDefault();
   dispatch(getAllProducts());
   setCurrentPage(1);
+}
+
+//funcion para ordenar los precios
+function handleSort(e){
+  e.preventDefault();
+  setCurrentPage(1);
+  dispatch(orderByPrice(e.target.value));
+  setOrden(`Ordenado ${e.target.value}`);
+}
+
+//funcion para filtrar por precios
+function handleFilterByCategory(e){
+  e.preventDefault();
+  setCurrentPage(1);
+  dispatch(filterByCategory(e.target.value));
+  setOrden(`Ordenado ${e.target.value}`);
 }
 
 
@@ -44,6 +65,30 @@ function handleClick(e){
       PRODUCTS = {PRODUCTS.length}
       paginado = {paginado}
       />
+      <div>
+        <select onChange={e => handleSort(e)}>
+          <option hidden value="Precios">Precios</option>
+          <option value="asc">Menor a Mayor</option>
+          <option value="desc">Mayor a Menor</option>
+        </select>
+      </div>
+
+      <div>
+        <select onChange={(e) => handleFilterByCategory(e)} >
+          <option value="All">Todas</option>
+          {
+            CATEGORY.map((CATEGORY) => (
+              <option value={CATEGORY.name} key={CATEGORY.id}>
+                {CATEGORY.name}
+              </option>
+            ))}
+          
+        {/* <option hidden value="category">Categorias</option>
+        <option value="Bebidas">Bebidas</option>
+        <option value="Alimentos">Alimentos</option> */}
+
+        </select>
+      </div> 
       <button onClick={e => handleClick(e)} >Volver</button>
 
       <ProductCards currentProducts={currentProducts } />

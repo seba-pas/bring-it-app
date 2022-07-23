@@ -7,6 +7,8 @@ const initialState = {
   changeProduct: {},
   business: {},
   product: {},
+  categories: [],
+  allCategories: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -56,30 +58,6 @@ export default function rootReducer(state = initialState, action) {
               products: action.payload
           }
       };
-    case 'ORDER_BY_NAME':
-      let sortedArr = action.payload === 'asc' ?
-            state.products.sort(function (a, b) {
-                if(a.name.toLowerCase() > b.name.toLowerCase()) {
-                    return 1;
-                }
-                if(b.name.toLowerCase() > a.name.toLowerCase()) {
-                    return -1;
-                }
-                return 0;
-            }) :
-            state.products.sort(function (a, b) {
-                if(a.name.toLowerCase() > b.name.toLowerCase()) {
-                    return -1;
-                }
-                if(b.name.toLowerCase() > a.name.toLowerCase()) {
-                    return 1;
-                }
-                return 0;
-            })
-            return {
-                ...state,
-                products: sortedArr
-            };
     case 'ORDER_BY_PRICE':
       let sortedPrice = action.payload === 'asc' ?
             state.allProducts.sort(function (a, b) {
@@ -103,6 +81,22 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 products: sortedPrice
+            };
+    case 'GET_CATEGORIES':
+            return {
+                ...state,
+                categories: action.payload
+            };
+    case 'FILTER_BY_CATEGORY':
+        const allProducts = state.allProducts
+        console.log(allProducts)
+        const filterCategory = action.payload === 'All' ? allProducts :
+              allProducts.map(e => e.categories[0].name == action.payload)
+              console.log(filterCategory)
+              console.log(action.payload, 'Payload')
+              return{
+                  ...state,
+                  products: filterCategory
             };
 
     default:
