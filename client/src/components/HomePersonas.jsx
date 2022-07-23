@@ -27,7 +27,7 @@ export default function HomePersonas() {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(4);
+  const [productsPerPage, setProductsPerPage] = useState(8);
   const indexOfLastProduct = currentPage * productsPerPage; // 10
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
   const currentProducts = PRODUCTS.slice(
@@ -86,7 +86,7 @@ export default function HomePersonas() {
         <div className={styles.containerCards}>
           <Pagination
             productsPerPage={productsPerPage}
-            PRODUCTS={currentProducts.length}
+            PRODUCTS={PRODUCTS.length}
             paginado={paginado}
           />
 

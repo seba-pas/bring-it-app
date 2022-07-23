@@ -1,4 +1,15 @@
-img {
+.cont {
+    display: flex;
+    justify-content: center;
+}
+.contBot{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+/* img {
     height: 200px;
     width: auto;
 }
@@ -30,7 +41,7 @@ img {
     justify-content: left;
     width: 50%;
     border: none;
-}
+} */
 
 .spinner {
     display: flex;
