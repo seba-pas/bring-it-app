@@ -6,6 +6,7 @@ import {
   POST_PRODUCT,
   PUT_PRODUCT,
   POST_BUSINESS,
+  POST_LOGIN,
   GET_ALL_PRODUCTS_NAME,
 } from "./actionsTypes";
 
@@ -94,7 +95,7 @@ export const login = (body) => {
         `http://localhost:3001/api/user/login`,
         body
       );
-      console.log(dispatch);
+
       return dispatch({
         type: POST_LOGIN,
         payload: res.data,

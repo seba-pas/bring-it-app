@@ -48,7 +48,7 @@ export default function rootReducer(state = initialState, action) {
     case "POST_LOGIN":
       return {
         ...state,
-        users: action.payload,
+        user: action.payload,
       };
     case "GET_ALL_PRODUCTS_NAME":
       if (action.payload.length === 0) {
@@ -111,7 +111,6 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         products: sortedPrice,
-
       };
 
     default:
