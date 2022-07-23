@@ -10,6 +10,10 @@ const initialState = {
   deleteProduct: "",
   categories: [],
   allCategories: [],
+  cities: [],
+  allCities: [],
+  business2: [],
+  allBusiness2: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -123,6 +127,26 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         productsDetail: {},
+      };
+    case 'GET_CITIES':
+      return{
+        ...state,
+        cities: action.payload
+      };
+    case 'GET_ALL_BUSINESS':
+      console.log(action.payload)
+      return{
+        ...state,
+        business2: action.payload
+      };
+    case 'FILTER_BY_BUSINESS':
+      const allBusiness = state.allProducts;
+      const filterBusiness = action.payload === 'All' ?
+      allBusiness :
+      allBusiness.filter((e) => e.business.businessName === action.payload)
+      return{
+        ...state,
+        products: filterBusiness
       };
     default:
       return {

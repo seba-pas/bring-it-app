@@ -8,7 +8,7 @@ export default function ProductCard({
   description,
   image,
   price,
-  empresa,
+  business,
   province,
   id
 }) {
@@ -25,7 +25,7 @@ export default function ProductCard({
           <h1 className={styles.price}>${price}</h1>
           <p className={styles.description}>{description}</p>
           <p className={styles.empresa}>
-            by {empresa} <br />({province})
+            by {business}
           </p>
         </div>
       </Link>

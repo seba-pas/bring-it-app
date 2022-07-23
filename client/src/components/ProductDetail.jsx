@@ -25,6 +25,7 @@ export const ProductDetail = () => {
 
   return (
     <div>
+
       <NavBar />
       {Object.entries(product).length > 0? (
         <div className={styles.contAll}>
@@ -55,6 +56,7 @@ export const ProductDetail = () => {
           />
         </div>
       )}
+
     </div>
   );
 };
