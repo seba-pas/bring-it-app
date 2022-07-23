@@ -7,8 +7,8 @@ const initialState = {
   changeProduct: {},
   business: {},
   categories: [],
-  allCategories: []
-  businessEmail: "",
+  allCategories: [],
+  businessEmail: ""
 };
 
 export default function rootReducer(state = initialState, action) {
