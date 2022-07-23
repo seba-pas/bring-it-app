@@ -53,11 +53,9 @@ export const getAllProductsName = (name) => {
 };
 
 export const addProduct = (body) => {
-
   return async function (dispatch) {
     try {
       const res = await axios.post(`http://localhost:3001/api/product`, body);
-
       return dispatch({
         type: POST_PRODUCT,
         payload: res.data,
@@ -84,7 +82,6 @@ export const editProduct = ({ id, body }) => {
     }
   };
 };
-
 
 //TERMINA ACTION PRODUCT
 
@@ -130,9 +127,8 @@ export function addBusiness(body) {
       let json = await axios.post(`http://localhost:3001/api/business`, body);
       return dispatch({
         type: POST_BUSINESS,
-        payload: [json.data, body.email],   // por ahora cuando registra la empresa envia el email al homebusiness
-        //cuando estea el login esto va a cambiar 
-      })
+        payload: json.data,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -147,7 +143,6 @@ export const orderByName = (payload) => {
     payload,
   };
 };
-
 
 export const orderByPrice = (payload) => {
   return {
