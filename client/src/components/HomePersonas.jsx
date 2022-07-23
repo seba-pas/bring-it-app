@@ -21,9 +21,9 @@ export default function HomePersonas() {
   const CATEGORY = useSelector((state) => state.categories);
   const [orden, setOrden] = useState("");
 
-  console.log(PRODUCTS);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(2);
+  const [productsPerPage, setProductsPerPage] = useState(1);
   const indexOfLastProduct = currentPage * productsPerPage; // 10
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
   const currentProducts = PRODUCTS.slice(
@@ -99,6 +99,7 @@ export default function HomePersonas() {
             paginado={paginado}
           />
 
+
           <div className={styles.containerS}>
             <select onChange={(e) => handleSort(e)}>
               <option hidden value="Precios">
@@ -117,6 +118,7 @@ export default function HomePersonas() {
               ))}
             </select>
           </div>
+
           <ProductCards currentProducts={currentProducts} />
         </div>
       ) : (

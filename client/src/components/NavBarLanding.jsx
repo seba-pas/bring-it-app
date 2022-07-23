@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -21,7 +21,6 @@ export default function NavBarLanding() {
     email: "",
     password: "",
   });
-
   function handleChange(e) {
     setInput({
       ...input,
@@ -31,8 +30,11 @@ export default function NavBarLanding() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(login(input))
-    if (input.email !== "" && input.password !== "") {
+    console.log(email,password);
+    if (
+      input.email !== "" &&
+      input.password !== "" 
+    ) {
       dispatch(login(input));
       swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
       setInput({
@@ -44,7 +46,9 @@ export default function NavBarLanding() {
       alert("¡Faltan los elementos necesarios!");
     }
   }
-
+  /* useEffect(() => {
+    dispatch(login())      
+  },[dispatch]) */
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => setShowLogin(true);
 

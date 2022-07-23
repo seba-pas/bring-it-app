@@ -1,6 +1,21 @@
 import axios from "axios";
 
-import { GET_ALL_PRODUCTS, GET_PRODUCTS_DETAIL, POST_USER, POST_PRODUCT, PUT_PRODUCT, POST_BUSINESS, GET_ALL_PRODUCTS_NAME, ORDER_BY_PRICE, GET_CATEGORIES, FILTER_BY_CATEGORY, SET_PRODUCT_DETAIL } from "./actionsTypes";
+
+import {
+  GET_ALL_PRODUCTS,
+  GET_PRODUCTS_DETAIL,
+  POST_USER,
+  POST_PRODUCT,
+  PUT_PRODUCT,
+  POST_BUSINESS,
+  GET_ALL_PRODUCTS_NAME,
+  DELETE_PRODUCT,
+  ORDER_BY_PRICE,
+  GET_CATEGORIES,
+  FILTER_BY_CATEGORY,
+  SET_PRODUCT_DETAIL
+} from "./actionsTypes";
+
 
 
 //Comienzan action PRODUCT
@@ -53,11 +68,9 @@ export const setDetail = () => {
 }
 
 export const addProduct = (body) => {
-
   return async function (dispatch) {
     try {
       const res = await axios.post(`http://localhost:3001/api/product`, body);
-
       return dispatch({
         type: POST_PRODUCT,
         payload: res.data,
@@ -71,7 +84,7 @@ export const addProduct = (body) => {
 export const editProduct = ({ id, body }) => {
   return async function (dispatch) {
     try {
-      const res = await axios.update(
+      const res = await axios.put(
         `http://localhost:3001/api/product/${id}`,
         body
       );
@@ -84,6 +97,23 @@ export const editProduct = ({ id, body }) => {
     }
   };
 };
+export const deleteProduct = (id) => {
+  console.log(id)
+  return async function (dispatch) {
+    try {
+      const res = await axios.delete(
+        `http://localhost:3001/api/product/${id}`
+      );
+      return dispatch({
+        type: DELETE_PRODUCT,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 
 
 //COMIENZA ORDENAMIENTO DE PRODUCTS
@@ -114,18 +144,19 @@ export const filterByCategory = (payload) => {
   }
 }
 
+
 //TERMINA ACTION PRODUCT
 
 //COMIENZA ACTION USER
 
 export const login = (body) => {
+  console.log("login body", body)
   return async function (dispatch) {
     try {
       const res = await axios.post(
         `http://localhost:3001/api/user/login`,
         body
       );
-      console.log(dispatch);
       return dispatch({
         type: POST_LOGIN,
         payload: res.data,
@@ -158,12 +189,12 @@ export function addBusiness(body) {
       let json = await axios.post(`http://localhost:3001/api/business`, body);
       return dispatch({
         type: POST_BUSINESS,
-        payload: [json.data, body.email],   // por ahora cuando registra la empresa envia el email al homebusiness
-        //cuando estea el login esto va a cambiar 
-      })
+        payload: json.data,
+      });
     } catch (error) {
       console.log(error);
     }
   };
 }
+
 

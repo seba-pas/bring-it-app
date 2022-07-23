@@ -30,7 +30,7 @@ function HomeBusiness() {
                 allProducts: gState.allProducts,
             }
         })
-    }, [gState.allProducts]);
+    }, [gState.allProducts, gState.deleteProduct]);
 
     useEffect(() => {
         setInput((prevInput) => {
@@ -231,7 +231,7 @@ function HomeBusiness() {
                             {products?.map(c => {
                                 return (
 
-                                    <ProductCardBusiness id={c.idProduct} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
+                                    <ProductCardBusiness id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
 
 
 
@@ -263,7 +263,7 @@ function HomeBusiness() {
                             {products?.filter(e => e.stock <= 3).map(c => {
                                 return (
 
-                                    <ProductCardBusiness id={c.idProduct} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
+                                    <ProductCardBusiness id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
 
 
                                     // <div key={c.id}>

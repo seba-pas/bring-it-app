@@ -4,10 +4,25 @@ import { addProduct, editProduct } from '../actions';
 import styles from "../styles/ProductManager.module.css"
 function ProductManager(props) {
 
+
     const dispatch = useDispatch();
+    let id = props.match.params.id;
 
+    const gState = useSelector((state) => state);
+    let productsState = gState.allProducts;
+    let productPut = productsState.filter(e => e.id === parseInt(id))
 
-    const [input, setInput] = useState({
+    console.log("props", productPut)
+
+    const [input, setInput] = useState(id ? {
+        name: productPut[0].name,
+        price: productPut[0].price,
+        weight: productPut[0].weight,
+        image: productPut[0].image,
+        stock: productPut[0].stock,
+        description: productPut[0].description,
+        category: "",
+    } : {
         name: "",
         price: 0,
         weight: 0,
@@ -37,8 +52,9 @@ function ProductManager(props) {
                 [event.target.name]: event.target.value,
             }
         });
-
     }
+
+
 
     const validate = () => {
         let errorname = "";
@@ -66,7 +82,9 @@ function ProductManager(props) {
 
 
     }
-    const gState = useSelector((state) => state);
+
+
+
     const handleBack = (event) => {
         event.preventDefault();
         props.history.goBack();
@@ -74,8 +92,18 @@ function ProductManager(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("click")
-        console.log(gState.businessEmail)
+
+        if (id !== undefined) {
+            dispatch(editProduct(id, {
+                name: input.name,
+                price: input.price,
+                weight: input.weight,
+                image: input.image,
+                stock: input.stock,
+                description: input.description,
+                businessEmail: gState.businessEmail,
+            }))
+        }
         dispatch(addProduct({
             name: input.name,
             price: input.price,
@@ -101,6 +129,7 @@ function ProductManager(props) {
                         type="text"
                         name="name"
                         value={input.name}
+                        placeholder="Producto"
                         onChange={handleInputChange}
                     />
                     {/* {!error.errorProduct ? <h3><pre>    {null}                                          </pre></h3> : <h3><pre>          {error.errorProduct}             </pre></h3>} */}
@@ -113,6 +142,7 @@ function ProductManager(props) {
                         type="number"
                         name="price"
                         value={input.price}
+                        placeholder="Precio"
                         onChange={handleInputChange}
                     />
                     {!error.errorPrice ? <label> </label> : <label>          {error.errorPrice}             </label>}
@@ -125,6 +155,7 @@ function ProductManager(props) {
                         type="number"
                         name="weight"
                         value={input.weight}
+                        placeholder="Peso"
                         onChange={handleInputChange}
                     />
                     {!error.errorWeight ? <label></label> : <label>          {error.errorWeight}             </label>}
@@ -136,6 +167,7 @@ function ProductManager(props) {
                         type="number"
                         name="stock"
                         value={input.stock}
+                        placeholder="Stock"
                         onChange={handleInputChange}
                     />
                     {!error.errorStock ? <label> </label> : <label>          {error.errorStock}             </label>}
@@ -148,6 +180,7 @@ function ProductManager(props) {
                         type="text"
                         name="image"
                         value={input.image}
+                        placeholder="Imagen"
                         onChange={handleInputChange}
                     />
 
