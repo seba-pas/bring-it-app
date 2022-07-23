@@ -6,7 +6,7 @@ const initialState = {
   product: {},
   changeProduct: {},
   business: {},
-  product: {},
+  businessEmail: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -31,7 +31,8 @@ export default function rootReducer(state = initialState, action) {
     case "POST_BUSINESS":
       return {
         ...state,
-        business: action.payload,
+        business: action.payload[0],
+        businessEmail: action.payload[1],
       };
     case "POST_PRODUCT":
       return {
@@ -43,6 +44,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         changeProduct: action.payload,
       };
+
     case "POST_LOGIN":
       return {
         ...state,
@@ -109,6 +111,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         products: sortedPrice,
+
       };
 
     default:
