@@ -32,7 +32,7 @@ export const getAllProductsDetail = (id) => {
 };
 
 export const getAllProductsName = (name) => {
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
       const res = await axios(`http://localhost:3001/api/product?name=${name}`);
       return dispatch({
@@ -46,9 +46,11 @@ export const getAllProductsName = (name) => {
 }
 
 export const addProduct = (body) => {
+
   return async function (dispatch) {
     try {
       const res = await axios.post(`http://localhost:3001/api/product`, body);
+
       return dispatch({
         type: POST_PRODUCT,
         payload: res.data,
@@ -72,6 +74,7 @@ export const editProduct = ({ id, body }) => {
     }
   }
 }
+
 
 //TERMINA ACTION PRODUCT
 
@@ -102,7 +105,8 @@ export function addBusiness(body) {
       let json = await axios.post(`http://localhost:3001/api/business`, body);
       return dispatch({
         type: POST_BUSINESS,
-        payload: json.data,
+        payload: [json.data, body.email],   // por ahora cuando registra la empresa envia el email al homebusiness
+        //cuando estea el login esto va a cambiar 
       })
     } catch (error) {
       console.log(error);
@@ -114,8 +118,8 @@ export function addBusiness(body) {
 
 export const orderByName = (payload) => {
   return {
-      type: ORDER_BY_NAME,
-      payload
+    type: ORDER_BY_NAME,
+    payload
   }
 }
 
