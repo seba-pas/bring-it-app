@@ -6,9 +6,10 @@ const initialState = {
   product: {},
   changeProduct: {},
   business: {},
+  businessEmail: "",
+  deleteProduct: "",
   categories: [],
   allCategories: [],
-  businessEmail: ""
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -46,11 +47,30 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         changeProduct: action.payload,
       };
+    case "DELETE_PRODUCT":
+      return {
+        ...state,
+        deleteProduct: action.payload,
+      };
 
     case "POST_LOGIN":
       return {
         ...state,
+        users: action.payload,
         user: action.payload,
+      };
+    case "GET_ALL_PRODUCTS_NAME":
+      if (action.payload.length === 0) {
+        return {
+          ...state,
+          error: "not found",
+        };
+      } else {
+        return {
+          ...state,
+          products: action.payload,
+        };
+      }       
       };
     case 'ORDER_BY_PRICE':
       let sortedPrice = action.payload === 'asc' ?
@@ -94,6 +114,7 @@ export default function rootReducer(state = initialState, action) {
 
 
     case "SET_PRODUCT_DETAIL":
+
       return {
         ...state,
         productsDetail: {},
