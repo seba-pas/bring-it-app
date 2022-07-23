@@ -8,7 +8,11 @@ import {
   POST_BUSINESS,
   GET_ALL_PRODUCTS_NAME,
   DELETE_PRODUCT,
+  ORDER_BY_PRICE,
+  GET_CATEGORIES,
+  FILTER_BY_CATEGORY
 } from "./actionsTypes";
+
 
 //Comienzan action PRODUCT
 export const getAllProducts = () => {
@@ -53,12 +57,16 @@ export const getAllProductsName = (name) => {
   };
 };
 
-export const addProduct = (body) => {
+export const setDetail = () => {
+  return {
+    type: SET_PRODUCT_DETAIL
+  }
+}
 
+export const addProduct = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`http://localhost:3001/api/product`, body);
-
       return dispatch({
         type: POST_PRODUCT,
         payload: res.data,
@@ -103,6 +111,36 @@ export const deleteProduct = (id) => {
 };
 
 
+
+//COMIENZA ORDENAMIENTO DE PRODUCTS
+
+export const orderByPrice = (payload) => {
+  return {
+    type: ORDER_BY_PRICE,
+    payload
+  }
+}
+
+//COMIENZA FILTROS DE PRODUCTS
+
+export const getCategories = () => {
+  return async function(dispatch) {
+      const res = await axios.get('http://localhost:3001/api/category');
+      return dispatch({
+          type: GET_CATEGORIES,
+          payload: res.data
+      })
+    }
+}
+
+export const filterByCategory = (payload) => {
+  return{
+    type: FILTER_BY_CATEGORY,
+    payload
+  }
+}
+
+
 //TERMINA ACTION PRODUCT
 
 //COMIENZA ACTION USER
@@ -115,7 +153,6 @@ export const login = (body) => {
         `http://localhost:3001/api/user/login`,
         body
       );
-      console.log("res", res);
       return dispatch({
         type: POST_LOGIN,
         payload: res.data,
@@ -148,28 +185,12 @@ export function addBusiness(body) {
       let json = await axios.post(`http://localhost:3001/api/business`, body);
       return dispatch({
         type: POST_BUSINESS,
-        payload: [json.data, body.email],   // por ahora cuando registra la empresa envia el email al homebusiness
-        //cuando estea el login esto va a cambiar 
-      })
+        payload: json.data,
+      });
     } catch (error) {
       console.log(error);
     }
   };
 }
 
-//COMIENZA ORDENAMIENTOS
 
-export const orderByName = (payload) => {
-  return {
-    type: ORDER_BY_NAME,
-    payload,
-  };
-};
-
-
-export const orderByPrice = (payload) => {
-  return {
-    type: ORDER_BY_PRICE,
-    payload,
-  };
-};
