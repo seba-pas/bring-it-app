@@ -6,7 +6,7 @@ const initialState = {
   product: {},
   changeProduct: {},
   business: {},
-  product: {},
+  businessEmail: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -31,7 +31,8 @@ export default function rootReducer(state = initialState, action) {
     case "POST_BUSINESS":
       return {
         ...state,
-        business: action.payload,
+        business: action.payload[0],
+        businessEmail: action.payload[1],
       };
     case "POST_PRODUCT":
       return {
@@ -44,66 +45,66 @@ export default function rootReducer(state = initialState, action) {
         changeProduct: action.payload,
       };
     case 'GET_ALL_PRODUCTS_NAME':
-      if(action.payload.length === 0){
-          return {
-              ...state,
-              error: 'not found'
-          }
+      if (action.payload.length === 0) {
+        return {
+          ...state,
+          error: 'not found'
+        }
       } else {
 
-          return {
-              ...state,
-              products: action.payload
-          }
+        return {
+          ...state,
+          products: action.payload
+        }
       };
     case 'ORDER_BY_NAME':
       let sortedArr = action.payload === 'asc' ?
-            state.products.sort(function (a, b) {
-                if(a.name.toLowerCase() > b.name.toLowerCase()) {
-                    return 1;
-                }
-                if(b.name.toLowerCase() > a.name.toLowerCase()) {
-                    return -1;
-                }
-                return 0;
-            }) :
-            state.products.sort(function (a, b) {
-                if(a.name.toLowerCase() > b.name.toLowerCase()) {
-                    return -1;
-                }
-                if(b.name.toLowerCase() > a.name.toLowerCase()) {
-                    return 1;
-                }
-                return 0;
-            })
-            return {
-                ...state,
-                products: sortedArr
-            };
+        state.products.sort(function (a, b) {
+          if (a.name.toLowerCase() > b.name.toLowerCase()) {
+            return 1;
+          }
+          if (b.name.toLowerCase() > a.name.toLowerCase()) {
+            return -1;
+          }
+          return 0;
+        }) :
+        state.products.sort(function (a, b) {
+          if (a.name.toLowerCase() > b.name.toLowerCase()) {
+            return -1;
+          }
+          if (b.name.toLowerCase() > a.name.toLowerCase()) {
+            return 1;
+          }
+          return 0;
+        })
+      return {
+        ...state,
+        products: sortedArr
+      };
     case 'ORDER_BY_PRICE':
       let sortedPrice = action.payload === 'asc' ?
-            state.allProducts.sort(function (a, b) {
-                if(a.price > b.price) {
-                    return 1;
-                }
-                if(b.price > a.price) {
-                    return -1;
-                }
-                return 0;
-            }) :
-            state.allProducts.sort(function (a, b) {
-                if(a.price > b.price) {
-                    return -1;
-                }
-                if(b.price > a.price) {
-                    return 1;
-                }
-                return 0;
-            })
-            return {
-                ...state,
-                products: sortedPrice
-            };
+        state.allProducts.sort(function (a, b) {
+          if (a.price > b.price) {
+            return 1;
+          }
+          if (b.price > a.price) {
+            return -1;
+          }
+          return 0;
+        }) :
+        state.allProducts.sort(function (a, b) {
+          if (a.price > b.price) {
+            return -1;
+          }
+          if (b.price > a.price) {
+            return 1;
+          }
+          return 0;
+        })
+      return {
+        ...state,
+        products: sortedPrice
+      };
 
     default:
       return {
