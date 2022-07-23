@@ -69,10 +69,10 @@ export default function NavBarLanding() {
     if (input.email !== "" && input.password !== "") {
       if (input.type === "users") {
         dispatch(login(input));
-      } else if(input.type === 'business'){
+      } else if (input.type === "business") {
         dispatch(loginBusiness(input));
-      }else{
-        return
+      } else {
+        return;
       }
     } else {
       alert("¡Faltan los elementos necesarios!");
@@ -84,7 +84,11 @@ export default function NavBarLanding() {
       return;
     } else {
       if (user === "Usuario no encontrado") {
-        alert("El usuario no existe");
+        swal(
+          "Usuario no encontrado",
+          "El email parece no estar registrado",
+          "error"
+        );
         setInput({
           email: "",
           password: "",
@@ -92,7 +96,11 @@ export default function NavBarLanding() {
         });
         return;
       } else if (user === "Datos incorrectos") {
-        alert("Datos incorrectos");
+        swal(
+          "Datos incorrectos",
+          "El email o la contraseña no son correctas ",
+          "error"
+        );
         setInput({
           email: "",
           password: "",
@@ -117,7 +125,11 @@ export default function NavBarLanding() {
       return;
     } else {
       if (business === "Usuario no encontrado") {
-        alert("La empresa no existe");
+        swal(
+          "Empresa no encontrada",
+          "La empresa a la que intentas entrar no esta registrada",
+          "error"
+        );
         setInput({
           email: "",
           password: "",
@@ -125,7 +137,11 @@ export default function NavBarLanding() {
         });
         return;
       } else if (business === "Datos incorrectos") {
-        alert("Datos incorrectos");
+        swal(
+          "Datos incorrectos",
+          "El email o la contraseña no son correctas ",
+          "error"
+        );
         setInput({
           email: "",
           password: "",
@@ -220,6 +236,7 @@ export default function NavBarLanding() {
               <Button
                 variant="info"
                 type="submit"
+                className={styles.buttonSubmit}
                 style={{ marginLeft: "33%" }}
               >
                 Iniciar sesion
@@ -242,8 +259,8 @@ export default function NavBarLanding() {
             <Modal.Title>Bienvenido</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div>Como prefieres registrarte:</div>
-            <div>
+            <div className={styles.modalTitle}>Como prefieres registrarte:</div>
+            <div className={styles.buttonModals}>
               <NavLink to="/RegisterBusiness">
                 <Button color="secondary" style={{ marginRight: "20px" }}>
                   Empresa
@@ -255,7 +272,7 @@ export default function NavBarLanding() {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="danger" onClick={handleClose}>
               Close
             </Button>
           </Modal.Footer>

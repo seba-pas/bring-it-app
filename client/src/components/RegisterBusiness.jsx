@@ -93,7 +93,7 @@ function RegisterBusiness() {
         <Form.Group className="mb-3">
           <Form.Label>Confirmar password</Form.Label>
           <Form.Control
-            type="confirmPassword"
+            type="password"
             placeholder="Confirmar password"
             onChange={(e) => handleChange(e)}
             value={input.confirmPassword}
