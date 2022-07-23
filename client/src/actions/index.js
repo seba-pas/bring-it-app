@@ -95,7 +95,6 @@ export const login = (body) => {
         `http://localhost:3001/api/user/login`,
         body
       );
-
       return dispatch({
         type: POST_LOGIN,
         payload: res.data,
