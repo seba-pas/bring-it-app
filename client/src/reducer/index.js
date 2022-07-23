@@ -56,8 +56,12 @@ export default function rootReducer(state = initialState, action) {
     case "POST_LOGIN":
       return {
         ...state,
-        users: action.payload,
         user: action.payload,
+      };
+    case "POST_LOGINBUSINESS":
+      return {
+        ...state,
+        business: action.payload,
       };
     case "GET_ALL_PRODUCTS_NAME":
       if (action.payload.length === 0) {
