@@ -9,10 +9,22 @@ const categoryRoutes = require("./categoryRoutes");
 const businessRoutes = require("./businessRoutes");
 const cityRoutes = require("./cityRoutes");
 const provinceRoutes = require("./provinceRoutes");
-const purchaseRouters = require('./purchaseRoutes');
-const userRoutes = require('./userRoutes');
-const travelRoutes = require('./travelRoutes');
 
+const userRoutes = require('./userRoutes');
+const travelRoutes = require('./travelRoutes'); 
+
+
+
+// const productRoutes = require ("./productRoutes");
+// const categoryRoutes = require ("./categoryRoutes");
+// const businessRoutes = require ("./businessRoutes");
+// const cityRoutes = require ("./cityRoutes");
+// const provinceRoutes = require ("./provinceRoutes");
+
+const purchaseRouters= require('./purchaseRoutes');
+
+// const userRoutes = require ("./userRoutes");
+// const travelRoutes = require ("./travelRoutes");
 
 
 const router = Router();
@@ -28,8 +40,6 @@ router.use('/travel', travelRoutes);
 
 //Configuracion de rutas Purchase
 router.use('/purchase', purchaseRouters);
-
-
 
 //CREATE travel
 router.post('/api/travel', async (req, res) => {
@@ -98,9 +108,9 @@ router.post('/api/user', async (req, res) => {
         }
     }
 
-})
+   });
 
-// router.use ('/purchase', purchaseRoutes);
+
 
 
    module.exports = router;
