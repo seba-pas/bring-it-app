@@ -19,10 +19,8 @@ export default function HomePersonas() {
   const CATEGORY = useSelector((state => state.categories));
   const [orden, setOrden] = useState('');
 
-
-  console.log(PRODUCTS)
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(2);
+  const [productsPerPage, setProductsPerPage] = useState(1);
   const indexOfLastProduct = currentPage * productsPerPage; // 10
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
   const currentProducts = PRODUCTS.slice(
@@ -104,7 +102,7 @@ function handleFilterByCategory(e){
             PRODUCTS={PRODUCTS.length}
             paginado={paginado}
           />
-          <ProductCards currentProducts={PRODUCTS} />
+          <ProductCards currentProducts={currentProducts} />
         </div>
       ) : (
         <div className={styles.spinner}>
