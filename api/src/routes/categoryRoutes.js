@@ -17,13 +17,14 @@ router.post('/', async (req,res) => {
 
 //GET Category
 // http://localhost:3001/api/category
-router.get('/', (req,res) => {        
+router.get('/', (req,res) => {    
     try {
         return getCategory().then(category => 
-            typeof category === "object" ? res.json(category) : res.status(404).json(category));
-    } catch (error) {
-        return res.send(error);
-    }
+            typeof category === "object" ? res.status(200).json(category) : res.status(404).json(category));
+            
+        } catch (error) {
+            return res.send(error);
+        }
 });
 
 module.exports = router;

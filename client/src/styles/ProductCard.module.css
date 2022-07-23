@@ -16,6 +16,7 @@
 }
 
 .container img {
+  margin: 10px;
   width: auto;
   height: 40%;
 
@@ -39,6 +40,7 @@
 
 }
 .empresa {
+  text-decoration: none;
   margin-top: 0px;
   font-size: 18px;
   float: right;
