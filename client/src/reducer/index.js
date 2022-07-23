@@ -7,6 +7,7 @@ const initialState = {
   changeProduct: {},
   business: {},
   businessEmail: "",
+  deleteProduct: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -44,6 +45,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         changeProduct: action.payload,
       };
+    case "DELETE_PRODUCT":
+      return {
+        ...state,
+        deleteProduct: action.payload,
+      };
 
     case "POST_LOGIN":
       return {
@@ -66,23 +72,23 @@ export default function rootReducer(state = initialState, action) {
       let sortedArr =
         action.payload === "asc"
           ? state.products.sort(function (a, b) {
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                return 1;
-              }
-              if (b.name.toLowerCase() > a.name.toLowerCase()) {
-                return -1;
-              }
-              return 0;
-            })
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+              return 1;
+            }
+            if (b.name.toLowerCase() > a.name.toLowerCase()) {
+              return -1;
+            }
+            return 0;
+          })
           : state.products.sort(function (a, b) {
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                return -1;
-              }
-              if (b.name.toLowerCase() > a.name.toLowerCase()) {
-                return 1;
-              }
-              return 0;
-            });
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+              return -1;
+            }
+            if (b.name.toLowerCase() > a.name.toLowerCase()) {
+              return 1;
+            }
+            return 0;
+          });
       return {
         ...state,
         products: sortedArr,
@@ -91,23 +97,23 @@ export default function rootReducer(state = initialState, action) {
       let sortedPrice =
         action.payload === "asc"
           ? state.allProducts.sort(function (a, b) {
-              if (a.price > b.price) {
-                return 1;
-              }
-              if (b.price > a.price) {
-                return -1;
-              }
-              return 0;
-            })
+            if (a.price > b.price) {
+              return 1;
+            }
+            if (b.price > a.price) {
+              return -1;
+            }
+            return 0;
+          })
           : state.allProducts.sort(function (a, b) {
-              if (a.price > b.price) {
-                return -1;
-              }
-              if (b.price > a.price) {
-                return 1;
-              }
-              return 0;
-            });
+            if (a.price > b.price) {
+              return -1;
+            }
+            if (b.price > a.price) {
+              return 1;
+            }
+            return 0;
+          });
       return {
         ...state,
         products: sortedPrice,

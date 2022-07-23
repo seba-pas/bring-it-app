@@ -9,4 +9,5 @@ export const ORDER_BY_NAME = 'ORDER_BY_NAME';
 export const ORDER_BY_PRICE = 'ORDER_BY_PRICE';
 export const POST_LOGIN = 'POST_LOGIN';
 export const GET_PRODUCTS_BUSINESS = 'GET_PRODUCTS_BUSINESS';
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 

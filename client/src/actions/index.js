@@ -7,6 +7,7 @@ import {
   PUT_PRODUCT,
   POST_BUSINESS,
   GET_ALL_PRODUCTS_NAME,
+  DELETE_PRODUCT,
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -71,12 +72,28 @@ export const addProduct = (body) => {
 export const editProduct = ({ id, body }) => {
   return async function (dispatch) {
     try {
-      const res = await axios.update(
+      const res = await axios.put(
         `http://localhost:3001/api/product/${id}`,
         body
       );
       return dispatch({
         type: PUT_PRODUCT,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const deleteProduct = (id) => {
+  console.log(id)
+  return async function (dispatch) {
+    try {
+      const res = await axios.delete(
+        `http://localhost:3001/api/product/${id}`
+      );
+      return dispatch({
+        type: DELETE_PRODUCT,
         payload: res.data,
       });
     } catch (error) {
@@ -91,13 +108,14 @@ export const editProduct = ({ id, body }) => {
 //COMIENZA ACTION USER
 
 export const login = (body) => {
+  console.log("login body", body)
   return async function (dispatch) {
     try {
       const res = await axios.post(
         `http://localhost:3001/api/user/login`,
         body
       );
-      console.log(dispatch);
+      console.log("res", res);
       return dispatch({
         type: POST_LOGIN,
         payload: res.data,
