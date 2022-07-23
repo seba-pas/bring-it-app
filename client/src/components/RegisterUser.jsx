@@ -103,7 +103,7 @@ function RegisterUser() {
   return (
     <div className={style.divContainer}>
       <NavBarRegisters />
-      <Form onSubmit={(e) => handleSubmit(e)}>
+      <Form onSubmit={(e) => handleSubmit(e)} className={style.forms}>
         <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -119,7 +119,7 @@ function RegisterUser() {
         <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            type="text"
+            type="password"
             placeholder="Password"
             onChange={(e) => handleChange(e)}
             value={input.password}
@@ -131,7 +131,7 @@ function RegisterUser() {
         <Form.Group className="mb-3">
           <Form.Label>Confirmar password</Form.Label>
           <Form.Control
-            type="confirmPassword"
+            type="password"
             placeholder="Confirmar password"
             onChange={(e) => handleChange(e)}
             value={input.confirmPassword}
@@ -189,7 +189,7 @@ function RegisterUser() {
           ))}
         </Form.Select> */}
 
-        <Button variant="primary" className="mt-5" type="submit">
+        <Button variant="primary" className="mt-3 mb-5" type="submit">
           Submit
         </Button>
       </Form>

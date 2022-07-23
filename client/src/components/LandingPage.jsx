@@ -66,7 +66,7 @@ export default function LandingPage() {
               className="mb-3"
               justify
             >
-              <Tab eventKey="home" title="Para compradores">
+              <Tab eventKey="home" title="Compradores">
                 <h3>
                   Grabr es la mejor manera de comprar productos que no están
                   disponibles o son muy caros en tu país. Puedes pedir
@@ -155,7 +155,7 @@ export default function LandingPage() {
                   </div>
                 </div>
               </Tab>
-              <Tab eventKey="profile" title="Para viajeros">
+              <Tab eventKey="profile" title="Viajeros">
                 <h3>
                   Financia tu viaje cada vez que viajes con Grabr. Nuestros
                   viajeros normalmente entregan un puñado de artículos y ganan
