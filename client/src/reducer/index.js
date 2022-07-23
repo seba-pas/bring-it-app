@@ -50,7 +50,7 @@ export default function rootReducer(state = initialState, action) {
     case "POST_LOGIN":
       return {
         ...state,
-        users: action.payload,
+        user: action.payload,
       };
     case 'ORDER_BY_PRICE':
       let sortedPrice = action.payload === 'asc' ?
