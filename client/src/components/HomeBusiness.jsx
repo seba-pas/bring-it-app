@@ -4,32 +4,42 @@ import styles from "../styles/HomeBusiness.module.css"
 import SoldProductCard from './SoldProductCard';
 import ProductCardBusiness from './ProductCardBusiness';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBusiness } from '../actions';
+import { addBusiness, getAllProducts, getProductBusiness } from '../actions';
 
 function HomeBusiness() {
 
     const gState = useSelector((state) => state);
     const dispatch = useDispatch();
-    const user = {
-        email: "wfDD@gmail.com",
-        password: "123456",
-        businessName: "bring it app",
-        cuit: "asd",
-        taxBracket: "Categoría tributaria 1",
-        logo: "21213132asdfadfa",
-        province: "Buenos Aires",
-        address: "1213213"
-    }
+
 
     useEffect(() => {
-        dispatch(addBusiness(user));
-
+        dispatch(getAllProducts());
     }, [dispatch]);
 
     const [input, setInput] = useState({
 
-        perfil: ""
+        perfil: "",
+        allProducts: [],
+
     });
+
+    useEffect(() => {
+        setInput((prevInput) => {
+            return {
+                ...prevInput,
+                allProducts: gState.allProducts,
+            }
+        })
+    }, [gState.allProducts]);
+
+    useEffect(() => {
+        setInput((prevInput) => {
+            return {
+                ...prevInput,
+                businessEmailState: gState.businessEmail,
+            }
+        })
+    }, [gState.businessEmail]);
 
     const handleOnChange = (event) => {
         event.preventDefault();
@@ -41,6 +51,11 @@ function HomeBusiness() {
             }
         });
     }
+
+
+    let products = input.allProducts.filter(e => e.businessEmail === input.businessEmailState);
+    console.log("all", input.allProducts)
+    console.log("state", input.businessEmailState)
 
     let soldProducts = [
         {
@@ -137,85 +152,7 @@ function HomeBusiness() {
     ]
 
 
-    let products = [
-        {
-            id: 0,
-            name: "zapatos",
-            amount: 35,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 1,
-            name: "vinos",
-            amount: 2,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 2,
-            name: "cerveza",
-            amount: 1,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 3,
-            name: "reloj",
-            amount: 35,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 4,
-            name: "cadena",
-            amount: 3,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 5,
-            name: "pantalon",
-            amount: 10,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 6,
-            name: "audifonos",
-            amount: 17,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 7,
-            name: "guitarra",
-            amount: 8,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 8,
-            name: "libro",
-            amount: 1,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 9,
-            name: "camara",
-            amount: 11,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-        {
-            id: 10,
-            name: "teclado",
-            amount: 18,
-            description: "assdd",
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-        },
-    ]
+
     return (
 
         <div className={styles.home} >
@@ -291,10 +228,10 @@ function HomeBusiness() {
                         </thead>
                         <tbody>
 
-                            {products.map(c => {
+                            {products?.map(c => {
                                 return (
 
-                                    <ProductCardBusiness id={c.id} image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
+                                    <ProductCardBusiness id={c.idProduct} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
 
 
 
@@ -323,10 +260,10 @@ function HomeBusiness() {
                         </thead>
                         <tbody>
 
-                            {products.filter(e => e.amount <= 3).map(c => {
+                            {products?.filter(e => e.stock <= 3).map(c => {
                                 return (
 
-                                    <ProductCardBusiness id={c.id} image={c.productImage} productName={c.name} amount={c.amount} description={c.description} />
+                                    <ProductCardBusiness id={c.idProduct} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
 
 
                                     // <div key={c.id}>

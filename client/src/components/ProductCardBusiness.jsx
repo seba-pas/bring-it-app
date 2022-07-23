@@ -6,9 +6,9 @@ import { NavLink } from 'react-router-dom';
 
 
 function ProductCardBusiness({ id, image, productName, amount, description }) {
+    if (!image) image = "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg"
     const handleClick = (event) => {
         event.preventDefault();
-
 
     }
     return (

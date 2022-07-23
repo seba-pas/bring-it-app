@@ -1,6 +1,8 @@
 
 
 .infopagos {
+  display: grid;
+  grid-row: 1/3;
   background-color: rgba(53, 142, 183, 0.250
   );
   color: black;
