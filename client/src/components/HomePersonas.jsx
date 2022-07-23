@@ -23,7 +23,7 @@ export default function HomePersonas() {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(4);
   const indexOfLastProduct = currentPage * productsPerPage; // 10
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
   const currentProducts = PRODUCTS.slice(
@@ -67,35 +67,13 @@ export default function HomePersonas() {
     <div>
       <NavBar />
 
-      {/* <button onClick={(e) => handleClick(e)}>Volver</button> */}
-
-      {/* <div>
-        <select onChange={e => handleSort(e)}>
-          <option hidden value="Precios">Precios</option>
-          <option value="asc">Menor a Mayor</option>
-          <option value="desc">Mayor a Menor</option>
-        </select>
-      </div>
-
-      <div>
-        <select onChange={(e) => handleFilterByCategory(e)} >
-          <option value="All">Todas</option>
-          {
-            CATEGORY.map((CATEGORY) => (
-              <option value={CATEGORY.name} key={CATEGORY.id}>
-                {CATEGORY.name}
-              </option>
-            ))}
-          
-        
-        </select>
-      </div>  */}
+     
 
       {PRODUCTS.length > 0 ? (
         <div className={styles.containerCards}>
           <Pagination
             productsPerPage={productsPerPage}
-            PRODUCTS={PRODUCTS.length}
+            PRODUCTS={currentProducts.length}
             paginado={paginado}
           />
 
