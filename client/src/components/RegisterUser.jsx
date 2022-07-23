@@ -66,9 +66,13 @@ function RegisterUser() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    if(input.password !== input.confirmPassword){
-      alert('Las contraseñas no coinciden')
-      return
+    if (input.password !== input.confirmPassword) {
+      swal(
+        "Las contraseñas no coinciden",
+        "Por favor vuelva a ingresar su contraseña",
+        "error"
+      );
+      return;
     }
     if (
       input.email !== "" &&
@@ -89,7 +93,11 @@ function RegisterUser() {
       });
       history.push("/persona");
     } else {
-      alert("¡Faltan los elementos necesarios!");
+      swal(
+        "Faltan datos por llenar",
+        "Por favor ingrese todos los datos",
+        "error"
+      );
     }
   }
   return (
