@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
 import swal from "sweetalert";
 import Form from "react-bootstrap/Form";
-
+import { login } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 //seba
@@ -31,23 +31,14 @@ export default function NavBarLanding() {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(login(input))
     if (input.email !== "" && input.password !== "") {
-      // dispatch(createLogin(input));
+      dispatch(login(input));
       swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
       setInput({
         email: "",
         password: "",
-        empresa:false,
-        usuario: true,  
       });
-      // if (user !== true) {
-      //   history.push("/empresas");
-      // } else {
-      //   history.push("/persona");
-      // }
-      //Aca hacer una logica, si el mail esta creado con empresa
-      //
-      //Si el mail figura para un usuario history.push("/persona")
       history.push("/empresas");
     } else {
       alert("¡Faltan los elementos necesarios!");
