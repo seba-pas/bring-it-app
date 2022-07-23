@@ -31,7 +31,7 @@ export const ProductDetail = () => {
         <h1>${product.price}</h1>
         <h4>PESO: {product.weight}</h4>
         <h4>Descripcion: {product.description}</h4>
-        {/* <h1>by: {product.business? product.business: 'No tiene Empresa asociada'}</h1> */}
+        <h1>by: {product.business? product.business.businessName: 'No tiene Empresa asociada'}</h1>
         <h4>Categoria: {product.categories? product.categories[0].name : 'No tiene categoría'} </h4>
         <button>Agregar al Carrito</button>
         <button>Comprar</button>

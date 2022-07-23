@@ -15,6 +15,7 @@ export default function ProductCards({ currentProducts }) {
           description={el.description}
           image={el.image}
           id={el.id}
+          businessName={el.businessName}
 
         />
       ))}

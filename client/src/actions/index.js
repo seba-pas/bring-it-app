@@ -13,7 +13,12 @@ import {
   ORDER_BY_PRICE,
   GET_CATEGORIES,
   FILTER_BY_CATEGORY,
-  SET_PRODUCT_DETAIL
+  SET_PRODUCT_DETAIL,
+  // GET_CITIES,
+  // FILTER_BY_CITIES,
+  GET_ALL_BUSINESS,
+  FILTER_BY_BUSINESS
+
 } from "./actionsTypes";
 
 
@@ -140,6 +145,42 @@ export const getCategories = () => {
 export const filterByCategory = (payload) => {
   return{
     type: FILTER_BY_CATEGORY,
+    payload
+  }
+}
+
+// export const getCities = () => {
+//   return async function(dispatch){
+//     const res = await axios('http://localhost:3001/api/city');
+//     debugger;
+//     console.log(res)
+//     return dispatch({
+//       type: GET_CITIES,
+//       payload: res.data
+//     })
+//   }
+// }
+
+// export const filterByCities = (payload) => {
+//   return{
+//     type: FILTER_BY_CITIES,
+//     payload
+//   }
+// }
+
+export const getAllBusiness = () => {
+  return async function(dispatch){
+    const res = await axios('http://localhost:3001/api/business');
+    return(dispatch)({
+      type: GET_ALL_BUSINESS,
+      payload: res.data
+    })
+  }
+}
+
+export const filterByBusiness = (payload) => {
+  return{
+    type: FILTER_BY_BUSINESS,
     payload
   }
 }

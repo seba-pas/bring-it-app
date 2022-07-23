@@ -13,12 +13,16 @@ import {
   orderByPrice,
   filterByCategory,
   getCategories,
+  getAllBusiness,
+  filterByBusiness
 } from "../actions";
+
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products);
-  const CATEGORY = useSelector((state) => state.categories);
+  const BUSINESS = useSelector((state) => state.business2);
+  const CATEGORY = useSelector((state => state.categories))
   const [orden, setOrden] = useState("");
 
 
@@ -38,6 +42,7 @@ export default function HomePersonas() {
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getCategories());
+    dispatch(getAllBusiness());
   }, [dispatch]);
 
   //funcion para volver a cargar los productos
@@ -60,6 +65,14 @@ export default function HomePersonas() {
     e.preventDefault();
     setCurrentPage(1);
     dispatch(filterByCategory(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+
+  //funcion para filtrar por empresas
+  function handleFilterByBusiness(e){
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(filterByBusiness(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
 
@@ -117,6 +130,20 @@ export default function HomePersonas() {
                 </option>
               ))}
             </select>
+            
+            <select onChange={(e) => handleFilterByBusiness(e)}>
+              <option value="All">Todas</option>
+              {/* {console.log(BUSINESS)} */}
+              {BUSINESS.map((BUSINESS) => {
+                return(
+                <option value={BUSINESS.businessName} key={BUSINESS.email}>
+                  {BUSINESS.businessName}
+                  {/* {console.log(BUSINESS.businessName)} */}
+                </option>
+                  
+                )
+              })}
+              </select>
           </div>
 
           <ProductCards currentProducts={currentProducts} />
