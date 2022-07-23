@@ -6,13 +6,12 @@ const router = Router();
 //POST / CREATE Travel
 // http://localhost:3001/api/travel
 router.post('/', async(req,res) => {
-    const { id, UserEmail, TravelProvince, TravelCity, ArrivalProvince, ArrivalCity, startDate, ArrivalDate} = req.body ; 
+    const {UserEmail, TravelProvince, TravelCity, ArrivalProvince, ArrivalCity, startDate, ArrivalDate} = req.body ; 
     if (!UserEmail || !TravelProvince || !TravelCity || !ArrivalProvince || !ArrivalCity || !startDate || !ArrivalDate) {
         res.status(404).send('Faltan datos para crear el viaje')
     } else {
         try{
             const newTravel = await Travel.create({
-                id,
                UserEmail,
                TravelProvince, 
                TravelCity, 

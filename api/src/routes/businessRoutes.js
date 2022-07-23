@@ -31,7 +31,7 @@ router.put('/:email', async(req,res) => {
 })
 
 //POST para ingreso de usuario
-// http://localhost:3001/api/user/login
+// http://localhost:3001/api/business/login
 router.post('/login', async(req,res) => {
     try {
         const {email, password} = req.body;
