@@ -9,6 +9,7 @@ export default function ProductCard({
   price,
   empresa,
   province,
+  id
 }) {
   return (
     <div className={styles.container}>
@@ -22,9 +23,9 @@ export default function ProductCard({
           <h3 className={styles.name}>{name}</h3>
           <h1 className={styles.price}>${price}</h1>
           <p className={styles.description}>{description}</p>
-          <a className={styles.empresa}>
+          <p className={styles.empresa}>
             by {empresa} <br />({province})
-          </a>
+          </p>
         </div>
       </Link>
     </div>

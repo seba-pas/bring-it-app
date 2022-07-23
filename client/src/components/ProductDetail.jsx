@@ -9,20 +9,27 @@ export const ProductDetail = () => {
   const dispatch = useDispatch();
   const productDetail = useSelector((state) => state.productsDetail);
 
+  
+
   const { id } = useParams();
 
   useEffect(() => {
+    
     dispatch(getAllProductsDetail(id));
-    return () => {
-      dispatch(setDetail());
-    };
+    dispatch(console.log(productDetail) ) 
+    // return () => {
+    //   dispatch(setDetail());
+    // };
   }, [dispatch, id]);
+  
+  
+    
 
-  console.log(productDetail)
-
+  
   return (
-     <div>
-        ProductDetail
+    
+    <div>
+         ProductDetail
 
 
      </div>

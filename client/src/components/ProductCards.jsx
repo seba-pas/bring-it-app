@@ -14,7 +14,7 @@ export default function ProductCards({ currentProducts }) {
           weight={el.weight}
           description={el.description}
           image={el.image}
-          id={el.productId}
+          id={el.id}
         />
       ))}
     </div>
