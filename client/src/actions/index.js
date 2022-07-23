@@ -7,6 +7,7 @@ import {
   PUT_PRODUCT,
   POST_BUSINESS,
   GET_ALL_PRODUCTS_NAME,
+  SET_PRODUCT_DETAIL
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -51,6 +52,12 @@ export const getAllProductsName = (name) => {
     }
   };
 };
+
+export const setDetail = () => {
+  return {
+    type: SET_PRODUCT_DETAIL
+  }
+}
 
 export const addProduct = (body) => {
 

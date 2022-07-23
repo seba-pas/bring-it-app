@@ -111,9 +111,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         products: sortedPrice,
-
       };
-
+    case "SET_PRODUCT_DETAIL":
+      return {
+        ...state,
+        productsDetail: {},
+      };
     default:
       return {
         ...state,
