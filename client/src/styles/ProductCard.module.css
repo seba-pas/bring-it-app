@@ -1,4 +1,7 @@
-
+.card {
+  display:flex;
+  justify-content: center;
+}
 .container {
   margin-top: 100px;
   padding-top: 10px;
@@ -8,7 +11,7 @@
   transition: width 0.8s ease;
   width: 18%;
   height: 515px;
-  /* border-radius: 15px; */
+ 
   margin: 50px;
   justify-content: center;
   border: none;
@@ -18,8 +21,8 @@
 
 .container img {
   margin: 10px;
-  width: auto;
-  height: 40%;
+  width: 80%;
+  height: auto;
 
 
 }
