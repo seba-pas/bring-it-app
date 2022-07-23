@@ -1,5 +1,5 @@
 const { Router } = require ("express");
-const { addBusiness } = require ('../controllers/businessControllers');
+const { addBusiness, getBusiness } = require ('../controllers/businessControllers');
 const {Business} = require('./../db');
 const router = Router();
 
@@ -47,5 +47,19 @@ router.post('/login', async(req,res) => {
         res.status(404).send(`error:${e.message}`)
     }
 })
+
+
+//GET Business para traer todas las empresas con opcion a query name
+// http://localhost:3001/api/business
+router.get('/', (req,res) => {
+    const {name} = req.query;
+    console.log(`search: ${name}`);
+    try {
+        return getBusiness(name).then(business => 
+            typeof business === "object" ? res.json(business) : res.status(404).json(business));
+    } catch (error) {
+        return res.send(error);
+    }
+});
 
 module.exports = router;

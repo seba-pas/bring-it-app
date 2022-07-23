@@ -57,7 +57,8 @@ async function getProductsByName (name){
                 name: {                    
                     [Op.iLike]: `%${name}%`,
                 }
-            }
+            },
+            include: [{model: Business}, {model: Category}]
         });
         return foundProductsName;
     } catch (error) {
