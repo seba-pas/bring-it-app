@@ -9,22 +9,22 @@ const categoryRoutes = require("./categoryRoutes");
 const businessRoutes = require("./businessRoutes");
 const cityRoutes = require("./cityRoutes");
 const provinceRoutes = require("./provinceRoutes");
-const purchaseRouters = require('./purchaseRoutes');
+
 const userRoutes = require('./userRoutes');
-const travelRoutes = require('./travelRoutes');
+const travelRoutes = require('./travelRoutes'); 
 
 
 
-const productRoutes = require ("./productRoutes");
-const categoryRoutes = require ("./categoryRoutes");
-const businessRoutes = require ("./businessRoutes");
-const cityRoutes = require ("./cityRoutes");
-const provinceRoutes = require ("./provinceRoutes");
+// const productRoutes = require ("./productRoutes");
+// const categoryRoutes = require ("./categoryRoutes");
+// const businessRoutes = require ("./businessRoutes");
+// const cityRoutes = require ("./cityRoutes");
+// const provinceRoutes = require ("./provinceRoutes");
 
 const purchaseRouters= require('./purchaseRoutes');
 
-const userRoutes = require ("./userRoutes");
-const travelRoutes = require ("./travelRoutes");
+// const userRoutes = require ("./userRoutes");
+// const travelRoutes = require ("./travelRoutes");
 
 
 const router = Router();

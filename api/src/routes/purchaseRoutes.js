@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {Purchase, User} = require('../db');
+const {Purchase, User, Product} = require('../db');
 const {getPurchase} = require( '../controllers/purchaseControllers');
 
 const router = Router();
@@ -86,56 +86,28 @@ router.get ('/', async (req, res)=>{
 router.post('/', async (req, res)=>{
     try {
         let {
-            // id,
-            // email,
+            idProduct,
             totalPrice,
             waitingTime,
-            arrivalCity
+            arrivalCity,
+            userEmail
         }= req.body;
 
         const createdPurchase = await Purchase.create({
-            // id,
             totalPrice,
             waitingTime,
-            arrivalCity
+            arrivalCity,
+            userEmail,
         });
-        // await createdPurchase.addUser(email);
-        // await createdPurchase.addProduct(id);
+        await createdPurchase.addProduct(idProduct);
 
         res.status(200).send('Purchase completed');
         
     } catch (error) {
-        res.status(404).send(error.message)
+        res.status(400).send(error.message)
     }
 
 });
-
-
-
-// POST PURCHASES
-router.post('/', async (req, res)=>{
-    const { totalPrice, waitingTime, arrivalCity } = req.body;
-
-    try {
-        const createdPurchase = await Purchase.create({
-            // id,
-            totalPrice,
-            waitingTime,
-            arrivalCity
-        });
-        // await createdPurchase.addUser(email);
-        // await createdPurchase.addProduct(id=idProduct);
-
-        res.status(200).send('Purchase completed');
-        
-    } catch (error) {
-        res.status(404).send(`Error at postPurchase route: ${error}`);
-    }
-
-});
-
-
-
 
 // UPDATE
 
