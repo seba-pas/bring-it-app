@@ -14,7 +14,7 @@ export default function Pagination({productsPerPage, PRODUCTS, paginado}) {
         <div></div>:
             (pageNumbers.map(num => {
                 return(
-                    <div key={num}>
+                    <div className={styles.containerB} key={num}>
                         <button onClick={() => paginado(num)}>{num}</button>
                     </div>
                 )

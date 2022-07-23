@@ -6,21 +6,22 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
 
-
 import { SpinnerCircularFixed } from "spinners-react";
 
-
-
-import { getAllProducts, orderByPrice, filterByCategory, getCategories } from "../actions";
+import {
+  getAllProducts,
+  orderByPrice,
+  filterByCategory,
+  getCategories,
+} from "../actions";
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
-  const PRODUCTS = useSelector((state => state.products));
-  const CATEGORY = useSelector((state => state.categories));
-  const [orden, setOrden] = useState('');
+  const PRODUCTS = useSelector((state) => state.products);
+  const CATEGORY = useSelector((state) => state.categories);
+  const [orden, setOrden] = useState("");
 
-
-  console.log(PRODUCTS)
+  console.log(PRODUCTS);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(2);
   const indexOfLastProduct = currentPage * productsPerPage; // 10
@@ -34,47 +35,41 @@ export default function HomePersonas() {
     setCurrentPage(pageNumber);
   };
 
+  useEffect(() => {
+    dispatch(getAllProducts());
+    dispatch(getCategories());
+  }, [dispatch]);
 
+  //funcion para volver a cargar los productos
+  function handleClick(e) {
+    e.preventDefault();
+    dispatch(getAllProducts());
+    setCurrentPage(1);
+  }
 
-useEffect(() => {
-  dispatch(getAllProducts())   
-  dispatch(getCategories())   
-},[dispatch])
+  //funcion para ordenar los precios
+  function handleSort(e) {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(orderByPrice(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+  }
 
-
-//funcion para volver a cargar los productos
-function handleClick(e){
-  e.preventDefault();
-  dispatch(getAllProducts());
-  setCurrentPage(1);
-}
-
-//funcion para ordenar los precios
-function handleSort(e){
-  e.preventDefault();
-  setCurrentPage(1);
-  dispatch(orderByPrice(e.target.value));
-  setOrden(`Ordenado ${e.target.value}`);
-}
-
-//funcion para filtrar por precios
-function handleFilterByCategory(e){
-  e.preventDefault();
-  setCurrentPage(1);
-  dispatch(filterByCategory(e.target.value));
-  setOrden(`Ordenado ${e.target.value}`);
-}
-
-
+  //funcion para filtrar por precios
+  function handleFilterByCategory(e) {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(filterByCategory(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+  }
 
   return (
     <div>
       <NavBar />
 
-
       {/* <button onClick={(e) => handleClick(e)}>Volver</button> */}
 
-      <div>
+      {/* <div>
         <select onChange={e => handleSort(e)}>
           <option hidden value="Precios">Precios</option>
           <option value="asc">Menor a Mayor</option>
@@ -94,8 +89,7 @@ function handleFilterByCategory(e){
           
         
         </select>
-      </div> 
-  
+      </div>  */}
 
       {PRODUCTS.length > 0 ? (
         <div className={styles.containerCards}>
@@ -104,7 +98,26 @@ function handleFilterByCategory(e){
             PRODUCTS={PRODUCTS.length}
             paginado={paginado}
           />
-          <ProductCards currentProducts={PRODUCTS} />
+
+          <div className={styles.containerS}>
+            <select onChange={(e) => handleSort(e)}>
+              <option hidden value="Precios">
+                Precios
+              </option>
+              <option value="asc">Menor a Mayor</option>
+              <option value="desc">Mayor a Menor</option>
+            </select>
+          
+            <select onChange={(e) => handleFilterByCategory(e)}>
+              <option value="All">Todas</option>
+              {CATEGORY.map((CATEGORY) => (
+                <option value={CATEGORY.name} key={CATEGORY.id}>
+                  {CATEGORY.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <ProductCards currentProducts={currentProducts} />
         </div>
       ) : (
         <div className={styles.spinner}>

@@ -1,18 +1,43 @@
-
 .spinner {
-display: flex;
-justify-content: center;
-align-content: center;
-height: 400px;
-width: auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 400px;
+  width: auto;
+}
+.containerS {
+  margin-top: 0px;
+  font-family: "Montserrat", sans-serif;
+
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
+select {
+  background-color: white;
+  color: #41d4cf ;
+  border: 3px solid #41d4cf;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 15px;
+  height: 40px;
+  width: 130px;
+}
+
+option {
+  font-family: "Montserrat", sans-serif;
+
+}
+.containerS select:hover {
+  transition: background-color 1s ease;
+  background-color: #41d4cf; /* Green */
+  color: white;
+}
 
 .infopagos {
   display: grid;
   grid-row: 1/3;
-  background-color: rgba(53, 142, 183, 0.250
-  );
+  background-color: rgba(53, 142, 183, 0.25);
   color: black;
 }
-
