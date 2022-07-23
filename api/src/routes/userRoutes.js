@@ -64,7 +64,7 @@ router.get("/:email", async (req, res) => {
   }
 });
 
-//POST / para ingreso de usuario
+//POST / LOG IN para ingreso de usuario
 // http://localhost:3001/api/user/login
 router.post("/login", async (req, res) => {
   try {

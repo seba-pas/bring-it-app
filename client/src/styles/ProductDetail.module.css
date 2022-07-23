@@ -2,3 +2,40 @@ img {
     height: 200px;
     width: auto;
 }
+
+.contAll {
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    display: flex;
+    width: 90%;
+    justify-content: space-evenly;
+    
+}
+
+.contImg {
+    width: 50%;
+}
+
+.contDetail {
+    border-radius: 10px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    height: 40%;
+    align-content:flex-start;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.120), 0 8px 16px 0 rgba(0, 0, 0, 0.120);
+
+    
+    justify-content: left;
+    width: 50%;
+    border: none;
+}
+
+.spinner {
+    display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 400px;
+  width: auto;
+}

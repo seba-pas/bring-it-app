@@ -31,17 +31,17 @@ router.put('/:email', async(req,res) => {
 })
 
 //POST para ingreso de usuario
-// http://localhost:3001/api/user/login
+// http://localhost:3001/api/business/login
 router.post('/login', async(req,res) => {
     try {
         const {email, password} = req.body;
         const businessLogin = await Business.findByPk(email);
         if (!businessLogin) { 
-        res.status(404).send('Usuario no encontrado') 
+        res.send('Usuario no encontrado') 
     } else {
         if (businessLogin.email === email && businessLogin.password === password) {
-             res.status(201).send('Datos correctos')
-        } else { res.status(404).send('Datos incorrectos')}
+             res.status(201).json(businessLogin)
+        } else { res.send('Datos incorrectos')}
     }
     } catch (error) {
         res.status(404).send(`error:${e.message}`)

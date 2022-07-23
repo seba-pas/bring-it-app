@@ -52,6 +52,8 @@ router.put('/:id', async(req,res) => {
         const q = await Product.update(modification, {
             where: {id: id}
         });
+        const foundProduct = await Product.findByPk(id);
+        await foundProduct.setCategories(modification.categoryId)
         res.status(201).send(`${q} Productos modificados`)
     } catch (e) {
        res.send('error:'+ e.message)

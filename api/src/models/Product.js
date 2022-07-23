@@ -29,7 +29,8 @@ module.exports = (sequelize) => {
       },
       stock: {
         type: DataTypes.INTEGER,
-        allowNull: false // poner default value 0 
+        allowNull: true,
+        defaultValue: 0 // poner default value 0 
       },
       description: {
         type: DataTypes.TEXT,

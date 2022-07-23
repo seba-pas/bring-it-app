@@ -8,6 +8,8 @@ import {
   POST_PRODUCT,
   PUT_PRODUCT,
   POST_BUSINESS,
+  POST_LOGIN,
+  POST_LOGINBUSINESS,
   GET_ALL_PRODUCTS_NAME,
   DELETE_PRODUCT,
   ORDER_BY_PRICE,
@@ -238,4 +240,21 @@ export function addBusiness(body) {
   };
 }
 
+export const loginBusiness = (body) => {
+  console.log("login body", body)
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(
+        `http://localhost:3001/api/business/login`,
+        body
+      );
+      return dispatch({
+        type: POST_LOGINBUSINESS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 

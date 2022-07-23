@@ -9,6 +9,7 @@ const categoryRoutes = require("./categoryRoutes");
 const businessRoutes = require("./businessRoutes");
 const cityRoutes = require("./cityRoutes");
 const provinceRoutes = require("./provinceRoutes");
+const cartRoutes = require("./cartRoutes");
 
 const userRoutes = require('./userRoutes');
 const travelRoutes = require('./travelRoutes'); 
@@ -37,6 +38,7 @@ router.use('/city', cityRoutes);
 router.use('/province', provinceRoutes);
 router.use('/user', userRoutes);
 router.use('/travel', travelRoutes);
+router.use('/cart', cartRoutes);
 
 //Configuracion de rutas Purchase
 router.use('/purchase', purchaseRouters);

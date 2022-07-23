@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
 import swal from "sweetalert";
 import Form from "react-bootstrap/Form";
-import { login } from "../actions/index.js";
+import { login, loginBusiness } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 //seba
@@ -15,6 +15,7 @@ export default function NavBarLanding() {
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const user = useSelector((state) => state.user);
+  const business = useSelector((state) => state.business);
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -22,26 +23,57 @@ export default function NavBarLanding() {
   const [input, setInput] = useState({
     email: "",
     password: "",
+    type: "",
   });
+
+  const validate = (values) => {
+    const errors = {};
+
+    if (!values.email) {
+      errors.email = "Email obligatorio.";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Email invalido";
+    }
+
+    if (!values.password) {
+      errors.password = "Contraseña obligatoria.";
+    } else if (
+      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(values.password)
+    ) {
+      errors.password =
+        "Debe tener entre 8 y 16 caracteres, al menos un numero, una minúscula y una mayúscula.";
+    }
+
+    return errors;
+  };
+
   function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
   }
+  function handleCheck(e) {
+    if (e.target.checked) {
+      setInput({
+        ...input,
+        type: e.target.value,
+      });
+    }
+  }
   function handleSubmit(e) {
     e.preventDefault();
-    //if (user === true){
-    // dispatch(loginUser(input))
-    // }if else (empresa === true){
-    //dispatch(loginBusiness(input))
-    //}
-    /* 
-      user === "Datos correctos"
-    */
 
     if (input.email !== "" && input.password !== "") {
-      dispatch(login(input));
+      if (input.type === "users") {
+        dispatch(login(input));
+      } else if(input.type === 'business'){
+        dispatch(loginBusiness(input));
+      }else{
+        return
+      }
     } else {
       alert("¡Faltan los elementos necesarios!");
     }
@@ -53,18 +85,64 @@ export default function NavBarLanding() {
     } else {
       if (user === "Usuario no encontrado") {
         alert("El usuario no existe");
+        setInput({
+          email: "",
+          password: "",
+          type: "",
+        });
+        return;
       } else if (user === "Datos incorrectos") {
         alert("Datos incorrectos");
+        setInput({
+          email: "",
+          password: "",
+          type: "",
+        });
+        return;
       } else {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",
           password: "",
+          type: "",
         });
-        // history.push("/persona");
+        history.push("/persona");
       }
     }
   }, [user]);
+
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return;
+    } else {
+      if (business === "Usuario no encontrado") {
+        alert("La empresa no existe");
+        setInput({
+          email: "",
+          password: "",
+          type: "",
+        });
+        return;
+      } else if (business === "Datos incorrectos") {
+        alert("Datos incorrectos");
+        setInput({
+          email: "",
+          password: "",
+          type: "",
+        });
+        return;
+      } else {
+        swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+        setInput({
+          email: "",
+          password: "",
+          type: "",
+        });
+        history.push("/empresas");
+      }
+    }
+  }, [business]);
 
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => setShowLogin(true);
@@ -118,12 +196,27 @@ export default function NavBarLanding() {
                 />
               </Form.Group>
 
-              {/* <Form.Group>
-                <Form.Label>Como estas registrado</Form.Label>
-                <Form.Check inline label="Empresa" name="group1" />
-
-                <Form.Check inline label="Usuario" name="group1" />
-              </Form.Group> */}
+              <Form.Label>Estas registrado como:</Form.Label>
+              <div>
+                <Form.Group className="mb-3 ml-15">
+                  <Form.Label>Empresa</Form.Label>
+                  <Form.Check
+                    type="radio"
+                    name="type"
+                    value="business"
+                    onChange={(e) => handleCheck(e)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Usuario</Form.Label>
+                  <Form.Check
+                    type="radio"
+                    name="type"
+                    value="users"
+                    onChange={(e) => handleCheck(e)}
+                  />
+                </Form.Group>
+              </div>
               <Button
                 variant="info"
                 type="submit"
