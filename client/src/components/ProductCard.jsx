@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../styles/ProductCard.module.css";
 import { Link } from "react-router-dom";
 
+
 export default function ProductCard({
   name,
   description,
@@ -28,6 +29,7 @@ export default function ProductCard({
           </p>
         </div>
       </Link>
+
     </div>
   );
 }
