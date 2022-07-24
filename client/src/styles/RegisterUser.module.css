@@ -1,4 +1,9 @@
 .forms{
+    margin-left: 32%;
+    margin-right: 20%;
+}
+.divContainerForms{
+    border: solid 1px black;
     margin-left: 20%;
     margin-right: 20%;
 }
