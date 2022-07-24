@@ -31,21 +31,23 @@ export default function NavBarLanding() {
     email: "",
     password: "",
   });
-  const validate = (values) => {
+  const validate = (inputBusiness) => {
     const errors = {};
 
-    if (!values.email) {
+    if (!inputBusiness.email) {
       errors.email = "Email obligatorio.";
     } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(inputBusiness.email)
     ) {
       errors.email = "Email invalido";
     }
 
-    if (!values.password) {
+    if (!inputBusiness.password) {
       errors.password = "Contraseña obligatoria.";
     } else if (
-      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(values.password)
+      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(
+        inputBusiness.password
+      )
     ) {
       errors.password =
         "Debe tener entre 8 y 16 caracteres, al menos un numero, una minúscula y una mayúscula.";
@@ -64,6 +66,10 @@ export default function NavBarLanding() {
         email: "",
         password: "",
       });
+      setErrors({
+        ...inputBusiness,
+
+      })
     } else {
       alert("¡Faltan los elementos necesarios!");
     }
@@ -74,6 +80,9 @@ export default function NavBarLanding() {
       [e.target.name]: e.target.value,
     });
   }
+
+
+  
   useEffect(() => {
     if (didMount) {
       setDidMount(false);
@@ -89,6 +98,7 @@ export default function NavBarLanding() {
           email: "",
           password: "",
         });
+        setShowLogin(false)
         return;
       } else if (business === "Datos incorrectos") {
         swal(
@@ -142,7 +152,6 @@ export default function NavBarLanding() {
         setInput({
           email: "",
           password: "",
-          type: "",
         });
         swal(
           "Usuario no encontrado",
@@ -154,7 +163,6 @@ export default function NavBarLanding() {
         setInput({
           email: "",
           password: "",
-          type: "",
         });
         swal(
           "Datos incorrectos",
@@ -167,7 +175,6 @@ export default function NavBarLanding() {
         setInput({
           email: "",
           password: "",
-          type: "",
         });
         history.push("/persona");
       }
@@ -191,8 +198,7 @@ export default function NavBarLanding() {
           />
         </NavLink>
       </div>
-      <div className={styles.SearchBar}>
-      </div>
+      <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
         <button onClick={handleShowLogin}>LOGIN</button>
         <Modal show={showLogin} onHide={handleCloseLogin}>
