@@ -81,30 +81,38 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case "ORDER_BY_PRICE":
-      let sortedPrice =
-        action.payload === "asc"
-          ? state.allProducts.sort(function (a, b) {
-              if (a.price > b.price) {
-                return 1;
-              }
-              if (b.price > a.price) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.allProducts.sort(function (a, b) {
-              if (a.price > b.price) {
-                return -1;
-              }
-              if (b.price > a.price) {
-                return 1;
-              }
-              return 0;
-            });
-      return {
-        ...state,
-        products: sortedPrice,
-      };
+      // if(action.payload === 'All'){
+      //   return {
+      //     ...state,
+      //     products: action.payload
+      //   }
+      // }else{
+        let sortedPrice =
+          action.payload === "asc"
+            ? state.allProducts.sort(function (a, b) {
+                if (a.price > b.price) {
+                  return 1;
+                }
+                if (b.price > a.price) {
+                  return -1;
+                }
+                return 0;
+              })
+            : state.allProducts.sort(function (a, b) {
+                if (a.price > b.price) {
+                  return -1;
+                }
+                if (b.price > a.price) {
+                  return 1;
+                }
+                return 0;
+              });
+        return {
+          ...state,
+          products: sortedPrice,
+        };
+
+      // }
     case "GET_CATEGORIES":
       return {
         ...state,
@@ -112,10 +120,9 @@ export default function rootReducer(state = initialState, action) {
       };
     case "FILTER_BY_CATEGORY":
       const allProducts = state.allProducts;
-      const filterCategory =
-        action.payload === "All"
-          ? allProducts
-          : allProducts.filter((e) => e.categories.name === action.payload);
+      const filterCategory = action.payload === "All"? 
+            allProducts: 
+            allProducts.filter((e) => e.categories && e.categories.map(e => e.name).includes(action.payload))
       console.log(filterCategory);
       console.log(action.payload, "Payload");
       return {
@@ -134,7 +141,7 @@ export default function rootReducer(state = initialState, action) {
         cities: action.payload
       };
     case 'GET_ALL_BUSINESS':
-      console.log(action.payload)
+      // console.log(action.payload)
       return{
         ...state,
         business2: action.payload

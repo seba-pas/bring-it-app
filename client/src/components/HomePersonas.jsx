@@ -92,13 +92,17 @@ export default function HomePersonas() {
 
 
           <div className={styles.containerS}>
+            <div> Ordenar por
             <select onChange={(e) => handleSort(e)}>
-              <option hidden value="Precios">
-                Precios
-              </option>
+              {/* <span>Todos</span> */}
+              {/* <option value="All">
+                Todos
+              </option> */}
               <option value="asc">Menor a Mayor</option>
               <option value="desc">Mayor a Menor</option>
             </select>
+
+            </div>
           
             <select onChange={(e) => handleFilterByCategory(e)}>
               <option value="All">Todas</option>
