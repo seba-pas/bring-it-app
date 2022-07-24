@@ -88,13 +88,14 @@ export const addProduct = (body) => {
   };
 };
 
-export const editProduct = ({ id, body }) => {
+export const editProduct = (id, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(
         `http://localhost:3001/api/product/${id}`,
         body
       );
+      console.log("res", res)
       return dispatch({
         type: PUT_PRODUCT,
         payload: res.data,
@@ -135,17 +136,18 @@ export const orderByPrice = (payload) => {
 //COMIENZA FILTROS DE PRODUCTS
 
 export const getCategories = () => {
-  return async function(dispatch) {
-      const res = await axios.get('http://localhost:3001/api/category');
-      return dispatch({
-          type: GET_CATEGORIES,
-          payload: res.data
-      })
-    }
+  return async function (dispatch) {
+    const res = await axios.get('http://localhost:3001/api/category');
+    console.log("response categoresi", res)
+    return dispatch({
+      type: GET_CATEGORIES,
+      payload: res.data
+    })
+  }
 }
 
 export const filterByCategory = (payload) => {
-  return{
+  return {
     type: FILTER_BY_CATEGORY,
     payload
   }
@@ -169,9 +171,9 @@ export const filterByProvinces = (payload) => {
 }
 
 export const getAllBusiness = () => {
-  return async function(dispatch){
+  return async function (dispatch) {
     const res = await axios('http://localhost:3001/api/business');
-    return(dispatch)({
+    return (dispatch)({
       type: GET_ALL_BUSINESS,
       payload: res.data
     })
@@ -179,7 +181,7 @@ export const getAllBusiness = () => {
 }
 
 export const filterByBusiness = (payload) => {
-  return{
+  return {
     type: FILTER_BY_BUSINESS,
     payload
   }
@@ -230,7 +232,7 @@ export function addBusiness(body) {
       let json = await axios.post(`http://localhost:3001/api/business`, body);
       return dispatch({
         type: POST_BUSINESS,
-        payload: json.data,
+        payload: [json.data, body.email],
       });
     } catch (error) {
       console.log(error);

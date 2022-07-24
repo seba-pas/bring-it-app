@@ -5,6 +5,7 @@ import SoldProductCard from './SoldProductCard';
 import ProductCardBusiness from './ProductCardBusiness';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBusiness, getAllProducts, getProductBusiness } from '../actions';
+import logo from "../components/img/logoCUT.png";
 
 function HomeBusiness() {
 
@@ -14,7 +15,7 @@ function HomeBusiness() {
 
     useEffect(() => {
         dispatch(getAllProducts());
-    }, [dispatch]);
+    }, [dispatch, gState.deleteProduct]);
 
     const [input, setInput] = useState({
 
@@ -30,7 +31,7 @@ function HomeBusiness() {
                 allProducts: gState.allProducts,
             }
         })
-    }, [gState.allProducts, gState.deleteProduct]);
+    }, [gState.allProducts]);
 
     useEffect(() => {
         setInput((prevInput) => {
@@ -54,8 +55,7 @@ function HomeBusiness() {
 
 
     let products = input.allProducts.filter(e => e.businessEmail === input.businessEmailState);
-    console.log("all", input.allProducts)
-    console.log("state", input.businessEmailState)
+
 
     let soldProducts = [
         {
@@ -159,27 +159,38 @@ function HomeBusiness() {
             <div className={styles.container}>
 
                 <div className={styles.welcomeContainer}>
-                    <h1>Bienvenido a Bring-It</h1>
-                    <h2>Empresas</h2>
+
+                    <div className={styles.imgContainer}>
+
+                        <img
+                            src={logo}
+                            style={{ width: "auto", height: "100px" }}
+                            alt="Logo no encontrado"
+                        />
+                    </div>
+                    <div className={styles.perfil}>
+                        <img
+                            src={"https://p16-va-default.akamaized.net/img/musically-maliva-obj/1665282759496710~c5_720x720.jpeg"}
+                            style={{ width: "auto", height: "100px", borderRadius: "150px", border: "solid 4px #41d4cf" }}
+                            alt="Logo no encontrado"
+                        />
+
+                        <select name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
+                            <option value="">{input.perfil} </option>
+                            {/* <option value=""></option> */}
+                            <option value="Email">{input.businessEmailState}</option>
+                            <option value="close">Cerrar sesión</option>
+
+                        </select>
+                    </div>
                 </div>
 
-
-                <div className={styles.perfil}>
+                {/* <div className={styles.perfil}>
                     <div>
-                        <div>
-                            <select name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
-                                <option value="">{input.perfil} </option>
-                                <option value="">perfil</option>
-                                <option value="op1">xxx</option>
-                                <option value="op2">xxx</option>
-                                <option value="op3">xxx</option>
-                                <option value="op4">xxx</option>
-                                <option value="op5">xxx</option>
-                            </select>
-                        </div>
+                       
                     </div>
 
-                </div>
+                </div> */}
 
                 <div className={styles.soldProductsContainer}>
 
@@ -245,8 +256,10 @@ function HomeBusiness() {
                     </table>
                     }
                 </div>
+                <div className={styles.noStockTitle}>
+                    <h2>Inventario Bajo</h2>
+                </div>
                 <div className={styles.noStock}>
-                    <h2>alerta de inventario bajo</h2>
                     {<table>
                         <thead>
                             <tr>

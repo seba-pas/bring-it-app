@@ -24,6 +24,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         products: action.payload,
         allProducts: action.payload,
+        deleteProduct: "",
       };
     case "GET_PRODUCTS_DETAIL":
       return {
@@ -82,6 +83,7 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case "ORDER_BY_PRICE":
+
       // if(action.payload === 'All'){
       //   return {
       //     ...state,
@@ -114,6 +116,7 @@ export default function rootReducer(state = initialState, action) {
         };
 
       // }
+
     case "GET_CATEGORIES":
       return {
         ...state,
@@ -137,22 +140,23 @@ export default function rootReducer(state = initialState, action) {
         productsDetail: {},
       };
     case 'GET_CITIES':
-      return{
+      return {
         ...state,
         cities: action.payload
       };
     case 'GET_ALL_BUSINESS':
       // console.log(action.payload)
       return{
+
         ...state,
         business2: action.payload
       };
     case 'FILTER_BY_BUSINESS':
       const allBusiness = state.allProducts;
       const filterBusiness = action.payload === 'All' ?
-      allBusiness :
-      allBusiness.filter((e) => e.business.businessName === action.payload)
-      return{
+        allBusiness :
+        allBusiness.filter((e) => e.business.businessName === action.payload)
+      return {
         ...state,
         products: filterBusiness
       };
