@@ -9,8 +9,8 @@ export default function ProductCard({
   description,
   image,
   price,
-  empresa,
-  province,
+  businessName,
+  categories,
   id,
 }) {
   return (
@@ -35,7 +35,12 @@ export default function ProductCard({
         <p className="card-text" id={styles.descrpition}>
           {description}
         </p>
-       
+        <p>
+        {Array.isArray(categories)
+              ? categories.map((e) => e.name + "  ")
+              : 'No tiene categoria'
+        }
+        </p>
       </div>
       <a
           href={`product/${id}`}
@@ -46,8 +51,7 @@ export default function ProductCard({
         </a>
       <div className="card-footer">
         <small className="text-muted">
-          Empresa:
-          {empresa}
+          Empresa:{' '}{businessName}
         </small>
       </div>
     </div>
