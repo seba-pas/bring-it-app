@@ -3,16 +3,18 @@ import styles from "../styles/ProductCardBusiness.module.css"
 import { IoCreateOutline, IoCloseCircleOutline } from "react-icons/io5"
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { deleteProduct } from '../actions';
+import { deleteProduct, getAllProducts } from '../actions';
 
 
 
 function ProductCardBusiness({ id, image, productName, amount, description }) {
     if (!image) image = "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg"
     const dispatch = useDispatch();
-    const handleClick = (event) => {
+
+    async function handleClick(event) {
         event.preventDefault();
-        dispatch(deleteProduct(id))
+        dispatch(deleteProduct(id));
+
     }
     return (
         <tr>

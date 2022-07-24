@@ -1,4 +1,9 @@
-.spinner {
+
+body {
+  background-color:#F6F5F5;
+}
+
+  .spinner {
   display: flex;
   justify-content: center;
   align-content: center;
@@ -13,6 +18,7 @@
 }
 
 .botonvol{
+  
   justify-content: center;
   align-items: center;
   font-family: "Montserrat", sans-serif;
@@ -24,7 +30,7 @@
   font-size: 15px;
   height: 40px;
   width: 130px;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 .botonvol:hover{
   transition: background-color 1s ease;
@@ -40,7 +46,7 @@ select {
   border-radius: 5px;
   font-size: 15px;
   height: 40px;
-  width: 130px;
+  width: 200px;
 }
 
 option {

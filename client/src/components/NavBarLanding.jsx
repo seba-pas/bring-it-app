@@ -91,18 +91,22 @@ export default function NavBarLanding() {
           "La empresa a la que intentas entrar no esta registrada",
           "error"
         );
+        setShowLogin(false);
         setInputBusiness({
           email: "",
           password: "",
         });
         dispatch(cleanBusiness())
+
         return;
+
       } else if (business === "Datos incorrectos") {
         swal(
           "Datos incorrectos",
           "El email o la contraseña no son correctas ",
           "error"
         );
+        setShowLogin(false);
         setInputBusiness({
           email: "",
           password: "",
@@ -110,7 +114,9 @@ export default function NavBarLanding() {
         dispatch(cleanBusiness())
         return;
       } else if(business.email){
+
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+
         setInputBusiness({
           email: "",
           password: "",
@@ -118,6 +124,12 @@ export default function NavBarLanding() {
         history.push("/empresas");
       }
     }
+    return () => {
+      setInputBusiness({
+        email: "",
+        password: "",
+      });
+    };
   }, [business]);
 
   //USUARIO
