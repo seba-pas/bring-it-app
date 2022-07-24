@@ -62,10 +62,19 @@
     margin: 40px;
     border: solid 1px black;
 }
+
+.number{
+    font-size: 2.75rem;
+}
 .pasoPorInfo{
     display: flex;
     grid-template-columns: 20% 80%;
     height: 210px;
+    box-sizing: border-box;
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 20px;
+    margin-bottom: 40px;
 }
 .imgPaso1{
     width: 100%;
@@ -76,3 +85,39 @@
 .tabs{
     text-align: center;
 }
+
+.unete{
+    background-image: url("../components/img/UNETE.jpg");
+    background-size: cover;
+    height: 270px;
+    object-fit: cover;
+}
+
+.buttonComunidad{
+    margin-top: 8%;
+}
+
+.buttonComunidad button{
+    font-family: "Montserrat", sans-serif;
+    background-color: white;
+    color: #41d4cf;
+    border: 3px solid #41d4cf;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 15%;
+    padding: 12px;
+    margin-left: 30px;
+}
+
+.titleUnete{
+    color: white;
+    font-weight: 700;
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+
+.buttonComunidad button:hover {
+    transition: background-color 1s ease;
+    background-color: #41d4cf; /* Green */
+    color: white;
+  }

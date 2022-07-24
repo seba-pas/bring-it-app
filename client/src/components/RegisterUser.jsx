@@ -103,6 +103,7 @@ function RegisterUser() {
   return (
     <div className={style.divContainer}>
       <NavBarRegisters />
+      <div className={style.divContainerForms}>
       <Form onSubmit={(e) => handleSubmit(e)} className={style.forms}>
         <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
@@ -177,22 +178,12 @@ function RegisterUser() {
             required
           />
         </Form.Group>
-        {/* <Form.Select
-          className="mt-5"
-          aria-label="Default select example"
-          onChange={(e) => handleSelect(e)}
-        >
-          {nationality.map((nation) => (
-            <option value={nation.name} key={nation.id}>
-              {nation.name}
-            </option>
-          ))}
-        </Form.Select> */}
 
         <Button variant="primary" className="mt-3 mb-5" type="submit">
           Submit
         </Button>
       </Form>
+      </div>
     </div>
   );
 }
