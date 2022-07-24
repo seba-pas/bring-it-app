@@ -68,13 +68,13 @@ export default function LandingPage() {
               justify
             >
               <Tab eventKey="home" title="Compradores">
-                <h3>
+                <div className={style.tabsComprador}>
                   Grabr es la mejor manera de comprar productos que no están
                   disponibles o son muy caros en tu país. Puedes pedir
                   prácticamente cualquier cosa con Grabr, desde ropa de bebé y
                   juguetes hasta dispositivos electrónicos y suplementos
                   nutricionales.
-                </h3>
+                </div>
                 <div className={style.pasos}>
                   <div className={style.pasoPorPasos}>
                     <div className={style.pasoPorInfo}>

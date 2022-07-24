@@ -9,7 +9,7 @@ import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
-import { login, loginBusiness } from "../actions/index.js";
+import { login, loginBusiness, cleanUsers,cleanBusiness } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 //seba
@@ -68,8 +68,7 @@ export default function NavBarLanding() {
       });
       setErrors({
         ...inputBusiness,
-
-      })
+      });
     } else {
       alert("¡Faltan los elementos necesarios!");
     }
@@ -81,8 +80,6 @@ export default function NavBarLanding() {
     });
   }
 
-
-  
   useEffect(() => {
     if (didMount) {
       setDidMount(false);
@@ -98,7 +95,7 @@ export default function NavBarLanding() {
           email: "",
           password: "",
         });
-        setShowLogin(false)
+        dispatch(cleanBusiness())
         return;
       } else if (business === "Datos incorrectos") {
         swal(
@@ -110,8 +107,9 @@ export default function NavBarLanding() {
           email: "",
           password: "",
         });
+        dispatch(cleanBusiness())
         return;
-      } else {
+      } else if(business.email){
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInputBusiness({
           email: "",
@@ -129,9 +127,9 @@ export default function NavBarLanding() {
       [e.target.name]: e.target.value,
     });
   }
+
   function handleSubmitLoginUser(e) {
     e.preventDefault();
-
     if (input.email !== "" && input.password !== "") {
       dispatch(login(input));
       setInput({
@@ -149,28 +147,30 @@ export default function NavBarLanding() {
       return;
     } else {
       if (user === "Usuario no encontrado") {
-        setInput({
-          email: "",
-          password: "",
-        });
         swal(
           "Usuario no encontrado",
           "El email parece no estar registrado",
           "error"
         );
-        return;
-      } else if (user === "Datos incorrectos") {
         setInput({
           email: "",
           password: "",
         });
+        dispatch(cleanUsers());
+        return;
+      } else if (user === "Datos incorrectos") {
         swal(
           "Datos incorrectos",
           "El email o la contraseña no son correctas ",
           "error"
         );
+        setInput({
+          email: "",
+          password: "",
+        });
+        dispatch(cleanUsers());
         return;
-      } else {
+      } else if (user.email){
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",

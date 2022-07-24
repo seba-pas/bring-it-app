@@ -13,7 +13,7 @@ const initialState = {
   cities: [],
   allCities: [],
   business2: [],
-  allBusiness2: []
+  allBusiness2: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -56,7 +56,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         deleteProduct: action.payload,
       };
-
+    case "CLEAN_USERS":
+      return {
+        ...state,
+        user: {},
+      };
+      case "CLEAN_BUSINESS":
+      return {
+        ...state,
+        business: {},
+      };
     case "POST_LOGIN":
       return {
         ...state,
@@ -87,32 +96,32 @@ export default function rootReducer(state = initialState, action) {
       //     products: action.payload
       //   }
       // }else{
-        let sortedPrice =
-          action.payload === "asc"
-            ? state.allProducts.sort(function (a, b) {
-                if (a.price > b.price) {
-                  return 1;
-                }
-                if (b.price > a.price) {
-                  return -1;
-                }
-                return 0;
-              })
-            : state.allProducts.sort(function (a, b) {
-                if (a.price > b.price) {
-                  return -1;
-                }
-                if (b.price > a.price) {
-                  return 1;
-                }
-                return 0;
-              });
-        return {
-          ...state,
-          products: sortedPrice,
-        };
+      let sortedPrice =
+        action.payload === "asc"
+          ? state.allProducts.sort(function (a, b) {
+              if (a.price > b.price) {
+                return 1;
+              }
+              if (b.price > a.price) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.allProducts.sort(function (a, b) {
+              if (a.price > b.price) {
+                return -1;
+              }
+              if (b.price > a.price) {
+                return 1;
+              }
+              return 0;
+            });
+      return {
+        ...state,
+        products: sortedPrice,
+      };
 
-      // }
+    // }
     case "GET_CATEGORIES":
       return {
         ...state,
@@ -120,9 +129,14 @@ export default function rootReducer(state = initialState, action) {
       };
     case "FILTER_BY_CATEGORY":
       const allProducts = state.allProducts;
-      const filterCategory = action.payload === "All"? 
-            allProducts: 
-            allProducts.filter((e) => e.categories && e.categories.map(e => e.name).includes(action.payload))
+      const filterCategory =
+        action.payload === "All"
+          ? allProducts
+          : allProducts.filter(
+              (e) =>
+                e.categories &&
+                e.categories.map((e) => e.name).includes(action.payload)
+            );
       console.log(filterCategory);
       console.log(action.payload, "Payload");
       return {
@@ -135,25 +149,28 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         productsDetail: {},
       };
-    case 'GET_CITIES':
-      return{
+    case "GET_CITIES":
+      return {
         ...state,
-        cities: action.payload
+        cities: action.payload,
       };
-    case 'GET_ALL_BUSINESS':
+    case "GET_ALL_BUSINESS":
       // console.log(action.payload)
-      return{
+      return {
         ...state,
-        business2: action.payload
+        business2: action.payload,
       };
-    case 'FILTER_BY_BUSINESS':
+    case "FILTER_BY_BUSINESS":
       const allBusiness = state.allProducts;
-      const filterBusiness = action.payload === 'All' ?
-      allBusiness :
-      allBusiness.filter((e) => e.business.businessName === action.payload)
-      return{
+      const filterBusiness =
+        action.payload === "All"
+          ? allBusiness
+          : allBusiness.filter(
+              (e) => e.business.businessName === action.payload
+            );
+      return {
         ...state,
-        products: filterBusiness
+        products: filterBusiness,
       };
     default:
       return {

@@ -17,6 +17,6 @@ export const GET_CITIES = 'GET_CITIES';
 export const FILTER_BY_CITIES = 'FILTER_BY_CITIES';
 export const GET_ALL_BUSINESS = 'GET_ALL_BUSINESS';
 export const FILTER_BY_BUSINESS = 'FILTER_BY_BUSINESS';
-
-
+export const CLEAN_USERS = 'CLEAN_USERS';
+export const CLEAN_BUSINESS = 'CLEAN_BUSINESS';
 
