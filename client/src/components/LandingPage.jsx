@@ -4,6 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import NavBarLanding from "./NavBarLanding.jsx";
 import style from "../styles/LandingPage.module.css";
+import Footer from "./Footer.jsx"
 import Imagen from "./img/imgMuestra.jpg";
 import Product1 from "./img/product1.jpeg";
 import Product2 from "./img/product2.jpeg";
@@ -67,13 +68,13 @@ export default function LandingPage() {
               justify
             >
               <Tab eventKey="home" title="Compradores">
-                <h3>
+                <div className={style.tabsComprador}>
                   Grabr es la mejor manera de comprar productos que no están
                   disponibles o son muy caros en tu país. Puedes pedir
                   prácticamente cualquier cosa con Grabr, desde ropa de bebé y
                   juguetes hasta dispositivos electrónicos y suplementos
                   nutricionales.
-                </h3>
+                </div>
                 <div className={style.pasos}>
                   <div className={style.pasoPorPasos}>
                     <div className={style.pasoPorInfo}>
@@ -336,6 +337,7 @@ export default function LandingPage() {
             <button>VIAJAR</button>
           </div>
         </div>
+        <Footer/>
       </div>
     </div>
   );

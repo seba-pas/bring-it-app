@@ -15,19 +15,20 @@ import {
   getCategories,
   getAllBusiness,
   filterByBusiness,
+
   filterByProvinces,
   getAllProvinces
 } from "../actions";
-
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
+
   const CATEGORY = useSelector((state => state.categories));
   // const PROVINCES = useSelector((state => state.provinces));
-  const [orden, setOrden] = useState("");
 
+  const [orden, setOrden] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(8);
@@ -74,7 +75,7 @@ export default function HomePersonas() {
   }
 
   //funcion para filtrar por empresas
-  function handleFilterByBusiness(e){
+  function handleFilterByBusiness(e) {
     e.preventDefault();
     setCurrentPage(1);
     dispatch(filterByBusiness(e.target.value));
@@ -93,8 +94,6 @@ export default function HomePersonas() {
     <div>
       <NavBar />
 
-     
-
       {PRODUCTS.length > 0 ? (
         <div className={styles.containerCards}>
           <Pagination
@@ -102,9 +101,8 @@ export default function HomePersonas() {
             PRODUCTS={PRODUCTS.length}
             paginado={paginado}
           />
-
-
           <div className={styles.containerS}>
+
             {/* <div> Ordenar por */}
             <select onChange={(e) => handleSort(e)}>
               {/* <span>Todos</span> */}
@@ -119,34 +117,34 @@ export default function HomePersonas() {
 
             {/* </div> */}
           
+
             <select onChange={(e) => handleFilterByCategory(e)}>
             <option hidden selected>
            Categorias
           </option>
               <option value="All">Todas</option>
               {CATEGORY.map((CATEGORY) => {
-                return(
-                <option value={CATEGORY.name} key={CATEGORY.id}>
-                  {CATEGORY.name}
-                </option>
-
-                )
-              }
-              )}
+                return (
+                  <option value={CATEGORY.name} key={CATEGORY.id}>
+                    {CATEGORY.name}
+                  </option>
+                );
+              })}
             </select>
-            
+
             <select onChange={(e) => handleFilterByBusiness(e)}>
               <option value="All">Todas</option>
               <option hidden selected>
            Empresa
           </option>
               {BUSINESS.map((BUSINESS) => {
-                return(
-                <option value={BUSINESS.businessName} key={BUSINESS.email}>
-                  {BUSINESS.businessName}
-                </option>
-                )
+                return (
+                  <option value={BUSINESS.businessName} key={BUSINESS.email}>
+                    {BUSINESS.businessName}
+                  </option>
+                );
               })}
+
               </select>
             <select onChange={(e) => handleFilterByProvinces(e)}>
               <option value="All">Todas</option>

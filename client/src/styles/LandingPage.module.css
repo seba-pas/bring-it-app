@@ -50,7 +50,8 @@
     margin-right: 5%;
     width: 100%;
 }
-
+.pasoPorPhoto{
+}
 .comoFunciona{
     font-weight: 700;
 }
@@ -79,7 +80,7 @@
 .imgPaso1{
     width: 100%;
     object-fit: cover;
-    height: 50%;
+    height: 49%;
 }
 
 .tabs{
@@ -94,7 +95,7 @@
 }
 
 .buttonComunidad{
-    margin-top: 8%;
+    margin-top: 5%;
 }
 
 .buttonComunidad button{
@@ -112,7 +113,7 @@
 .titleUnete{
     color: white;
     font-weight: 700;
-    margin-top: 5px;
+    padding-top: 20px;
     text-transform: uppercase;
 }
 
@@ -120,4 +121,11 @@
     transition: background-color 1s ease;
     background-color: #41d4cf; /* Green */
     color: white;
+  }
+
+
+  .tabsComprador{
+    text-align: center;
+    margin-left: 298.991px;
+    padding: 12px;
   }
