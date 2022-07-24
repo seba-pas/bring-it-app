@@ -94,7 +94,7 @@
 }
 
 .buttonComunidad{
-    margin-top: 8%;
+    margin-top: 5%;
 }
 
 .buttonComunidad button{
@@ -112,7 +112,7 @@
 .titleUnete{
     color: white;
     font-weight: 700;
-    margin-top: 5px;
+    padding-top: 20px;
     text-transform: uppercase;
 }
 

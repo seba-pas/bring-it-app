@@ -4,6 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import NavBarLanding from "./NavBarLanding.jsx";
 import style from "../styles/LandingPage.module.css";
+import Footer from "./Footer.jsx"
 import Imagen from "./img/imgMuestra.jpg";
 import Product1 from "./img/product1.jpeg";
 import Product2 from "./img/product2.jpeg";
@@ -336,6 +337,7 @@ export default function LandingPage() {
             <button>VIAJAR</button>
           </div>
         </div>
+        <Footer/>
       </div>
     </div>
   );
