@@ -54,7 +54,6 @@ export default function HomePersonas() {
     e.preventDefault();
     dispatch(getAllProducts());
     setCurrentPage(1);
-    // e.target.value = {};
   }
 
   //funcion para ordenar los precios
@@ -112,10 +111,10 @@ export default function HomePersonas() {
               {/* <option value="All">
                 Todos
               </option> */}<option hidden selected>
-            Orden Alfabetico
+            Ordenar por
           </option>
-              <option value="asc">A - Z</option>
-              <option value="desc">Z - A</option>
+              <option value="asc">Menor Precio</option>
+              <option value="desc">Mayor Precio</option>
             </select>
 
             {/* </div> */}
@@ -161,7 +160,7 @@ export default function HomePersonas() {
             </select>
           </div>
           <div > 
-            <button className={styles.botonvol} onClick={(e) => handleClick(e)}>Todos</button>
+            <button className={styles.botonvol} onClick={(e) => handleClick(e)}>Limpiar Filtros</button>
           </div>
 
           <ProductCards currentProducts={currentProducts} />
