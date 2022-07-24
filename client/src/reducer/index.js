@@ -23,6 +23,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         products: action.payload,
         allProducts: action.payload,
+        deleteProduct: "",
       };
     case "GET_PRODUCTS_DETAIL":
       return {
@@ -84,23 +85,23 @@ export default function rootReducer(state = initialState, action) {
       let sortedPrice =
         action.payload === "asc"
           ? state.allProducts.sort(function (a, b) {
-              if (a.price > b.price) {
-                return 1;
-              }
-              if (b.price > a.price) {
-                return -1;
-              }
-              return 0;
-            })
+            if (a.price > b.price) {
+              return 1;
+            }
+            if (b.price > a.price) {
+              return -1;
+            }
+            return 0;
+          })
           : state.allProducts.sort(function (a, b) {
-              if (a.price > b.price) {
-                return -1;
-              }
-              if (b.price > a.price) {
-                return 1;
-              }
-              return 0;
-            });
+            if (a.price > b.price) {
+              return -1;
+            }
+            if (b.price > a.price) {
+              return 1;
+            }
+            return 0;
+          });
       return {
         ...state,
         products: sortedPrice,
@@ -129,22 +130,22 @@ export default function rootReducer(state = initialState, action) {
         productsDetail: {},
       };
     case 'GET_CITIES':
-      return{
+      return {
         ...state,
         cities: action.payload
       };
     case 'GET_ALL_BUSINESS':
       console.log(action.payload)
-      return{
+      return {
         ...state,
         business2: action.payload
       };
     case 'FILTER_BY_BUSINESS':
       const allBusiness = state.allProducts;
       const filterBusiness = action.payload === 'All' ?
-      allBusiness :
-      allBusiness.filter((e) => e.business.businessName === action.payload)
-      return{
+        allBusiness :
+        allBusiness.filter((e) => e.business.businessName === action.payload)
+      return {
         ...state,
         products: filterBusiness
       };

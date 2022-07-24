@@ -173,3 +173,14 @@ input {
     color: black;
     font-size: 1.3rem;
 }
+
+textarea {
+    background-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: #41d4cf;
+    border-bottom-color: #41d4cf;
+    border-right-color: #41d4cf;
+    color: black;
+    font-size: 1.3rem;
+}
