@@ -35,14 +35,15 @@ export default function ProductCard({
         <p className="card-text" id={styles.descrpition}>
           {description}
         </p>
-        <a
+       
+      </div>
+      <a
           href={`product/${id}`}
           className="btn btn-primary stretched-link"
           id={styles.boton}
         >
           Ver Producto
         </a>
-      </div>
       <div className="card-footer">
         <small className="text-muted">
           Empresa:
