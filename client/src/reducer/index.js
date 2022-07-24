@@ -13,7 +13,8 @@ const initialState = {
   cities: [],
   allCities: [],
   business2: [],
-  allBusiness2: []
+  allBusiness2: [],
+  provinces: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -155,6 +156,21 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         products: filterBusiness
       };
+    case 'GET_ALL_PROVINCES':
+      return{
+        ...state,
+        provinces: action.payload
+      }
+
+    case 'FILTER_BY_PROVINCES':
+      const allProvinces = state.allProducts;
+      const filterProvinces = action.payload === 'All' ?
+      allProvinces :
+      allProvinces.filter((e) => e.business.province === action.payload)
+      return{
+        ...state,
+        products: filterProvinces
+      }
     default:
       return {
         ...state,

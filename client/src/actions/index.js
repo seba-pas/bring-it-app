@@ -16,8 +16,8 @@ import {
   GET_CATEGORIES,
   FILTER_BY_CATEGORY,
   SET_PRODUCT_DETAIL,
-  // GET_CITIES,
-  // FILTER_BY_CITIES,
+  GET_ALL_PROVINCES,
+  FILTER_BY_PROVINCES,
   GET_ALL_BUSINESS,
   FILTER_BY_BUSINESS
 
@@ -151,24 +151,22 @@ export const filterByCategory = (payload) => {
   }
 }
 
-// export const getCities = () => {
-//   return async function(dispatch){
-//     const res = await axios('http://localhost:3001/api/city');
-//     debugger;
-//     console.log(res)
-//     return dispatch({
-//       type: GET_CITIES,
-//       payload: res.data
-//     })
-//   }
-// }
+export const getAllProvinces = () => {
+  return async function(dispatch){
+    const res = await axios('http://localhost:3001/api/province');
+    return dispatch({
+      type: GET_ALL_PROVINCES,
+      payload: res.data
+    })
+  }
+}
 
-// export const filterByCities = (payload) => {
-//   return{
-//     type: FILTER_BY_CITIES,
-//     payload
-//   }
-// }
+export const filterByProvinces = (payload) => {
+  return{
+    type: FILTER_BY_PROVINCES,
+    payload
+  }
+}
 
 export const getAllBusiness = () => {
   return async function(dispatch){

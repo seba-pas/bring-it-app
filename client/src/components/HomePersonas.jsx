@@ -14,7 +14,9 @@ import {
   filterByCategory,
   getCategories,
   getAllBusiness,
-  filterByBusiness
+  filterByBusiness,
+  filterByProvinces,
+  getAllProvinces
 } from "../actions";
 
 
@@ -22,7 +24,8 @@ export default function HomePersonas() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
-  const CATEGORY = useSelector((state => state.categories))
+  const CATEGORY = useSelector((state => state.categories));
+  // const PROVINCES = useSelector((state => state.provinces));
   const [orden, setOrden] = useState("");
 
 
@@ -43,6 +46,7 @@ export default function HomePersonas() {
     dispatch(getAllProducts());
     dispatch(getCategories());
     dispatch(getAllBusiness());
+    dispatch(getAllProvinces());
   }, [dispatch]);
 
   //funcion para volver a cargar los productos
@@ -75,6 +79,14 @@ export default function HomePersonas() {
     e.preventDefault();
     setCurrentPage(1);
     dispatch(filterByBusiness(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+
+  //funcion para filtrar por provincias
+  function handleFilterByProvinces(e){
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(filterByProvinces(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
 
@@ -137,6 +149,16 @@ export default function HomePersonas() {
                 )
               })}
               </select>
+            <select onChange={(e) => handleFilterByProvinces(e)}>
+              <option value="All">Todas</option>
+              {BUSINESS.map((BUSINESS) => {
+                return(
+                  <option value={BUSINESS.province} key={BUSINESS.email}>
+                    {BUSINESS.province}
+                  </option>
+                )
+              })}
+            </select>
           </div>
           <div > 
             <button className={styles.botonvol} onClick={(e) => handleClick(e)}>Todos</button>
