@@ -70,7 +70,6 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const userLogin = await User.findByPk(email);
-    console.log(userLogin)
     if (!userLogin) {
       res.send("Usuario no encontrado");
     } else {

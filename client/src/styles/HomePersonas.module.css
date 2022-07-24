@@ -1,4 +1,9 @@
-.spinner {
+
+body {
+  background-color:#F6F5F5;
+}
+
+  .spinner {
   display: flex;
   justify-content: center;
   align-content: center;
@@ -6,12 +11,31 @@
   width: auto;
 }
 .containerS {
-  margin-top: 0px;
   font-family: "Montserrat", sans-serif;
-
   margin-top: 20px;
   display: flex;
   justify-content: space-evenly;
+}
+
+.botonvol{
+  
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+  background-color: white;
+  color: #41d4cf;
+  border: 3px solid #41d4cf;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 15px;
+  height: 40px;
+  width: 130px;
+  margin-top: 25px;
+}
+.botonvol:hover{
+  transition: background-color 1s ease;
+  background-color: #41d4cf; /* Green */
+  color: white;
 }
 
 select {
@@ -22,7 +46,7 @@ select {
   border-radius: 5px;
   font-size: 15px;
   height: 40px;
-  width: 130px;
+  width: 200px;
 }
 
 option {

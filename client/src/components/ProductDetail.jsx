@@ -16,24 +16,27 @@ export const ProductDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAllProductsDetail(id));
-
+    dispatch(getAllProductsDetail(id)); //component did mount
     return () => {
       dispatch(setDetail());
     };
   }, [dispatch, id]);
-  console.log(product.categories)
-  console.log(product.business)
+  function handleClick(e) {
+    e.preventDefault();
+    alert("PROXIMAMENTE!!!...");
+  }
+
+  console.log(product.categories);
+  console.log(product.business);
   return (
     <div>
-
       <NavBar />
-     
-      
+
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
-          <div className="card" style={{ width: "40%" }}>
+          <div className="card" id={styles.card} style={{ width: "40%" }}>
             <img
+              style={{ objectFit: "cover" }}
               className="card-img-top"
               src={product.image}
               alt="Card image cap"
@@ -42,15 +45,41 @@ export const ProductDetail = () => {
               <h5 className="card-title">{product.name}</h5>
               <h5 className="card-title">${product.price}</h5>
               <p className="card-text">{product.description}</p>
-              <p className="card-text">{product.categories === null || product.categories === undefined || product.categories.length == 0?  'No tiene categoría': product.categories[0].name }</p>
-              <p className="card-text">{product.business === null || product.categories === undefined || product.business.length == 0? 'No tiene Empresa asociada': product.business.businessName}</p>
+              <p className="card-text">
+                {product.categories === null ||
+                product.categories === undefined ||
+                product.categories.length == 0
+                  ? "No tiene categoría"
+                  : product.categories[0].name}
+              </p>
+              <p className="card-text">
+                {product.business === null ||
+                product.categories === undefined ||
+                product.business.length == 0
+                  ? "No tiene Empresa asociada"
+                  : product.business.businessName}
+              </p>
               <p className="card-text">Disponibles: {product.stock}</p>
               <div className={styles.contBot}>
+                <a
+                  className="btn btn-primary"
+                  onClick={(e) => handleClick(e)}
+                  id={styles.boton}
+                >
+                  COMPRAR
+                </a>
+                <a
+                  className="btn btn-primary"
+                  onClick={(e) => handleClick(e)}
+                  id={styles.boton}
+                >
+                  AGREGAR AL CARRITO
+                </a>
                 <Link to={"/persona"}>
-                  <a className="btn btn-primary">volver</a>
+                  <a className="btn btn-primary" id={styles.boton}>
+                    VOLVER
+                  </a>
                 </Link>
-                <a className="btn btn-primary">agregar al carrito</a>
-                <a className="btn btn-primary">comprar</a>
               </div>
             </div>
           </div>
@@ -66,10 +95,6 @@ export const ProductDetail = () => {
           />
         </div>
       )}
-
     </div>
   );
-
-  
-
 };

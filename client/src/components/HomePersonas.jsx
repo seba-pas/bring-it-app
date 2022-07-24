@@ -14,7 +14,9 @@ import {
   filterByCategory,
   getCategories,
   getAllBusiness,
-  filterByBusiness
+  filterByBusiness,
+  filterByProvinces,
+  getAllProvinces
 } from "../actions";
 
 
@@ -22,7 +24,8 @@ export default function HomePersonas() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
-  const CATEGORY = useSelector((state => state.categories))
+  const CATEGORY = useSelector((state => state.categories));
+  // const PROVINCES = useSelector((state => state.provinces));
   const [orden, setOrden] = useState("");
 
 
@@ -43,6 +46,7 @@ export default function HomePersonas() {
     dispatch(getAllProducts());
     dispatch(getCategories());
     dispatch(getAllBusiness());
+    dispatch(getAllProvinces());
   }, [dispatch]);
 
   //funcion para volver a cargar los productos
@@ -50,6 +54,7 @@ export default function HomePersonas() {
     e.preventDefault();
     dispatch(getAllProducts());
     setCurrentPage(1);
+    // e.target.value = {};
   }
 
   //funcion para ordenar los precios
@@ -60,12 +65,13 @@ export default function HomePersonas() {
     setOrden(`Ordenado ${e.target.value}`);
   }
 
-  //funcion para filtrar por precios
+  //funcion para filtrar por categorias
   function handleFilterByCategory(e) {
     e.preventDefault();
     setCurrentPage(1);
     dispatch(filterByCategory(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
+    
   }
 
   //funcion para filtrar por empresas
@@ -73,6 +79,14 @@ export default function HomePersonas() {
     e.preventDefault();
     setCurrentPage(1);
     dispatch(filterByBusiness(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+
+  //funcion para filtrar por provincias
+  function handleFilterByProvinces(e){
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(filterByProvinces(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
 
@@ -92,36 +106,62 @@ export default function HomePersonas() {
 
 
           <div className={styles.containerS}>
+            {/* <div> Ordenar por */}
             <select onChange={(e) => handleSort(e)}>
-              <option hidden value="Precios">
-                Precios
-              </option>
-              <option value="asc">Menor a Mayor</option>
-              <option value="desc">Mayor a Menor</option>
+              {/* <span>Todos</span> */}
+              {/* <option value="All">
+                Todos
+              </option> */}<option hidden selected>
+            Orden Alfabetico
+          </option>
+              <option value="asc">A - Z</option>
+              <option value="desc">Z - A</option>
             </select>
+
+            {/* </div> */}
           
             <select onChange={(e) => handleFilterByCategory(e)}>
+            <option hidden selected>
+           Categorias
+          </option>
               <option value="All">Todas</option>
-              {CATEGORY.map((CATEGORY) => (
+              {CATEGORY.map((CATEGORY) => {
+                return(
                 <option value={CATEGORY.name} key={CATEGORY.id}>
                   {CATEGORY.name}
                 </option>
-              ))}
+
+                )
+              }
+              )}
             </select>
             
             <select onChange={(e) => handleFilterByBusiness(e)}>
               <option value="All">Todas</option>
-              {/* {console.log(BUSINESS)} */}
+              <option hidden selected>
+           Empresa
+          </option>
               {BUSINESS.map((BUSINESS) => {
                 return(
                 <option value={BUSINESS.businessName} key={BUSINESS.email}>
                   {BUSINESS.businessName}
-                  {/* {console.log(BUSINESS.businessName)} */}
                 </option>
-                  
                 )
               })}
               </select>
+            <select onChange={(e) => handleFilterByProvinces(e)}>
+              <option value="All">Todas</option>
+              {BUSINESS.map((BUSINESS) => {
+                return(
+                  <option value={BUSINESS.province} key={BUSINESS.email}>
+                    {BUSINESS.province}
+                  </option>
+                )
+              })}
+            </select>
+          </div>
+          <div > 
+            <button className={styles.botonvol} onClick={(e) => handleClick(e)}>Todos</button>
           </div>
 
           <ProductCards currentProducts={currentProducts} />

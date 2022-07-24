@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
-import swal from "sweetalert";
-import Form from "react-bootstrap/Form";
 import { login, loginBusiness } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -20,27 +22,32 @@ export default function NavBarLanding() {
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [didMount, setDidMount] = useState(true);
+  const [key, setKey] = useState("home");
+  const [inputBusiness, setInputBusiness] = useState({
+    email: "",
+    password: "",
+  });
   const [input, setInput] = useState({
     email: "",
     password: "",
-    type: "",
   });
-
-  const validate = (values) => {
+  const validate = (inputBusiness) => {
     const errors = {};
 
-    if (!values.email) {
+    if (!inputBusiness.email) {
       errors.email = "Email obligatorio.";
     } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(inputBusiness.email)
     ) {
       errors.email = "Email invalido";
     }
 
-    if (!values.password) {
+    if (!inputBusiness.password) {
       errors.password = "Contraseña obligatoria.";
     } else if (
-      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(values.password)
+      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(
+        inputBusiness.password
+      )
     ) {
       errors.password =
         "Debe tener entre 8 y 16 caracteres, al menos un numero, una minúscula y una mayúscula.";
@@ -49,76 +56,33 @@ export default function NavBarLanding() {
     return errors;
   };
 
-  function handleChange(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  }
-  function handleCheck(e) {
-    if (e.target.checked) {
-      setInput({
-        ...input,
-        type: e.target.value,
-      });
-    }
-  }
-  function handleSubmit(e) {
+  //Business
+  function handleSubmitLoginBusiness(e) {
     e.preventDefault();
 
-    if (input.email !== "" && input.password !== "") {
-      if (input.type === "users") {
-        dispatch(login(input));
-      } else if (input.type === "business") {
-        dispatch(loginBusiness(input));
-      } else {
-        return;
-      }
+    if (inputBusiness.email !== "" && inputBusiness.password !== "") {
+      dispatch(loginBusiness(inputBusiness));
+      setInputBusiness({
+        email: "",
+        password: "",
+      });
+      setErrors({
+        ...inputBusiness,
+
+      })
     } else {
       alert("¡Faltan los elementos necesarios!");
     }
   }
-  useEffect(() => {
-    if (didMount) {
-      setDidMount(false);
-      return;
-    } else {
-      if (user === "Usuario no encontrado") {
-        swal(
-          "Usuario no encontrado",
-          "El email parece no estar registrado",
-          "error"
-        );
-        setInput({
-          email: "",
-          password: "",
-          type: "",
-        });
-        return;
-      } else if (user === "Datos incorrectos") {
-        swal(
-          "Datos incorrectos",
-          "El email o la contraseña no son correctas ",
-          "error"
-        );
-        setInput({
-          email: "",
-          password: "",
-          type: "",
-        });
-        return;
-      } else {
-        swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-        setInput({
-          email: "",
-          password: "",
-          type: "",
-        });
-        history.push("/persona");
-      }
-    }
-  }, [user]);
+  function handleChangeBusiness(e) {
+    setInputBusiness({
+      ...inputBusiness,
+      [e.target.name]: e.target.value,
+    });
+  }
 
+
+  
   useEffect(() => {
     if (didMount) {
       setDidMount(false);
@@ -130,35 +94,103 @@ export default function NavBarLanding() {
           "La empresa a la que intentas entrar no esta registrada",
           "error"
         );
-        setInput({
+        setShowLogin(false);
+        setInputBusiness({
           email: "",
           password: "",
-          type: "",
         });
+
+        setShowLogin(false)
         return;
+
       } else if (business === "Datos incorrectos") {
         swal(
           "Datos incorrectos",
           "El email o la contraseña no son correctas ",
           "error"
         );
+        setShowLogin(false);
+        setInputBusiness({
+          email: "",
+          password: "",
+        });
+        
+      } else {
+        swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+
+        setInputBusiness({
+          email: "",
+          password: "",
+        });
+        history.push("/empresas");
+      }
+    }
+    return () => {
+      setInputBusiness({
+        email: "",
+        password: "",
+      });
+    };
+  }, [business]);
+
+  //USUARIO
+  function handleChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function handleSubmitLoginUser(e) {
+    e.preventDefault();
+
+    if (input.email !== "" && input.password !== "") {
+      dispatch(login(input));
+      setInput({
+        email: "",
+        password: "",
+      });
+    } else {
+      alert("¡Faltan los elementos necesarios!");
+    }
+  }
+
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return;
+    } else {
+      if (user === "Usuario no encontrado") {
         setInput({
           email: "",
           password: "",
-          type: "",
         });
+        swal(
+          "Usuario no encontrado",
+          "El email parece no estar registrado",
+          "error"
+        );
+        return;
+      } else if (user === "Datos incorrectos") {
+        setInput({
+          email: "",
+          password: "",
+        });
+        swal(
+          "Datos incorrectos",
+          "El email o la contraseña no son correctas ",
+          "error"
+        );
         return;
       } else {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",
           password: "",
-          type: "",
         });
-        history.push("/empresas");
+        history.push("/persona");
       }
     }
-  }, [business]);
+  }, [user]);
 
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => setShowLogin(true);
@@ -179,69 +211,93 @@ export default function NavBarLanding() {
       </div>
       <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
-        <button onClick={handleShowLogin}>INGRESAR</button>
-
+        <button onClick={handleShowLogin}>LOGIN</button>
         <Modal show={showLogin} onHide={handleCloseLogin}>
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form onSubmit={(e) => handleSubmit(e)}>
-              <Form.Group className="mb-3">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  placeholder="Enter email"
-                  type="email"
-                  name="email"
-                  value={input.email}
-                  id="email"
-                  required
-                  onChange={(e) => handleChange(e)}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  id="password"
-                  value={input.password}
-                  onChange={(e) => handleChange(e)}
-                  required
-                />
-              </Form.Group>
+            <Tabs
+              id="controlled-tab-example"
+              activeKey={key}
+              onSelect={(k) => setKey(k)}
+              className="mb-3"
+              justify
+            >
+              <Tab eventKey="home" title="Empresa">
+                <Form onSubmit={(e) => handleSubmitLoginBusiness(e)}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      placeholder="Enter email"
+                      type="email"
+                      name="email"
+                      value={inputBusiness.email}
+                      required
+                      onChange={(e) => handleChangeBusiness(e)}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      value={inputBusiness.password}
+                      onChange={(e) => handleChangeBusiness(e)}
+                      required
+                    />
+                  </Form.Group>
 
-              <Form.Label>Estas registrado como:</Form.Label>
-              <div>
-                <Form.Group className="mb-3 ml-15">
-                  <Form.Label>Empresa</Form.Label>
-                  <Form.Check
-                    type="radio"
-                    name="type"
-                    value="business"
-                    onChange={(e) => handleCheck(e)}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Usuario</Form.Label>
-                  <Form.Check
-                    type="radio"
-                    name="type"
-                    value="users"
-                    onChange={(e) => handleCheck(e)}
-                  />
-                </Form.Group>
-              </div>
-              <Button
-                variant="info"
-                type="submit"
-                className={styles.buttonSubmit}
-                style={{ marginLeft: "33%" }}
-              >
-                Iniciar sesion
-              </Button>
-            </Form>
+                  <Button
+                    variant="info"
+                    type="submit"
+                    className={styles.buttonSubmit}
+                    style={{ marginLeft: "33%" }}
+                  >
+                    Iniciar sesion
+                  </Button>
+                </Form>
+              </Tab>
+
+              <Tab eventKey="profile" title="Usuario">
+                <Form onSubmit={(e) => handleSubmitLoginUser(e)}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      placeholder="Enter email"
+                      type="email"
+                      name="email"
+                      value={input.email}
+                      id="email"
+                      required
+                      onChange={(e) => handleChange(e)}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      id="password"
+                      value={input.password}
+                      onChange={(e) => handleChange(e)}
+                      required
+                    />
+                  </Form.Group>
+
+                  <Button
+                    variant="info"
+                    type="submit"
+                    className={styles.buttonSubmit}
+                    style={{ marginLeft: "33%" }}
+                  >
+                    Iniciar sesion
+                  </Button>
+                </Form>
+              </Tab>
+            </Tabs>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="danger" onClick={handleCloseLogin}>
@@ -249,9 +305,7 @@ export default function NavBarLanding() {
             </Button>
           </Modal.Footer>
         </Modal>
-        {/* <NavLink to="/Login">
-          <button>INGRESAR</button>
-        </NavLink> */}
+
         <button onClick={handleShow}>REGISTRARSE</button>
 
         <Modal show={show} onHide={handleClose}>
