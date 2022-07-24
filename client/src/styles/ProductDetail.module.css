@@ -1,12 +1,42 @@
 .cont {
     display: flex;
     justify-content: center;
+    margin-bottom: 50px;
 }
 .contBot{
+    margin-top: 30px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: space-around;
 }
+#card {
+  transition: box-shadow 0.8s ease;
+}
+ #card:hover{
+  /* background-color: #41d4cf69; */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.350), 0 8px 16px 0 rgba(0, 0, 0, 0.350);
+  
+ }
 
+
+#boton {
+    font-family: "Montserrat", sans-serif;
+    background-color: #41d4cf;
+    color: white;
+    border: 3px solid #41d4cf;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 15px;    
+    height: 40px;
+    width: auto;
+  }
+  
+#boton:hover {
+    transition: background-color 1s ease;
+    background-color: white; /* Green */
+    color: #41d4cf;
+  }
+  
 
 
 /* img {

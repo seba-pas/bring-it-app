@@ -1,10 +1,44 @@
-.card {
-  display:flex;
-  justify-content: center;
+#boton {
+  font-family: "Montserrat", sans-serif;
+  background-color: #41d4cf;
+  color: white;
+  border: 3px solid #41d4cf;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 15px;
+  height: 40px;
+  width: auto;
 }
+
+#boton:hover {
+  transition: background-color 1s ease;
+  background-color: white;
+  color: #41d4cf;
+}
+#card {
+  transition: box-shadow 0.2s ease;
+}
+#card:hover {
+  /* background-color: #41d4cf69; */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.13), 0 8px 16px 0 rgba(0, 0, 0, 0.13);
+}
+#name {
+  
+  font-size: 30px;
+
+  text-align: left;
+}
+#price {
+  
+  font-size: 50px;
+
+  text-align: right;
+}
+/* 
+
 .container {
   margin-top: 100px;
-  padding-top: 10px;
+
   
   background-color: rgba(255, 255, 255, 0.975);
   text-decoration: none;
@@ -20,11 +54,14 @@
 }
 
 .container img {
-  margin: 10px;
-  width: 80%;
+ border-radius: 10px;
+  width: 100%;
   height: auto;
+object-fit: cover;
 
-
+}
+footer {
+  background-color: #F7F7F9;
 }
 
 .container:hover {
@@ -37,12 +74,7 @@
   margin-left: 7%;
   width: 80%;  
 }
-.name {
-  margin-bottom: 10px;
-  font-size: 35px;
-  font-weight: bolder;
 
-}
 .empresa {
   text-decoration: none;
   margin-top: 0px;
@@ -57,9 +89,4 @@
   font-weight: 400;
   font-size: 20px;
 }
-.price {
-  margin-top: 10px;
-  font-weight: 300;
-  font-size: 55px;
-
-}
+*/
