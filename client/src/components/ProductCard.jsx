@@ -9,10 +9,12 @@ export default function ProductCard({
   description,
   image,
   price,
-  empresa,
-  province,
+  businessName,
+  categories,
   id,
-}) {
+}) 
+{
+  
   return (
     <div
       className="card"
@@ -35,19 +37,23 @@ export default function ProductCard({
         <p className="card-text" id={styles.descrpition}>
           {description}
         </p>
-       
+        <p>
+          {Array.isArray(categories)
+            ? categories.map((e) => e.name + "  ")
+            : "No tiene categoria"}
+        </p>
       </div>
       <a
-          href={`product/${id}`}
-          className="btn btn-primary stretched-link"
-          id={styles.boton}
-        >
-          Ver Producto
-        </a>
+        href={`product/${id}`}
+        className="btn btn-primary stretched-link"
+        id={styles.boton}
+      >
+        Ver Producto
+      </a>
       <div className="card-footer">
         <small className="text-muted">
-          Empresa:
-          {empresa}
+          Empresa:{" "}
+          {businessName?businessName : "No esta asociado a una empresa"}
         </small>
       </div>
     </div>

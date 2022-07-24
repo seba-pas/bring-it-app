@@ -8,19 +8,20 @@ export default function ProductCards({ currentProducts }) {
     // <div className={styles.grid}>
     <div className="card-deck" style={{display: "flex", justifyContent: "space-around", marginTop: "20px"}}>
       <div className="row" style={{justifyContent: "space-around"}}>
-      {currentProducts.map((el) => (
+        {console.log(currentProducts)}
+      {currentProducts.map((el) => (        
         <ProductCard
-          key={el.id}
+        key={el.id}
           name={el.name}
           price={el.price}
           weight={el.weight}
           description={el.description}
           image={el.image}
           id={el.id}
-          businessName={el.businessName}
-
-        />
-      ))}
+          businessName={el.business === null?'Ninguna Empresa': el.business.businessName }
+          categories={el.categories}
+          />     
+          ))}
     </div>
     </div>
   );

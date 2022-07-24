@@ -50,6 +50,7 @@ export default function HomePersonas() {
     e.preventDefault();
     dispatch(getAllProducts());
     setCurrentPage(1);
+    // e.target.value = {};
   }
 
   //funcion para ordenar los precios
@@ -66,6 +67,7 @@ export default function HomePersonas() {
     setCurrentPage(1);
     dispatch(filterByCategory(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
+    
   }
 
   //funcion para filtrar por empresas
@@ -92,19 +94,24 @@ export default function HomePersonas() {
 
 
           <div className={styles.containerS}>
-            <div> Ordenar por
+            {/* <div> Ordenar por */}
             <select onChange={(e) => handleSort(e)}>
               {/* <span>Todos</span> */}
               {/* <option value="All">
                 Todos
-              </option> */}
-              <option value="asc">Menor a Mayor</option>
-              <option value="desc">Mayor a Menor</option>
+              </option> */}<option hidden selected>
+            Orden Alfabetico
+          </option>
+              <option value="asc">A - Z</option>
+              <option value="desc">Z - A</option>
             </select>
 
-            </div>
+            {/* </div> */}
           
             <select onChange={(e) => handleFilterByCategory(e)}>
+            <option hidden selected>
+           Categorias
+          </option>
               <option value="All">Todas</option>
               {CATEGORY.map((CATEGORY) => {
                 return(
@@ -119,6 +126,9 @@ export default function HomePersonas() {
             
             <select onChange={(e) => handleFilterByBusiness(e)}>
               <option value="All">Todas</option>
+              <option hidden selected>
+           Empresa
+          </option>
               {BUSINESS.map((BUSINESS) => {
                 return(
                 <option value={BUSINESS.businessName} key={BUSINESS.email}>
@@ -129,7 +139,7 @@ export default function HomePersonas() {
               </select>
           </div>
           <div > 
-            <button className={styles.botonvol} onClick={(e) => handleClick(e)}>Volver</button>
+            <button className={styles.botonvol} onClick={(e) => handleClick(e)}>Todos</button>
           </div>
 
           <ProductCards currentProducts={currentProducts} />
