@@ -16,12 +16,16 @@ export const ProductDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAllProductsDetail(id));
-
+    dispatch(getAllProductsDetail(id)); //component did mount
     return () => {
       dispatch(setDetail());
     };
   }, [dispatch, id]);
+  function handleClick(e) {
+    e.preventDefault();
+    alert("PROXIMAMENTE!!!...");
+  }
+
   console.log(product.categories);
   console.log(product.business);
   return (
@@ -32,7 +36,7 @@ export const ProductDetail = () => {
         <div className={styles.cont}>
           <div className="card" id={styles.card} style={{ width: "40%" }}>
             <img
-            style={{ objectFit: "cover" }}
+              style={{ objectFit: "cover" }}
               className="card-img-top"
               src={product.image}
               alt="Card image cap"
@@ -57,10 +61,18 @@ export const ProductDetail = () => {
               </p>
               <p className="card-text">Disponibles: {product.stock}</p>
               <div className={styles.contBot}>
-                <a className="btn btn-primary" id={styles.boton}>
+                <a
+                  className="btn btn-primary"
+                  onClick={(e) => handleClick(e)}
+                  id={styles.boton}
+                >
                   COMPRAR
                 </a>
-                <a className="btn btn-primary" id={styles.boton}>
+                <a
+                  className="btn btn-primary"
+                  onClick={(e) => handleClick(e)}
+                  id={styles.boton}
+                >
                   AGREGAR AL CARRITO
                 </a>
                 <Link to={"/persona"}>

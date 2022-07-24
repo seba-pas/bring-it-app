@@ -18,7 +18,7 @@ export default function ProductCards({ currentProducts }) {
           description={el.description}
           image={el.image}
           id={el.id}
-          businessName={el.business === null?'Este Poducto no esta asociado a una empresa': el.business.businessName }
+          businessName={el.business === null?'Ninguna Empresa': el.business.businessName }
           categories={el.categories}
           />     
           ))}

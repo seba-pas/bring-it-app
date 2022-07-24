@@ -85,24 +85,27 @@ export default function NavBarLanding() {
           "La empresa a la que intentas entrar no esta registrada",
           "error"
         );
+        setShowLogin(false);
         setInputBusiness({
           email: "",
           password: "",
         });
-        return;
+        
       } else if (business === "Datos incorrectos") {
         swal(
           "Datos incorrectos",
           "El email o la contraseña no son correctas ",
           "error"
         );
+        setShowLogin(false);
         setInputBusiness({
           email: "",
           password: "",
         });
-        return;
+        
       } else {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+
         setInputBusiness({
           email: "",
           password: "",
@@ -110,6 +113,12 @@ export default function NavBarLanding() {
         history.push("/empresas");
       }
     }
+    return () => {
+      setInputBusiness({
+        email: "",
+        password: "",
+      });
+    };
   }, [business]);
 
   //USUARIO
@@ -191,8 +200,7 @@ export default function NavBarLanding() {
           />
         </NavLink>
       </div>
-      <div className={styles.SearchBar}>
-      </div>
+      <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
         <button onClick={handleShowLogin}>LOGIN</button>
         <Modal show={showLogin} onHide={handleCloseLogin}>
