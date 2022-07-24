@@ -14,27 +14,9 @@ export default function ProductCard({
   id,
 }) {
   return (
-
-    <div className={styles.container}>
-      <Link style={{ textDecoration: "none" }} to={`product/${id}`}>
-        <img
-          className={styles.imagen}
-          src={image}
-          alt="no pudo cargarse la imagen"
-        />
-        <div className={styles.containertext}>
-          <h3 className={styles.name}>{name}</h3>
-          <h1 className={styles.price}>${price}</h1>
-          <p className={styles.description}>{description}</p>
-          <p className={styles.empresa}>
-            by {empresa} <br />({province})
-          </p>
-        </div>
-      </Link>
-
-
     <div
-      className="card" id={styles.card}
+      className="card"
+      id={styles.card}
       style={{ padding: "0", margin: "20px", width: "20%", height: "auto" }}
     >
       <img
@@ -44,9 +26,15 @@ export default function ProductCard({
         alt="no pudo cargarse la imagen"
       />
       <div className="card-body">
-        <h5 className="card-title" id={styles.name}>{name}</h5>
-        <h5 className="card-title" id={styles.price}>${price}</h5>
-        <p className="card-text" id={styles.descrpition}>{description}</p>
+        <h5 className="card-title" id={styles.name}>
+          {name}
+        </h5>
+        <h5 className="card-title" id={styles.price}>
+          ${price}
+        </h5>
+        <p className="card-text" id={styles.descrpition}>
+          {description}
+        </p>
         <a
           href={`product/${id}`}
           className="btn btn-primary stretched-link"
@@ -58,35 +46,9 @@ export default function ProductCard({
       <div className="card-footer">
         <small className="text-muted">
           Empresa:
-          {business}
+          {empresa}
         </small>
       </div>
     </div>
-    
   );
 }
-
-//   return (
-//     <div className={styles.container}>
-//       <Link style={{ textDecoration: "none" }} to={`product/${id}`}>
-//         <img
-//           className={styles.imagen}
-//           src={image}
-//           alt="no pudo cargarse la imagen"
-//         />
-//         <div className={styles.containertext}>
-//           <h3 className={styles.name}>{name}</h3>
-//           <h1 className={styles.price}>${price}</h1>
-//           <p className={styles.description}>{description}</p>
-//           <footer>
-
-//           <p className={styles.empresa}>
-//             by {business}
-//           </p>
-//           </footer>
-//         </div>
-//       </Link>
-
-//     </div>
-//   );
-// }
