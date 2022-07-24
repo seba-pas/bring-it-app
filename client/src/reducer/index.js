@@ -115,7 +115,7 @@ export default function rootReducer(state = initialState, action) {
       const filterCategory =
         action.payload === "All"
           ? allProducts
-          : allProducts.filter((e) => e.categories[0].name === action.payload);
+          : allProducts.filter((e) => e.categories.name === action.payload);
       console.log(filterCategory);
       console.log(action.payload, "Payload");
       return {

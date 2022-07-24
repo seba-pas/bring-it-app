@@ -60,7 +60,7 @@ export default function HomePersonas() {
     setOrden(`Ordenado ${e.target.value}`);
   }
 
-  //funcion para filtrar por precios
+  //funcion para filtrar por categorias
   function handleFilterByCategory(e) {
     e.preventDefault();
     setCurrentPage(1);
@@ -102,26 +102,30 @@ export default function HomePersonas() {
           
             <select onChange={(e) => handleFilterByCategory(e)}>
               <option value="All">Todas</option>
-              {CATEGORY.map((CATEGORY) => (
+              {CATEGORY.map((CATEGORY) => {
+                return(
                 <option value={CATEGORY.name} key={CATEGORY.id}>
                   {CATEGORY.name}
                 </option>
-              ))}
+
+                )
+              }
+              )}
             </select>
             
             <select onChange={(e) => handleFilterByBusiness(e)}>
               <option value="All">Todas</option>
-              {/* {console.log(BUSINESS)} */}
               {BUSINESS.map((BUSINESS) => {
                 return(
                 <option value={BUSINESS.businessName} key={BUSINESS.email}>
                   {BUSINESS.businessName}
-                  {/* {console.log(BUSINESS.businessName)} */}
                 </option>
-                  
                 )
               })}
               </select>
+          </div>
+          <div > 
+            <button className={styles.botonvol} onClick={(e) => handleClick(e)}>Volver</button>
           </div>
 
           <ProductCards currentProducts={currentProducts} />
