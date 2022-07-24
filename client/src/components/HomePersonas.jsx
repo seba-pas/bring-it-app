@@ -50,6 +50,7 @@ export default function HomePersonas() {
     e.preventDefault();
     dispatch(getAllProducts());
     setCurrentPage(1);
+    // e.target.value = {};
   }
 
   //funcion para ordenar los precios
@@ -66,6 +67,7 @@ export default function HomePersonas() {
     setCurrentPage(1);
     dispatch(filterByCategory(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
+    
   }
 
   //funcion para filtrar por empresas
