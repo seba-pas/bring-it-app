@@ -2,10 +2,10 @@ import { useHistory } from "react-router-dom";
 import { addUser } from "../actions/index.js";
 import { React, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import swal from "sweetalert";
+import imgIcon from "./img/programmer.png";
 import style from "../styles/RegisterUser.module.css";
 import NavBarRegisters from "./NavBarRegisters.jsx";
 // function validate(input) {
@@ -104,85 +104,104 @@ function RegisterUser() {
     <div className={style.divContainer}>
       <NavBarRegisters />
       <div className={style.divContainerForms}>
-      <Form onSubmit={(e) => handleSubmit(e)} className={style.forms}>
-        <Form.Group className="mb-3">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            placeholder="Enter email"
-            type="email"
-            value={input.email}
-            name="email"
-            id="email"
-            required
-            onChange={(e) => handleChange(e)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={(e) => handleChange(e)}
-            value={input.password}
-            name="password"
-            id="password"
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Confirmar password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirmar password"
-            onChange={(e) => handleChange(e)}
-            value={input.confirmPassword}
-            name="confirmPassword"
-            id="confirmPassword"
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese su nombre"
-            onChange={(e) => handleChange(e)}
-            value={input.name}
-            name="name"
-            id="name"
-            required
-          />
-        </Form.Group>
+        <Container>
+          <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
+            Registrar Usuario
+          </h1>
+          <Row>
+            <Col
+              lg={8}
+              md={6}
+              sm={12}
+              className="text-center p-5 m-auto shadow-sm rounded-lg"
+            >
+              <img className="iconImg" src={imgIcon} alt="icon" />
+              <Form onSubmit={(e) => handleSubmit(e)} className={style.forms}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    placeholder="Enter email"
+                    type="email"
+                    value={input.email}
+                    name="email"
+                    id="email"
+                    required
+                    onChange={(e) => handleChange(e)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => handleChange(e)}
+                    value={input.password}
+                    name="password"
+                    id="password"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Confirmar password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Confirmar password"
+                    onChange={(e) => handleChange(e)}
+                    value={input.confirmPassword}
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Nombre</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Ingrese su nombre"
+                    onChange={(e) => handleChange(e)}
+                    value={input.name}
+                    name="name"
+                    id="name"
+                    required
+                  />
+                </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Apellido</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese su apellido"
-            onChange={(e) => handleChange(e)}
-            value={input.lastname}
-            name="lastname"
-            id="lastname"
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Fecha nacimiento</Form.Label>
-          <Form.Control
-            type="date"
-            placeholder="Fecha de nacimiento"
-            onChange={(e) => handleChange(e)}
-            value={input.birthDate}
-            name="birthDate"
-            id="birthDate"
-            required
-          />
-        </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Apellido</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Ingrese su apellido"
+                    onChange={(e) => handleChange(e)}
+                    value={input.lastname}
+                    name="lastname"
+                    id="lastname"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Fecha nacimiento</Form.Label>
+                  <Form.Control
+                    type="date"
+                    placeholder="Fecha de nacimiento"
+                    onChange={(e) => handleChange(e)}
+                    value={input.birthDate}
+                    name="birthDate"
+                    id="birthDate"
+                    required
+                  />
+                </Form.Group>
 
-        <Button variant="primary" className="mt-3 mb-5" type="submit">
-          Submit
-        </Button>
-      </Form>
+                <Button variant="primary" className="mt-3 mb-5 w-100 mt-3"  type="submit">
+                  REGISTRARME
+                </Button>
+              </Form>
+            </Col>
+          
+          </Row>
+          <h6 className="mt-5 p-5 text-center text-secondary ">
+            © 2022 Bring it. All Rights Reserved | Design by Grupo 8 Soy Henry
+          </h6>
+        </Container>
       </div>
     </div>
   );
