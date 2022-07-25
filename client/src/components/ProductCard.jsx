@@ -26,11 +26,11 @@ export default function ProductCard({
         alt="no pudo cargarse la imagen"
       />
       <div className="card-body">
-        <h5 className="card-title" id={styles.price}>
-          ${price}
-        </h5>
         <h5 className="card-title" id={styles.name}>
           {name}
+        </h5>
+        <h5 className="card-title" id={styles.price}>
+          ${price}
         </h5>
         <p className="card-text" id={styles.description}>
           
