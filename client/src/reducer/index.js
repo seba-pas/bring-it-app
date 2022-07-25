@@ -15,8 +15,15 @@ const initialState = {
   business2: [],
   allBusiness2: [],
   provinces: [],
+
   putBusiness: "",
   businessEditInfo: {},
+
+
+  uniqueProvinces: [],
+  users: []
+
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -65,7 +72,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         deleteProduct: action.payload,
       };
-
+    case "CLEAN_USERS":
+      return {
+        ...state,
+        user: {},
+      };
+    case "CLEAN_BUSINESS":
+      return {
+        ...state,
+        business: {},
+      };
     case "POST_LOGIN":
       return {
         ...state,
@@ -91,7 +107,6 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case "ORDER_BY_PRICE":
-
       // if(action.payload === 'All'){
       //   return {
       //     ...state,
@@ -101,6 +116,7 @@ export default function rootReducer(state = initialState, action) {
       let sortedPrice =
         action.payload === "asc"
           ? state.allProducts.sort(function (a, b) {
+
             if (a.price > b.price) {
               return 1;
             }
@@ -118,6 +134,7 @@ export default function rootReducer(state = initialState, action) {
             }
             return 0;
           });
+
       return {
         ...state,
         products: sortedPrice,
@@ -132,9 +149,11 @@ export default function rootReducer(state = initialState, action) {
       };
     case "FILTER_BY_CATEGORY":
       const allProducts = state.allProducts;
+
       const filterCategory = action.payload === "All" ?
         allProducts :
         allProducts.filter((e) => e.categories && e.categories.map(e => e.name).includes(action.payload))
+
       console.log(filterCategory);
       console.log(action.payload, "Payload");
       return {
@@ -147,42 +166,79 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         productsDetail: {},
       };
-    case 'GET_CITIES':
-      return {
-        ...state,
-        cities: action.payload
-      };
-    case 'GET_ALL_BUSINESS':
+
+    case "GET_ALL_BUSINESS":
       // console.log(action.payload)
+
       return {
 
+
+      return {
         ...state,
         business2: action.payload,
-        businessEditInfo: action.payload.filter(e => e.email === state.businessEmail)[0],
-      };
-    case 'FILTER_BY_BUSINESS':
-      const allBusiness = state.allProducts;
-      const filterBusiness = action.payload === 'All' ?
-        allBusiness :
-        allBusiness.filter((e) => e.business.businessName === action.payload)
-      return {
-        ...state,
-        products: filterBusiness
-      };
-    case 'GET_ALL_PROVINCES':
-      return {
-        ...state,
-        provinces: action.payload
-      }
 
-    case 'FILTER_BY_PROVINCES':
-      const allProvinces = state.allProducts;
-      const filterProvinces = action.payload === 'All' ?
-        allProvinces :
-        allProvinces.filter((e) => e.business.province === action.payload)
+        businessEditInfo: action.payload.filter(e => e.email === state.businessEmail)[0],
+
+      };
+    case "FILTER_BY_BUSINESS":
+      const allBusiness = state.allProducts;
+
+      const filterBusiness =
+        action.payload === "All"
+          ? allBusiness
+          : allBusiness.filter(
+              (e) => e.business.businessName === action.payload
+            );
       return {
         ...state,
-        products: filterProvinces
+        products: filterBusiness,
+      };
+
+    case 'GET_ALL_PROVINCES':
+
+      return {
+        ...state,
+        provinces: action.payload,
+      };
+
+    case "FILTER_BY_PROVINCES":
+      const allProvinces = state.allProducts;
+
+      const filterProvinces =
+        action.payload === "All"
+          ? allProvinces
+          : allProvinces.filter((e) => e.business.province === action.payload);
+      return {
+        ...state,
+        products: filterProvinces,
+      };
+
+    case "GET_CITIES":
+      return {
+        ...state,
+        cities: action.payload,
+      };
+    //Filtrado de ciudades segun la provincia
+    case "FILTER_BY_PROVINCE_CITY":
+      // const allProvinces = state.allProducts;
+      // const filterProvinces = action.payload === 'All' ?
+      // allProvinces :
+      // allProvinces.filter((e) => e.business.province === action.payload)
+      const allCities = state.allCities;
+      const filterCities =
+        action.payload === "All"
+          ? allCities
+          : allCities.filter((e) => e.provinceId === action.payload);
+
+      return {
+        ...state,
+        cities: filterCities,
+      };
+    case 'GET_USERS':
+      return{
+
+        ...state,
+        users: action.payload
       }
 
     default:

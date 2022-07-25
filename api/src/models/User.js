@@ -32,6 +32,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING, // DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
         allowNull: true
     },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
+    },
     },
     {
         timestamps: false
