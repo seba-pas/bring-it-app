@@ -1,9 +1,9 @@
 import { useHistory } from "react-router-dom";
-import { addUser } from "../actions/index.js";
-import { React, useState } from "react";
+import { addUser, cleanUsers} from "../actions/index.js";
+import { React, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import swal from "sweetalert";
 import imgIcon from "./img/programmer.png";
 import style from "../styles/RegisterUser.module.css";
@@ -49,6 +49,9 @@ function RegisterUser() {
   const dispatch = useDispatch();
   const history = useHistory();
   // const [errors, setErrors] = useState({});
+
+
+
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -83,6 +86,24 @@ function RegisterUser() {
       input.birthDate !== ""
     ) {
       dispatch(addUser(input));
+      
+    } else {
+      swal(
+        "Faltan datos por llenar",
+        "Por favor ingrese todos los datos",
+        "error"
+      );
+    }
+  }
+//NUEVO AGUS -> PARA QUE MUESTRE CUANDO USUARIO YA EXISTE
+const user = useSelector((state) => state.user);
+const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return; 
+    } else {
+      if ( user === "Usuario creado") {
       swal("Buen trabajo!", "El usuario fue creado con exito!", "success");
       setInput({
         email: "",
@@ -92,14 +113,14 @@ function RegisterUser() {
         birthDate: "",
       });
       history.push("/persona");
-    } else {
-      swal(
-        "Faltan datos por llenar",
-        "Por favor ingrese todos los datos",
-        "error"
-      );
+      } else if ( user === "error:Validation error") {
+      swal("Ya existe un usuario con el email");
+      dispatch(cleanUsers());
+      }
     }
-  }
+  }, [user]);
+
+
   return (
     <div className={style.divContainer}>
       <NavBarRegisters />

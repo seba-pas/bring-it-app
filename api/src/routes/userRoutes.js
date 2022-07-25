@@ -11,15 +11,17 @@ router.post("/", async (req, res) => {
     res.status(404).send("Faltan datos para crear el usuario");
   } else {
     try {
-      const newUser = await User.create({
+      const newUser = await User.findOrCreate({
+        where: {
         email,
         password,
         name,
         lastname,
         birthDate,
+        }
       });
-      console.log(newUser);
-      res.status(201).send("Usuario creado");
+      console.log(newUser)
+      res.status(201).send(newUser[1] ? "Usuario creado" : "El usuario ya existe");
     } catch (e) {
       res.send("error:" + e.message);
     }
