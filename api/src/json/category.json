@@ -1,0 +1,29 @@
+[{ 
+    "name": "Música",
+    "id": "1"
+},
+{ 
+    "name": "Comida",
+    "id": "2"
+},
+{ 
+    "name": "Deportes",
+    "id": "3"
+},
+{ 
+    "name": "Decoración",
+    "id": "4"
+},
+{ 
+    "name": "Accesorios",
+    "id": "5"
+},
+{ 
+    "name": "Computación",
+    "id": "6"
+},
+{ 
+    "name": "Bebida",
+    "id": "7"
+}
+]

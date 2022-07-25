@@ -6,7 +6,6 @@ const router = Router();
 //POST new Product
 // http://localhost:3001/api/product
 router.post('/', async (req,res) => {
-    console.log(req.body);
     try {
         const addedProduct = await addProduct ({...req.body});           
         return res.send (`Producto agregado correctamente`);
@@ -53,7 +52,7 @@ router.put('/:id', async(req,res) => {
             where: {id: id}
         });
         const foundProduct = await Product.findByPk(id);
-        await foundProduct.setCategories(modification.categoryId)
+        await foundProduct.setCategories(modification.categoryId);
         res.status(201).send(`${q} Productos modificados`)
     } catch (e) {
        res.send('error:'+ e.message)
