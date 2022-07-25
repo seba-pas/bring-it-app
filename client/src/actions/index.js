@@ -18,7 +18,7 @@ import {
   CLEAN_USERS,
   CLEAN_BUSINESS,
   FILTER_BY_PROVINCE_CITY,
-  GET_CITIES,
+  GET_ALL_CITIES,
   GET_USERS,
   GET_ALL_PROVINCES,
   FILTER_BY_PROVINCES,
@@ -192,18 +192,18 @@ export const filterByBusiness = (payload) => {
   };
 };
 
-export const getCities = () => {
+export const getAllCities = () => {
   return async function (dispatch) {
     const res = await axios("http://localhost:3001/api/city");
     console.log('soy Res',res)
     return dispatch({
-      type: GET_CITIES,
+      type: GET_ALL_CITIES,
       payload: res.data,
     });
   };
 };
 
-export const filterByProvinceCity = (payload) => {
+export const filterByProvinceCity = (payload) => {  
   return {
     type: FILTER_BY_PROVINCE_CITY,
     payload,
@@ -273,7 +273,7 @@ export function addBusiness(body) {
   return async function (dispatch) {
     try {
       let json = await axios.post(`http://localhost:3001/api/business`, body);
-
+      console.log(json.data);
       return dispatch({
         type: POST_BUSINESS,
         payload: [json.data, body.email],

@@ -265,7 +265,7 @@ export default function NavBarLanding() {
       </div>
       <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
-        <button onClick={handleShowLogin}>LOGIN</button>
+        <button id={styles.login} onClick={handleShowLogin}>LOGIN</button>
         <Modal show={showLogin} onHide={handleCloseLogin}>
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
@@ -308,7 +308,7 @@ export default function NavBarLanding() {
                   <Button
                     variant="info"
                     type="submit"
-                    className={styles.buttonSubmit}
+                    id={styles.iniciarSesion}
                     style={{ marginLeft: "33%" }}
                   >
                     Iniciar sesion

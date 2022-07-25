@@ -9,6 +9,9 @@ import {
   filterByProvinces,
   getAllProvinces,
   getCities,
+  cleanBusiness,
+  getAllCities,
+
 } from "../actions/index.js";
 import NavBarRegisters from "./NavBarRegisters.jsx";
 import swal from "sweetalert";
@@ -20,15 +23,22 @@ function RegisterBusiness() {
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const PROVINCES = useSelector((state) => state.provinces);
-  // const BUSINESS = useSelector((state) => state.business2);
+
+
+
+  const CITIES = useSelector((state) => state.cities);
+
+
   const [input, setInput] = useState({
     email: "",
     password: "",
     confirmPassword: "",
     businessName: "",
     cuit: "",
-    address: "",
+    taxBracket: "",
     province: "",
+    cityId: "",
+    address: "",
   });
 
   const validateUsers = (input) => {
@@ -106,19 +116,12 @@ function RegisterBusiness() {
       input.businessName !== "" &&
       input.cuit !== "" &&
       input.address !== "" &&
-      input.province !== ""
+      input.province !== "" &&
+      input.cityId !== "" &&
+      input.taxBracket !== ""
     ) {
       dispatch(addBusiness(input));
-      swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
-      setInput({
-        email: "",
-        password: "",
-        businessName: "",
-        cuit: "",
-        address: "",
-        province: "",
-      });
-      history.push("/empresas");
+
     } else {
       swal(
         "Faltan datos por llenar",
@@ -128,6 +131,33 @@ function RegisterBusiness() {
     }
   }
 
+  // NUEVO AGUS -> PARA QUE MUESTRE CUANDO EMPRESA YA EXISTE
+  const business = useSelector((state) => state.business);
+  const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return;
+    } else {
+      if (business === "Empresa creada") {
+        swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
+        setInput({
+          email: "",
+          password: "",
+          businessName: "",
+          cuit: "",
+          address: "",
+          province: "",
+        });
+        history.push("/empresas");
+      } else if (business === "error:Validation error") {
+        swal("Ya existe una empresa con el email");
+        dispatch(cleanBusiness());
+      }
+    }
+  }, [business]);
+
+
   //funcion para filtrar por provincias
   function handleFilterByProvinces(e) {
     e.preventDefault();
@@ -135,11 +165,29 @@ function RegisterBusiness() {
       ...input,
       province: e.target.value,
     });
-    dispatch(filterByProvinces(e.target.value));
+    dispatch(filterByProvinceCity(e.target.value));
+  }
+
+  //funcion para seleccionar ciudad
+  function handleCheckCity(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      cityId: e.target.value,
+    });
+  }
+
+  function handleTaxBracket(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      taxBracket: e.target.value,
+    });
   }
 
   useEffect(() => {
     dispatch(getAllProvinces());
+    dispatch(getAllCities());
   }, [dispatch]);
   return (
     <div>
@@ -229,14 +277,26 @@ function RegisterBusiness() {
 
               </Form.Group>
 
+              <Form.Label>Categoría Tributaria </Form.Label>
+              <Form.Group>
+                <select onChange={(e) => handleTaxBracket(e)}>
+                  <option selected disabled>Categoría Tributaria</option>
+                  <option value='Categoría tributaria 1'>Categoría tributaria 1</option>
+                  <option value='Categoría tributaria 2'>Categoría tributaria 2</option>
+                  <option value='Categoría tributaria 3'>Categoría tributaria 3</option>
+                </select>
+              </Form.Group>
+
+              <Form.Label>Provincia</Form.Label>
               <Form.Group>
                 <select onChange={(e) => handleFilterByProvinces(e)}>
                   <option value="All">Todas</option>
                   {PROVINCES.map((PROVINCE) => {
                     return (
                       <option
-                        value={PROVINCE.nombre}
+                        value={PROVINCE.id}
                         name={PROVINCE.nombre}
+                        name2={PROVINCE.nombre}
                         key={PROVINCE.id}
                       >
                         {PROVINCE.nombre}
@@ -245,6 +305,25 @@ function RegisterBusiness() {
                   })}
                 </select>
               </Form.Group>
+
+              <Form.Label>Ciudad</Form.Label>
+              <Form.Group>
+                <select onChange={(e) => handleCheckCity(e)}>
+                  <option value="All">Todas</option>
+                  {CITIES.map((CITY) => {
+                    return (
+                      <option
+                        value={CITY.id}
+                        name={CITY.nombre}
+                        key={CITY.id}
+                      >
+                        {CITY.nombre}
+                      </option>
+                    );
+                  })}
+                </select>
+              </Form.Group>
+
               <Form.Group className="mb-3">
                 <Form.Label>Direccion</Form.Label>
                 <Form.Control

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { editBusiness, getAllBusiness, getAllProvinces } from '../actions';
+import { editBusiness, getAllBusiness, getAllProvinces, getAllCities } from '../actions';
 import styles from "../styles/PerfilBusiness.module.css";
 import swal from "sweetalert";
 
@@ -14,6 +14,7 @@ function PerfilBusiness(props) {
 
     useEffect(() => {
         dispatch(getAllProvinces());
+        dispatch(getAllCities());
     }, [dispatch]);
 
 
@@ -23,7 +24,7 @@ function PerfilBusiness(props) {
         businessName: infoBusiness.businessName,
         password: infoBusiness.password,
         address: infoBusiness.address,
-        city: infoBusiness.city,
+        city: infoBusiness.city.nombre,
         cuit: infoBusiness.cuit,
         logo: infoBusiness.logo,
         province: infoBusiness.province,
@@ -157,16 +158,15 @@ function PerfilBusiness(props) {
                 </div>
                 <div className={styles.cityContainer}>
                     <label htmlFor='city'>Ciudad:</label>
-                    <input
-                        // className={}
-                        type="text"
-                        name="city"
-                        value={input.city}
-                        placeholder="city"
-                        onChange={handleInputChange}
-                    />
-                    {/* {!error.errorProduct ? <h3><pre>    {null}                                          </pre></h3> : <h3><pre>          {error.errorProduct}             </pre></h3>} */}
-                    {!error.errorcity ? <label> </label> : <label>          {error.errorcity}             </label>}
+                    <select name="city" value={input.city} onChange={(e) => handleInputChange(e)}>
+                        <option value="">{ } </option>
+
+                        {
+                            // gState.cities?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
+                            gState.allCities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.province)[0].id)?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
+                        }
+                    </select>
+
                 </div>
                 <div className={styles.cuitContainer}>
                     <label htmlFor='cuit'>Cuit:</label>
@@ -197,7 +197,7 @@ function PerfilBusiness(props) {
                 <div className={styles.logoProvince}>
                     <label htmlFor='province'>Provincia:</label>
                     <select name="province" value={input.province} onChange={(e) => handleInputChange(e)}>
-                        <option value="">{input.province} </option>
+                        <option value="">{ } </option>
                         {
                             gState.provinces?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
                         }

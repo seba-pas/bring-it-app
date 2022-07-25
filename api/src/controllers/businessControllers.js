@@ -3,17 +3,21 @@ const axios = require ('axios');
 const { Op } = require('sequelize');
 
 
-//Funcion del POST Business, agrega empresa a la bd
-async function addBusiness (business){
-    const {email, password, businessName, cuit, taxBracket, logo, province, address, cityId} = business;     
-    
-    try {
-        const newBusiness = await Business.create ({email, password, businessName, cuit, taxBracket, logo, province, address, cityId});        
-        
-    } catch (error) {
-        throw new error (`No se puedo agregar la empresa a la base de datos, ${error.message}`);
-    }
-}
+// Funcion del POST Business, agrega empresa a la bd
+// async function addBusiness (business){
+//     const {email, password, businessName, cuit, taxBracket, logo, province, address, cityId} = business;     
+//     try {
+//         // const newBusiness = await Business.findOrCreate ({
+//         //     where: {email, password, businessName, cuit, taxBracket, logo, province, address, cityId}
+//         //     });   
+//             const newBusiness = await Business.Create ({
+//             email, password, businessName, cuit, taxBracket, logo, province, address, cityId
+//             });   
+//             return newBusiness;     
+//     } catch (error) {
+//         throw new error (`No se puedo agregar la empresa a la base de datos, ${error.message}`);
+//     }
+// }
 
 
 //Fucion del GET Business, redirecciona segun haya query name o no 
@@ -59,6 +63,5 @@ async function getBusinessByName (name){
 }
 
 module.exports = {
-    addBusiness,
     getBusiness
 };
