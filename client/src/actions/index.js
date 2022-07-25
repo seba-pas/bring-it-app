@@ -19,7 +19,7 @@ import {
   CLEAN_BUSINESS,
   FILTER_BY_PROVINCE_CITY,
   GET_CITIES,
-  // FILTER_BY_CITIES,
+  GET_USERS,
   GET_ALL_PROVINCES,
   FILTER_BY_PROVINCES,
   GET_ALL_BUSINESS,
@@ -212,6 +212,21 @@ export const cleanBusiness = () => {
   return { type: CLEAN_BUSINESS };
 };
 //COMIENZA ACTION USER
+
+export const getUsers = () => {
+  return async function(dispatch){
+    try {
+      const res = await axios('http://localhost:3001/api/user');
+      return dispatch({
+        type: GET_USERS,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
 
 export const login = (body) => {
   console.log("login body", body);
