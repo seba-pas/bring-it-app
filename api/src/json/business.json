@@ -1,0 +1,38 @@
+[{ 
+    "email": "sebastian@gmail.com",
+    "password": "12345",
+    "businessName": "Seba's Business",
+    "cuit": "27-33447628-1",
+    "taxBracket": "Categoría tributaria 1",
+    "province": "Jujuy",
+    "address": "Aca a la vuelta 123",
+    "cityId": "386049"
+  }, { 
+    "email": "felipe@gmail.com",
+    "password": "12345",
+    "businessName": "Feli's Business",
+    "cuit": "27-33447628-1",
+    "taxBracket": "Categoría tributaria 2",
+    "province": "Salta",
+    "address": "Aca a la vuelta 123",
+    "cityId": "660035"
+  }, { 
+    "email": "guillermo@gmail.com",
+    "password": "12345",
+    "businessName": "Guille's Business",
+    "cuit": "27-33447628-1",
+    "taxBracket": "Categoría tributaria 3",
+    "province": "Buenos Aires",
+    "address": "Aca a la vuelta 123",
+    "cityId": "060056"
+  }, { 
+    "email": "alejandro@gmail.com",
+    "password": "12345",
+    "businessName": "Ale's Business",
+    "cuit": "27-33447628-1",
+    "taxBracket": "Categoría tributaria 1",
+    "province": "Catamarca",
+    "address": "Aca a la vuelta 123",
+    "cityId": "100077"
+  }
+]
