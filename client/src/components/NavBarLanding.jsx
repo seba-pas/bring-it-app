@@ -9,7 +9,12 @@ import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
 import image from "../components/img/logoCUT.png";
-import { login, loginBusiness, cleanUsers,cleanBusiness } from "../actions/index.js";
+import {
+  login,
+  loginBusiness,
+  cleanUsers,
+  cleanBusiness,
+} from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 //seba
@@ -31,26 +36,24 @@ export default function NavBarLanding() {
     email: "",
     password: "",
   });
-  const validate = (inputBusiness) => {
+  const validateBusiness = (inputBusiness) => {
     const errors = {};
 
-    if (!inputBusiness.email) {
+    if (!inputBusiness.email ||!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(inputBusiness.email)) {
       errors.email = "Email obligatorio.";
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(inputBusiness.email)
-    ) {
-      errors.email = "Email invalido";
+    } else {
+      errors.email = "✔ Email valido";
     }
-
-    if (!inputBusiness.password) {
-      errors.password = "Contraseña obligatoria.";
-    } else if (
+    if (
+      !inputBusiness.password ||
       !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(
         inputBusiness.password
       )
     ) {
       errors.password =
         "Debe tener entre 8 y 16 caracteres, al menos un numero, una minúscula y una mayúscula.";
+    } else {
+      errors.password = "✔ Contraseña valida";
     }
 
     return errors;
@@ -59,15 +62,11 @@ export default function NavBarLanding() {
   //Business
   function handleSubmitLoginBusiness(e) {
     e.preventDefault();
-
     if (inputBusiness.email !== "" && inputBusiness.password !== "") {
       dispatch(loginBusiness(inputBusiness));
       setInputBusiness({
         email: "",
         password: "",
-      });
-      setErrors({
-        ...inputBusiness,
       });
     } else {
       alert("¡Faltan los elementos necesarios!");
@@ -78,6 +77,12 @@ export default function NavBarLanding() {
       ...inputBusiness,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      validateBusiness({
+        ...inputBusiness,
+        [e.target.name]: e.target.name,
+      })
+    );
   }
 
   useEffect(() => {
@@ -95,10 +100,9 @@ export default function NavBarLanding() {
           email: "",
           password: "",
         });
-        dispatch(cleanBusiness())
+        dispatch(cleanBusiness());
 
         return;
-
       } else if (business === "Datos incorrectos") {
         swal(
           "Datos incorrectos",
@@ -109,10 +113,9 @@ export default function NavBarLanding() {
           email: "",
           password: "",
         });
-        dispatch(cleanBusiness())
+        dispatch(cleanBusiness());
         return;
-      } else if(business.email){
-
+      } else if (business.email) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
 
         setInputBusiness({
@@ -180,7 +183,7 @@ export default function NavBarLanding() {
         });
         dispatch(cleanUsers());
         return;
-      } else if (user.email){
+      } else if (user.email) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",
@@ -235,6 +238,7 @@ export default function NavBarLanding() {
                       required
                       onChange={(e) => handleChangeBusiness(e)}
                     />
+                    {errors.email && <p>{errors.email}</p>}
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
@@ -246,6 +250,7 @@ export default function NavBarLanding() {
                       onChange={(e) => handleChangeBusiness(e)}
                       required
                     />
+                    {errors.password && <p>{errors.password}</p>}
                   </Form.Group>
 
                   <Button
