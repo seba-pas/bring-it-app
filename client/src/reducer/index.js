@@ -15,8 +15,10 @@ const initialState = {
   business2: [],
   allBusiness2: [],
   provinces: [],
+
   uniqueProvinces: [],
   users: []
+
 };
 
 export default function rootReducer(state = initialState, action) {
