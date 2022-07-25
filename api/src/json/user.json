@@ -1,0 +1,29 @@
+[{ 
+    "email": "agustina@gmail.com",
+    "password": "12345",
+    "name": "Agustina",
+    "lastname": "Eciolaza",
+    "birthDate": "1995-12-10"
+},
+{ 
+    "email": "tomas@gmail.com",
+    "password": "12345",
+    "name": "Tomas",
+    "lastname": "Gelvez",
+    "birthDate": "2000-12-10"
+},
+{ 
+    "email": "celeste@gmail.com",
+    "password": "12345",
+    "name": "Celeste",
+    "lastname": "Cancio",
+    "birthDate": "1993-05-10"
+},
+{ 
+    "email": "agustin@gmail.com",
+    "password": "12345",
+    "name": "Agustin",
+    "lastname": "Farias",
+    "birthDate": "1998-03-10"
+}
+]

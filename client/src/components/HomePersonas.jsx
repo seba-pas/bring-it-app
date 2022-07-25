@@ -15,20 +15,21 @@ import {
   getCategories,
   getAllBusiness,
   filterByBusiness,
-
   filterByProvinces,
-  getAllProvinces
+  getAllProvinces,
 } from "../actions";
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
-
   const CATEGORY = useSelector((state => state.categories));
-  // const PROVINCES = useSelector((state => state.provinces));
+  const PROVINCES = useSelector((state => state.uniqueProvinces));
 
   const [orden, setOrden] = useState("");
+  const [category, setCategory] = useState('All');
+  const [business, setBusinnes] = useState('All');
+  const [province, setProvince] = useState('All');
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(8);
@@ -43,6 +44,7 @@ export default function HomePersonas() {
     setCurrentPage(pageNumber);
   };
 
+
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getCategories());
@@ -53,6 +55,9 @@ export default function HomePersonas() {
   //funcion para volver a cargar los productos
   function handleClick(e) {
     e.preventDefault();
+    setCategory('All');
+    setBusinnes('All');
+    setProvince('All');
     dispatch(getAllProducts());
     setCurrentPage(1);
   }
@@ -68,6 +73,7 @@ export default function HomePersonas() {
   //funcion para filtrar por categorias
   function handleFilterByCategory(e) {
     e.preventDefault();
+    setCategory(e.target.value);
     setCurrentPage(1);
     dispatch(filterByCategory(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
@@ -77,6 +83,7 @@ export default function HomePersonas() {
   //funcion para filtrar por empresas
   function handleFilterByBusiness(e) {
     e.preventDefault();
+    setBusinnes(e.target.value);
     setCurrentPage(1);
     dispatch(filterByBusiness(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
@@ -85,10 +92,13 @@ export default function HomePersonas() {
   //funcion para filtrar por provincias
   function handleFilterByProvinces(e){
     e.preventDefault();
+    setProvince(e.target.value)
     setCurrentPage(1);
     dispatch(filterByProvinces(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
+
+  
 
   return (
     <div>
@@ -108,7 +118,7 @@ export default function HomePersonas() {
               {/* <span>Todos</span> */}
               {/* <option value="All">
                 Todos
-              </option> */}<option hidden selected>
+              </option> */}<option value='Desordenado' hidden selected>
             Ordenar por
           </option>
               <option value="asc">Menor Precio</option>
@@ -118,7 +128,7 @@ export default function HomePersonas() {
             {/* </div> */}
           
 
-            <select onChange={(e) => handleFilterByCategory(e)}>
+            <select value={category} onChange={(e) => handleFilterByCategory(e)}>
             <option hidden selected>
            Categorias
           </option>
@@ -132,7 +142,7 @@ export default function HomePersonas() {
               })}
             </select>
 
-            <select onChange={(e) => handleFilterByBusiness(e)}>
+            <select value={business} onChange={(e) => handleFilterByBusiness(e)}>
               <option value="All">Todas</option>
               <option hidden selected>
            Empresa
@@ -146,12 +156,12 @@ export default function HomePersonas() {
               })}
 
               </select>
-            <select onChange={(e) => handleFilterByProvinces(e)}>
+            <select value={province} onChange={(e) => handleFilterByProvinces(e)}>
               <option value="All">Todas</option>
-              {BUSINESS.map((BUSINESS) => {
+              {PROVINCES.map((province) => {
                 return(
-                  <option value={BUSINESS.province} key={BUSINESS.email}>
-                    {BUSINESS.province}
+                  <option value={province} key={province}>
+                    {province}
                   </option>
                 )
               })}
