@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, editProduct, getCategories } from '../actions';
 import styles from "../styles/ProductManager.module.css"
+import swal from "sweetalert";
 function ProductManager(props) {
 
 
@@ -15,7 +16,6 @@ function ProductManager(props) {
     let productPut = productsState.filter(e => e.id === parseInt(id))
 
 
-
     const [input, setInput] = useState(id ? {
         name: productPut[0].name,
         price: productPut[0].price,
@@ -23,7 +23,7 @@ function ProductManager(props) {
         image: productPut[0].image,
         stock: productPut[0].stock,
         description: productPut[0].description,
-        category: productPut[0].category,
+        categoryId: productPut[0].categories.map(e => e.id),
     } : {
         name: "",
         price: 0,
@@ -31,13 +31,13 @@ function ProductManager(props) {
         image: "",
         stock: 0,
         description: "",
-        category: "",
+        categoryId: []
     })
 
     const [error, setError] = useState({
         errorname: "",
         errorPrice: "",
-        errorCategory: "",
+        errorcategoryId: "",
         errorWeight: "",
         errorStock: "",
     });
@@ -47,16 +47,30 @@ function ProductManager(props) {
 
     useEffect(() => {
         validate();
-    }, [input.name, input.price, input.description, input.category, input.weight, input.stock]);
+    }, [input.name, input.price, input.description, input.categoryId, input.weight, input.stock]);
 
     const handleInputChange = (event) => {
         event.preventDefault();
-        setInput((prevInput) => {
-            return {
-                ...prevInput,
-                [event.target.name]: event.target.value,
+        if (event.target.name === "categoryId") {
+            if (!input.categoryId.includes(event.target.value)) {
+
+                setInput((prevInput) => {
+                    return {
+                        ...prevInput,
+                        categoryId: [...input.categoryId, parseInt(event.target.value)],
+                    }
+                });
             }
-        });
+        }
+        else {
+            setInput((prevInput) => {
+                return {
+                    ...prevInput,
+                    [event.target.name]: event.target.value,
+                }
+            });
+
+        }
     }
 
 
@@ -97,7 +111,7 @@ function ProductManager(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        console.log("click")
         if (id !== undefined) {
             dispatch(editProduct(id, {
                 name: input.name,
@@ -106,9 +120,10 @@ function ProductManager(props) {
                 image: input.image,
                 stock: input.stock,
                 description: input.description,
-                category: input.category,
+                categoryId: [...input.categoryId],
                 businessEmail: gState.businessEmail,
             }))
+            swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
         } else {
 
             dispatch(addProduct({
@@ -118,9 +133,10 @@ function ProductManager(props) {
                 image: input.image,
                 stock: input.stock,
                 description: input.description,
-                category: input.category,
+                categoryId: [...input.categoryId],
                 businessEmail: gState.businessEmail,
             }))
+            swal("Buen trabajo!", "Producto agregado satisfactoriamente!", "success");
         }
         //dispatch(editProduct(props.match.params.id, input));
 
@@ -211,12 +227,12 @@ function ProductManager(props) {
                         Categorias
                     </div>
                     <div>
-                        <select name="category" value="category" onChange={handleInputChange}>
-                            <option value="">{input.category}</option>
+                        <select name="categoryId" value="categoryId" onChange={handleInputChange}>
+                            <option value="">{input.categoryId}</option>
                             <option value=""></option>
                             <option value="">Categoria: </option>
                             {
-                                allCategories?.map(e => <option key={e.name} value={e.name}>{e.name}</option>)
+                                allCategories?.map(e => <option key={e.name} value={e.id}>{e.name}</option>)
                             }
                         </select>
                     </div>

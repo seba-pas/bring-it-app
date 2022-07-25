@@ -24,6 +24,10 @@ import {
   FILTER_BY_PROVINCES,
   GET_ALL_BUSINESS,
   FILTER_BY_BUSINESS,
+
+  PUT_BUSINESS,
+
+
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -76,6 +80,7 @@ export const setDetail = () => {
 };
 
 export const addProduct = (body) => {
+  console.log("llega al add", body)
   return async function (dispatch) {
     try {
       const res = await axios.post(`http://localhost:3001/api/product`, body);
@@ -152,7 +157,9 @@ export const filterByCategory = (payload) => {
 
 export const getAllProvinces = () => {
   return async function (dispatch) {
-    const res = await axios("http://localhost:3001/api/province");
+
+    const res = await axios('http://localhost:3001/api/province');
+
     return dispatch({
       type: GET_ALL_PROVINCES,
       payload: res.data,
@@ -287,6 +294,25 @@ export const loginBusiness = (body) => {
       );
       return dispatch({
         type: POST_LOGINBUSINESS,
+        payload: [res.data, body.email],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
+export const editBusiness = (id, body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(
+        `http://localhost:3001/api/business/${id}`,
+        body
+      );
+      console.log("res", res)
+      return dispatch({
+        type: PUT_BUSINESS,
         payload: res.data,
       });
     } catch (error) {
@@ -294,3 +320,4 @@ export const loginBusiness = (body) => {
     }
   };
 };
+
