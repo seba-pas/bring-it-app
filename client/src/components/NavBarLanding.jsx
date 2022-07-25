@@ -91,7 +91,6 @@ export default function NavBarLanding() {
           "La empresa a la que intentas entrar no esta registrada",
           "error"
         );
-        setShowLogin(false);
         setInputBusiness({
           email: "",
           password: "",
@@ -106,7 +105,6 @@ export default function NavBarLanding() {
           "El email o la contraseña no son correctas ",
           "error"
         );
-        setShowLogin(false);
         setInputBusiness({
           email: "",
           password: "",
