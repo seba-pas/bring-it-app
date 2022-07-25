@@ -1,6 +1,6 @@
 .paso1 span{
     text-align: left;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: normal;
     font-family: "Montserrat", sans-serif;
     margin-top: 50px;
@@ -9,6 +9,17 @@
 
 
 }
+.info {
+    margin-top: 30px;
+}
+
+
+.info h1 {
+    margin-top:30px;
+}
+.info span {
+    margin-top:30px;
+}
 
 .paso1 h2{
     margin-bottom: 35px;
@@ -16,6 +27,7 @@
 
 .pasoPorPhoto img{
     object-fit: cover;
+    height: 49.3%;
 }
 
 .ul {
@@ -35,6 +47,7 @@
 
 
 .divContainer{
+    margin-top: 40px;
     display: grid;
     grid-template-columns: 55% 40%;
     grid-gap: 5px;
@@ -43,30 +56,14 @@
 .containerButton{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     padding: 20px;
+    margin-top: 40px;
     
     
 }
 
-.containerButton button{
-    width: 35%;
-    margin-right: 40px;
-    font-family: "Montserrat", sans-serif;
-    background-color: white;
-    color: #41d4cf;
-    border: 3px solid #41d4cf;
-    font-weight: bold;
-    border-radius: 5px;
-    font-size: 15px;
 
-}
-
-.containerButton button:hover {
-    transition: background-color 1s ease;
-    background-color: #41d4cf; /* Green */
-    color: white;
-  }
 
 .img{
     width: 75%;
@@ -86,10 +83,21 @@
     margin-right: 5%;
     width: 100%;
 }
-.pasoPorPhoto{
+.comoFunctiona {
+    margin-top: 40px;
+    margin-left: 60px;
+    margin-right: 50px;
 }
-.comoFunciona{
-    font-weight: 700;
+
+.comoFunciona h3{
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 60px;
+    margin-left:20px;
+    font-size: 25px;
+    font-weight: 300;
+    text-align:justify;
 }
 
 .pasoPorPasos{
@@ -97,7 +105,11 @@
     grid-template-columns: repeat(2,1fr);
     height: 210px;
     margin: 40px;
-    border: solid 1px black;
+    text-align: left;
+    margin-left: 50px;
+
+    
+    border: none;
 }
 
 .number{
@@ -138,6 +150,9 @@
 }
 body {
 	background: #dddfde;
+}
+.b {
+    color: white;
 }
 
 /* Social Presentation */
@@ -206,10 +221,13 @@ h3.title {
 	border-bottom: 24px solid #dddfde;
 	z-index: 0;
 }
+.social ul li i {
+    color: white;
+}
 
 /* Hover */
 .social ul li.facebook a:hover {
-	background: #3b5998;
+	background: white;
 }
 .social ul li.twitter a:hover {
 	background: #44ccf6;
@@ -241,11 +259,13 @@ h3.title {
     background-size: cover;
     height: 270px;
     object-fit: cover;
+    margin-top: 50px;
 }
 
 .buttonComunidad{
     margin-top: 5%;
 }
+
 
 .buttonComunidad button{
     font-family: "Montserrat", sans-serif;
@@ -262,7 +282,7 @@ h3.title {
 .titleUnete{
     color: white;
     font-weight: 700;
-    padding-top: 20px;
+    padding-top: 60px;
     text-transform: uppercase;
 }
 
@@ -278,4 +298,51 @@ h3.title {
     margin-left: 298.991px;
     padding: 12px;
   }
+  .imgPaso1 {
+    object-fit: cover;
+    height: inherit;
+  }
+  .imgPaso1 img{
+    object-fit: cover;
+    height: inherit;
+}
+.boton {
+    margin-top: 80px;
+    font-size: 18px;
+    width: 400px;
+    height: 45px;
+}
+/* .btn-primary {
+
+} */
+.botonAhora {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+#boton  {
+    font-family: "Montserrat", sans-serif;
+    background-color: #ffb562;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 40px;
+    width: 400px;
+ 
+  }
+  #boton:focus {
+    border: none;
+  }
+ 
+  #boton:hover {
+    transition: background-color 0.4s ease-in;
+    background-color: #3ab0ff;
+    color: white;
+   
+  }
+
 
