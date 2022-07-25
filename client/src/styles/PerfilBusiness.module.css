@@ -1,0 +1,198 @@
+.PerfilBusiness {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.container {
+    width: 99vw;
+    height: 99vh;
+    margin: 0.5vh 0.5vw;
+    /* top: 0; */
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(31, 1fr);
+    grid-template-rows: repeat(31, 1fr);
+
+}
+
+.PerfilBusiness,
+.container {
+
+    position: absolute;
+
+}
+
+
+.emailContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 2/4;
+    grid-column: 5/28;
+    justify-content: center;
+    align-items: center;
+    font-size: 300%;
+    color: #41d4cf;
+}
+
+.nameContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 5/9;
+    grid-column: 2/14;
+    justify-content: center;
+    align-items: left;
+
+}
+
+.passwordContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 5/9;
+    grid-column: 19/31;
+    justify-content: center;
+    align-items: left;
+}
+
+.addressContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 10/14;
+    grid-column: 2/14;
+    justify-content: center;
+    align-items: left;
+}
+
+.cityContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 10/14;
+    grid-column: 19/31;
+    justify-content: center;
+    align-items: left;
+}
+
+.cuitContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 15/19;
+    grid-column: 2/14;
+    justify-content: center;
+    align-items: left;
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 15/19;
+    grid-column: 19/31;
+    justify-content: center;
+    align-items: left;
+}
+
+.logoProvince {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 20/24;
+    grid-column: 2/14;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+}
+
+.taxBracketContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 20/24;
+    grid-column: 19/31;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+}
+
+.subButton {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 27/30;
+    grid-column: 27/30;
+    justify-content: center;
+    align-items: center;
+}
+
+.backButton {
+    display: flex;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 27/30;
+    grid-column: 2/3;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.btn {
+    border: solid 2px #41d4cf;
+    border-radius: 9px;
+    width: 8rem;
+    height: 4rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #41d4cf;
+}
+
+input {
+    background-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: #41d4cf;
+    border-bottom-color: #41d4cf;
+    border-right-color: #41d4cf;
+    color: black;
+    font-size: 1.3rem;
+}

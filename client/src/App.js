@@ -8,6 +8,7 @@ import HomePersonas from "./components/HomePersonas.jsx";
 import RegisterUser from "./components/RegisterUser.jsx";
 import RegisterBusiness from "./components/RegisterBusiness.jsx";
 import { ProductDetail } from "./components/ProductDetail";
+import PerfilBusiness from "./components/PerfilBusiness";
 
 // import NavBar from "./components/NavBar";
 
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
+        <Route exact path="/perfil" component={PerfilBusiness} />
       </Switch>
     </div>
   );

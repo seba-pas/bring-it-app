@@ -19,7 +19,8 @@ import {
   GET_ALL_PROVINCES,
   FILTER_BY_PROVINCES,
   GET_ALL_BUSINESS,
-  FILTER_BY_BUSINESS
+  FILTER_BY_BUSINESS,
+  PUT_BUSINESS,
 
 } from "./actionsTypes";
 
@@ -75,6 +76,7 @@ export const setDetail = () => {
 }
 
 export const addProduct = (body) => {
+  console.log("llega al add", body)
   return async function (dispatch) {
     try {
       const res = await axios.post(`http://localhost:3001/api/product`, body);
@@ -154,7 +156,7 @@ export const filterByCategory = (payload) => {
 }
 
 export const getAllProvinces = () => {
-  return async function(dispatch){
+  return async function (dispatch) {
     const res = await axios('http://localhost:3001/api/province');
     return dispatch({
       type: GET_ALL_PROVINCES,
@@ -164,7 +166,7 @@ export const getAllProvinces = () => {
 }
 
 export const filterByProvinces = (payload) => {
-  return{
+  return {
     type: FILTER_BY_PROVINCES,
     payload
   }
@@ -250,7 +252,7 @@ export const loginBusiness = (body) => {
       );
       return dispatch({
         type: POST_LOGINBUSINESS,
-        payload: res.data,
+        payload: [res.data, body.email],
       });
     } catch (error) {
       console.log(error);
@@ -258,3 +260,20 @@ export const loginBusiness = (body) => {
   };
 };
 
+export const editBusiness = (id, body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(
+        `http://localhost:3001/api/business/${id}`,
+        body
+      );
+      console.log("res", res)
+      return dispatch({
+        type: PUT_BUSINESS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
