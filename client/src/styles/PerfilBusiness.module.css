@@ -87,10 +87,11 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 10/14;
+    grid-row: 20/24;
     grid-column: 19/31;
+
     justify-content: center;
-    align-items: left;
+    align-items: center;
 }
 
 .cuitContainer {
@@ -113,8 +114,9 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 15/19;
+    grid-row: 10/14;
     grid-column: 19/31;
+
     justify-content: center;
     align-items: left;
 }
@@ -140,7 +142,7 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 20/24;
+    grid-row: 15/19;
     grid-column: 19/31;
     justify-content: center;
     align-items: center;
@@ -195,4 +197,16 @@ input {
     border-right-color: #41d4cf;
     color: black;
     font-size: 1.3rem;
+}
+
+select {
+
+    background-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: #41d4cf;
+    border-bottom-color: #41d4cf;
+    border-right-color: #41d4cf;
+    color: #41d4cf;
+    font-size: 1.05rem;
 }
