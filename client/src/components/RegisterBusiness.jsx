@@ -41,11 +41,58 @@ function RegisterBusiness() {
     address: "",
   });
 
+  const validateUsers = (input) => {
+    const errors = {};
+
+    if (
+      !input.email ||
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)
+    ) {
+      errors.email = "❌ Debe escribir una direccion de email correcta.";
+    } else {
+      errors.email = "✅ Email valido";
+    }
+    if (
+      !input.password ||
+      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)
+    ) {
+      errors.password = "La contraseña debe tener entre 8 y 16 caracteres";
+    } else {
+      errors.password = "✅ Contraseña valida";
+    }
+    if (
+      !input.businessName ||
+      !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.businessName)
+    ) {
+      errors.businessName = "❌ La primera letra debe estar en mayúscula";
+    } else {
+      errors.businessName = "✅Hecho!";
+    }
+    if (!input.cuit || !/^[1-9]\d*(\.\d+)?$/.test(input.cuit)) {
+      errors.cuit = "❌ Solo numeros";
+    } else {
+      errors.cuit = "✅Hecho!";
+    }
+    if (!input.address || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.address)) {
+      errors.address = "❌ La primera letra debe estar en mayúscula";
+    } else {
+      errors.address = "✅Hecho!";
+    }
+
+    return errors;
+  };
+
   function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      validateUsers({
+        ...input,
+        [e.target.name]: e.target.name,
+      })
+    );
   }
 
   function handleSubmit(e) {
@@ -61,7 +108,11 @@ function RegisterBusiness() {
     if (
       input.email !== "" &&
       input.password !== "" &&
-      input.password === input.confirmPassword &&
+      input.password === input.confirmPassword  &&
+      input.password.length >= 8 &&
+      input.password.length <= 16 &&
+      input.confirmPassword.length >= 8 &&
+      input.confirmPassword.length <= 16 &&
       input.businessName !== "" &&
       input.cuit !== "" &&
       input.address !== "" &&
@@ -79,6 +130,7 @@ function RegisterBusiness() {
       );
     }
   }
+
   // NUEVO AGUS -> PARA QUE MUESTRE CUANDO EMPRESA YA EXISTE
   const business = useSelector((state) => state.business);
   const [didMount, setDidMount] = useState(true);
@@ -104,6 +156,7 @@ function RegisterBusiness() {
       }
     }
   }, [business]);
+
 
   //funcion para filtrar por provincias
   function handleFilterByProvinces(e) {
@@ -164,6 +217,8 @@ function RegisterBusiness() {
                   placeholder="Enter email"
                   onChange={(e) => handleChange(e)}
                 />
+                  {errors.email && <p>{errors.email}</p>}
+
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
@@ -176,6 +231,8 @@ function RegisterBusiness() {
                   id="password"
                   required
                 />
+                  {errors.password && <p>{errors.password}</p>}
+
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Confirmar password</Form.Label>
@@ -188,6 +245,8 @@ function RegisterBusiness() {
                   id="confirmPassword"
                   required
                 />
+                  {errors.password && <p>{errors.password}</p>}
+
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Empresa nombre </Form.Label>
@@ -200,6 +259,8 @@ function RegisterBusiness() {
                   id="businessName"
                   required
                 />
+                  {errors.businessName && <p>{errors.businessName}</p>}
+
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Cuit</Form.Label>
@@ -212,6 +273,8 @@ function RegisterBusiness() {
                   placeholder="Ingrese su numero de Cuit"
                   onChange={(e) => handleChange(e)}
                 />
+                  {errors.cuit && <p>{errors.cuit}</p>}
+
               </Form.Group>
 
               <Form.Label>Categoría Tributaria </Form.Label>
