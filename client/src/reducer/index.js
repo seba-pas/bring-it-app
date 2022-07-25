@@ -158,8 +158,6 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case "GET_ALL_BUSINESS":
-      // console.log(action.payload)
-
       return {
         ...state,
         business2: action.payload,
