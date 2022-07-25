@@ -1,16 +1,26 @@
 const { Router } = require ("express");
-const { addBusiness, getBusiness } = require ('../controllers/businessControllers');
+const {  getBusiness } = require ('../controllers/businessControllers');
 const {Business} = require('./../db');
 const router = Router();
 
 //POST Business (para cargar una nueva empresa, aparte de los datos del modelo tiene q recibir una CityId)
 // http://localhost:3001/api/business
 router.post('/', async (req,res) => {    
-    try {                
-        const addedBusiness = await addBusiness ({...req.body});        
-        return res.send (`Empresa agregada correctamente`);
+    try {
+        //a agregar taxBracket,, cityId  logo,
+        const {email, password, businessName, cuit, province, address} = req.body;           
+        const newBusiness = await Business.findOrCreate ({
+            where: {email, password, businessName, cuit, province, address}
+            });   
+            console.log(newBusiness);
+            // return res.status(201).send("Empresa creada")
+            res.send(newBusiness[1] ? "Empresa creada" : "La empresa ya existe"); 
+
+        // const addedBusiness = await addBusiness ({...req.body});
+        // console.log(addedBusiness)   ;
+        // return res.send(addedBusiness[1] ? "Empresa agregada" : "La empresa ya existe");
     } catch (error) {
-        return res.status(404).send('error:'+ error.message);
+        return res.send('error:'+ error.message);
     }
 });
 

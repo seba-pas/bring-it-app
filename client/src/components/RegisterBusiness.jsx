@@ -9,6 +9,7 @@ import {
   filterByProvinces,
   getAllProvinces,
   getCities,
+  cleanBusiness
 } from "../actions/index.js";
 import NavBarRegisters from "./NavBarRegisters.jsx";
 import swal from "sweetalert";
@@ -20,7 +21,7 @@ function RegisterBusiness() {
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const PROVINCES = useSelector((state) => state.provinces);
-  // const BUSINESS = useSelector((state) => state.business2);
+
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -58,16 +59,6 @@ function RegisterBusiness() {
       input.province !== ""
     ) {
       dispatch(addBusiness(input));
-      swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
-      setInput({
-        email: "",
-        password: "",
-        businessName: "",
-        cuit: "",
-        address: "",
-        province: "",
-      });
-      history.push("/empresas");
     } else {
       swal(
         "Faltan datos por llenar",
@@ -76,7 +67,31 @@ function RegisterBusiness() {
       );
     }
   }
-
+// NUEVO AGUS -> PARA QUE MUESTRE CUANDO EMPRESA YA EXISTE
+const business = useSelector((state) => state.business);
+const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return; 
+    } else {
+      if ( business === "Empresa creada") {
+        swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
+        setInput({
+          email: "",
+          password: "",
+          businessName: "",
+          cuit: "",
+          address: "",
+          province: "",
+        });
+        history.push("/empresas");
+      } else if ( business === "error:Validation error") {
+      swal("Ya existe una empresa con el email");
+      dispatch(cleanBusiness());
+      }
+    }
+  }, [business]);
 
   //funcion para filtrar por provincias
   function handleFilterByProvinces(e) {

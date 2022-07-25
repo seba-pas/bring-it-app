@@ -273,7 +273,7 @@ export function addBusiness(body) {
   return async function (dispatch) {
     try {
       let json = await axios.post(`http://localhost:3001/api/business`, body);
-
+      console.log(json.data);
       return dispatch({
         type: POST_BUSINESS,
         payload: [json.data, body.email],
