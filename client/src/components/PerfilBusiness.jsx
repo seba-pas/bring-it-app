@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { editBusiness, getAllBusiness, getAllProvinces, getCities } from '../actions';
+import { editBusiness, getAllBusiness, getAllProvinces, getAllCities } from '../actions';
 import styles from "../styles/PerfilBusiness.module.css";
 import swal from "sweetalert";
 
@@ -14,7 +14,7 @@ function PerfilBusiness(props) {
 
     useEffect(() => {
         dispatch(getAllProvinces());
-        dispatch(getCities());
+        dispatch(getAllCities());
     }, [dispatch]);
 
 
@@ -163,7 +163,7 @@ function PerfilBusiness(props) {
 
                         {
                             // gState.cities?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
-                            gState.cities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.province)[0].id)?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
+                            gState.allCities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.province)[0].id)?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
                         }
                     </select>
 
