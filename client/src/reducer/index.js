@@ -168,8 +168,7 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case "GET_ALL_BUSINESS":
-      return {
-
+     
 
       return {
         ...state,

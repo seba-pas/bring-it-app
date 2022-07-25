@@ -89,7 +89,7 @@ export default function LandingPage() {
                           pedido con el producto que quieras y añade el detalle
                           de cuánto cuesta y en qué sitio puede comprarlo el
                           viajero.
-                        </div>
+                        </span>
                       </div>
                     </div>
                     <div className={style.pasoPorPhoto}>
