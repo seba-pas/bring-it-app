@@ -15,9 +15,9 @@
   
 .buttonSubmit button{
   font-family: "Montserrat", sans-serif;
-    background-color: white;
-    color: #41d4cf;
-    border: 3px solid #41d4cf;
+    background-color: #F6F5F5;
+    color: #1687A7;
+    border: 3px solid #1687A7;
     font-weight: bold;
     border-radius: 5px;
     font-size: 15px;
@@ -37,9 +37,9 @@
   
   .navbarLanding button {
     font-family: "Montserrat", sans-serif;
-    background-color: white;
-    color: #41d4cf;
-    border: 3px solid #41d4cf;
+    background-color: #F6F5F5;
+    color: #1687A7;
+    border: 3px solid #1687A7;
     font-weight: bold;
     border-radius: 5px;
     font-size: 15px;
@@ -50,8 +50,8 @@
   
   .navbarLanding button:hover {
     transition: background-color 1s ease;
-    background-color: #41d4cf; /* Green */
-    color: white;
+    background-color: #1687A7; /* Green */
+    color: #F6F5F5;
   }
 
   .modalTitle{
@@ -68,9 +68,9 @@
 
   .buttonModals button{
     font-family: "Montserrat", sans-serif;
-    background-color: white;
-    color: #41d4cf;
-    border: 3px solid #41d4cf;
+    background-color: #F6F5F5;
+    color: #1687A7;
+    border: 3px solid #1687A7;
     font-weight: bold;
     border-radius: 5px;
     font-size: 15px;

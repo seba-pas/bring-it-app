@@ -1,17 +1,52 @@
-.divButtonSearch{
-    /* display: inline;
-    font-size: 20px;
-    border: solid 1px black; */
+.divContainer {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 5px;
+  margin-left: 100%;
 }
-.divContainer{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+.divContainer input {
+ border-radius:5px;
+  border-color: #3ab0ff;
+  border: none;
+  padding-top:15px;
+  
+
+  height: 40px;
 }
-div input{
-    padding: 14px;
-    height: 40px;
+.divContainer input::placeholder {
+  font-family: "Montserrat";
+  font-size: 18px;
+ 
+  margin-top: 10px;
+  color:#3ab0ff7a;
+  font-weight: bold;
+  text-align: left;
+
 }
-.buttonSearch{
-    border-radius: 50%;
+
+.divContainer input:focus {
+    outline: none;
+    background-color: #3ab0ff0d;
+
+}
+.divContainer input:focus::placeholder{
+    color:#3ab0ff0d;
+
+}
+
+#boton {
+  background-color: white;
+  color: #3ab0ff;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  padding-top: 0px;
+}
+
+#boton:hover {
+    color: white;
+  background-color: #3ab0ff;
+  transition: background-color 0.2s ease;
 }

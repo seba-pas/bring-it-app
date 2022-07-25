@@ -1,8 +1,8 @@
 #boton {
   font-family: "Montserrat", sans-serif;
-  background-color: #41d4cf;
+  background-color: #3ab0ff;
   color: white;
-  border: 3px solid #41d4cf;
+  border: 3px solid #3ab0ff;
   font-weight: bold;
   border-radius: 5px;
   font-size: 15px;
@@ -11,30 +11,37 @@
 }
 
 #boton:hover {
-  transition: background-color 1s ease;
-  background-color: white;
-  color: #41d4cf;
+  transition: border 0.2s ease, background-color 0.4s ease;
+  background-color: #ffb562;
+  color: white;
+  border: 3px solid #ffb562;
 }
 #card {
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.4s ease;
 }
 #card:hover {
   /* background-color: #41d4cf69; */
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.13), 0 8px 16px 0 rgba(0, 0, 0, 0.13);
+  box-shadow: 0 8px 18px 0 rgba(0, 0, 0, 0.3), 0 8px 18px 0 rgba(0, 0, 0, 0.3);
 }
 #name {
-  
-  font-size: 30px;
-  font-weight:200;
-
-  text-align: left;
-}
-#price {
-  
-  font-size: 35px;
+  font-size: 32px;
   font-weight: 200;
 
   text-align: right;
+}
+#price {
+  font-size: 37px;
+  font-weight: 200;
+
+  text-align: left;
+}
+.bold {
+  justify-content: left;
+  text-align: left;
+  font-weight: bolder;
+}
+#bold {
+  font-weight: bolder;
 }
 /* 
 

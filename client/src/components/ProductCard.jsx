@@ -12,9 +12,7 @@ export default function ProductCard({
   businessName,
   categories,
   id,
-}) 
-{
-  
+}) {
   return (
     <div
       className="card"
@@ -28,16 +26,18 @@ export default function ProductCard({
         alt="no pudo cargarse la imagen"
       />
       <div className="card-body">
-        <h5 className="card-title" id={styles.name}>
-          {name}
-        </h5>
         <h5 className="card-title" id={styles.price}>
           ${price}
         </h5>
-        <p className="card-text" id={styles.descrpition}>
+        <h5 className="card-title" id={styles.name}>
+          {name}
+        </h5>
+        <p className="card-text" id={styles.description}>
+          
           {description}
         </p>
         <p>
+          <span className={styles.bold}>Categorias:{"   "}</span>
           {Array.isArray(categories)
             ? categories.map((e) => e.name + "  ")
             : "No tiene categoria"}
@@ -51,9 +51,9 @@ export default function ProductCard({
         Ver Producto
       </a>
       <div className="card-footer">
-        <small className="text-muted">
-          Empresa:{" "}
-          {businessName?businessName : "No esta asociado a una empresa"}
+       <small> Empresa:{" "}</small>
+        <small className="text-muted" id={styles.bold}>
+          {businessName ? businessName : "No esta asociado a una empresa"}
         </small>
       </div>
     </div>

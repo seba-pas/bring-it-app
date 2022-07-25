@@ -42,10 +42,17 @@ export const ProductDetail = () => {
               alt="Card image cap"
             />
             <div className="card-body">
-              <h5 className="card-title">{product.name}</h5>
-              <h5 className="card-title">${product.price}</h5>
-              <p className="card-text">{product.description}</p>
-              <p className="card-text">
+              <h5 className="card-title" id={styles.name}>
+                {product.name}
+              </h5>
+              <h5 className="card-title" id={styles.price}>
+                ${product.price}
+              </h5>
+              <p className="card-text" id={styles.description}>
+                {product.description}
+              </p>
+              <p className="card-text" id={styles.categories}>
+                <span id={styles.bold}>Categorias: </span>
                 {product.categories === null ||
                 product.categories === undefined ||
                 product.categories.length == 0
@@ -53,13 +60,18 @@ export const ProductDetail = () => {
                   : product.categories[0].name}
               </p>
               <p className="card-text">
+                <span id={styles.bold}>Empresa: </span>
                 {product.business === null ||
                 product.categories === undefined ||
                 product.business.length == 0
                   ? "No tiene Empresa asociada"
                   : product.business.businessName}
               </p>
-              <p className="card-text">Disponibles: {product.stock}</p>
+              <p className="card-text" id={styles.stock}>
+                {" "}
+                <span id={styles.bold}>Disponibles: </span>
+                {product.stock}
+              </p>
               <div className={styles.contBot}>
                 <a
                   className="btn btn-primary"
@@ -87,11 +99,11 @@ export const ProductDetail = () => {
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed
-            size={150}
+            size={250}
             thickness={100}
             speed={100}
-            color="rgba(65, 212, 207, 1)"
-            secondaryColor="rgba(0, 0, 0, 1)"
+            color="rgba(58, 176, 255, 1)"
+            secondaryColor="rgba(58, 176, 255, 0.23)"
           />
         </div>
       )}
