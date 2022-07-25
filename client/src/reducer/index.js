@@ -15,10 +15,8 @@ const initialState = {
   business2: [],
   allBusiness2: [],
   provinces: [],
-
   putBusiness: "",
   businessEditInfo: {},
-
   uniqueProvinces: [],
   users: [],
 };
@@ -169,13 +167,15 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case "GET_ALL_BUSINESS":
+      console.log(action.payload)
+      const uniqueProvince = [... new Set(action.payload.map((e) => e.province))]
       return {
         ...state,
         business2: action.payload,
-
         businessEditInfo: action.payload.filter(
           (e) => e.email === state.businessEmail
         )[0],
+        uniqueProvinces: uniqueProvince
       };
     case "FILTER_BY_BUSINESS":
       const allBusiness = state.allProducts;
