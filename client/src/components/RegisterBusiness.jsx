@@ -1,9 +1,15 @@
-import { React, useState } from "react";
-import { useDispatch } from "react-redux";
+import { React, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { addBusiness } from "../actions/index.js";
+import {
+  addBusiness,
+  filterByProvinceCity,
+  filterByProvinces,
+  getAllProvinces,
+  getCities,
+} from "../actions/index.js";
 import NavBarRegisters from "./NavBarRegisters.jsx";
 import swal from "sweetalert";
 import imgIcon from "./img/programmer.png";
@@ -13,6 +19,8 @@ function RegisterBusiness() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
+  const PROVINCES = useSelector((state) => state.provinces);
+  // const BUSINESS = useSelector((state) => state.business2);
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -69,6 +77,20 @@ function RegisterBusiness() {
     }
   }
 
+
+  //funcion para filtrar por provincias
+  function handleFilterByProvinces(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      province: e.target.value,
+    });
+    dispatch(filterByProvinces(e.target.value));
+  }
+
+  useEffect(() => {
+    dispatch(getAllProvinces());
+  }, [dispatch]);
   return (
     <div>
       <NavBarRegisters />
@@ -147,19 +169,22 @@ function RegisterBusiness() {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label>Provincia</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={input.province}
-                  name="province"
-                  id="province"
-                  required
-                  placeholder="Ingrese su Provincia"
-                  onChange={(e) => handleChange(e)}
-                />
+              <Form.Group>
+                <select onChange={(e) => handleFilterByProvinces(e)}>
+                  <option value="All">Todas</option>
+                  {PROVINCES.map((PROVINCE) => {
+                    return (
+                      <option
+                        value={PROVINCE.nombre}
+                        name={PROVINCE.nombre}
+                        key={PROVINCE.id}
+                      >
+                        {PROVINCE.nombre}
+                      </option>
+                    );
+                  })}
+                </select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Direccion</Form.Label>
                 <Form.Control
@@ -172,6 +197,19 @@ function RegisterBusiness() {
                   onChange={(e) => handleChange(e)}
                 />
               </Form.Group>
+
+              {/* <Form.Group>
+                <select onChange={(e) => handleFilterByCities(e)}>
+                  <option value="All">Todas</option>
+                  {CITIES.map((CITY) => {
+                    return (
+                      <option value={CITY.id} name={CITY.nombre}>
+                        {CITY.nombre}
+                      </option>
+                    );
+                  })}
+                </select>
+              </Form.Group> */}
               <div>
                 <Button
                   variant="primary btn btn-block w-100 mt-3"
@@ -182,9 +220,6 @@ function RegisterBusiness() {
               </div>
             </Form>
           </Col>
-          {/* <Col lg={6} md={6} sm={12}>
-            <img className="w-100" src={imgRegister} alt="" />
-          </Col> */}
         </Row>
         <h6 className="mt-5 p-5 text-center text-secondary ">
           © 2022 Bring it. All Rights Reserved | Design by Grupo 8 Soy Henry

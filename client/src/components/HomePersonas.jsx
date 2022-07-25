@@ -24,7 +24,8 @@ export default function HomePersonas() {
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
   const CATEGORY = useSelector((state) => state.categories);
-  // const PROVINCES = useSelector((state => state.provinces));
+
+  const PROVINCES = useSelector((state => state.uniqueProvinces));
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -43,6 +44,7 @@ export default function HomePersonas() {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -161,10 +163,11 @@ export default function HomePersonas() {
               onChange={(e) => handleFilterByProvinces(e)}
             >
               <option value="All">Todas</option>
-              {BUSINESS.map((BUSINESS) => {
-                return (
-                  <option value={BUSINESS.province} key={BUSINESS.email}>
-                    {BUSINESS.province}
+
+              {PROVINCES.map((province) => {
+                return(
+                  <option value={province} key={province}>
+                    {province}
                   </option>
                 );
               })}
