@@ -15,6 +15,10 @@ const initialState = {
   business2: [],
   allBusiness2: [],
   provinces: [],
+
+  uniqueProvinces: [],
+  users: []
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -211,6 +215,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         cities: filterCities,
       };
+    case 'GET_USERS':
+      return{
+        ...state,
+        users: action.payload
+      }
     default:
       return {
         ...state,
