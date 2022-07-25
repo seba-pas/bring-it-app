@@ -4,6 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import NavBarLanding from "./NavBarLanding.jsx";
 import style from "../styles/LandingPage.module.css";
+import Footer from "./Footer.jsx"
 import Imagen from "./img/imgMuestra.jpg";
 import Product1 from "./img/product1.jpeg";
 import Product2 from "./img/product2.jpeg";
@@ -65,6 +66,7 @@ export default function LandingPage() {
               className="mb-3"
               justify
             >
+
               <Tab eventKey="home" title="Para compradores">
                 <h3>
                   Bring It es la mejor manera de comprar productos que no están
@@ -83,10 +85,11 @@ export default function LandingPage() {
                         <span>
                           Con Bring It, puedes conseguir el producto que sea, de
                           cualquier parte del pais. Para empezar, crea un
+
                           pedido con el producto que quieras y añade el detalle
                           de cuánto cuesta y en qué sitio puede comprarlo el
                           viajero.
-                        </span>
+                        </div>
                       </div>
                     </div>
                     <div className={style.pasoPorPhoto}>
@@ -150,7 +153,91 @@ export default function LandingPage() {
                   </div>
                 </div>
               </Tab>
-              <Tab eventKey="profile" title="Para viajeros">
+              <Tab eventKey="profile" title="Viajeros">
+                <h3>
+                  Financia tu viaje cada vez que viajes con Grabr. Nuestros
+                  viajeros normalmente entregan un puñado de artículos y ganan
+                  más de $300 por viaje. No solo ganarás dinero viajando,
+                  conocerás gente increíble por el camino.
+                </h3>
+                <div className={style.pasos}>
+                  <div className={style.pasoPorPasos}>
+                    <div className={style.pasoPorInfo}>
+                      <h1>1</h1>
+                      <div className={style.paso1}>
+                        <h2>
+                          Encuentra un pedido que puedas entregar y haz una
+                          oferta.{" "}
+                        </h2>
+                        <span>
+                          Busca pedidos en función de tu próximo destino. Haz
+                          una oferta y establece tu recompensa - la cantidad de
+                          dinero que tu comprador te pagará por entregar su
+                          artículo.
+                        </span>
+                      </div>
+                    </div>
+                    <div className={style.pasoPorPhoto}>
+                      <img src={Paso5} className={style.imgPaso1} alt="" />
+                    </div>
+                  </div>
+                  <div className={style.pasoPorPasos}>
+                    <div className={style.pasoPorInfo}>
+                      <h1>2</h1>
+                      <div className={style.paso1}>
+                        <h2>
+                          Confirma los detalles del pedido con tu comprador.
+                        </h2>
+                        <span>
+                          Utiliza el messenger de Grabr para confirmar con tu
+                          comprador detalles como el tamaño o el color del
+                          pedido. También puedes preguntar si hay otros
+                          artículos que les gustaría recibir
+                        </span>
+                      </div>
+                    </div>
+                    <div className={style.pasoPorPhoto}>
+                      <img src={Paso6} className={style.imgPaso1} alt="" />
+                    </div>
+                  </div>
+                  <div className={style.pasoPorPasos}>
+                    <div className={style.pasoPorInfo}>
+                      <h1>3</h1>
+                      <div className={style.paso1}>
+                        <h2>Compra el artículo con tu propio dinero.</h2>
+                        <span>
+                          De esta forma, sabrás exactamente lo que llevas. Tras
+                          la entrega, recibirás un reembolso por el precio del
+                          artículo y el pago de tu recompensa.
+                        </span>
+                      </div>
+                    </div>
+                    <div className={style.pasoPorPhoto}>
+                      <img src={Paso7} className={style.imgPaso1} alt="" />
+                    </div>
+                  </div>
+                  <div className={style.pasoPorPasos}>
+                    <div className={style.pasoPorInfo}>
+                      <h1>4</h1>
+                      <div className={style.paso1}>
+                        <h2>
+                          Entrega el pedido de tu comprador y recibe el pago
+                        </h2>
+                        <span>
+                          Coordina una hora y lugar público para encontrarte con
+                          tu comprador. Una vez tu comprador confirme que ha
+                          recibido el pedido, transferiremos el pago a tu
+                          cuenta.
+                        </span>
+                      </div>
+                    </div>
+                    <div className={style.pasoPorPhoto}>
+                      <img src={Paso8} className={style.imgPaso1} alt="" />
+                    </div>
+                  </div>
+                </div>
+              </Tab>
+              <Tab eventKey="profile1" title="Empresas">
                 <h3>
                   Cada vez que viajes con Bring It gana dinero y solventa costos. Nuestros
                   viajeros normalmente entregan un puñado de artículos y ganan
@@ -290,6 +377,17 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+
+        <div className={style.unete}>
+          <div className={style.titleUnete}>
+            <h1>Unete a nuestra comunidad</h1>
+          </div>
+          <div className={style.buttonComunidad}>
+            <button>COMPRAR</button>
+            <button>VIAJAR</button>
+          </div>
+        </div>
+        <Footer/>
       </div>
     </div>
   );

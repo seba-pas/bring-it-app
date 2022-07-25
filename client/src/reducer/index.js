@@ -13,7 +13,12 @@ const initialState = {
   cities: [],
   allCities: [],
   business2: [],
-  allBusiness2: []
+  allBusiness2: [],
+  provinces: [],
+
+  uniqueProvinces: [],
+  users: []
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -23,6 +28,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         products: action.payload,
         allProducts: action.payload,
+        deleteProduct: "",
       };
     case "GET_PRODUCTS_DETAIL":
       return {
@@ -56,7 +62,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         deleteProduct: action.payload,
       };
-
+    case "CLEAN_USERS":
+      return {
+        ...state,
+        user: {},
+      };
+    case "CLEAN_BUSINESS":
+      return {
+        ...state,
+        business: {},
+      };
     case "POST_LOGIN":
       return {
         ...state,
@@ -81,6 +96,12 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case "ORDER_BY_PRICE":
+      // if(action.payload === 'All'){
+      //   return {
+      //     ...state,
+      //     products: action.payload
+      //   }
+      // }else{
       let sortedPrice =
         action.payload === "asc"
           ? state.allProducts.sort(function (a, b) {
@@ -105,6 +126,9 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         products: sortedPrice,
       };
+
+    // }
+
     case "GET_CATEGORIES":
       return {
         ...state,
@@ -115,7 +139,11 @@ export default function rootReducer(state = initialState, action) {
       const filterCategory =
         action.payload === "All"
           ? allProducts
-          : allProducts.filter((e) => e.categories[0].name === action.payload);
+          : allProducts.filter(
+              (e) =>
+                e.categories &&
+                e.categories.map((e) => e.name).includes(action.payload)
+            );
       console.log(filterCategory);
       console.log(action.payload, "Payload");
       return {
@@ -128,26 +156,70 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         productsDetail: {},
       };
-    case 'GET_CITIES':
-      return{
+
+    case "GET_ALL_BUSINESS":
+      // console.log(action.payload)
+
+      return {
         ...state,
-        cities: action.payload
+        business2: action.payload,
       };
-    case 'GET_ALL_BUSINESS':
-      console.log(action.payload)
-      return{
-        ...state,
-        business2: action.payload
-      };
-    case 'FILTER_BY_BUSINESS':
+    case "FILTER_BY_BUSINESS":
       const allBusiness = state.allProducts;
-      const filterBusiness = action.payload === 'All' ?
-      allBusiness :
-      allBusiness.filter((e) => e.business.businessName === action.payload)
+
+      const filterBusiness =
+        action.payload === "All"
+          ? allBusiness
+          : allBusiness.filter(
+              (e) => e.business.businessName === action.payload
+            );
+      return {
+        ...state,
+        products: filterBusiness,
+      };
+    case "GET_ALL_PROVINCES":
+      return {
+        ...state,
+        provinces: action.payload,
+      };
+
+    case "FILTER_BY_PROVINCES":
+      const allProvinces = state.allProducts;
+      const filterProvinces =
+        action.payload === "All"
+          ? allProvinces
+          : allProvinces.filter((e) => e.business.province === action.payload);
+      return {
+        ...state,
+        products: filterProvinces,
+      };
+
+    case "GET_CITIES":
+      return {
+        ...state,
+        cities: action.payload,
+      };
+    //Filtrado de ciudades segun la provincia
+    case "FILTER_BY_PROVINCE_CITY":
+      // const allProvinces = state.allProducts;
+      // const filterProvinces = action.payload === 'All' ?
+      // allProvinces :
+      // allProvinces.filter((e) => e.business.province === action.payload)
+      const allCities = state.allCities;
+      const filterCities =
+        action.payload === "All"
+          ? allCities
+          : allCities.filter((e) => e.provinceId === action.payload);
+
+      return {
+        ...state,
+        cities: filterCities,
+      };
+    case 'GET_USERS':
       return{
         ...state,
-        products: filterBusiness
-      };
+        users: action.payload
+      }
     default:
       return {
         ...state,

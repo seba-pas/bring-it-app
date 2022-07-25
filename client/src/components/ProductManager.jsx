@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, editProduct } from '../actions';
+import { addProduct, editProduct, getCategories } from '../actions';
 import styles from "../styles/ProductManager.module.css"
 function ProductManager(props) {
 
@@ -8,11 +8,13 @@ function ProductManager(props) {
     const dispatch = useDispatch();
     let id = props.match.params.id;
 
+
     const gState = useSelector((state) => state);
+    let allCategories = gState.categories;
     let productsState = gState.allProducts;
     let productPut = productsState.filter(e => e.id === parseInt(id))
 
-    console.log("props", productPut)
+
 
     const [input, setInput] = useState(id ? {
         name: productPut[0].name,
@@ -21,7 +23,7 @@ function ProductManager(props) {
         image: productPut[0].image,
         stock: productPut[0].stock,
         description: productPut[0].description,
-        category: "",
+        category: productPut[0].category,
     } : {
         name: "",
         price: 0,
@@ -39,6 +41,9 @@ function ProductManager(props) {
         errorWeight: "",
         errorStock: "",
     });
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch]);
 
     useEffect(() => {
         validate();
@@ -101,18 +106,22 @@ function ProductManager(props) {
                 image: input.image,
                 stock: input.stock,
                 description: input.description,
+                category: input.category,
+                businessEmail: gState.businessEmail,
+            }))
+        } else {
+
+            dispatch(addProduct({
+                name: input.name,
+                price: input.price,
+                weight: input.weight,
+                image: input.image,
+                stock: input.stock,
+                description: input.description,
+                category: input.category,
                 businessEmail: gState.businessEmail,
             }))
         }
-        dispatch(addProduct({
-            name: input.name,
-            price: input.price,
-            weight: input.weight,
-            image: input.image,
-            stock: input.stock,
-            description: input.description,
-            businessEmail: gState.businessEmail,
-        }))
         //dispatch(editProduct(props.match.params.id, input));
 
     }
@@ -204,17 +213,17 @@ function ProductManager(props) {
                     <div>
                         <select name="category" value="category" onChange={handleInputChange}>
                             <option value="">{input.category}</option>
-                            <option value="">xx</option>
+                            <option value=""></option>
                             <option value="">Categoria: </option>
                             {
-                                // allActivities?.map(e => <option key={e.name} value={e.name}>{e.name}</option>)
+                                allCategories?.map(e => <option key={e.name} value={e.name}>{e.name}</option>)
                             }
                         </select>
                     </div>
                 </div>
                 <div className={styles.subButton}>
                     <button className={styles.btn} type="submit" disabled={error.errorname || error.errorPrice || error.errorDescription || error.errorWeight || error.errorStock}>
-                        agregar al inventario
+                        Listo
                     </button>
                 </div>
                 <div className={styles.backButton}>

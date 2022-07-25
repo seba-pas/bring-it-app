@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { BsSearch } from "react-icons/bs";
 import { getAllProductsName } from "../actions";
 
-export default function SearchBar({setCurrentPage}) {
+export default function SearchBar() {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
 
@@ -16,14 +16,13 @@ export default function SearchBar({setCurrentPage}) {
   function handleSubmit(e){
       e.preventDefault();
       dispatch(getAllProductsName(name))
-      setCurrentPage(1)
   }
   
   return (
     <div className={style.divContainer}>
       
 
-      <input type="text"  placeholder='Buscar' value={name} onChange={(e) => handleInputChange(e) } />
+      <input type="text"  placeholder='Buscar productos...' value={name} onChange={(e) => handleInputChange(e) } />
       {/* <div className={style.divButtonSearch}> */}
       <button className={style.buttonSearch} type="submit" onClick={(e) => handleSubmit(e)}>
         <BsSearch />

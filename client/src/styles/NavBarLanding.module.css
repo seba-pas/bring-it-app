@@ -13,16 +13,25 @@
       margin-right: 40.5%;
   }
   
-
+.buttonSubmit button{
+  font-family: "Montserrat", sans-serif;
+    background-color: white;
+    color: #41d4cf;
+    border: 3px solid #41d4cf;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: "33%"
+}
 
   
   .contbotones2 {
     display: flex;
-    margin-top: 55px;
-    margin-left: 18%;
+    margin-top: 50px;
+    margin-left: 10%;
     
   }
-  .contbotones2 button{
+  .contbotones2 Button{
     margin-right: 10px;
   }
   
@@ -43,4 +52,26 @@
     transition: background-color 1s ease;
     background-color: #41d4cf; /* Green */
     color: white;
+  }
+
+  .modalTitle{
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .buttonModals{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    
+  }
+
+  .buttonModals button{
+    font-family: "Montserrat", sans-serif;
+    background-color: white;
+    color: #41d4cf;
+    border: 3px solid #41d4cf;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 15px;
   }

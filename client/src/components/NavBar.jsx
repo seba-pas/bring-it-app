@@ -20,14 +20,14 @@ export default function NavBar() {
       <div className={styles.SearchBar}>
         <SearchBar />
       </div>
-      <div className={styles.contbotones}>
+      {/* <div className={styles.contbotones}>
         <NavLink to="/Login">
           <button>INGRESAR</button>
         </NavLink>
         <button>REGISTRARSE</button>
 
         
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -14,20 +14,25 @@ import {
   filterByCategory,
   getCategories,
   getAllBusiness,
-  filterByBusiness
+  filterByBusiness,
+  filterByProvinces,
+  getAllProvinces,
 } from "../actions";
-
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
-  const CATEGORY = useSelector((state => state.categories))
-  const [orden, setOrden] = useState("");
+  const CATEGORY = useSelector((state => state.categories));
+  const PROVINCES = useSelector((state => state.uniqueProvinces));
 
+  const [orden, setOrden] = useState("");
+  const [category, setCategory] = useState('All');
+  const [business, setBusinnes] = useState('All');
+  const [province, setProvince] = useState('All');
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(4);
+  const [productsPerPage, setProductsPerPage] = useState(8);
   const indexOfLastProduct = currentPage * productsPerPage; // 10
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
   const currentProducts = PRODUCTS.slice(
@@ -39,15 +44,20 @@ export default function HomePersonas() {
     setCurrentPage(pageNumber);
   };
 
+
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getCategories());
     dispatch(getAllBusiness());
+    dispatch(getAllProvinces());
   }, [dispatch]);
 
   //funcion para volver a cargar los productos
   function handleClick(e) {
     e.preventDefault();
+    setCategory('All');
+    setBusinnes('All');
+    setProvince('All');
     dispatch(getAllProducts());
     setCurrentPage(1);
   }
@@ -60,68 +70,105 @@ export default function HomePersonas() {
     setOrden(`Ordenado ${e.target.value}`);
   }
 
-  //funcion para filtrar por precios
+  //funcion para filtrar por categorias
   function handleFilterByCategory(e) {
     e.preventDefault();
+    setCategory(e.target.value);
     setCurrentPage(1);
     dispatch(filterByCategory(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
+    
   }
 
   //funcion para filtrar por empresas
-  function handleFilterByBusiness(e){
+  function handleFilterByBusiness(e) {
     e.preventDefault();
+    setBusinnes(e.target.value);
     setCurrentPage(1);
     dispatch(filterByBusiness(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
 
+  //funcion para filtrar por provincias
+  function handleFilterByProvinces(e){
+    e.preventDefault();
+    setProvince(e.target.value)
+    setCurrentPage(1);
+    dispatch(filterByProvinces(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+
+  
+
   return (
     <div>
       <NavBar />
-
-     
 
       {PRODUCTS.length > 0 ? (
         <div className={styles.containerCards}>
           <Pagination
             productsPerPage={productsPerPage}
-            PRODUCTS={currentProducts.length}
+            PRODUCTS={PRODUCTS.length}
             paginado={paginado}
           />
-
-
           <div className={styles.containerS}>
+
+            {/* <div> Ordenar por */}
             <select onChange={(e) => handleSort(e)}>
-              <option hidden value="Precios">
-                Precios
-              </option>
-              <option value="asc">Menor a Mayor</option>
-              <option value="desc">Mayor a Menor</option>
+              {/* <span>Todos</span> */}
+              {/* <option value="All">
+                Todos
+              </option> */}<option value='Desordenado' hidden selected>
+            Ordenar por
+          </option>
+              <option value="asc">Menor Precio</option>
+              <option value="desc">Mayor Precio</option>
             </select>
+
+            {/* </div> */}
           
-            <select onChange={(e) => handleFilterByCategory(e)}>
+
+            <select value={category} onChange={(e) => handleFilterByCategory(e)}>
+            <option hidden selected>
+           Categorias
+          </option>
               <option value="All">Todas</option>
-              {CATEGORY.map((CATEGORY) => (
-                <option value={CATEGORY.name} key={CATEGORY.id}>
-                  {CATEGORY.name}
-                </option>
-              ))}
+              {CATEGORY.map((CATEGORY) => {
+                return (
+                  <option value={CATEGORY.name} key={CATEGORY.id}>
+                    {CATEGORY.name}
+                  </option>
+                );
+              })}
             </select>
-            
-            <select onChange={(e) => handleFilterByBusiness(e)}>
+
+            <select value={business} onChange={(e) => handleFilterByBusiness(e)}>
               <option value="All">Todas</option>
-              {/* {console.log(BUSINESS)} */}
+              <option hidden selected>
+           Empresa
+          </option>
               {BUSINESS.map((BUSINESS) => {
+                return (
+                  <option value={BUSINESS.businessName} key={BUSINESS.email}>
+                    {BUSINESS.businessName}
+                  </option>
+                );
+              })}
+
+              </select>
+            <select value={province} onChange={(e) => handleFilterByProvinces(e)}>
+              <option value="All">Todas</option>
+              {PROVINCES.map((province) => {
                 return(
-                <option value={BUSINESS.businessName} key={BUSINESS.email}>
-                  {BUSINESS.businessName}
-                  {/* {console.log(BUSINESS.businessName)} */}
-                </option>
-                  
+                  <option value={province} key={province}>
+                    {province}
+                  </option>
                 )
               })}
-              </select>
+            </select>
+          </div>
+          <div > 
+            <button className={styles.botonvol} onClick={(e) => handleClick(e)}>Limpiar Filtros</button>
           </div>
 
           <ProductCards currentProducts={currentProducts} />

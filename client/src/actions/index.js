@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 import {
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_DETAIL,
@@ -16,14 +15,16 @@ import {
   GET_CATEGORIES,
   FILTER_BY_CATEGORY,
   SET_PRODUCT_DETAIL,
-  // GET_CITIES,
-  // FILTER_BY_CITIES,
+  CLEAN_USERS,
+  CLEAN_BUSINESS,
+  FILTER_BY_PROVINCE_CITY,
+  GET_CITIES,
+  GET_USERS,
+  GET_ALL_PROVINCES,
+  FILTER_BY_PROVINCES,
   GET_ALL_BUSINESS,
-  FILTER_BY_BUSINESS
-
+  FILTER_BY_BUSINESS,
 } from "./actionsTypes";
-
-
 
 //Comienzan action PRODUCT
 export const getAllProducts = () => {
@@ -70,9 +71,9 @@ export const getAllProductsName = (name) => {
 
 export const setDetail = () => {
   return {
-    type: SET_PRODUCT_DETAIL
-  }
-}
+    type: SET_PRODUCT_DETAIL,
+  };
+};
 
 export const addProduct = (body) => {
   return async function (dispatch) {
@@ -88,13 +89,14 @@ export const addProduct = (body) => {
   };
 };
 
-export const editProduct = ({ id, body }) => {
+export const editProduct = (id, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(
         `http://localhost:3001/api/product/${id}`,
         body
       );
+      console.log("res", res);
       return dispatch({
         type: PUT_PRODUCT,
         payload: res.data,
@@ -105,12 +107,10 @@ export const editProduct = ({ id, body }) => {
   };
 };
 export const deleteProduct = (id) => {
-  console.log(id)
+  console.log(id);
   return async function (dispatch) {
     try {
-      const res = await axios.delete(
-        `http://localhost:3001/api/product/${id}`
-      );
+      const res = await axios.delete(`http://localhost:3001/api/product/${id}`);
       return dispatch({
         type: DELETE_PRODUCT,
         payload: res.data,
@@ -121,79 +121,115 @@ export const deleteProduct = (id) => {
   };
 };
 
-
-
 //COMIENZA ORDENAMIENTO DE PRODUCTS
 
 export const orderByPrice = (payload) => {
   return {
     type: ORDER_BY_PRICE,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 //COMIENZA FILTROS DE PRODUCTS
 
 export const getCategories = () => {
-  return async function(dispatch) {
-      const res = await axios.get('http://localhost:3001/api/category');
-      return dispatch({
-          type: GET_CATEGORIES,
-          payload: res.data
-      })
-    }
-}
+  return async function (dispatch) {
+    const res = await axios.get("http://localhost:3001/api/category");
+    console.log("response categoresi", res);
+    return dispatch({
+      type: GET_CATEGORIES,
+      payload: res.data,
+    });
+  };
+};
 
 export const filterByCategory = (payload) => {
-  return{
+  return {
     type: FILTER_BY_CATEGORY,
-    payload
-  }
-}
+    payload,
+  };
+};
 
-// export const getCities = () => {
-//   return async function(dispatch){
-//     const res = await axios('http://localhost:3001/api/city');
-//     debugger;
-//     console.log(res)
-//     return dispatch({
-//       type: GET_CITIES,
-//       payload: res.data
-//     })
-//   }
-// }
+export const getAllProvinces = () => {
+  return async function (dispatch) {
+    const res = await axios("http://localhost:3001/api/province");
+    return dispatch({
+      type: GET_ALL_PROVINCES,
+      payload: res.data,
+    });
+  };
+};
 
-// export const filterByCities = (payload) => {
-//   return{
-//     type: FILTER_BY_CITIES,
-//     payload
-//   }
-// }
+
+export const filterByProvinces = (payload) => {
+  return {
+    type: FILTER_BY_PROVINCES,
+    payload,
+  };
+};
 
 export const getAllBusiness = () => {
-  return async function(dispatch){
-    const res = await axios('http://localhost:3001/api/business');
-    return(dispatch)({
+  return async function (dispatch) {
+    const res = await axios("http://localhost:3001/api/business");
+    return dispatch({
       type: GET_ALL_BUSINESS,
-      payload: res.data
-    })
-  }
-}
+      payload: res.data,
+    });
+  };
+};
 
 export const filterByBusiness = (payload) => {
-  return{
+  return {
     type: FILTER_BY_BUSINESS,
-    payload
-  }
-}
+    payload,
+  };
+};
 
+export const getCities = () => {
+  return async function (dispatch) {
+    const res = await axios("http://localhost:3001/api/city");
+    console.log('soy Res',res)
+    return dispatch({
+      type: GET_CITIES,
+      payload: res.data,
+    });
+  };
+};
+
+export const filterByProvinceCity = (payload) => {
+  return {
+    type: FILTER_BY_PROVINCE_CITY,
+    payload,
+  };
+};
 
 //TERMINA ACTION PRODUCT
+export const cleanUsers = () => {
+  return { type: CLEAN_USERS };
+};
 
+export const cleanBusiness = () => {
+  return { type: CLEAN_BUSINESS };
+};
 //COMIENZA ACTION USER
 
+export const getUsers = () => {
+  return async function(dispatch){
+    try {
+      const res = await axios('http://localhost:3001/api/user');
+      return dispatch({
+        type: GET_USERS,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
+
 export const login = (body) => {
-  console.log("login body", body)
+  console.log("login body", body);
   return async function (dispatch) {
     try {
       const res = await axios.post(
@@ -230,9 +266,10 @@ export function addBusiness(body) {
   return async function (dispatch) {
     try {
       let json = await axios.post(`http://localhost:3001/api/business`, body);
+
       return dispatch({
         type: POST_BUSINESS,
-        payload: json.data,
+        payload: [json.data, body.email],
       });
     } catch (error) {
       console.log(error);
@@ -241,7 +278,7 @@ export function addBusiness(body) {
 }
 
 export const loginBusiness = (body) => {
-  console.log("login body", body)
+  console.log("login body", body);
   return async function (dispatch) {
     try {
       const res = await axios.post(
@@ -257,4 +294,3 @@ export const loginBusiness = (body) => {
     }
   };
 };
-

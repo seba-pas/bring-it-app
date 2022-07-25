@@ -7,42 +7,81 @@ import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "../components/NavBar";
 
 import styles from "../styles/ProductDetail.module.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 export const ProductDetail = () => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.productsDetail);
-  
 
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAllProductsDetail(id));
-
+    dispatch(getAllProductsDetail(id)); //component did mount
     return () => {
       dispatch(setDetail());
     };
   }, [dispatch, id]);
+  function handleClick(e) {
+    e.preventDefault();
+    alert("PROXIMAMENTE!!!...");
+  }
 
+  console.log(product.categories);
+  console.log(product.business);
   return (
     <div>
-
       <NavBar />
-      {Object.entries(product).length > 0? (
-        <div className={styles.contAll}>
-          <div className={styles.contDetail}>
-            <img src={product.image} />
-            <h1>{product.name}</h1>
-            <h2>STOCK: {product.stock}</h2>
-            <h1>${product.price}</h1>
-            <h4>PESO: {product.weight}</h4>
-            <h4>Descripcion: {product.description}</h4>
-            {/* <h1>by: {product.business? product.business: 'No tiene Empresa asociada'}</h1> */}
-            {/* <h4>Categoria: {product.categories? product.categories[0].name : 'No tiene categoría'} </h4> */}
-            <button>Agregar al Carrito</button>
-            <button>Comprar</button>
-            <Link to={"/persona"}>
-              <button>Volver</button>
-            </Link>
+
+      {Object.entries(product).length > 0 ? (
+        <div className={styles.cont}>
+          <div className="card" id={styles.card} style={{ width: "40%" }}>
+            <img
+              style={{ objectFit: "cover" }}
+              className="card-img-top"
+              src={product.image}
+              alt="Card image cap"
+            />
+            <div className="card-body">
+              <h5 className="card-title">{product.name}</h5>
+              <h5 className="card-title">${product.price}</h5>
+              <p className="card-text">{product.description}</p>
+              <p className="card-text">
+                {product.categories === null ||
+                product.categories === undefined ||
+                product.categories.length == 0
+                  ? "No tiene categoría"
+                  : product.categories[0].name}
+              </p>
+              <p className="card-text">
+                {product.business === null ||
+                product.categories === undefined ||
+                product.business.length == 0
+                  ? "No tiene Empresa asociada"
+                  : product.business.businessName}
+              </p>
+              <p className="card-text">Disponibles: {product.stock}</p>
+              <div className={styles.contBot}>
+                <a
+                  className="btn btn-primary"
+                  onClick={(e) => handleClick(e)}
+                  id={styles.boton}
+                >
+                  COMPRAR
+                </a>
+                <a
+                  className="btn btn-primary"
+                  onClick={(e) => handleClick(e)}
+                  id={styles.boton}
+                >
+                  AGREGAR AL CARRITO
+                </a>
+                <Link to={"/persona"}>
+                  <a className="btn btn-primary" id={styles.boton}>
+                    VOLVER
+                  </a>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
@@ -56,7 +95,6 @@ export const ProductDetail = () => {
           />
         </div>
       )}
-
     </div>
   );
 };
