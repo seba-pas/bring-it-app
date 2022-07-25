@@ -30,7 +30,7 @@ import {
 export const getAllProducts = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get("http://localhost:3001/api/product");
+      const res = await axios.get("/api/product");
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: res.data,
@@ -44,7 +44,7 @@ export const getAllProducts = () => {
 export const getAllProductsDetail = (id) => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`http://localhost:3001/api/product/${id}`);
+      const res = await axios.get(`/api/product/${id}`);
       return dispatch({
         type: GET_PRODUCTS_DETAIL,
         payload: res.data,
@@ -58,7 +58,7 @@ export const getAllProductsDetail = (id) => {
 export const getAllProductsName = (name) => {
   return async function (dispatch) {
     try {
-      const res = await axios(`http://localhost:3001/api/product?name=${name}`);
+      const res = await axios(`/api/product?name=${name}`);
       return dispatch({
         type: GET_ALL_PRODUCTS_NAME,
         payload: res.data,
@@ -78,7 +78,7 @@ export const setDetail = () => {
 export const addProduct = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`http://localhost:3001/api/product`, body);
+      const res = await axios.post(`/api/product`, body);
       return dispatch({
         type: POST_PRODUCT,
         payload: res.data,
@@ -93,7 +93,7 @@ export const editProduct = (id, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(
-        `http://localhost:3001/api/product/${id}`,
+        `/api/product/${id}`,
         body
       );
       console.log("res", res);
@@ -110,7 +110,7 @@ export const deleteProduct = (id) => {
   console.log(id);
   return async function (dispatch) {
     try {
-      const res = await axios.delete(`http://localhost:3001/api/product/${id}`);
+      const res = await axios.delete(`/api/product/${id}`);
       return dispatch({
         type: DELETE_PRODUCT,
         payload: res.data,
@@ -134,7 +134,7 @@ export const orderByPrice = (payload) => {
 
 export const getCategories = () => {
   return async function (dispatch) {
-    const res = await axios.get("http://localhost:3001/api/category");
+    const res = await axios.get("/api/category");
     console.log("response categoresi", res);
     return dispatch({
       type: GET_CATEGORIES,
@@ -152,7 +152,7 @@ export const filterByCategory = (payload) => {
 
 export const getAllProvinces = () => {
   return async function (dispatch) {
-    const res = await axios("http://localhost:3001/api/province");
+    const res = await axios("/api/province");
     return dispatch({
       type: GET_ALL_PROVINCES,
       payload: res.data,
@@ -170,7 +170,7 @@ export const filterByProvinces = (payload) => {
 
 export const getAllBusiness = () => {
   return async function (dispatch) {
-    const res = await axios("http://localhost:3001/api/business");
+    const res = await axios("/api/business");
     return dispatch({
       type: GET_ALL_BUSINESS,
       payload: res.data,
@@ -187,7 +187,7 @@ export const filterByBusiness = (payload) => {
 
 export const getCities = () => {
   return async function (dispatch) {
-    const res = await axios("http://localhost:3001/api/city");
+    const res = await axios("/api/city");
     console.log('soy Res',res)
     return dispatch({
       type: GET_CITIES,
@@ -216,7 +216,7 @@ export const cleanBusiness = () => {
 export const getUsers = () => {
   return async function(dispatch){
     try {
-      const res = await axios('http://localhost:3001/api/user');
+      const res = await axios('/api/user');
       return dispatch({
         type: GET_USERS,
         payload: res.data
@@ -233,7 +233,7 @@ export const login = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/user/login`,
+        `/api/user/login`,
         body
       );
       return dispatch({
@@ -249,7 +249,7 @@ export const login = (body) => {
 export const addUser = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`http://localhost:3001/api/user`, body);
+      const res = await axios.post(`/api/user`, body);
       return dispatch({
         type: POST_USER,
         payload: res.data,
@@ -265,7 +265,7 @@ export const addUser = (body) => {
 export function addBusiness(body) {
   return async function (dispatch) {
     try {
-      let json = await axios.post(`http://localhost:3001/api/business`, body);
+      let json = await axios.post(`/api/business`, body);
 
       return dispatch({
         type: POST_BUSINESS,
@@ -282,7 +282,7 @@ export const loginBusiness = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/business/login`,
+        `/api/business/login`,
         body
       );
       return dispatch({
