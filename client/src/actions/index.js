@@ -17,7 +17,8 @@ import {
   SET_PRODUCT_DETAIL,
   CLEAN_USERS,
   CLEAN_BUSINESS,
-  // GET_CITIES,
+  FILTER_BY_PROVINCE_CITY,
+  GET_CITIES,
   // FILTER_BY_CITIES,
   GET_ALL_PROVINCES,
   FILTER_BY_PROVINCES,
@@ -95,7 +96,7 @@ export const editProduct = (id, body) => {
         `http://localhost:3001/api/product/${id}`,
         body
       );
-      console.log("res", res)
+      console.log("res", res);
       return dispatch({
         type: PUT_PRODUCT,
         payload: res.data,
@@ -133,16 +134,14 @@ export const orderByPrice = (payload) => {
 
 export const getCategories = () => {
   return async function (dispatch) {
-
-    const res = await axios.get('http://localhost:3001/api/category');
-    console.log("response categoresi", res)
+    const res = await axios.get("http://localhost:3001/api/category");
+    console.log("response categoresi", res);
     return dispatch({
       type: GET_CATEGORIES,
-      payload: res.data
-    })
-  }
-}
-
+      payload: res.data,
+    });
+  };
+};
 
 export const filterByCategory = (payload) => {
   return {
@@ -152,28 +151,26 @@ export const filterByCategory = (payload) => {
 };
 
 export const getAllProvinces = () => {
-  return async function(dispatch){
-    const res = await axios('http://localhost:3001/api/province');
+  return async function (dispatch) {
+    const res = await axios("http://localhost:3001/api/province");
     return dispatch({
       type: GET_ALL_PROVINCES,
-      payload: res.data
-    })
-  }
-}
+      payload: res.data,
+    });
+  };
+};
 
 export const filterByProvinces = (payload) => {
-  return{
+  return {
     type: FILTER_BY_PROVINCES,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const getAllBusiness = () => {
   return async function (dispatch) {
-
-    const res = await axios('http://localhost:3001/api/business');
-    return (dispatch)({
-
+    const res = await axios("http://localhost:3001/api/business");
+    return dispatch({
       type: GET_ALL_BUSINESS,
       payload: res.data,
     });
@@ -187,13 +184,31 @@ export const filterByBusiness = (payload) => {
   };
 };
 
+export const getCities = () => {
+  return async function (dispatch) {
+    const res = await axios("http://localhost:3001/api/city");
+    console.log('soy Res',res)
+    return dispatch({
+      type: GET_CITIES,
+      payload: res.data,
+    });
+  };
+};
+
+export const filterByProvinceCity = (payload) => {
+  return {
+    type: FILTER_BY_PROVINCE_CITY,
+    payload,
+  };
+};
+
 //TERMINA ACTION PRODUCT
 export const cleanUsers = () => {
   return { type: CLEAN_USERS };
 };
 
 export const cleanBusiness = () => {
-  return { type: CLEAN_BUSINESS};
+  return { type: CLEAN_BUSINESS };
 };
 //COMIENZA ACTION USER
 
