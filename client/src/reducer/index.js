@@ -14,7 +14,8 @@ const initialState = {
   allCities: [],
   business2: [],
   allBusiness2: [],
-  provinces: []
+  provinces: [],
+  uniqueProvinces: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -148,14 +149,17 @@ export default function rootReducer(state = initialState, action) {
         cities: action.payload,
       };
     case "GET_ALL_BUSINESS":
+      console.log(action.payload)
+      const uniqueProvince = [... new Set(action.payload.map((e) => e.province))]
       return{
 
         ...state,
         business2: action.payload,
+        uniqueProvinces: uniqueProvince
       };
     case "FILTER_BY_BUSINESS":
       const allBusiness = state.allProducts;
-
+      
       const filterBusiness = action.payload === 'All' ?
         allBusiness :
         allBusiness.filter((e) => e.business.businessName === action.payload)
@@ -167,8 +171,7 @@ export default function rootReducer(state = initialState, action) {
       return{
         ...state,
         provinces: action.payload
-      }
-
+      };
     case 'FILTER_BY_PROVINCES':
       const allProvinces = state.allProducts;
       const filterProvinces = action.payload === 'All' ?

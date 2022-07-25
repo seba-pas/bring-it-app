@@ -161,6 +161,7 @@ export const getAllProvinces = () => {
   }
 }
 
+
 export const filterByProvinces = (payload) => {
   return{
     type: FILTER_BY_PROVINCES,
