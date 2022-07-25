@@ -230,7 +230,7 @@ function ProductManager(props) {
                         <select name="categoryId" value="categoryId" onChange={handleInputChange}>
                             {/* <option value="">{input.categoryId}</option> */}
 
-                            <option value="">{allCategories?.filter(e => e.id === input.categoryId[input.categoryId.length - 1])[0].name} </option>
+                            {/* <option value="">{allCategories?.filter(e => e.id === input.categoryId[input.categoryId.length - 1])[0].name} </option> */}
                             {
                                 allCategories?.map(e => <option key={e.name} value={e.id}>{e.name}</option>)
                             }

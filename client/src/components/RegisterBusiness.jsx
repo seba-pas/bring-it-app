@@ -9,7 +9,7 @@ import {
   filterByProvinces,
   getAllProvinces,
   getCities,
-  cleanBusiness
+  cleanBusiness,
   getAllCities,
 
 } from "../actions/index.js";
@@ -26,8 +26,8 @@ function RegisterBusiness() {
 
 
 
-  const CITIES = useSelector ((state) => state.cities);
-  
+  const CITIES = useSelector((state) => state.cities);
+
 
   const [input, setInput] = useState({
     email: "",
@@ -35,10 +35,10 @@ function RegisterBusiness() {
     confirmPassword: "",
     businessName: "",
     cuit: "",
-    taxBracket: "",    
+    taxBracket: "",
     province: "",
     cityId: "",
-    address: "",    
+    address: "",
   });
 
   function handleChange(e) {
@@ -67,7 +67,7 @@ function RegisterBusiness() {
       input.address !== "" &&
       input.province !== "" &&
       input.cityId !== "" &&
-      input.taxBracket !== "" 
+      input.taxBracket !== ""
     ) {
       dispatch(addBusiness(input));
 
@@ -79,15 +79,15 @@ function RegisterBusiness() {
       );
     }
   }
-// NUEVO AGUS -> PARA QUE MUESTRE CUANDO EMPRESA YA EXISTE
-const business = useSelector((state) => state.business);
-const [didMount, setDidMount] = useState(true);
+  // NUEVO AGUS -> PARA QUE MUESTRE CUANDO EMPRESA YA EXISTE
+  const business = useSelector((state) => state.business);
+  const [didMount, setDidMount] = useState(true);
   useEffect(() => {
     if (didMount) {
       setDidMount(false);
-      return; 
+      return;
     } else {
-      if ( business === "Empresa creada") {
+      if (business === "Empresa creada") {
         swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
         setInput({
           email: "",
@@ -98,9 +98,9 @@ const [didMount, setDidMount] = useState(true);
           province: "",
         });
         history.push("/empresas");
-      } else if ( business === "error:Validation error") {
-      swal("Ya existe una empresa con el email");
-      dispatch(cleanBusiness());
+      } else if (business === "error:Validation error") {
+        swal("Ya existe una empresa con el email");
+        dispatch(cleanBusiness());
       }
     }
   }, [business]);
@@ -111,26 +111,26 @@ const [didMount, setDidMount] = useState(true);
     setInput({
       ...input,
       province: e.target.value,
-    });    
+    });
     dispatch(filterByProvinceCity(e.target.value));
   }
 
-    //funcion para seleccionar ciudad
-    function handleCheckCity(e) {
-      e.preventDefault();
-      setInput({
-        ...input,
-        cityId: e.target.value,
-      });      
-    }
+  //funcion para seleccionar ciudad
+  function handleCheckCity(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      cityId: e.target.value,
+    });
+  }
 
-    function handleTaxBracket(e) {
-      e.preventDefault();
-      setInput({
-        ...input,
-        taxBracket: e.target.value,
-      });      
-    }
+  function handleTaxBracket(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      taxBracket: e.target.value,
+    });
+  }
 
   useEffect(() => {
     dispatch(getAllProvinces());
@@ -231,7 +231,7 @@ const [didMount, setDidMount] = useState(true);
                   {PROVINCES.map((PROVINCE) => {
                     return (
                       <option
-                        value={PROVINCE.id}                        
+                        value={PROVINCE.id}
                         name={PROVINCE.nombre}
                         name2={PROVINCE.nombre}
                         key={PROVINCE.id}
@@ -242,7 +242,7 @@ const [didMount, setDidMount] = useState(true);
                   })}
                 </select>
               </Form.Group>
-              
+
               <Form.Label>Ciudad</Form.Label>
               <Form.Group>
                 <select onChange={(e) => handleCheckCity(e)}>
