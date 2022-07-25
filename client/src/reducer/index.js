@@ -14,7 +14,6 @@ const initialState = {
   allCities: [],
   business2: [],
   allBusiness2: [],
-
   provinces: []
 };
 
@@ -93,13 +92,6 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case "ORDER_BY_PRICE":
-
-      // if(action.payload === 'All'){
-      //   return {
-      //     ...state,
-      //     products: action.payload
-      //   }
-      // }else{
       let sortedPrice =
         action.payload === "asc"
           ? state.allProducts.sort(function (a, b) {
@@ -124,10 +116,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         products: sortedPrice,
       };
-
-
-      // }
-
     case "GET_CATEGORIES":
       return {
         ...state,
@@ -143,8 +131,6 @@ export default function rootReducer(state = initialState, action) {
                 e.categories &&
                 e.categories.map((e) => e.name).includes(action.payload)
             );
-      console.log(filterCategory);
-      console.log(action.payload, "Payload");
       return {
         ...state,
         products: filterCategory,
@@ -162,8 +148,6 @@ export default function rootReducer(state = initialState, action) {
         cities: action.payload,
       };
     case "GET_ALL_BUSINESS":
-      // console.log(action.payload)
-
       return{
 
         ...state,
@@ -182,13 +166,14 @@ export default function rootReducer(state = initialState, action) {
     case 'GET_ALL_PROVINCES':
       return{
         ...state,
-        provinces: uniqueItems
-      };
+        provinces: action.payload
+      }
+
     case 'FILTER_BY_PROVINCES':
       const allProvinces = state.allProducts;
       const filterProvinces = action.payload === 'All' ?
       allProvinces :
-      allProvinces.filter((e) => e.business.province === action.payload)     
+      allProvinces.filter((e) => e.business.province === action.payload)
       return{
         ...state,
         products: filterProvinces
