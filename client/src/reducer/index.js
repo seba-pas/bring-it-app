@@ -209,27 +209,20 @@ export default function rootReducer(state = initialState, action) {
         products: filterProvinces,
       };
 
-    case "GET_CITIES":
+    case "GET_ALL_CITIES":
       return {
         ...state,
-        cities: action.payload,
+        allCities: action.payload,
       };
-    //Filtrado de ciudades segun la provincia
-    case "FILTER_BY_PROVINCE_CITY":
-      // const allProvinces = state.allProducts;
-      // const filterProvinces = action.payload === 'All' ?
-      // allProvinces :
-      // allProvinces.filter((e) => e.business.province === action.payload)
-      const allCities = state.allCities;
-      const filterCities =
-        action.payload === "All"
-          ? allCities
-          : allCities.filter((e) => e.provinceId === action.payload);
 
+    //Filtrado de ciudades segun la provincia (recibe provinceId (string))
+    case "FILTER_BY_PROVINCE_CITY":
+      const filteredCities = state.allCities.filter(city=>city.provinceId.includes(action.payload));
       return {
         ...state,
-        cities: filterCities,
+        cities: filteredCities,
       };
+
     case "GET_USERS":
       return {
         ...state,
