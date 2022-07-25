@@ -69,6 +69,12 @@
 
 }
 
+.selectPerfil {
+    border: solid 4px #41d4cf;
+    background-color: transparent;
+    color: #41d4cf
+}
+
 
 .soldProductsContainer {
     display: none;

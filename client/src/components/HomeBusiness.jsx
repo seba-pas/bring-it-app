@@ -185,7 +185,7 @@ function HomeBusiness() {
                             alt="Logo no encontrado"
                         />
 
-                        <select name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
+                        <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
                             <option value="">{input.perfil} </option>
                             {/* <option value=""></option> */}
                             <option value="email">{input.businessEmailState}</option>
