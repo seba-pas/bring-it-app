@@ -1,80 +1,79 @@
 .cont {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
 }
-.contBot{
-    margin-top: 30px;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-around;
+.contBot {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
 }
 #card {
-  transition: box-shadow 0.8s ease;
+  transition: box-shadow 0.8s ease-in;
 }
- #card:hover{
-  /* background-color: #41d4cf69; */
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.350), 0 8px 16px 0 rgba(0, 0, 0, 0.350);
-  
- }
 
+#card img {
+  object-fit: cover;
+  max-height: 430px;
+}
+#card:hover {
+  /* background-color: #41d4cf69; */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 8px 16px 0 rgba(0, 0, 0, 0.35);
+}
 
 #boton {
-    font-family: "Montserrat", sans-serif;
-    background-color: #41d4cf;
-    color: white;
-    border: 3px solid #41d4cf;
-    font-weight: bold;
-    border-radius: 5px;
-    font-size: 15px;    
-    height: 40px;
-    width: auto;
-  }
-  
+  font-family: "Montserrat", sans-serif;
+  background-color: #3ab0ff;
+  color: white;
+  border: 3px solid #3ab0ff;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 15px;
+  height: 40px;
+  width: auto;
+}
+
 #boton:hover {
-    transition: background-color 1s ease;
-    background-color: white; /* Green */
-    color: #41d4cf;
-  }
+  transition: border-color 0.2s ease-in, background-color 0.4s ease-in;
+  background-color: #ffb562;
+  color: white;
+  border-color: #ffb562;
+}
+#name {
+  margin-left: 20px;
+  font-size: 50px;
+  font-weight: 200;
+
+  text-align: left;
+}
+#categories span {
+  text-align: left;
   
 
-
-/* img {
-    height: 200px;
-    width: auto;
 }
 
-.contAll {
-    margin-top: 2%;
-    margin-left: 5%;
-    margin-right: 5%;
-
-    display: flex;
-    width: 90%;
-    justify-content: space-evenly;
-    
+#categories {
+  font-size: 20px;
 }
-
-.contImg {
-    width: 50%;
+#bold {
+  font-weight: bold;
+  font-size: 18px;
 }
+#description {
+  margin-top: 10px;
+  font-size: 22px;
+}
+#price {
+  font-size: 57px;
+  font-weight: 200;
+  margin-right: 20px;
 
-.contDetail {
-    border-radius: 10px;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    height: 40%;
-    align-content:flex-start;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.120), 0 8px 16px 0 rgba(0, 0, 0, 0.120);
-
-    
-    justify-content: left;
-    width: 50%;
-    border: none;
-} */
+  text-align: right;
+}
 
 .spinner {
-    display: flex;
+  display: flex;
   justify-content: center;
   align-content: center;
   height: 400px;

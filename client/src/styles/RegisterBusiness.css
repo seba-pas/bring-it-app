@@ -4,8 +4,26 @@
     margin-bottom: 2rem;
 }
 
-.btn-primary{
-    color: #fff;
-    background-color: #813AFE !important;
-    border-color:#813AFE !important ;
+ .btn-primary{
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    background-color: #3AB0FF ;
+    border-color:#3AB0FF  ;
+    border: 3px solid #3AB0FF;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 15px;
+    height: 40px;
+    width: auto;
+} 
+
+.btn-primary:hover {
+    transition: background-color 0.2s ease;
+    background-color: #FFB562;
+    color: white;
+    border: 3px solid #FFB562;
+    
 }
+
+
+  

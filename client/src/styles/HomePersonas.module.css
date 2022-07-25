@@ -1,13 +1,12 @@
 
-body {
-  background-color:#F6F5F5;
-}
 
   .spinner {
+    background-color: #F6F5F5;
   display: flex;
+  margin-top:40px; 
   justify-content: center;
   align-content: center;
-  height: 400px;
+  height:800px;
   width: auto;
 }
 .containerS {
@@ -18,44 +17,53 @@ body {
 }
 
 .botonvol{
+  border: none;
   
   justify-content: center;
   align-items: center;
   font-family: "Montserrat", sans-serif;
-  background-color: white;
-  color: #41d4cf;
-  border: 3px solid #41d4cf;
+  background-color: #3ab0ff;
+  color: white;
+  border: 3px solid #3ab0ff;
   font-weight: bold;
   border-radius: 5px;
   font-size: 15px;
   height: 40px;
   width: 130px;
   margin-top: 25px;
+  padding-right:8px;
 }
 .botonvol:hover{
-  transition: background-color 1s ease;
-  background-color: #41d4cf; /* Green */
+  border-color: #FFB562;
+  transition: border-color 0.1s ease, background-color 0.4s ease;
+  background-color: #FFB562; /* Green */
   color: white;
 }
 
 select {
-  background-color: white;
-  color: #41d4cf ;
-  border: 3px solid #41d4cf;
+  background-color: #3ab0ff;
+  color: #F6F5F5 ;
+  border:none;
   font-weight: bold;
   border-radius: 5px;
   font-size: 15px;
   height: 40px;
   width: 200px;
+  padding-left: 3px;
 }
 
 option {
   font-family: "Montserrat", sans-serif;
 
 }
+
+.containerS select {
+  padding-left: 9px;
+}
 .containerS select:hover {
-  transition: background-color 1s ease;
-  background-color: #41d4cf; /* Green */
+  border-color:#FFB562;
+  transition: background-color 0.4s ease;
+  background-color: #FFB562; /* Green */
   color: white;
 }
 

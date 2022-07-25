@@ -18,10 +18,11 @@ import HomeAdmin from "./components/HomeAdmin";
 
 // import Home from "./components/Home";
 // import ProductCard from "./components/ProductCard";
+// style={{backgroundColor: "#F6F5F5"}}
 
 function App() {
   return (
-    <div className="App">
+    <div style={{backgroundColor: "#F6F5F5"}}  className="App">
       <Switch>
         <Route exact path="/product/:id" component={ProductDetail} />
         <Route exact path="/" component={LandingPage} />

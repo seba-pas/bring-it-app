@@ -23,13 +23,14 @@ export default function HomePersonas() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
-  const CATEGORY = useSelector((state => state.categories));
+  const CATEGORY = useSelector((state) => state.categories);
+
   const PROVINCES = useSelector((state => state.uniqueProvinces));
 
   const [orden, setOrden] = useState("");
-  const [category, setCategory] = useState('All');
-  const [business, setBusinnes] = useState('All');
-  const [province, setProvince] = useState('All');
+  const [category, setCategory] = useState("All");
+  const [business, setBusinnes] = useState("All");
+  const [province, setProvince] = useState("All");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(8);
@@ -55,9 +56,9 @@ export default function HomePersonas() {
   //funcion para volver a cargar los productos
   function handleClick(e) {
     e.preventDefault();
-    setCategory('All');
-    setBusinnes('All');
-    setProvince('All');
+    setCategory("All");
+    setBusinnes("All");
+    setProvince("All");
     dispatch(getAllProducts());
     setCurrentPage(1);
   }
@@ -77,7 +78,6 @@ export default function HomePersonas() {
     setCurrentPage(1);
     dispatch(filterByCategory(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
-    
   }
 
   //funcion para filtrar por empresas
@@ -90,15 +90,13 @@ export default function HomePersonas() {
   }
 
   //funcion para filtrar por provincias
-  function handleFilterByProvinces(e){
+  function handleFilterByProvinces(e) {
     e.preventDefault();
-    setProvince(e.target.value)
+    setProvince(e.target.value);
     setCurrentPage(1);
     dispatch(filterByProvinces(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
-
-  
 
   return (
     <div>
@@ -112,26 +110,28 @@ export default function HomePersonas() {
             paginado={paginado}
           />
           <div className={styles.containerS}>
-
             {/* <div> Ordenar por */}
             <select onChange={(e) => handleSort(e)}>
               {/* <span>Todos</span> */}
               {/* <option value="All">
                 Todos
-              </option> */}<option value='Desordenado' hidden selected>
-            Ordenar por
-          </option>
+              </option> */}
+              <option value="Desordenado" hidden selected>
+                Ordenar por
+              </option>
               <option value="asc">Menor Precio</option>
               <option value="desc">Mayor Precio</option>
             </select>
 
             {/* </div> */}
-          
 
-            <select value={category} onChange={(e) => handleFilterByCategory(e)}>
-            <option hidden selected>
-           Categorias
-          </option>
+            <select
+              value={category}
+              onChange={(e) => handleFilterByCategory(e)}
+            >
+              <option hidden selected>
+                Categorias
+              </option>
               <option value="All">Todas</option>
               {CATEGORY.map((CATEGORY) => {
                 return (
@@ -142,11 +142,14 @@ export default function HomePersonas() {
               })}
             </select>
 
-            <select value={business} onChange={(e) => handleFilterByBusiness(e)}>
+            <select
+              value={business}
+              onChange={(e) => handleFilterByBusiness(e)}
+            >
               <option value="All">Todas</option>
               <option hidden selected>
-           Empresa
-          </option>
+                Empresa
+              </option>
               {BUSINESS.map((BUSINESS) => {
                 return (
                   <option value={BUSINESS.businessName} key={BUSINESS.email}>
@@ -154,21 +157,26 @@ export default function HomePersonas() {
                   </option>
                 );
               })}
-
-              </select>
-            <select value={province} onChange={(e) => handleFilterByProvinces(e)}>
+            </select>
+            <select
+              value={province}
+              onChange={(e) => handleFilterByProvinces(e)}
+            >
               <option value="All">Todas</option>
+
               {PROVINCES.map((province) => {
                 return(
                   <option value={province} key={province}>
                     {province}
                   </option>
-                )
+                );
               })}
             </select>
           </div>
-          <div > 
-            <button className={styles.botonvol} onClick={(e) => handleClick(e)}>Limpiar Filtros</button>
+          <div>
+            <button className={styles.botonvol} onClick={(e) => handleClick(e)}>
+              Limpiar Filtros
+            </button>
           </div>
 
           <ProductCards currentProducts={currentProducts} />
@@ -176,11 +184,11 @@ export default function HomePersonas() {
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed
-            size={150}
+            size={250}
             thickness={100}
             speed={100}
-            color="rgba(65, 212, 207, 1)"
-            secondaryColor="rgba(0, 0, 0, 1)"
+            color="rgba(58, 176, 255, 1)"
+            secondaryColor="rgba(58, 176, 255, 0.23)"
           />
         </div>
       )}

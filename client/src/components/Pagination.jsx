@@ -10,7 +10,9 @@ export default function Pagination({productsPerPage, PRODUCTS, paginado}) {
 
   return (
     <nav className={styles.paginado}>
+        {/* <button>{'<'}</button> */}
         {pageNumbers.length === 1 ?
+      
         <div></div>:
             (pageNumbers.map(num => {
                 return(
@@ -20,7 +22,9 @@ export default function Pagination({productsPerPage, PRODUCTS, paginado}) {
                 )
             }))
         }
+        {/* <button>{'>'}</button> */}
     </nav>
+    
   )
 }
 
