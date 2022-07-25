@@ -64,7 +64,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         user: {},
       };
-      case "CLEAN_BUSINESS":
+    case "CLEAN_BUSINESS":
       return {
         ...state,
         business: {},
@@ -75,6 +75,7 @@ export default function rootReducer(state = initialState, action) {
         user: action.payload,
       };
     case "POST_LOGINBUSINESS":
+      console.log(business)
       return {
         ...state,
         business: action.payload,
@@ -93,6 +94,7 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case "ORDER_BY_PRICE":
+
       let sortedPrice =
         action.payload === "asc"
           ? state.allProducts.sort(function (a, b) {
@@ -117,6 +119,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         products: sortedPrice,
       };
+
     case "GET_CATEGORIES":
       return {
         ...state,
@@ -143,23 +146,16 @@ export default function rootReducer(state = initialState, action) {
         productsDetail: {},
       };
 
-    case 'GET_CITIES':
-      return {
-        ...state,
-        cities: action.payload,
-      };
     case "GET_ALL_BUSINESS":
       console.log(action.payload)
       const uniqueProvince = [... new Set(action.payload.map((e) => e.province))]
       return{
-
         ...state,
         business2: action.payload,
         uniqueProvinces: uniqueProvince
       };
     case "FILTER_BY_BUSINESS":
       const allBusiness = state.allProducts;
-      
       const filterBusiness = action.payload === 'All' ?
         allBusiness :
         allBusiness.filter((e) => e.business.businessName === action.payload)
@@ -167,20 +163,44 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         products: filterBusiness,
       };
-    case 'GET_ALL_PROVINCES':
-      return{
+    case "GET_ALL_PROVINCES":
+      return {
         ...state,
-        provinces: action.payload
+        provinces: action.payload,
       };
+
     case 'FILTER_BY_PROVINCES':
       const allProvinces = state.allProducts;
-      const filterProvinces = action.payload === 'All' ?
-      allProvinces :
-      allProvinces.filter((e) => e.business.province === action.payload)
-      return{
+      const filterProvinces =
+        action.payload === "All"
+          ? allProvinces
+          : allProvinces.filter((e) => e.business.province === action.payload);
+      return {
         ...state,
-        products: filterProvinces
-      }
+        products: filterProvinces,
+      };
+
+    case "GET_CITIES":
+      return {
+        ...state,
+        cities: action.payload,
+      };
+    //Filtrado de ciudades segun la provincia
+    case "FILTER_BY_PROVINCE_CITY":
+      // const allProvinces = state.allProducts;
+      // const filterProvinces = action.payload === 'All' ?
+      // allProvinces :
+      // allProvinces.filter((e) => e.business.province === action.payload)
+      const allCities = state.allCities;
+      const filterCities =
+        action.payload === "All"
+          ? allCities
+          : allCities.filter((e) => e.provinceId === action.payload);
+
+      return {
+        ...state,
+        cities: filterCities,
+      };
     default:
       return {
         ...state,
