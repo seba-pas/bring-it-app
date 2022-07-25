@@ -31,7 +31,7 @@ export default function NavBarLanding() {
     email: "",
     password: "",
   });
-  const validate = (inputBusiness) => {
+  /* const validate = (inputBusiness) => {
     const errors = {};
 
     if (!inputBusiness.email) {
@@ -54,12 +54,11 @@ export default function NavBarLanding() {
     }
 
     return errors;
-  };
+  }; */
 
   //Business
   function handleSubmitLoginBusiness(e) {
     e.preventDefault();
-
     if (inputBusiness.email !== "" && inputBusiness.password !== "") {
       dispatch(loginBusiness(inputBusiness));
       setInputBusiness({
