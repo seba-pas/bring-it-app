@@ -8,47 +8,42 @@ import swal from "sweetalert";
 import imgIcon from "./img/programmer.png";
 import style from "../styles/RegisterUser.module.css";
 import NavBarRegisters from "./NavBarRegisters.jsx";
-// function validate(input) {
-//   let errors = {};
+const validateUsers = (input) => {
+  const errors = {};
 
-//   if (
-//     !input.email ||
-//     [(v) => !!v || "Este campo es requerido"] + $ / g.test(input.email)
-//   ) {
-//     error.email = alert("Este campo es requerido");
-//   } else {
-//     error.email = console.log("✅Hecho!");
-//   }
-// // al menos una letra
-//   //, al menos un numero, al menos una letra mayúscula, al menos 8 caracteres, no permite espacios.
-//   if (
-//     !input.password ||
-//     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/g.test(input.password)
-//   ) {
-//     error.password = alert(
-//       "La contraseña debe tener al menos:1 num, letra mayuscula, 8 caracteres,sin espacios "
-//     );
-//   } else {
-//     error.password = console.log("✅Hecho!");
-//   }
+  if (
+    !input.email ||
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)
+  ) {
+    errors.email = "❌ Debe escribir una direccion de email correcta.";
+  } else {
+    errors.email = "✅Email valido";
+  }
+  if (
+    !input.password ||
+    !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)
+  ) {
+    errors.password = "La contraseña debe tener entre 8 y 16 caracteres";
+  } else {
+    errors.password = "✅ Contraseña valida";
+  }
+  if (!input.name || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.name)) {
+    errors.name = "❌ La primera letra debe estar en mayúscula";
+  } else {
+    errors.name = "✅Hecho!";
+  }
+  if (!input.lastname || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.lastname)) {
+    errors.lastname = "❌ La primera letra debe estar en mayúscula";
+  } else {
+    errors.lastname = "✅Hecho!";
+  }
 
-//   if (!input.name || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.name)) {
-//     errors.name = alert("La primera letra debe estar en mayúscula");
-//   } else {
-//     errors.name = console.log("✅Hecho!");
-//   }
-//   if (!input.lastname || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.lastname)) {
-//     errors.lastname = alert("La primera letra debe estar en mayúscula");
-//   } else {
-//     errors.lastname = console.log("✅Hecho!");
-//   }
-
-//   return errors;
-// }
+  return errors;
+};
 function RegisterUser() {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -63,6 +58,12 @@ function RegisterUser() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      validateUsers({
+        ...input,
+        [e.target.name]: e.target.name,
+      })
+    );
   }
   function handleSubmit(e) {
     e.preventDefault();
@@ -78,6 +79,10 @@ function RegisterUser() {
       input.email !== "" &&
       input.password !== "" &&
       input.password === input.confirmPassword &&
+      input.password.length >= 8 &&
+      input.password.length <= 16 &&
+      input.confirmPassword.length >= 8 &&
+      input.confirmPassword.length <= 16 &&
       input.name !== "" &&
       input.lastname !== "" &&
       input.birthDate !== ""
@@ -128,6 +133,7 @@ function RegisterUser() {
                     required
                     onChange={(e) => handleChange(e)}
                   />
+                  {errors.email && <p>{errors.email}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Password</Form.Label>
@@ -140,6 +146,7 @@ function RegisterUser() {
                     id="password"
                     required
                   />
+                  {errors.password && <p>{errors.password}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Confirmar password</Form.Label>
@@ -152,6 +159,7 @@ function RegisterUser() {
                     id="confirmPassword"
                     required
                   />
+                  {errors.password && <p>{errors.password}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Nombre</Form.Label>
@@ -164,6 +172,7 @@ function RegisterUser() {
                     id="name"
                     required
                   />
+                  {errors.name && <p>{errors.name}</p>}
                 </Form.Group>
 
                 <Form.Group className="mb-3">
@@ -177,6 +186,7 @@ function RegisterUser() {
                     id="lastname"
                     required
                   />
+                  {errors.lastname && <p>{errors.lastname}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Fecha nacimiento</Form.Label>
@@ -191,12 +201,15 @@ function RegisterUser() {
                   />
                 </Form.Group>
 
-                <Button variant="primary" className="mt-3 mb-5 w-100 mt-3"  type="submit">
+                <Button
+                  variant="primary"
+                  className="mt-3 mb-5 w-100 mt-3"
+                  type="submit"
+                >
                   REGISTRARME
                 </Button>
               </Form>
             </Col>
-          
           </Row>
           <h6 className="mt-5 p-5 text-center text-secondary ">
             © 2022 Bring it. All Rights Reserved | Design by Grupo 8 Soy Henry
