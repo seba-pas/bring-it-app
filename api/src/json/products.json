@@ -130,6 +130,18 @@
     "description": "Queso paipa",
     "categoryId": [2],
     "businessEmail": "alejandro@gmail.com"
+  },
+  {
+    "id": "13",
+    "name": "Mouse Gamer",
+    "price": "10650",
+    "weight": "121",
+    "image": "http://medias.musimundo.com/medias/00315039-140388-140388-01-140388-01.jpg-size515?context=bWFzdGVyfGltYWdlc3wyODAzN3xpbWFnZS9qcGVnfGgwOS9oNDMvMTAzNzk2NzIxOTEwMDYvMDAzMTUwMzktMTQwMzg4LTE0MDM4OF8wMS0xNDAzODhfMDEuanBnX3NpemU1MTV8ZGZlODgzZjM2Zjc3Nzg4ZWUwNGU2Y2EwN2FmMDZmNmUxYTk4OTg4NTdlZmViNGIwMzUyNTJiNzc0ZDc2ZmIzYQ",
+    "stock": "10",
+    "description": "Mouse optico avanzado",
+    "categoryId": [6],
+    "businessEmail": "alejandro@gmail.com"
   }
+
 
 ]
