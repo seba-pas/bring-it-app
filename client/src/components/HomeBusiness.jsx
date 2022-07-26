@@ -4,6 +4,7 @@ import styles from "../styles/HomeBusiness.module.css";
 import SoldProductCard from "./SoldProductCard";
 import ProductCardBusiness from "./ProductCardBusiness";
 import { useDispatch, useSelector } from "react-redux";
+import NavBarusiness from "./NavBarBusiness";
 import {
   addBusiness,
   getAllBusiness,
@@ -169,18 +170,15 @@ function HomeBusiness() {
   return (
     <div>
       <NavBarusiness />
+      <div className={styles.btnContainer}>
+    <NavLink to="/productmanager">
+      <button className={styles.btn}>+</button>
+    </NavLink>
 
-      <div className={styles.home}>
-        <div className={styles.container}></div>
       </div>
 
-      {/* <div className={styles.perfil}>
-                    <div>
-                    
-                    </div>
-                    
-                </div> */}
-
+      <div className={styles.home}>
+        <div className={styles.container}>
       <div className={styles.soldProductsContainer}>
         {
           <table>
@@ -240,10 +238,6 @@ function HomeBusiness() {
                     amount={c.stock}
                     description={c.description}
                   />
-
-                  // <div key={c.id}>
-
-                  // </div>
                 );
               })}
             </tbody>
@@ -287,10 +281,7 @@ function HomeBusiness() {
           </table>
         }
       </div>
-      <div className={styles.btnContainer}>
-        <NavLink to="/productmanager">
-          <button className={styles.btn}>+</button>
-        </NavLink>
+        </div>
       </div>
     </div>
   );
