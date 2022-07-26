@@ -226,16 +226,33 @@ function ProductManager(props) {
                     <div>
                         Categorias
                     </div>
-                    <div>
+                    <select
+            //   value={categoryId}
+              onChange={(event) => handleInputChange(event)}
+            >
+              <option hidden selected>
+                Categorias
+              </option>
+              <option value="All">Todas</option>
+              {allCategories.map((CATEGORY) => {
+                return (
+                  <option value={CATEGORY.name} key={CATEGORY.id}>
+                    {CATEGORY.name}
+                  </option>
+                );
+              })}
+            </select>
+                    {/* <div>
+                        
                         <select name="categoryId" value="categoryId" onChange={handleInputChange}>
                             {/* <option value="">{input.categoryId}</option> */}
 
                             {/* <option value="">{allCategories?.filter(e => e.id === input.categoryId[input.categoryId.length - 1])[0].name} </option> */}
-                            {
+                            {/* {
                                 allCategories?.map(e => <option key={e.name} value={e.id}>{e.name}</option>)
-                            }
-                        </select>
-                    </div>
+                            } */}
+                        {/* </select> */}
+                    {/* </div> */}
                 </div>
                 <div className={styles.subButton}>
                     <button className={styles.btn} type="submit" disabled={error.errorname || error.errorPrice || error.errorDescription || error.errorWeight || error.errorStock}>

@@ -6,6 +6,7 @@ import ProductCardBusiness from './ProductCardBusiness';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBusiness, getAllBusiness, getAllProducts, getProductBusiness } from '../actions';
 import logo from "../components/img/logoCUT.png";
+import NavBarusiness from './NavBarBusiness';
 
 function HomeBusiness() {
 
@@ -37,11 +38,10 @@ function HomeBusiness() {
             }
         })
     }, [gState.allProducts]);
-    useEffect(() => {
 
-        if (input.perfil === "email") history.push("/perfil");  //   console.log("click en", input.perfil, " ", input.businessEmailState)
-        else if (input.perfil === "close") history.push("/");  //   console.log("click en", input.perfil, " ", input.businessEmailState)
-    }, [input.perfil]);
+    //     if (input.perfil === "email") history.push("/perfil");  //   console.log("click en", input.perfil, " ", input.businessEmailState)
+    //     else if (input.perfil === "close") history.push("/");  //   console.log("click en", input.perfil, " ", input.businessEmailState)
+    // }, [input.perfil]);
 
     useEffect(() => {
         setInput((prevInput) => {
@@ -164,11 +164,15 @@ function HomeBusiness() {
 
 
     return (
+        <div>
+            <NavBarusiness />
+                    
+
 
         <div className={styles.home} >
             <div className={styles.container}>
 
-                <div className={styles.welcomeContainer}>
+                {/* <div className={styles.welcomeContainer}>
 
                     <div className={styles.imgContainer}>
 
@@ -176,30 +180,15 @@ function HomeBusiness() {
                             src={logo}
                             style={{ width: "auto", height: "100px" }}
                             alt="Logo no encontrado"
-                        />
+                            />
                     </div>
-                    <div className={styles.perfil}>
-                        <img
-                            src={gState.businessEditInfo.logo ? gState.businessEditInfo.logo : "https://p16-va-default.akamaized.net/img/musically-maliva-obj/1665282759496710~c5_720x720.jpeg"}
-                            style={{ width: "100px", height: "100px", borderRadius: "150px", border: "solid 4px #41d4cf" }}
-                            alt="Logo no encontrado"
-                        />
-
-                        <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
-                            <option value="">{input.perfil} </option>
-                            {/* <option value=""></option> */}
-                            <option value="email">{input.businessEmailState}</option>
-                            <option value="close">Cerrar sesión</option>
-
-                        </select>
-                    </div>
-                </div>
+                </div> */}
 
                 {/* <div className={styles.perfil}>
                     <div>
-                       
+                    
                     </div>
-
+                    
                 </div> */}
 
                 <div className={styles.soldProductsContainer}>
@@ -223,13 +212,13 @@ function HomeBusiness() {
                             {soldProducts.map(c => {
                                 return (
 
-
+                                    
                                     <SoldProductCard image={c.productImage} productName={c.productName} amount={c.amount} description={c.description} clientName={c.clientName} clientPhone={c.clientPhone} date={c.date} BringerPending={c.BringerPending} BringerName={c.BringerName} BringerContact={c.BringerContact} />
-
-
-
-                                )
-                            })}
+                                    
+                                    
+                                    
+                                    )
+                                })}
                         </tbody>
 
                     </table>
@@ -251,11 +240,11 @@ function HomeBusiness() {
 
                             {products?.map(c => {
                                 return (
-
-                                    <ProductCardBusiness id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
-
-
-
+                                    
+                                    <ProductCardBusiness key={c.id} id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
+                                    
+                                    
+                                    
                                     // <div key={c.id}>
 
                                     // </div>
@@ -285,15 +274,15 @@ function HomeBusiness() {
 
                             {products?.filter(e => e.stock <= 3).map(c => {
                                 return (
-
+                                    
                                     <ProductCardBusiness id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
-
-
+                                    
+                                    
                                     // <div key={c.id}>
-
+                                    
                                     // </div>
-                                )
-                            })}
+                                    )
+                                })}
                         </tbody>
 
                     </table>
@@ -310,7 +299,9 @@ function HomeBusiness() {
             </div>
 
         </div>
+                                </div>
     )
 }
 
-export default HomeBusiness
+
+export default HomeBusiness;
