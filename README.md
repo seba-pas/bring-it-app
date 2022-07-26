@@ -18,7 +18,7 @@ PASOS PARA CREADO DE BRANCH
 
 //PARARSE EN LA BRANCH
 
->> git branch nombreDeLaBranch
+>> git checkout nombreDeLaBranch
 
 
 
