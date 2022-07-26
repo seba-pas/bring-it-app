@@ -72,7 +72,22 @@
 .selectPerfil {
     border: solid 4px #41d4cf;
     background-color: transparent;
-    color: #41d4cf
+    border-left-color: #41d4cf;
+    border-top-color: #41d4cf;
+    border-bottom-color: #41d4cf;
+    border-right-color: #41d4cf;
+    color: black;
+    font-size: 1.05rem;
+}
+
+option {
+    color: black;
+    background-color: white;
+}
+
+option:hover {
+    color: white;
+    background-color: aqua;
 }
 
 
@@ -115,7 +130,7 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
-    border: solid 2px rgb(241, 38, 38);
+    /* border: solid 2px rgb(241, 38, 38); */
     grid-row: 9/31;
     /* grid-row: 25/35; */
     grid-column: 18/35;
