@@ -33,9 +33,9 @@ router.post("/", async (req, res) => {
 // PUT / UPDATE USER
 // http://localhost:3001/api/user/:email
 router.put("/:email", async (req, res) => {
-  try {
     const { email } = req.params;
     const modification = req.body; //json con atributos a modificar y nuevos valores
+  try {
     const q = await User.update(modification, {
       where: { email: email },
     });
@@ -72,17 +72,22 @@ router.get("/:email", async (req, res) => {
 // http://localhost:3001/api/user/login
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const userLogin = await User.findByPk(email);
-    if (!userLogin) {
-      res.send("Usuario no encontrado");
-    } else {
-      if (userLogin.email === email && userLogin.password === password) {
-        res.status(201).json(userLogin);
-      } else {
-        res.send("Datos incorrectos");
-      }
-    }
+    const userLogin = await User.findByPk(req.body.email);
+
+    if (!userLogin) res.send("Usuario no encontrado");
+
+    const hashedPassword = CryptoJS.AES.decrypt(userLogin.password, process.env.PASS_SEC);
+    const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+    if(originalPassword !== req.body.password) return res.status(401).send(`Datos incorrectos`);
+
+    const accessToken = jwt.sign({
+      id: userLogin.id
+    }, process.env.JWT_SEC, { expiresIn: '1d' });
+
+    const { password, ...others } = userLogin;
+
+    res.status(200).json({others, accessToken});
   } catch (error) {
     res.status(404).send(`error:${error.message}`);
   }
