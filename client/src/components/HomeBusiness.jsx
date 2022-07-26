@@ -4,8 +4,9 @@ import styles from "../styles/HomeBusiness.module.css"
 import SoldProductCard from './SoldProductCard';
 import ProductCardBusiness from './ProductCardBusiness';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBusiness, getAllBusiness, getAllProducts, getProductBusiness } from '../actions';
-import logo from "../components/img/logoCUT.png";
+import { getAllBusiness, getAllProducts, getCategories } from '../actions';
+import logo from "./img/logoCUT.png";
+import userProfile from "./img/userPerfilImage.jpg";
 
 function HomeBusiness() {
 
@@ -16,55 +17,57 @@ function HomeBusiness() {
 
     useEffect(() => {
         dispatch(getAllProducts());
-
     }, [dispatch, gState.deleteProduct]);
+
     useEffect(() => {
         dispatch(getAllBusiness());
+        dispatch(getCategories());
     }, [dispatch]);
 
     const [input, setInput] = useState({
-
         perfil: "",
-        allProducts: [],
-
+        products: [],
+        businessInfo: {},
     });
 
     useEffect(() => {
         setInput((prevInput) => {
             return {
                 ...prevInput,
-                allProducts: gState.allProducts,
+                businessInfo: { ...gState.businessEditInfo },
+                products: gState.allProducts.filter(e => e.businessEmail === gState.businessEditInfo.email),
             }
         })
-    }, [gState.allProducts]);
-    useEffect(() => {
-
-        if (input.perfil === "email") history.push("/perfil");  //   console.log("click en", input.perfil, " ", input.businessEmailState)
-        else if (input.perfil === "close") history.push("/");  //   console.log("click en", input.perfil, " ", input.businessEmailState)
-    }, [input.perfil]);
+    }, [gState]);
 
     useEffect(() => {
         setInput((prevInput) => {
             return {
                 ...prevInput,
-                businessEmailState: gState.businessEmail,
+                products: gState.allProducts.filter(e => e.businessEmail === gState.businessEditInfo.email),
             }
         })
-    }, [gState.businessEmail]);
+
+    }, [gState.allProducts]);
+
+    useEffect(() => {
+        if (input.perfil === "email") history.push("/perfil");
+        else if (input.perfil === "close") history.push("/");
+    }, [input.perfil]);
+
 
     const handleOnChange = (event) => {
         event.preventDefault();
         setInput((prevInput) => {
             return {
                 ...prevInput,
-
                 [event.target.name]: event.target.value,
             }
         });
     }
 
 
-    let products = input.allProducts.filter(e => e.businessEmail === input.businessEmailState);
+
 
 
     let soldProducts = [
@@ -167,11 +170,8 @@ function HomeBusiness() {
 
         <div className={styles.home} >
             <div className={styles.container}>
-
                 <div className={styles.welcomeContainer}>
-
                     <div className={styles.imgContainer}>
-
                         <img
                             src={logo}
                             style={{ width: "auto", height: "100px" }}
@@ -180,31 +180,20 @@ function HomeBusiness() {
                     </div>
                     <div className={styles.perfil}>
                         <img
-                            src={gState.businessEditInfo.logo ? gState.businessEditInfo.logo : "https://p16-va-default.akamaized.net/img/musically-maliva-obj/1665282759496710~c5_720x720.jpeg"}
-                            style={{ width: "100px", height: "100px", borderRadius: "150px", border: "solid 4px #41d4cf" }}
+                            src={input.businessInfo.logo ? input.businessInfo.logo : userProfile}
+                            style={{ width: "100px", height: "100px", borderRadius: "150px", border: "solid 4px transparent" }}
                             alt="Logo no encontrado"
                         />
-
                         <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
                             <option value="">{input.perfil} </option>
                             {/* <option value=""></option> */}
-                            <option value="email">{input.businessEmailState}</option>
+                            <option value="email">{input.businessInfo.email}</option>
                             <option value="close">Cerrar sesión</option>
 
                         </select>
                     </div>
                 </div>
-
-                {/* <div className={styles.perfil}>
-                    <div>
-                       
-                    </div>
-
-                </div> */}
-
                 <div className={styles.soldProductsContainer}>
-
-
                     {<table>
                         <thead>
                             <tr>
@@ -219,19 +208,12 @@ function HomeBusiness() {
                             </tr>
                         </thead>
                         <tbody>
-
                             {soldProducts.map(c => {
                                 return (
-
-
                                     <SoldProductCard image={c.productImage} productName={c.productName} amount={c.amount} description={c.description} clientName={c.clientName} clientPhone={c.clientPhone} date={c.date} BringerPending={c.BringerPending} BringerName={c.BringerName} BringerContact={c.BringerContact} />
-
-
-
                                 )
                             })}
                         </tbody>
-
                     </table>
                     }
                 </div>
@@ -244,25 +226,16 @@ function HomeBusiness() {
                                 <th>Cantidad</th>
                                 <th>Descripción</th>
                                 <th>Actions</th>
-
                             </tr>
                         </thead>
                         <tbody>
 
-                            {products?.map(c => {
+                            {input.products?.map(c => {
                                 return (
-
-                                    <ProductCardBusiness id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
-
-
-
-                                    // <div key={c.id}>
-
-                                    // </div>
+                                    <ProductCardBusiness key={c.id} id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
                                 )
                             })}
                         </tbody>
-
                     </table>
                     }
                 </div>
@@ -278,37 +251,24 @@ function HomeBusiness() {
                                 <th>cantidad</th>
                                 <th>Descripción</th>
                                 <th>Actions</th>
-
                             </tr>
                         </thead>
                         <tbody>
-
-                            {products?.filter(e => e.stock <= 3).map(c => {
+                            {input.products?.filter(e => e.stock <= 3).map(c => {
                                 return (
-
-                                    <ProductCardBusiness id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
-
-
-                                    // <div key={c.id}>
-
-                                    // </div>
+                                    <ProductCardBusiness key={c.id} id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
                                 )
                             })}
                         </tbody>
-
                     </table>
                     }
                 </div>
                 <div className={styles.btnContainer}>
                     <NavLink to='/productmanager'>
-
                         <button className={styles.btn}>+</button>
                     </NavLink>
                 </div>
-
-
             </div>
-
         </div>
     )
 }

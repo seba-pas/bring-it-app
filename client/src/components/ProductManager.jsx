@@ -3,27 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, editProduct, getCategories } from '../actions';
 import styles from "../styles/ProductManager.module.css"
 import swal from "sweetalert";
+import { IoCloseCircleOutline } from 'react-icons/io5';
 function ProductManager(props) {
 
-
+    const gState = useSelector((state) => state);
     const dispatch = useDispatch();
     let id = props.match.params.id;
 
 
-    const gState = useSelector((state) => state);
-    let allCategories = gState.categories;
-    let productsState = gState.allProducts;
-    let productPut = productsState.filter(e => e.id === parseInt(id))
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch]);
 
+    let product = gState.allProducts.filter(e => e.id === parseInt(id))[0];
+    let categories = gState.categories;
 
     const [input, setInput] = useState(id ? {
-        name: productPut[0].name,
-        price: productPut[0].price,
-        weight: productPut[0].weight,
-        image: productPut[0].image,
-        stock: productPut[0].stock,
-        description: productPut[0].description,
-        categoryId: productPut[0].categories.map(e => e.id),
+        name: product.name || "",
+        price: product.price || 0,
+        weight: product.weight || 0,
+        image: product.image || "",
+        stock: product.stock || 0,
+        description: product.description || "",
+        categoryId: product.categories?.map(e => e.id) || [],
+        allCategories: categories,
+
     } : {
         name: "",
         price: 0,
@@ -31,8 +35,14 @@ function ProductManager(props) {
         image: "",
         stock: 0,
         description: "",
-        categoryId: []
+        categoryId: [],
+        allCategories: categories,
     })
+
+
+
+
+
 
     const [error, setError] = useState({
         errorname: "",
@@ -41,9 +51,6 @@ function ProductManager(props) {
         errorWeight: "",
         errorStock: "",
     });
-    useEffect(() => {
-        dispatch(getCategories());
-    }, [dispatch]);
 
     useEffect(() => {
         validate();
@@ -52,7 +59,7 @@ function ProductManager(props) {
     const handleInputChange = (event) => {
         event.preventDefault();
         if (event.target.name === "categoryId") {
-            if (!input.categoryId.includes(event.target.value)) {
+            if (!input.categoryId.includes(parseInt(event.target.value))) {
 
                 setInput((prevInput) => {
                     return {
@@ -81,14 +88,16 @@ function ProductManager(props) {
         let errorDescription = "";
         let errorWeight = "";
         let errorStock = "";
+        let errorcategoryId = "";
 
 
-        if (!/^[a-zA-Z ]{0,30}$/.test(input.name) || input.name[0] === " " || input.name === "") errorname = "Debe ingresar el nombre del producto";
-        if (!/^\d{1,8}$/.test(input.price)) errorPrice = "Debe ingresar un Precio";
-        if (!/^[a-zA-Z0-9 ]{0,250}$/.test(input.description) || input.description[0] === " " || input.description === "") errorDescription = "Debe ingresar la descripcion del producto";
-        if (!/^\d{1,4}$/.test(input.weight)) errorWeight = "Debe ingresar el peso del producto";
-        if (!/^[a-zA-Z0-9 ]{0,200}$/.test() || input.stock[0] === " " || input.stock === "")
-            if (!/^\d{1,8}$/.test(input.stock)) errorStock = "Debe ingresar el stock del producto";;
+        if (!/^[a-zA-Z ]{0,50}$/.test(input.name) || input.name[0] === " " || input.name === "") errorname = "Debe escribir el nombre del producto";
+        if (!/^[0-9]{0,10}$/.test(input.price) || input.price < 0 || input.price === "") errorPrice = "Introduzca el precio";
+        if (input.description[0] === " " || input.description === "") errorDescription = "Debe escribir descripcion del producto";
+        if (input.categoryId.length < 1) errorcategoryId = "Seleccione  categorias";
+        if (!/^[0-9]{0,10}$/.test(input.weight) || input.weight < 0 || input.weight === "") errorWeight = "Introduzca el peso del producto";
+        if (!/^[0-9]{0,10}$/.test(input.stock) || input.stock < 0 || input.stock === "") errorStock = "Introduzca stock del producto";
+
         setError((prevInput) => {
             return {
                 errorname: errorname,
@@ -96,6 +105,7 @@ function ProductManager(props) {
                 errorDescription: errorDescription,
                 errorWeight: errorWeight,
                 errorStock: errorStock,
+                errorcategoryId: errorcategoryId,
             }
         });
 
@@ -111,7 +121,7 @@ function ProductManager(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("click")
+
         if (id !== undefined) {
             dispatch(editProduct(id, {
                 name: input.name,
@@ -136,16 +146,38 @@ function ProductManager(props) {
                 categoryId: [...input.categoryId],
                 businessEmail: gState.businessEmail,
             }))
+
             swal("Buen trabajo!", "Producto agregado satisfactoriamente!", "success");
+            setInput((prevInput) => {
+                return {
+                    ...prevInput,
+                    name: "",
+                    price: 0,
+                    weight: 0,
+                    image: "",
+                    stock: 0,
+                    description: "",
+                    categoryId: [],
+                }
+            })
+
         }
         //dispatch(editProduct(props.match.params.id, input));
 
+    }
+    const handleClick = (event, id) => {
+        event.preventDefault();
+        setInput((prevInput) => {
+            return {
+                ...prevInput,
+                categoryId: input.categoryId.filter(e => e !== id),
+            }
+        });
     }
 
 
     return (
         <div className={styles.ProductManager}>
-
             <form className={styles.container} onSubmit={handleSubmit}>
                 <div className={styles.nameContainer}>
                     <label htmlFor='name'>Producto:</label>
@@ -228,17 +260,25 @@ function ProductManager(props) {
                     </div>
                     <div>
                         <select name="categoryId" value="categoryId" onChange={handleInputChange}>
-                            {/* <option value="">{input.categoryId}</option> */}
-
-                            {/* <option value="">{allCategories?.filter(e => e.id === input.categoryId[input.categoryId.length - 1])[0].name} </option> */}
+                            <option value="">{ }</option>
                             {
-                                allCategories?.map(e => <option key={e.name} value={e.id}>{e.name}</option>)
+                                input.allCategories?.map(e => <option key={e.name} value={e.id}>{e.name}</option>)
                             }
                         </select>
                     </div>
+                    {!error.errorcategoryId ? <label> </label> : <label>          {error.errorcategoryId}             </label>}
+                </div>
+                <div className={styles.categoriesCardContainer}>
+                    <div>
+                        {
+                            input.categoryId.length ? input.categoryId.map(e => <div className={styles.cardCategories}>{input.allCategories.filter(el => el.id === e)[0].name} <button className={styles.btnClose} currentTarget="1" onClick={(event,) => { handleClick(event, e); }}>
+                                <IoCloseCircleOutline />
+                            </button></div>) : ""
+                        }
+                    </div>
                 </div>
                 <div className={styles.subButton}>
-                    <button className={styles.btn} type="submit" disabled={error.errorname || error.errorPrice || error.errorDescription || error.errorWeight || error.errorStock}>
+                    <button className={styles.btn} type="submit" disabled={error.errorname || error.errorPrice || error.errorDescription || error.errorWeight || error.errorStock || error.errorcategoryId}>
                         Listo
                     </button>
                 </div>
