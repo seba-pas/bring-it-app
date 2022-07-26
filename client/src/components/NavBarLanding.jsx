@@ -255,6 +255,7 @@ export default function NavBarLanding() {
   return (
     <div className={styles.navbarLanding}>
       <div className={styles.imagen}>
+        
         <NavLink exact to="/">
           <img
             src={image}
@@ -263,6 +264,7 @@ export default function NavBarLanding() {
           />
         </NavLink>
       </div>
+      
       <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
         <button id={styles.login} onClick={handleShowLogin}>LOGIN</button>

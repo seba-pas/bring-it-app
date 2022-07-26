@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const { User } = require("./../db");
 const { getUsers, getUserByEmail } = require("../controllers/userControllers");
+const jwt = require('jsonwebtoken');
+const CryptoJS = require('crypto-js');
 const router = Router();
 
 //POST / CREATE User
@@ -13,11 +15,11 @@ router.post("/", async (req, res) => {
     try {
       const newUser = await User.findOrCreate({
         where: {
-        email,
-        password,
-        name,
-        lastname,
-        birthDate,
+          email,
+          name,
+          lastname,
+          birthDate,
+          password: CryptoJS.AES.encrypt(password, process.env.PASS_SEC).toString()
         }
       });
       console.log(newUser)

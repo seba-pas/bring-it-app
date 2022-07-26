@@ -1,0 +1,54 @@
+.divContainer {
+  margin-top: 120px;
+  display: grid;
+  grid-template-columns: 55% 40%;
+  grid-gap: 5px;
+}
+.info {
+    margin-left: 70px;
+  margin-top: 80px;
+}
+
+.info h1 {
+  margin-top: 30px;
+}
+.info span {
+  margin-top: 30px;
+}
+.containerButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 20px;
+  margin-top: 80px;
+}
+#boton {
+  font-family: "Montserrat", sans-serif;
+  background-color: chocolate;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-left: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 50px;
+  width: 400px;
+}
+#boton:focus {
+  border: none;
+}
+
+#boton:hover {
+  transition: background-color 0.4s ease-in;
+  background-color: #3ab0ff;
+  color: white;
+}
+.img {
+    border-radius: 5px;
+    margin-top: 50px;
+  width: 75%;
+  height: 75%;
+  object-fit: cover;
+}

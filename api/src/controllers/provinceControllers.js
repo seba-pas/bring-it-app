@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { Province } = require('../db');
-
+const jsonProvinces = require('../json/provincias.json');
+const provinces = jsonProvinces.provincias;
 
 
 
@@ -8,9 +9,9 @@ const { Province } = require('../db');
 
 const apiProvince = async(req, res) => {
 	try {
-		const apiProvinces = await axios(`https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre&max=24`);
-		const getProvinces = apiProvinces.data.provincias;
-		const savedProvinces = getProvinces.map(async(p) => {
+		// const apiProvinces = await axios(`https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre&max=24`);
+		// const getProvinces = apiProvinces.data.provincias;
+		const savedProvinces = provinces.map(async(p) => {
 			const provinces = await Province.findOrCreate({
 				where: {
 					id: p.id,

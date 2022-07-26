@@ -1,19 +1,25 @@
 const axios = require('axios');
 const { City, Province } = require('../db');
+const jsonCities = require('../json/municipios.json');
+const cities = jsonCities.municipios;
 
 
 
 // SAVE DATA FROM API TO DB
 const apiCity = async () => {
 	try {
-		const apiCities = await axios(`https://apis.datos.gob.ar/georef/api/municipios?campos=id,nombre,provincia&max=1814`);
-		const getCities = apiCities.data.municipios;
-		const saveCities = getCities.map(async(city) => {
+		// const apiCities = await axios(`https://apis.datos.gob.ar/georef/api/municipios?campos=id,nombre,provincia&max=1814`);
+		// const getCities = apiCities.data.municipios;
+		// const saveCities = getCities.map(async(city) => {
+
+		const saveCities = cities.map(async(city) => {
 			const cities = await City.findOrCreate({
 				where: {
 					id: city.id,
 					nombre: city.nombre,
-					provinceId: city.provincia.id
+					provinceId: city.provinceId
+					// provinceId: city.provincia.id
+
 				},
 			})
 		})
