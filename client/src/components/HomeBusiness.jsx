@@ -170,7 +170,7 @@ function HomeBusiness() {
         <div className={styles.home} >
             <div className={styles.container}>
                     </div>
-                </div> */}
+                </div> 
 
                 {/* <div className={styles.perfil}>
                     <div>
@@ -286,8 +286,8 @@ function HomeBusiness() {
 
             </div>
 
-        </div>
-                                </div>
+       
+                                
     )
 }
 
