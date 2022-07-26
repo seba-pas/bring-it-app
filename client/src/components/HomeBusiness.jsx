@@ -5,7 +5,7 @@ import SoldProductCard from './SoldProductCard';
 import ProductCardBusiness from './ProductCardBusiness';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBusiness, getAllBusiness, getAllProducts, getProductBusiness } from '../actions';
-import logo from "../components/img/logoCUT.png";
+import logo from "./img/logoCUT.png";
 
 function HomeBusiness() {
 
@@ -168,7 +168,7 @@ function HomeBusiness() {
         <div className={styles.home} >
             <div className={styles.container}>
 
-                <div className={styles.welcomeContainer}>
+                <div style={{backgroundColor: "white"}} className={styles.welcomeContainer}>
 
                     <div className={styles.imgContainer}>
 
@@ -180,7 +180,7 @@ function HomeBusiness() {
                     </div>
                     <div className={styles.perfil}>
                         <img
-                            src={gState.businessEditInfo.logo ? gState.businessEditInfo.logo : "https://p16-va-default.akamaized.net/img/musically-maliva-obj/1665282759496710~c5_720x720.jpeg"}
+                            src={gState.logo ? gState.logo : "https://p16-va-default.akamaized.net/img/musically-maliva-obj/1665282759496710~c5_720x720.jpeg"}
                             style={{ width: "100px", height: "100px", borderRadius: "150px", border: "solid 4px #41d4cf" }}
                             alt="Logo no encontrado"
                         />
