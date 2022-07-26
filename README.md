@@ -11,27 +11,27 @@ PASOS PARA CREADO DE BRANCH
 
 //CREADO
 
->> GIT BRANCH nombreDeLaBranch
+>> git branch nombreDeLaBranch
 
 
 
 
 //PARARSE EN LA BRANCH
 
->> GIT CHECKOUT nombreDeLaBranch
+>> git checkout nombreDeLaBranch
 
 
 
 
 //VER EN QUE BRANCH ESTAMOS PARADOS
 
->>GIT BRANCH
+>>git branch
 *(EN ESTA)
 
 
 //PARA BORRAR UNA BRANCH 
 
->> GIT BRANCH -D nombredelabranch
+>> git branch -d nombredelabranch
 
 
 

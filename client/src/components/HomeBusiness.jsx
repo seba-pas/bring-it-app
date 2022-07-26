@@ -5,8 +5,6 @@ import SoldProductCard from './SoldProductCard';
 import ProductCardBusiness from './ProductCardBusiness';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBusiness, getAllBusiness, getAllProducts, getProductBusiness } from '../actions';
-import logo from "../components/img/logoCUT.png";
-import NavBarusiness from './NavBarBusiness';
 
 function HomeBusiness() {
 
@@ -171,16 +169,6 @@ function HomeBusiness() {
 
         <div className={styles.home} >
             <div className={styles.container}>
-
-                {/* <div className={styles.welcomeContainer}>
-
-                    <div className={styles.imgContainer}>
-
-                        <img
-                            src={logo}
-                            style={{ width: "auto", height: "100px" }}
-                            alt="Logo no encontrado"
-                            />
                     </div>
                 </div> */}
 
