@@ -1,29 +1,22 @@
 [{ 
-    "name": "Música",
-    "id": "1"
+    "name": "Música"
 },
 { 
-    "name": "Comida",
-    "id": "2"
+    "name": "Comida"
 },
 { 
-    "name": "Deportes",
-    "id": "3"
+    "name": "Deportes"
 },
 { 
-    "name": "Decoración",
-    "id": "4"
+    "name": "Decoración"
 },
 { 
-    "name": "Accesorios",
-    "id": "5"
+    "name": "Accesorios"
 },
 { 
-    "name": "Computación",
-    "id": "6"
+    "name": "Computación"
 },
 { 
-    "name": "Bebida",
-    "id": "7"
+    "name": "Bebida"
 }
 ]

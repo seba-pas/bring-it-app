@@ -3,7 +3,6 @@ const users = require('./user.json');
 const categories = require('./category.json');
 const businesses = require('./business.json');
 const products = require('./products.json');
-const {addProduct} = require('./../controllers/productControllers')
 
 async function loadDB (){
     const usersLoad = users.forEach( async (u) => {
@@ -21,7 +20,6 @@ async function loadDB (){
     const categoryLoad = categories.forEach( async (c) => {
       await Category.findOrCreate({
         where: {
-          id: c.id,
           name: c.name
         }
       })
@@ -43,9 +41,8 @@ async function loadDB (){
     }) ;
     console.log('Businesses saved successfully') ;
     const productsLoad = products.forEach( async (p) => {
-         await Product.findOrCreate({
+         const newProduct = await Product.findOrCreate({
             where: {
-              id: p.id,
               name: p.name,
               price: p.price,
               weight: p.weight,
@@ -55,8 +52,8 @@ async function loadDB (){
               businessEmail: p.businessEmail
             }
           })
-          const newProduct = await Product.findByPk(p.id);
-          await newProduct.addCategory(p.categoryId);
+          const newProduct2 = await Product.findByPk(newProduct[0].dataValues.id);
+          await newProduct2.addCategory(p.categoryId);
       })
      ;
     console.log('Products saved successfully') ;
