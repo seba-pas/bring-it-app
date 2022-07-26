@@ -8,6 +8,7 @@ import {
   filterByProvinceCity,
   filterByProvinces,
   getAllProvinces,
+  getCities,
   cleanBusiness,
   getAllCities,
 
@@ -25,8 +26,8 @@ function RegisterBusiness() {
 
 
 
-  const CITIES = useSelector ((state) => state.cities);
-  
+  const CITIES = useSelector((state) => state.cities);
+
 
   const [input, setInput] = useState({
     email: "",
@@ -34,17 +35,64 @@ function RegisterBusiness() {
     confirmPassword: "",
     businessName: "",
     cuit: "",
-    taxBracket: "",    
+    taxBracket: "",
     province: "",
     cityId: "",
-    address: "",    
+    address: "",
   });
+
+  const validateUsers = (input) => {
+    const errors = {};
+
+    if (
+      !input.email ||
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)
+    ) {
+      errors.email = "❌ Debe escribir una direccion de email correcta.";
+    } else {
+      errors.email = "✅ Email valido";
+    }
+    if (
+      !input.password ||
+      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)
+    ) {
+      errors.password = "La contraseña debe tener entre 8 y 16 caracteres";
+    } else {
+      errors.password = "✅ Contraseña valida";
+    }
+    if (
+      !input.businessName ||
+      !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.businessName)
+    ) {
+      errors.businessName = "❌ La primera letra debe estar en mayúscula";
+    } else {
+      errors.businessName = "✅Hecho!";
+    }
+    if (!input.cuit || !/^[1-9]\d*(\.\d+)?$/.test(input.cuit)) {
+      errors.cuit = "❌ Solo numeros";
+    } else {
+      errors.cuit = "✅Hecho!";
+    }
+    if (!input.address || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.address)) {
+      errors.address = "❌ La primera letra debe estar en mayúscula";
+    } else {
+      errors.address = "✅Hecho!";
+    }
+
+    return errors;
+  };
 
   function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      validateUsers({
+        ...input,
+        [e.target.name]: e.target.name,
+      })
+    );
   }
 
   function handleSubmit(e) {
@@ -60,13 +108,17 @@ function RegisterBusiness() {
     if (
       input.email !== "" &&
       input.password !== "" &&
-      input.password === input.confirmPassword &&
+      input.password === input.confirmPassword  &&
+      input.password.length >= 8 &&
+      input.password.length <= 16 &&
+      input.confirmPassword.length >= 8 &&
+      input.confirmPassword.length <= 16 &&
       input.businessName !== "" &&
       input.cuit !== "" &&
       input.address !== "" &&
       input.province !== "" &&
       input.cityId !== "" &&
-      input.taxBracket !== "" 
+      input.taxBracket !== ""
     ) {
       dispatch(addBusiness(input));
 
@@ -78,15 +130,16 @@ function RegisterBusiness() {
       );
     }
   }
-// NUEVO AGUS -> PARA QUE MUESTRE CUANDO EMPRESA YA EXISTE
-const business = useSelector((state) => state.business);
-const [didMount, setDidMount] = useState(true);
+
+  // NUEVO AGUS -> PARA QUE MUESTRE CUANDO EMPRESA YA EXISTE
+  const business = useSelector((state) => state.business);
+  const [didMount, setDidMount] = useState(true);
   useEffect(() => {
     if (didMount) {
       setDidMount(false);
-      return; 
+      return;
     } else {
-      if ( business === "Empresa creada") {
+      if (business === "Empresa creada") {
         swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
         setInput({
           email: "",
@@ -97,12 +150,13 @@ const [didMount, setDidMount] = useState(true);
           province: "",
         });
         history.push("/empresas");
-      } else if ( business === "error:Validation error") {
-      swal("Ya existe una empresa con el email");
-      dispatch(cleanBusiness());
+      } else if (business === "error:Validation error") {
+        swal("Ya existe una empresa con el email");
+        dispatch(cleanBusiness());
       }
     }
   }, [business]);
+
 
   //funcion para filtrar por provincias
   function handleFilterByProvinces(e) {
@@ -110,26 +164,26 @@ const [didMount, setDidMount] = useState(true);
     setInput({
       ...input,
       province: e.target.value,
-    });    
+    });
     dispatch(filterByProvinceCity(e.target.value));
   }
 
-    //funcion para seleccionar ciudad
-    function handleCheckCity(e) {
-      e.preventDefault();
-      setInput({
-        ...input,
-        cityId: e.target.value,
-      });      
-    }
+  //funcion para seleccionar ciudad
+  function handleCheckCity(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      cityId: e.target.value,
+    });
+  }
 
-    function handleTaxBracket(e) {
-      e.preventDefault();
-      setInput({
-        ...input,
-        taxBracket: e.target.value,
-      });      
-    }
+  function handleTaxBracket(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      taxBracket: e.target.value,
+    });
+  }
 
   useEffect(() => {
     dispatch(getAllProvinces());
@@ -163,6 +217,8 @@ const [didMount, setDidMount] = useState(true);
                   placeholder="Enter email"
                   onChange={(e) => handleChange(e)}
                 />
+                  {errors.email && <p>{errors.email}</p>}
+
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
@@ -175,6 +231,8 @@ const [didMount, setDidMount] = useState(true);
                   id="password"
                   required
                 />
+                  {errors.password && <p>{errors.password}</p>}
+
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Confirmar password</Form.Label>
@@ -187,6 +245,8 @@ const [didMount, setDidMount] = useState(true);
                   id="confirmPassword"
                   required
                 />
+                  {errors.password && <p>{errors.password}</p>}
+
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Empresa nombre </Form.Label>
@@ -199,6 +259,8 @@ const [didMount, setDidMount] = useState(true);
                   id="businessName"
                   required
                 />
+                  {errors.businessName && <p>{errors.businessName}</p>}
+
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Cuit</Form.Label>
@@ -211,6 +273,8 @@ const [didMount, setDidMount] = useState(true);
                   placeholder="Ingrese su numero de Cuit"
                   onChange={(e) => handleChange(e)}
                 />
+                  {errors.cuit && <p>{errors.cuit}</p>}
+
               </Form.Group>
 
               <Form.Label>Categoría Tributaria </Form.Label>
@@ -230,7 +294,7 @@ const [didMount, setDidMount] = useState(true);
                   {PROVINCES.map((PROVINCE) => {
                     return (
                       <option
-                        value={PROVINCE.id}                        
+                        value={PROVINCE.id}
                         name={PROVINCE.nombre}
                         name2={PROVINCE.nombre}
                         key={PROVINCE.id}
@@ -241,7 +305,7 @@ const [didMount, setDidMount] = useState(true);
                   })}
                 </select>
               </Form.Group>
-              
+
               <Form.Label>Ciudad</Form.Label>
               <Form.Group>
                 <select onChange={(e) => handleCheckCity(e)}>

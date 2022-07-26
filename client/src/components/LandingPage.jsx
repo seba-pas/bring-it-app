@@ -17,11 +17,12 @@ import Paso5 from "./img/paso5.jpg";
 import Paso6 from "./img/paso6.jpg";
 import Paso7 from "./img/paso7.jpg";
 import Paso8 from "./img/paso8.jpg";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   const [key, setKey] = useState("home");
   return (
-    <div>
+    <div style={{ backgroundColor: "white" }}>
       <NavBarLanding />
       <div>
         <div className={style.divContainer}>
@@ -32,11 +33,14 @@ export default function LandingPage() {
               viajeros a tu ciudad.
             </span>
             <div className={style.containerButton}>
-              <Button variant="outline-primary" type="submit">
-                Comprar
-              </Button>
-              <Button variant="outline-primary" type="submit">
-                Viajar
+              <Link to={`/persona`}>
+                <Button id={style.boton} type="submit">
+                  COMPRAR
+                </Button>
+              </Link>
+
+              <Button id={style.boton} type="submit">
+                VIAJAR
               </Button>
             </div>
           </div>
@@ -89,15 +93,18 @@ export default function LandingPage() {
                         </span>
                       </div>
                     </div>
-                  </div>
-                  <div className={style.pasoPorPhoto}>
-                    <img src={Paso1} className={style.imgPaso1} alt="" />
+                    <img
+                      src={Paso1}
+                      id={style.ph}
+                      className={style.imgPaso1}
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
-                      <h2>Espera ofertas de entrega de los viajeos</h2>
+                      <h2>Espera ofertas de entrega de los viajeros</h2>
                       <span>
                         Una vez publiques tu pedido, lo compartiremos con toda
                         nuestra comunidad de viajeros. Luego, espera las ofertas
@@ -106,9 +113,13 @@ export default function LandingPage() {
                       </span>
                     </div>
                   </div>
-                  <div className={style.pasoPorPhoto}>
-                    <img src={Paso2} className={style.imgPaso1} alt="" />
-                  </div>
+
+                  <img
+                    src={Paso2}
+                    id={style.ph}
+                    className={style.imgPaso1}
+                    alt=""
+                  />
                 </div>
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
@@ -123,9 +134,13 @@ export default function LandingPage() {
                       </span>
                     </div>
                   </div>
-                  <div className={style.pasoPorPhoto}>
-                    <img src={Paso3} className={style.imgPaso1} alt="" />
-                  </div>
+
+                  <img
+                    src={Paso3}
+                    id={style.ph}
+                    className={style.imgPaso1}
+                    alt=""
+                  />
                 </div>
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
@@ -139,15 +154,19 @@ export default function LandingPage() {
                       </span>
                     </div>
                   </div>
-                  <div className={style.pasoPorPhoto}>
-                    <img src={Paso4} className={style.imgPaso1} alt="" />
-                  </div>
+
+                  <img
+                    src={Paso4}
+                    id={style.ph}
+                    className={style.imgPaso1}
+                    alt=""
+                  />
                 </div>
               </Tab>
 
               <Tab eventKey="profile" title="Viajeros">
                 <h3>
-                  Financia tu viaje cada vez que viajes con Grabr. Nuestros
+                  Financia tu viaje cada vez que viajes con Bring It. Nuestros
                   viajeros normalmente entregan un puñado de artículos y ganan
                   más de $300 por viaje. No solo ganarás dinero viajando,
                   conocerás gente increíble por el camino.
@@ -155,7 +174,6 @@ export default function LandingPage() {
                 <div className={style.pasos}>
                   <div className={style.pasoPorPasos}>
                     <div className={style.pasoPorInfo}>
-                      <h1>1</h1>
                       <div className={style.paso1}>
                         <h2>
                           Encuentra un pedido que puedas entregar y haz una
@@ -169,32 +187,28 @@ export default function LandingPage() {
                         </span>
                       </div>
                     </div>
-                    <div className={style.pasoPorPhoto}>
-                      <img src={Paso5} className={style.imgPaso1} alt="" />
-                    </div>
+
+                    <img src={Paso5} className={style.imgPaso1} alt="" />
                   </div>
                   <div className={style.pasoPorPasos}>
                     <div className={style.pasoPorInfo}>
-                      <h1>2</h1>
                       <div className={style.paso1}>
                         <h2>
                           Confirma los detalles del pedido con tu comprador.
                         </h2>
                         <span>
-                          Utiliza el messenger de Grabr para confirmar con tu
+                          Utiliza el messenger de Bring It para confirmar con tu
                           comprador detalles como el tamaño o el color del
                           pedido. También puedes preguntar si hay otros
                           artículos que les gustaría recibir
                         </span>
                       </div>
                     </div>
-                    <div className={style.pasoPorPhoto}>
-                      <img src={Paso6} className={style.imgPaso1} alt="" />
-                    </div>
+
+                    <img src={Paso6} className={style.imgPaso1} alt="" />
                   </div>
                   <div className={style.pasoPorPasos}>
                     <div className={style.pasoPorInfo}>
-                      <h1>3</h1>
                       <div className={style.paso1}>
                         <h2>Compra el artículo con tu propio dinero.</h2>
                         <span>
@@ -204,13 +218,11 @@ export default function LandingPage() {
                         </span>
                       </div>
                     </div>
-                    <div className={style.pasoPorPhoto}>
-                      <img src={Paso7} className={style.imgPaso1} alt="" />
-                    </div>
+
+                    <img src={Paso7} className={style.imgPaso1} alt="" />
                   </div>
                   <div className={style.pasoPorPasos}>
                     <div className={style.pasoPorInfo}>
-                      <h1>4</h1>
                       <div className={style.paso1}>
                         <h2>
                           Entrega el pedido de tu comprador y recibe el pago
@@ -223,9 +235,8 @@ export default function LandingPage() {
                         </span>
                       </div>
                     </div>
-                    <div className={style.pasoPorPhoto}>
-                      <img src={Paso8} className={style.imgPaso1} alt="" />
-                    </div>
+
+                    <img src={Paso8} className={style.imgPaso1} alt="" />
                   </div>
                 </div>
               </Tab>
@@ -248,9 +259,8 @@ export default function LandingPage() {
                         </span>
                       </div>
                     </div>
-                    <div className={style.pasoPorPhoto}>
-                      <img src={Paso5} className={style.imgPaso1} alt="" />
-                    </div>
+
+                    <img src={Paso5} className={style.imgPaso1} alt="" />
                   </div>
                   <div className={style.pasoPorPasos}>
                     <div className={style.pasoPorInfo}>
@@ -267,9 +277,8 @@ export default function LandingPage() {
                         </span>
                       </div>
                     </div>
-                    <div className={style.pasoPorPhoto}>
-                      <img src={Paso6} className={style.imgPaso1} alt="" />
-                    </div>
+
+                    <img src={Paso6} className={style.imgPaso1} alt="" />
                   </div>
                   <div className={style.pasoPorPasos}>
                     <div className={style.pasoPorInfo}>
@@ -283,9 +292,8 @@ export default function LandingPage() {
                         </span>
                       </div>
                     </div>
-                    <div className={style.pasoPorPhoto}>
-                      <img src={Paso7} className={style.imgPaso1} alt="" />
-                    </div>
+
+                    <img src={Paso7} className={style.imgPaso1} alt="" />
                   </div>
                   <div className={style.pasoPorPasos}>
                     <div className={style.pasoPorInfo}>
@@ -300,99 +308,94 @@ export default function LandingPage() {
                         </span>
                       </div>
                     </div>
-                    <div className={style.pasoPorPhoto}>
-                      <img src={Paso8} className={style.imgPaso1} alt="" />
-                    </div>
+
+                    <img src={Paso8} className={style.imgPaso1} alt="" />
                   </div>
                 </div>
               </Tab>
             </Tabs>
-            <div>
-              <Button variant="outline-primary" type="submit">
+            <div clasName={style.botonAhora}>
+              <Button id={style.boton} type="submit">
                 Comprar con Bring It ahora!
               </Button>
             </div>
-            <div>
-              <div class="social">
-                <span class="line"></span>
-                <ul className={style.ul}>
-                  <li class="facebook">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i class="fa fa-facebook fa-2x"></i>
-                    </a>
-                  </li>
-                  <li class="twitter">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i class="fa fa-twitter fa-2x"></i>
-                    </a>
-                  </li>
-                  <li class="youtube">
-                    <a
-                      href="https://www.youtube.com/Hugmanrique"
-                      target="_blank"
-                    >
-                      <i class="fa fa-youtube fa-2x"></i>
-                    </a>
-                  </li>
-                  <li class="instagram">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i class="fa fa-instagram fa-2x"></i>
-                    </a>
-                  </li>
-                  <li class="pinterest">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i class="fa fa-pinterest fa-2x"></i>
-                    </a>
-                  </li>
-                  <li class="github">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i class="fa fa-github fa-2x"></i>
-                    </a>
-                  </li>
-                  <li class="flickr">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i class="fa fa-flickr fa-2x"></i>
-                    </a>
-                  </li>
-                  <li class="linkedin">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i class="fa fa-linkedin fa-2x"></i>
-                    </a>
-                  </li>
-                </ul>
+
+            <div className={style.unete}>
+              <div className={style.titleUnete}>
+                <h1>Unete a nuestra comunidad</h1>
+              </div>
+              <div>
+                <div class="social">
+                  <span class="line"></span>
+                  <ul className={style.ul}>
+                    <li class="facebook">
+                      <a
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        target="_blank"
+                      >
+                        <i id={style.b} class="fa fa-facebook fa-2x"></i>
+                      </a>
+                    </li>
+                    <li class="twitter">
+                      <a
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        target="_blank"
+                      >
+                        <i class="fa fa-twitter fa-2x"></i>
+                      </a>
+                    </li>
+                    <li class="youtube">
+                      <a
+                        href="https://www.youtube.com/Hugmanrique"
+                        target="_blank"
+                      >
+                        <i class="fa fa-youtube fa-2x"></i>
+                      </a>
+                    </li>
+                    <li class="instagram">
+                      <a
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        target="_blank"
+                      >
+                        <i class="fa fa-instagram fa-2x"></i>
+                      </a>
+                    </li>
+                    <li class="pinterest">
+                      <a
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        target="_blank"
+                      >
+                        <i class="fa fa-pinterest fa-2x"></i>
+                      </a>
+                    </li>
+                    <li class="github">
+                      <a
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        target="_blank"
+                      >
+                        <i class="fa fa-github fa-2x"></i>
+                      </a>
+                    </li>
+                    <li class="flickr">
+                      <a
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        target="_blank"
+                      >
+                        <i class="fa fa-flickr fa-2x"></i>
+                      </a>
+                    </li>
+                    <li class="linkedin">
+                      <a
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        target="_blank"
+                      >
+                        <i class="fa fa-linkedin fa-2x"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className={style.unete}>
-          <div className={style.titleUnete}>
-            <h1>Unete a nuestra comunidad</h1>
-          </div>
-          <div className={style.buttonComunidad}>
-            <button>COMPRAR</button>
-            <button>VIAJAR</button>
           </div>
         </div>
         <Footer />

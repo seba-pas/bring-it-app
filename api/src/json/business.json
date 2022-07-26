@@ -1,6 +1,6 @@
 [{ 
     "email": "sebastian@gmail.com",
-    "password": "12345",
+    "password": "123456789",
     "businessName": "Seba's Business",
     "cuit": "27-33447628-1",
     "taxBracket": "Categoría tributaria 1",
@@ -9,7 +9,7 @@
     "cityId": "386049"
   }, { 
     "email": "felipe@gmail.com",
-    "password": "12345",
+    "password": "123456789",
     "businessName": "Feli's Business",
     "cuit": "27-33447628-1",
     "taxBracket": "Categoría tributaria 2",
@@ -18,7 +18,7 @@
     "cityId": "660035"
   }, { 
     "email": "guillermo@gmail.com",
-    "password": "12345",
+    "password": "123456789",
     "businessName": "Guille's Business",
     "cuit": "27-33447628-1",
     "taxBracket": "Categoría tributaria 3",
@@ -27,7 +27,7 @@
     "cityId": "060056"
   }, { 
     "email": "alejandro@gmail.com",
-    "password": "12345",
+    "password": "123456789",
     "businessName": "Ale's Business",
     "cuit": "27-33447628-1",
     "taxBracket": "Categoría tributaria 1",

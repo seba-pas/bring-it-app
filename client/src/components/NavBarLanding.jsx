@@ -39,8 +39,11 @@ export default function NavBarLanding() {
   const validateBusiness = (inputBusiness) => {
     const errors = {};
 
-    if (!inputBusiness.email ||!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(inputBusiness.email)) {
-      errors.email = "Email obligatorio.";
+    if (
+      !inputBusiness.email ||
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(inputBusiness.email)
+    ) {
+      errors.email = "Debe escribir una direccion de email correcta.";
     } else {
       errors.email = "✔ Email valido";
     }
@@ -50,8 +53,32 @@ export default function NavBarLanding() {
         inputBusiness.password
       )
     ) {
-      errors.password =
-        "Debe tener entre 8 y 16 caracteres, al menos un numero, una minúscula y una mayúscula.";
+      errors.password = "La contraseña debe tener entre 8 y 16 caracteres";
+    } else {
+      errors.password = "✔ Contraseña valida";
+    }
+
+    return errors;
+  };
+
+  const validateUsers = (input) => {
+    const errors = {};
+
+    if (
+      !input.email ||
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)
+    ) {
+      errors.email = "Debe escribir una direccion de email correcta.";
+    } else {
+      errors.email = "✔ Email valido";
+    }
+    if (
+      !input.password ||
+      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(
+        input.password
+      )
+    ) {
+      errors.password = "La contraseña debe tener entre 8 y 16 caracteres";
     } else {
       errors.password = "✔ Contraseña valida";
     }
@@ -62,14 +89,24 @@ export default function NavBarLanding() {
   //Business
   function handleSubmitLoginBusiness(e) {
     e.preventDefault();
-    if (inputBusiness.email !== "" && inputBusiness.password !== "") {
+    console.log(inputBusiness.password.length);
+    if (
+      inputBusiness.email !== "" &&
+      inputBusiness.password !== "" &&
+      inputBusiness.password.length >= 8 &&
+      inputBusiness.password.length <= 16
+    ) {
       dispatch(loginBusiness(inputBusiness));
       setInputBusiness({
         email: "",
         password: "",
       });
     } else {
-      alert("¡Faltan los elementos necesarios!");
+      swal(
+        "Ops a ocurrido un error",
+        "Verifica cumplir con los requisitos",
+        "error"
+      );
     }
   }
   function handleChangeBusiness(e) {
@@ -139,18 +176,33 @@ export default function NavBarLanding() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      validateUsers({
+        ...input,
+        [e.target.name]: e.target.name,
+      })
+    );
   }
 
   function handleSubmitLoginUser(e) {
     e.preventDefault();
-    if (input.email !== "" && input.password !== "") {
+    if (
+      input.email !== "" &&
+      input.password !== "" &&
+      input.password.length >= 8 &&
+      input.password.length <= 16
+    ) {
       dispatch(login(input));
       setInput({
         email: "",
         password: "",
       });
     } else {
-      alert("¡Faltan los elementos necesarios!");
+      swal(
+        "Ops a ocurrido un error",
+        "Verifica cumplir con los requisitos",
+        "error"
+      );
     }
   }
 
@@ -213,7 +265,7 @@ export default function NavBarLanding() {
       </div>
       <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
-        <button onClick={handleShowLogin}>LOGIN</button>
+        <button id={styles.login} onClick={handleShowLogin}>LOGIN</button>
         <Modal show={showLogin} onHide={handleCloseLogin}>
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
@@ -256,7 +308,7 @@ export default function NavBarLanding() {
                   <Button
                     variant="info"
                     type="submit"
-                    className={styles.buttonSubmit}
+                    id={styles.iniciarSesion}
                     style={{ marginLeft: "33%" }}
                   >
                     Iniciar sesion
@@ -277,6 +329,7 @@ export default function NavBarLanding() {
                       required
                       onChange={(e) => handleChange(e)}
                     />
+                    {errors.email && <p>{errors.email}</p>}
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
@@ -289,6 +342,7 @@ export default function NavBarLanding() {
                       onChange={(e) => handleChange(e)}
                       required
                     />
+                    {errors.password && <p>{errors.password}</p>}
                   </Form.Group>
 
                   <Button

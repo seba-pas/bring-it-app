@@ -16,6 +16,20 @@ export default function HomeAdmin() {
   const BUSINESS = useSelector((state) => state.business2);
   const [orden, setOrden] = useState("");
 
+  function deleteUsers() {
+    alert("PROXIMAMENTE!!!");
+  }
+  function deleteBusiness() {
+    alert("PROXIMAMENTE!!!");
+  }
+
+  function editUsers() {
+    alert("PROXIMAMENTE!!!");
+  }
+  function editBusiness() {
+    alert("PROXIMAMENTE!!!");
+  }
+
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getAllBusiness());
@@ -35,8 +49,11 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button>
-          <FaPencilAlt style={{ marginRight: "15px",fontSize: "20px" }} />
-          <FaTrashAlt style={{fontSize: "20px"}}/>
+          <FaPencilAlt style={{ marginRight: "15px", fontSize: "20px" }} onClick={(e) => editUsers(e)}/>
+          <FaTrashAlt
+            style={{ fontSize: "20px" }}
+            onClick={(e) => deleteUsers(e)}
+          />
         </button>
       ),
     },
@@ -53,8 +70,11 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button>
-          <FaPencilAlt style={{ marginRight: "15px",fontSize: "20px" }} />
-          <FaTrashAlt style={{fontSize: "20px"}}/>
+          <FaPencilAlt style={{ marginRight: "15px", fontSize: "20px" }} onClick={(e) => editBusiness(e)}/>
+          <FaTrashAlt
+            style={{ fontSize: "20px" }}
+            onClick={(e) => deleteBusiness(e)}
+          />
         </button>
       ),
     },
