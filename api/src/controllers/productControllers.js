@@ -15,15 +15,15 @@ async function getProductById (id){
 }
 
 //Funcion del POST Product (es necesario q existan categorias y business cargadas)
-async function addProduct (product){
-    const categoryId = product.categoryId; //viene del front. Es un arreglo de ids de category, arreglo de enteros        
-    try {        
-        const newProduct = await Product.Create ({...product});     
-        await newProduct.addCategory (categoryId);        
-    } catch (error) {
-        throw new error (`No se puedo agregar el producto a la base de datos, ${error}`);
-    }
-}
+// async function addProduct (product){
+//     const categoryId = product.categoryId; //viene del front. Es un arreglo de ids de category, arreglo de enteros        
+//     try {        
+//         const newProduct = await Product.create ({...product});     
+//         await newProduct.addCategory (categoryId);        
+//     } catch (error) {
+//         throw new error (`No se puedo agregar el producto a la base de datos, ${error}`);
+//     }
+// }
 
 //Fucion del GET Products, redirecciona segun haya query name o no 
 function getProducts (name){
@@ -69,6 +69,5 @@ async function getProductsByName (name){
 
 module.exports = {
     getProductById,
-    addProduct,
     getProducts
 };

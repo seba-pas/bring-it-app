@@ -1,5 +1,4 @@
 [{ 
-    "id": "1",
     "name": "Bombo",
     "price": "230",
     "weight": "455",
@@ -11,7 +10,7 @@
    }
    ,
   { 
-    "id": "2",
+   
     "name": "Guitarra",
     "price": "450",
     "weight": "40",
@@ -22,7 +21,7 @@
     "businessEmail": "sebastian@gmail.com"
   },
   { 
-    "id": "3",
+   
     "name": "Flauta",
     "price": "250",
     "weight": "1000",
@@ -33,7 +32,7 @@
     "businessEmail": "sebastian@gmail.com"
   },
   { 
-    "id": "4",
+    
     "name": "Alfajores",
     "price": "67",
     "weight": "10",
@@ -44,7 +43,7 @@
     "businessEmail": "felipe@gmail.com"
   },
   { 
-    "id": "5",
+  
     "name": "Yerba orgnánica",
     "price": "150",
     "weight": "20",
@@ -55,7 +54,7 @@
     "businessEmail": "felipe@gmail.com"
   },
   { 
-    "id": "6",
+   
     "name": "Vino",
     "price": "500",
     "weight": "400",
@@ -66,7 +65,7 @@
     "businessEmail": "guillermo@gmail.com"
   },
   { 
-    "id": "7",
+   
     "name": "Gin de Lupulo",
     "price": "500",
     "weight": "400",
@@ -88,7 +87,7 @@
     "businessEmail": "felipe@gmail.com"
   },
   { 
-    "id": "9",
+   
     "name": "Pintura Marilyn",
     "price": "1300",
     "weight": "300",
@@ -99,7 +98,7 @@
     "businessEmail": "guillermo@gmail.com"
   },
   { 
-    "id": "10",
+   
     "name": "Pintura Frida Khalo",
     "price": "1450",
     "weight": "340",
@@ -110,7 +109,7 @@
     "businessEmail": "guillermo@gmail.com"
   },
   { 
-    "id": "11",
+  
     "name": "Cafe Colombiano",
     "price": "1700",
     "weight": "34",
@@ -121,7 +120,7 @@
     "businessEmail": "alejandro@gmail.com"
   },
   { 
-    "id": "12",
+   
     "name": "Queso paipa",
     "price": "750",
     "weight": "55",
@@ -132,7 +131,7 @@
     "businessEmail": "alejandro@gmail.com"
   },
   {
-    "id": "13",
+   
     "name": "Mouse Gamer",
     "price": "10650",
     "weight": "121",

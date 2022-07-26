@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { editBusiness, getAllBusiness, getAllProvinces, getCities } from '../actions';
+import { editBusiness, getAllBusiness, getAllProvinces} from '../actions';
 import styles from "../styles/PerfilBusiness.module.css";
 import swal from "sweetalert";
 

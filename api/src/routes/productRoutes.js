@@ -1,5 +1,6 @@
+const { Console } = require("console");
 const { Router } = require ("express");
-const { getProductById, addProduct, getProducts } = require ('../controllers/productControllers');
+const { getProductById, getProducts } = require ('../controllers/productControllers');
 const {Product} = require('./../db');
 const router = Router();
 
@@ -7,8 +8,10 @@ const router = Router();
 // http://localhost:3001/api/product
 router.post('/', async (req,res) => {
     try {
-        const addedProduct = await addProduct ({...req.body});           
-        return res.send (`Producto agregado correctamente`);
+        const categoryId = req.body.categoryId;
+        const newProduct = await Product.create({...req.body});    
+        await newProduct.addCategory (categoryId);   
+        res.status(201).send("producto agregado")
     } catch (error) {
         return res.status(404).send(`error: ` + error);
     }

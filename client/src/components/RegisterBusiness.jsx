@@ -8,8 +8,7 @@ import {
   filterByProvinceCity,
   filterByProvinces,
   getAllProvinces,
-  getCities,
-  cleanBusiness
+  cleanBusiness,
   getAllCities,
 
 } from "../actions/index.js";
