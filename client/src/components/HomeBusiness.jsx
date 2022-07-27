@@ -5,8 +5,7 @@ import SoldProductCard from './SoldProductCard';
 import ProductCardBusiness from './ProductCardBusiness';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBusiness, getAllProducts, getCategories } from '../actions';
-import logo from "./img/logoCUT.png";
-import userProfile from "./img/userPerfilImage.jpg";
+import NavBarBusiness from "./NavBarBusiness"
 
 function HomeBusiness() {
 
@@ -167,109 +166,90 @@ function HomeBusiness() {
 
 
     return (
+        <div>
+            <NavBarBusiness />
+            <div className={styles.btnContainer}>
+                <NavLink to='/productmanager'>
+                    <button className={styles.btn}>+</button>
+                </NavLink>
+            </div>
+            <div className={styles.home} >
+                <div className={styles.container}>
 
-        <div className={styles.home} >
-            <div className={styles.container}>
-                <div className={styles.welcomeContainer}>
-                    <div className={styles.imgContainer}>
-                        <img
-                            src={logo}
-                            style={{ width: "auto", height: "100px" }}
-                            alt="Logo no encontrado"
-                        />
+                    <div className={styles.soldProductsContainer}>
+                        {<table>
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Descripción</th>
+                                    <th>Nombre</th>
+                                    <th>Teléfono</th>
+                                    <th>Viajero</th>
+                                    <th>Teléfono</th>
+                                    <th>Enviado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {soldProducts.map(c => {
+                                    return (
+                                        <SoldProductCard image={c.productImage} productName={c.productName} amount={c.amount} description={c.description} clientName={c.clientName} clientPhone={c.clientPhone} date={c.date} BringerPending={c.BringerPending} BringerName={c.BringerName} BringerContact={c.BringerContact} />
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                        }
                     </div>
-                    <div className={styles.perfil}>
-                        <img
-                            src={input.businessInfo.logo ? input.businessInfo.logo : userProfile}
-                            style={{ width: "100px", height: "100px", borderRadius: "150px", border: "solid 4px transparent" }}
-                            alt="Logo no encontrado"
-                        />
-                        <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
-                            <option value="">{input.perfil} </option>
-                            {/* <option value=""></option> */}
-                            <option value="email">{input.businessInfo.email}</option>
-                            <option value="close">Cerrar sesión</option>
+                    <div className={styles.inventoryContainer}>
+                        {<table>
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Descripción</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        </select>
+                                {input.products?.map(c => {
+                                    return (
+                                        <ProductCardBusiness key={c.id} id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                        }
                     </div>
-                </div>
-                <div className={styles.soldProductsContainer}>
-                    {<table>
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Descripción</th>
-                                <th>Nombre</th>
-                                <th>Teléfono</th>
-                                <th>Viajero</th>
-                                <th>Teléfono</th>
-                                <th>Enviado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {soldProducts.map(c => {
-                                return (
-                                    <SoldProductCard image={c.productImage} productName={c.productName} amount={c.amount} description={c.description} clientName={c.clientName} clientPhone={c.clientPhone} date={c.date} BringerPending={c.BringerPending} BringerName={c.BringerName} BringerContact={c.BringerContact} />
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                    }
-                </div>
-                <div className={styles.inventoryContainer}>
-                    {<table>
-                        <thead>
-                            <tr>
-                                <th>Imagen</th>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Descripción</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {input.products?.map(c => {
-                                return (
-                                    <ProductCardBusiness key={c.id} id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                    }
-                </div>
-                <div className={styles.noStockTitle}>
-                    <h2>Inventario Bajo</h2>
-                </div>
-                <div className={styles.noStock}>
-                    {<table>
-                        <thead>
-                            <tr>
-                                <th>Imagen</th>
-                                <th>Producto</th>
-                                <th>cantidad</th>
-                                <th>Descripción</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {input.products?.filter(e => e.stock <= 3).map(c => {
-                                return (
-                                    <ProductCardBusiness key={c.id} id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                    }
-                </div>
-                <div className={styles.btnContainer}>
-                    <NavLink to='/productmanager'>
-                        <button className={styles.btn}>+</button>
-                    </NavLink>
+                    <div className={styles.noStockTitle}>
+                        <h2>Inventario Bajo</h2>
+                    </div>
+                    <div className={styles.noStock}>
+                        {<table>
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Producto</th>
+                                    <th>cantidad</th>
+                                    <th>Descripción</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {input.products?.filter(e => e.stock <= 3).map(c => {
+                                    return (
+                                        <ProductCardBusiness key={c.id} id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
+
     )
 }
 
