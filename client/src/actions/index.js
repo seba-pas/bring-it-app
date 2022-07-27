@@ -24,8 +24,16 @@ import {
   FILTER_BY_PROVINCES,
   GET_ALL_BUSINESS,
   FILTER_BY_BUSINESS,
-
+  PUT_USER,
   PUT_BUSINESS,
+
+
+  //Acciones del carrito (cart)
+  ADD_TO_CART,
+  INCREMENT_ONE_IN_CART,
+  REMOVE_ONE_FROM_CART,
+  REMOVE_ALL_FROM_CART,
+  CLEAR_CART
 
 
 } from "./actionsTypes";
@@ -34,7 +42,7 @@ import {
 export const getAllProducts = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get("http://localhost:3001/api/product");
+      const res = await axios.get("/api/product");
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: res.data,
@@ -48,7 +56,7 @@ export const getAllProducts = () => {
 export const getAllProductsDetail = (id) => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`http://localhost:3001/api/product/${id}`);
+      const res = await axios.get(`/api/product/${id}`);
       return dispatch({
         type: GET_PRODUCTS_DETAIL,
         payload: res.data,
@@ -62,7 +70,7 @@ export const getAllProductsDetail = (id) => {
 export const getAllProductsName = (name) => {
   return async function (dispatch) {
     try {
-      const res = await axios(`http://localhost:3001/api/product?name=${name}`);
+      const res = await axios(`/api/product?name=${name}`);
       return dispatch({
         type: GET_ALL_PRODUCTS_NAME,
         payload: res.data,
@@ -83,7 +91,7 @@ export const addProduct = (body) => {
   console.log("llega al add", body)
   return async function (dispatch) {
     try {
-      const res = await axios.post(`http://localhost:3001/api/product`, body);
+      const res = await axios.post(`/api/product`, body);
       return dispatch({
         type: POST_PRODUCT,
         payload: res.data,
@@ -98,7 +106,7 @@ export const editProduct = (id, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(
-        `http://localhost:3001/api/product/${id}`,
+        `/api/product/${id}`,
         body
       );
       console.log("res", res);
@@ -115,7 +123,7 @@ export const deleteProduct = (id) => {
   console.log(id);
   return async function (dispatch) {
     try {
-      const res = await axios.delete(`http://localhost:3001/api/product/${id}`);
+      const res = await axios.delete(`/api/product/${id}`);
       return dispatch({
         type: DELETE_PRODUCT,
         payload: res.data,
@@ -139,7 +147,7 @@ export const orderByPrice = (payload) => {
 
 export const getCategories = () => {
   return async function (dispatch) {
-    const res = await axios.get("http://localhost:3001/api/category");
+    const res = await axios.get("/api/category");
     console.log("response categoresi", res);
     return dispatch({
       type: GET_CATEGORIES,
@@ -158,7 +166,7 @@ export const filterByCategory = (payload) => {
 export const getAllProvinces = () => {
   return async function (dispatch) {
 
-    const res = await axios('http://localhost:3001/api/province');
+    const res = await axios('/api/province');
 
     return dispatch({
       type: GET_ALL_PROVINCES,
@@ -177,7 +185,7 @@ export const filterByProvinces = (payload) => {
 
 export const getAllBusiness = () => {
   return async function (dispatch) {
-    const res = await axios("http://localhost:3001/api/business");
+    const res = await axios("/api/business");
     return dispatch({
       type: GET_ALL_BUSINESS,
       payload: res.data,
@@ -194,7 +202,7 @@ export const filterByBusiness = (payload) => {
 
 export const getAllCities = () => {
   return async function (dispatch) {
-    const res = await axios("http://localhost:3001/api/city");
+    const res = await axios("/api/city");
     console.log('soy Res',res)
     return dispatch({
       type: GET_ALL_CITIES,
@@ -223,7 +231,7 @@ export const cleanBusiness = () => {
 export const getUsers = () => {
   return async function(dispatch){
     try {
-      const res = await axios('http://localhost:3001/api/user');
+      const res = await axios('/api/user');
       return dispatch({
         type: GET_USERS,
         payload: res.data
@@ -240,7 +248,7 @@ export const login = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/user/login`,
+        `/api/user/login`,
         body
       );
       return dispatch({
@@ -256,9 +264,27 @@ export const login = (body) => {
 export const addUser = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`http://localhost:3001/api/user`, body);
+      const res = await axios.post(`/api/user`, body);
       return dispatch({
         type: POST_USER,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const editUser = (id, body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(
+        `/api/user/${id}`,
+        body
+      );
+      console.log("res", res)
+      return dispatch({
+        type: PUT_USER,
         payload: res.data,
       });
     } catch (error) {
@@ -272,7 +298,7 @@ export const addUser = (body) => {
 export function addBusiness(body) {
   return async function (dispatch) {
     try {
-      let json = await axios.post(`http://localhost:3001/api/business`, body);
+      let json = await axios.post(`/api/business`, body);
       console.log(json.data);
       return dispatch({
         type: POST_BUSINESS,
@@ -289,7 +315,7 @@ export const loginBusiness = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/business/login`,
+        `/api/business/login`,
         body
       );
       return dispatch({
@@ -307,7 +333,7 @@ export const editBusiness = (id, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(
-        `http://localhost:3001/api/business/${id}`,
+        `/api/business/${id}`,
         body
       );
       console.log("res", res)
@@ -321,3 +347,54 @@ export const editBusiness = (id, body) => {
   };
 };
 
+
+//ACCIONES DEL CARRITO (CART)
+//cart:  [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
+
+//Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto
+export function addToCart (product){
+  //Importante: validar que si ya hay productos en el cart, la cityId sea la misma q la de los productos q ya estan en el cart  
+  
+  console.log(`addToCart - actions. Product recibido: ${product}`);
+  return {
+    type: ADD_TO_CART,
+    payload: product
+  }
+};
+
+
+
+//Incrementa en 1 la cantidad de un producto ya existente en el carrito (recibe id)
+export function incrementOneInCart (productId){
+  console.log(`incrementOneInCart - actions`);
+  return {
+    type: INCREMENT_ONE_IN_CART,
+    payload: productId
+  }
+};
+
+//Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
+export function removeOneFromCart (productId){
+  console.log(`removeOneFromCart - actions`);
+  return {
+    type: REMOVE_ONE_FROM_CART,
+    payload: productId
+  }
+};
+
+//Elimina el producto del cart (recibe id)
+export function removeAllFromCart (){
+  console.log(`removeAllFromCart - actions`);
+  return {
+    type: REMOVE_ALL_FROM_CART,
+    payload: productId
+  }
+};
+
+//Elimina todos los productos del cart (recibe id)
+export function clearCart (){
+  console.log(`clearCart - actions`);
+  return {
+    type: CLEAR_CART
+  }
+};

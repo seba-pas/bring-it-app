@@ -13,6 +13,8 @@ import LandingPage1 from "./components/LandingPage1";
 import PerfilBusiness from "./components/PerfilBusiness";
 
 import HomeAdmin from "./components/HomeAdmin";
+import PerfilUser from "./components/PerfilUser";
+
 
 
 // import NavBar from "./components/NavBar";
@@ -36,8 +38,11 @@ function App() {
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
 
         <Route exact path="/perfil" component={PerfilBusiness} />
+        <Route exact path="/perfilUser" component={PerfilUser}/>
 
         <Route exact path="/admin" component={HomeAdmin} />
+
+        
 
       </Switch>
     </div>
