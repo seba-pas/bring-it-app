@@ -8,9 +8,9 @@ const router = Router();
 router.post('/', async (req,res) => {    
     try {
         //a agregar taxBracket,, cityId  logo,
-        const {email, password, businessName, cuit, province, address} = req.body;           
+        const {email, password, businessName, cuit, province, address, cityId, taxBracket, logo} = req.body;           
         const newBusiness = await Business.findOrCreate ({
-            where: {email, password, businessName, cuit, province, address}
+            where: {email, password, businessName, cuit, province, address, cityId, taxBracket, logo}
             });   
             console.log(newBusiness);
             // return res.status(201).send("Empresa creada")
