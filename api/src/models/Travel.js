@@ -12,27 +12,19 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-    TravelProvince: {
+     travelProvince: {
       type: DataTypes.STRING,
       allowNull: false
-    },     
-      TravelCity: {
+    },       
+      arrivalProvince: {
         type: DataTypes.STRING,
         allowNull: false
       },     
-      ArrivalProvince: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },     
-      ArrivalCity: {
-          type: DataTypes.STRING,
-          allowNull: false
-      }, 
       startDate: {
           type: DataTypes.DATEONLY, 
           allowNull: false
       },
-      ArrivalDate: {
+      arrivalDate: {
         type: DataTypes.DATEONLY, 
         allowNull: false
     },
