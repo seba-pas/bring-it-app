@@ -12,9 +12,6 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      quantity: {
-
-      },
       totalPrice: {
         type: DataTypes.FLOAT,
         allowNull: false,

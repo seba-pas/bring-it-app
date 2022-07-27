@@ -3,6 +3,18 @@ const {Travel} = require('./../db')
 
 const router = Router();
 
+//GET trae todos los travel
+
+router.get('/', async (req, res)=>{
+    const  allTravel= await getTravel();
+    try {
+        res.status(200).send(allTravel);
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+
+})
+
 //POST / CREATE Travel
 // http://localhost:3001/api/travel
 router.post('/', async(req,res) => {

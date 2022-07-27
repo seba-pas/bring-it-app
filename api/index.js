@@ -28,10 +28,10 @@ const {loadDB } = require('./src/json/jsonControllers')
 // // Syncing all the models at once.
 
 conn.sync({ force: true }).then(() => {
-  server.listen(3001, async() => {
-    await apiProvince() ;
-    await apiCity() ;
-    await loadDB() ;
+  server.listen(process.env.PORT, async() => {
+    // await apiProvince() ;
+    // await apiCity() ;
+    // await loadDB() ;
     console.log("BRING IT ON! Listening..."); // eslint-disable-line no-console
   });
 });

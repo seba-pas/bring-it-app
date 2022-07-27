@@ -118,10 +118,31 @@
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 15/20;
-    grid-column: 18/30;
+    grid-column: 18/23;
     justify-content: center;
     align-items: center;
 
+}
+
+.categoriesCardContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 15/25;
+    grid-column: 23/30;
+    /* justify-content: center; */
+    /* align-items: left; */
+
+}
+
+.cardCategories {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
 }
 
 .subButton {
@@ -163,6 +184,19 @@
     color: #41d4cf;
 }
 
+.btnClose {
+    border: solid 2px #41d4cf;
+    border-radius: 9px;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #41d4cf;
+    margin: 5px;
+}
+
 input {
     background-color: transparent;
     border-top-color: transparent;
@@ -183,4 +217,8 @@ textarea {
     border-right-color: #41d4cf;
     color: black;
     font-size: 1.3rem;
+}
+
+label {
+    font-size: 1.1rem;
 }

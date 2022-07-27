@@ -6,18 +6,17 @@ import swal from "sweetalert";
 
 
 function PerfilBusiness(props) {
-    const dispatch = useDispatch();
+
     const gState = useSelector((state) => state);
+    const dispatch = useDispatch();
+
     const emailState = gState.businessEmail;
     const infoBusiness = gState.businessEditInfo;
-
 
     useEffect(() => {
         dispatch(getAllProvinces());
         dispatch(getAllCities());
     }, [dispatch]);
-
-
 
     const [input, setInput] = useState({
         email: infoBusiness.email,
@@ -32,8 +31,6 @@ function PerfilBusiness(props) {
         arrayInfo: [],
     })
 
-
-
     const [error, setError] = useState({
         errorbusinessName: "",
         errorpassword: "",
@@ -44,6 +41,11 @@ function PerfilBusiness(props) {
         errorprovince: "",
         errortaxBracket: "",
     });
+
+    useEffect(() => {
+        validate();
+    }, [input.businessName, input.password, input.address, input.city, input.cuit, input.logo, input.province, input.taxBracket]);
+
     const validate = () => {
         let errorbusinessName = "";
         let errorpassword = "";
@@ -52,14 +54,19 @@ function PerfilBusiness(props) {
         let errorcuit = "";
         let errorlogo = "";
         let errorprovince = "";
+        let errortaxBracket = "";
 
-        if (!/^[a-zA-Z ]{0,30}$/.test(input.businessName) || input.businessName[0] === " " || input.businessName === "") errorbusinessName = "Debe ingresar el nombre del producto";
+
+        if (!input.businessName || input.businessName[0] === " " || input.businessName === "") errorbusinessName = "Debe escribir el nombre de la empresa";
         if (!/^[a-zA-Z0-9 ]{0,30}$/.test(input.password) || input.password[0] === " " || input.password === "") errorpassword = "Debe ingresar una contraseña";
-        if (!/^[a-zA-Z0-9 ]{0,30}$/.test(input.address) || input.address[0] === " " || input.address === "") erroraddress = "Debe ingresar una direccion";
-        if (!/^[a-zA-Z0-9 ]{0,30}$/.test(input.errorcity) || input.errorcity[0] === " " || input.errorcity === "") errorcity = "Debe ingresar una ciudad";
-        if (!/^[a-zA-Z0-9 ]{0,30}$/.test(input.errorcuit) || input.errorcuit[0] === " " || input.errorcuit === "") errorcuit = "Debe ingresar un cuit";
-        if (!/^[a-zA-Z0-9 ]{0,30}$/.test(input.errorlogo) || input.errorlogo[0] === " " || input.errorlogo === "") errorlogo = "Debe ingresar un logo";
-        if (!/^[a-zA-Z0-9 ]{0,30}$/.test(input.errorprovince) || input.errorprovince[0] === " " || input.errorprovince === "") errorprovince = "Debe ingresar una province";
+        //todo para cambiar contraseña ir a otro formulario ?//usar el mismo de tomi
+
+        if (!input.address || input.address[0] === " " || input.address === "") erroraddress = "Debe ingresar una direccion";
+        if (!input.city || input.city[0] === " " || input.city === "") errorcity = "seleccione  una ciudad";
+        if (!input.cuit || input.cuit[0] === " " || input.cuit === "") errorcuit = "Debe ingresar un cuit";
+        if (!input.logo || input.logo[0] === " " || input.logo === "") errorlogo = "Debe ingresar un logo";
+        if (!input.province || input.province[0] === " " || input.province === "") errorprovince = "Seleccione  una provincia";
+        if (!input.taxBracket || input.taxBracket[0] === " " || input.taxBracket === "") errortaxBracket = "seleccione taxBracket";
 
         setError((prevInput) => {
             return {
@@ -70,6 +77,7 @@ function PerfilBusiness(props) {
                 errorcuit, errorcuit,
                 errorlogo, errorlogo,
                 errorprovince, errorprovince,
+                errortaxBracket, errortaxBracket,
 
             }
         });
@@ -109,6 +117,7 @@ function PerfilBusiness(props) {
             arrayInfo: [],
         }))
         swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
+
 
     }
     return (
@@ -166,7 +175,7 @@ function PerfilBusiness(props) {
                             gState.allCities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.province)[0].id)?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
                         }
                     </select>
-
+                    {!error.errorcity ? <label> </label> : <label>          {error.errorcity}             </label>}
                 </div>
                 <div className={styles.cuitContainer}>
                     <label htmlFor='cuit'>Cuit:</label>
@@ -202,7 +211,7 @@ function PerfilBusiness(props) {
                             gState.provinces?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
                         }
                     </select>
-
+                    {!error.errorprovince ? <label> </label> : <label>          {error.errorprovince}             </label>}
                 </div>
                 <div className={styles.taxBracketContainer}>
                     <label htmlFor='taxBracket'>taxBracket:</label>
@@ -212,9 +221,10 @@ function PerfilBusiness(props) {
                         <option value="Categoría tributaria 2">Categoría tributaria 2</option>
                         <option value="Categoría tributaria 3">Categoría tributaria 3</option>
                     </select>
+                    {!error.errortaxBracket ? <label> </label> : <label>          {error.errortaxBracket}             </label>}
                 </div>
                 <div className={styles.subButton}>
-                    <button className={styles.btn} type="submit" disabled={error.errorbusinessName || error.errorpassword || error.erroraddress || error.errorcity || error.errorcuit || error.errorlogo || error.errorprovince}>
+                    <button className={styles.btn} type="submit" disabled={error.errorbusinessName || error.errorpassword || error.erroraddress || error.errorcity || error.errorcuit || error.errorprovince || error.errortaxBracket}>
                         Listo
                     </button>
                 </div>

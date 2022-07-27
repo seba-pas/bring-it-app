@@ -9,6 +9,11 @@ import { Provider } from "react-redux";
 import store from "../src/store/index";
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
+import dotenv from "dotenv";
+import axios from 'axios'
+dotenv.config();
+
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
