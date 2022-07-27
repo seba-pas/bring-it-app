@@ -57,16 +57,16 @@ function PerfilBusiness(props) {
         let errortaxBracket = "";
 
 
-        if (input.businessName[0] === " " || input.businessName === "") errorbusinessName = "Debe escribir el nombre de la empresa";
+        if (!input.businessName || input.businessName[0] === " " || input.businessName === "") errorbusinessName = "Debe escribir el nombre de la empresa";
         if (!/^[a-zA-Z0-9 ]{0,30}$/.test(input.password) || input.password[0] === " " || input.password === "") errorpassword = "Debe ingresar una contraseña";
         //todo para cambiar contraseña ir a otro formulario ?//usar el mismo de tomi
 
-        if (input.address[0] === " " || input.address === "") erroraddress = "Debe ingresar una direccion";
-        if (input.city[0] === " " || input.city === "") errorcity = "seleccione  una ciudad";
-        if (input.cuit[0] === " " || input.cuit === "") errorcuit = "Debe ingresar un cuit";
-        if (input.logo[0] === " " || input.logo === "") errorlogo = "Debe ingresar un logo";
-        if (input.province[0] === " " || input.province === "") errorprovince = "Seleccione  una provincia";
-        if (input.taxBracket[0] === " " || input.taxBracket === "") errortaxBracket = "seleccione taxBracket";
+        if (!input.address || input.address[0] === " " || input.address === "") erroraddress = "Debe ingresar una direccion";
+        if (!input.city || input.city[0] === " " || input.city === "") errorcity = "seleccione  una ciudad";
+        if (!input.cuit || input.cuit[0] === " " || input.cuit === "") errorcuit = "Debe ingresar un cuit";
+        if (!input.logo || input.logo[0] === " " || input.logo === "") errorlogo = "Debe ingresar un logo";
+        if (!input.province || input.province[0] === " " || input.province === "") errorprovince = "Seleccione  una provincia";
+        if (!input.taxBracket || input.taxBracket[0] === " " || input.taxBracket === "") errortaxBracket = "seleccione taxBracket";
 
         setError((prevInput) => {
             return {

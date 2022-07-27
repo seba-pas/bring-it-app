@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
-import styles from "../styles/HomeBusiness.module.css";
-import SoldProductCard from "./SoldProductCard";
-import ProductCardBusiness from "./ProductCardBusiness";
-import { useDispatch, useSelector } from "react-redux";
-import NavBarusiness from "./NavBarBusiness";
-import {
-  addBusiness,
-  getAllBusiness,
-  getAllProducts,
-  getProductBusiness,
-} from "../actions";
+import React, { useEffect, useState } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
+import styles from "../styles/HomeBusiness.module.css"
+import SoldProductCard from './SoldProductCard';
+import ProductCardBusiness from './ProductCardBusiness';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllBusiness, getAllProducts, getCategories } from '../actions';
+import NavBarBusiness from "./NavBarBusiness"
 
 function HomeBusiness() {
   const gState = useSelector((state) => state);
@@ -167,124 +162,92 @@ function HomeBusiness() {
     },
   ];
 
-  return (
-    <div>
-      <NavBarusiness />
-      <div className={styles.btnContainer}>
-    <NavLink to="/productmanager">
-      <button className={styles.btn}>+</button>
-    </NavLink>
+    return (
+        <div>
+            <NavBarBusiness />
+            <div className={styles.btnContainer}>
+                <NavLink to='/productmanager'>
+                    <button className={styles.btn}>+</button>
+                </NavLink>
+            </div>
+            <div className={styles.home} >
+                <div className={styles.container}>
 
-      </div>
+                    <div className={styles.soldProductsContainer}>
+                        {<table>
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Descripción</th>
+                                    <th>Nombre</th>
+                                    <th>Teléfono</th>
+                                    <th>Viajero</th>
+                                    <th>Teléfono</th>
+                                    <th>Enviado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {soldProducts.map(c => {
+                                    return (
+                                        <SoldProductCard image={c.productImage} productName={c.productName} amount={c.amount} description={c.description} clientName={c.clientName} clientPhone={c.clientPhone} date={c.date} BringerPending={c.BringerPending} BringerName={c.BringerName} BringerContact={c.BringerContact} />
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                        }
+                    </div>
+                    <div className={styles.inventoryContainer}>
+                        {<table>
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Descripción</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-      <div className={styles.home}>
-        <div className={styles.container}>
-      <div className={styles.soldProductsContainer}>
-        {
-          <table>
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Descripción</th>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Viajero</th>
-                <th>Teléfono</th>
-                <th>Enviado</th>
-              </tr>
-            </thead>
-            <tbody>
-              {soldProducts.map((c) => {
-                return (
-                  <SoldProductCard
-                    image={c.productImage}
-                    productName={c.productName}
-                    amount={c.amount}
-                    description={c.description}
-                    clientName={c.clientName}
-                    clientPhone={c.clientPhone}
-                    date={c.date}
-                    BringerPending={c.BringerPending}
-                    BringerName={c.BringerName}
-                    BringerContact={c.BringerContact}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
-        }
-      </div>
-      <div className={styles.inventoryContainer}>
-        {
-          <table>
-            <thead>
-              <tr>
-                <th>Imagen</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Descripción</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products?.map((c) => {
-                return (
-                  <ProductCardBusiness
-                    key={c.id}
-                    id={c.id}
-                    image={c.image}
-                    productName={c.name}
-                    amount={c.stock}
-                    description={c.description}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
-        }
-      </div>
-      <div className={styles.noStockTitle}>
-        <h2>Inventario Bajo</h2>
-      </div>
-      <div className={styles.noStock}>
-        {
-          <table>
-            <thead>
-              <tr>
-                <th>Imagen</th>
-                <th>Producto</th>
-                <th>cantidad</th>
-                <th>Descripción</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products
-                ?.filter((e) => e.stock <= 3)
-                .map((c) => {
-                  return (
-                    <ProductCardBusiness
-                      id={c.id}
-                      image={c.image}
-                      productName={c.name}
-                      amount={c.stock}
-                      description={c.description}
-                    />
-
-                    // <div key={c.id}>
-
-                    // </div>
-                  );
-                })}
-            </tbody>
-          </table>
-        }
-      </div>
+                                {input.products?.map(c => {
+                                    return (
+                                        <ProductCardBusiness key={c.id} id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                        }
+                    </div>
+                    <div className={styles.noStockTitle}>
+                        <h2>Inventario Bajo</h2>
+                    </div>
+                    <div className={styles.noStock}>
+                        {<table>
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Producto</th>
+                                    <th>cantidad</th>
+                                    <th>Descripción</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {input.products?.filter(e => e.stock <= 3).map(c => {
+                                    return (
+                                        <ProductCardBusiness key={c.id} id={c.id} image={c.image} productName={c.name} amount={c.stock} description={c.description} />
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+
+    )
 }
 
 export default HomeBusiness;

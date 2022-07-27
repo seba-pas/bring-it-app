@@ -11,14 +11,15 @@
 }
 
 .imagen {
-    margin-top: 15px;
-    margin-right: 20%; 
+  margin-top: 15px;
+  margin-right: 20%;
 }
 
 .SearchBar {
   margin-top: 45px;
   margin-right: 5%;
 }
+
 .SearchBar input {
   border: 3px solid #1687A7;
   color: #1687A7;
@@ -26,10 +27,12 @@
   width: 250px;
   padding-bottom: 20px;
 }
-.SearchBar button{
-    margin-left: 10px;
-    border-radius: 50%;
+
+.SearchBar button {
+  margin-left: 10px;
+  border-radius: 50%;
 }
+
 .SearchBar input::placeholder {
   color: #1687A7;
 }
@@ -39,7 +42,8 @@
   margin-top: 55px;
   margin-left: 5%;
 }
-.contbotones button{
+
+.contbotones button {
   margin-right: 10px;
 }
 
@@ -51,13 +55,25 @@
   font-weight: bold;
   border-radius: 5px;
   font-size: 15px;
-  
+
   height: 40px;
   width: 130px;
 }
 
 .navbar button:hover {
   transition: background-color 1s ease;
-  background-color: #41d4cf; /* Green */
+  background-color: #41d4cf;
+  /* Green */
   color: #F6F5F5;
+}
+
+.selectPerfil {
+  border: solid 4px #41d4cf;
+  background-color: transparent;
+  border-left-color: #41d4cf;
+  border-top-color: #41d4cf;
+  border-bottom-color: #41d4cf;
+  border-right-color: #41d4cf;
+  color: black;
+  font-size: 1.05rem;
 }
