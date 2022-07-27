@@ -106,6 +106,10 @@ Travel.belongsTo(User);
 Travel.hasMany(Confirmed);
 Confirmed.belongsTo(Travel);
 
+//nueva relación Travel - City
+City.hasOne(Travel, {as: 'travelCity', foreignKey: 'travelCityId'});
+City.hasOne(Travel, {as: 'arrivalCity', foreignKey: 'arrivalCityId'});
+
 // product - cart
 Cart.hasMany(Product);
 Product.belongsTo(Cart);
@@ -113,6 +117,8 @@ Product.belongsTo(Cart);
 // user - cart
 Cart.hasOne(User);
 User.belongsTo(Cart);
+
+
 
 
 
