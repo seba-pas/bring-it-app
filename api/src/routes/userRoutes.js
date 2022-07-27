@@ -20,6 +20,7 @@ router.post("/", async (req, res) => {
           name: req.body.name,
           lastname: req.body.lastname,
           birthDate: req.body.birthDate,
+          age: req.body.age,
           password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString()
         }
       });
@@ -47,7 +48,6 @@ router.post("/", async (req, res) => {
         </p>
         `
       })
-
 
       res.status(201).send(newUser[1] ? "Usuario creado" : "El usuario ya existe");
     } catch (e) {

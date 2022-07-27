@@ -12,7 +12,8 @@ async function loadDB (){
           password: u.password,
           name: u.name,
           lastname: u.lastname,
-          birthDate: u.birthDate
+          birthDate: u.birthDate,
+          age: u.age
         }
       })
     }) ;
