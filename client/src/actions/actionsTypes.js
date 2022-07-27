@@ -29,4 +29,9 @@ export const PUT_BUSINESS = 'PUT_BUSINESS';
 export const GET_USERS = 'GET_USERS';
 
 
-
+//Acciones del carrito (cart)
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const INCREMENT_ONE_IN_CART = 'INCREMENT_ONE_IN_CART';
+export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';
+export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART';
+export const CLEAR_CART = 'CLEAR_CART';

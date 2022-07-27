@@ -28,6 +28,14 @@ import {
   PUT_BUSINESS,
 
 
+  //Acciones del carrito (cart)
+  ADD_TO_CART,
+  INCREMENT_ONE_IN_CART,
+  REMOVE_ONE_FROM_CART,
+  REMOVE_ALL_FROM_CART,
+  CLEAR_CART
+
+
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -339,3 +347,54 @@ export const editBusiness = (id, body) => {
   };
 };
 
+
+//ACCIONES DEL CARRITO (CART)
+//cart:  [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
+
+//Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto
+export function addToCart (product){
+  //Importante: validar que si ya hay productos en el cart, la cityId sea la misma q la de los productos q ya estan en el cart  
+  
+  console.log(`addToCart - actions. Product recibido: ${product}`);
+  return {
+    type: ADD_TO_CART,
+    payload: product
+  }
+};
+
+
+
+//Incrementa en 1 la cantidad de un producto ya existente en el carrito (recibe id)
+export function incrementOneInCart (productId){
+  console.log(`incrementOneInCart - actions`);
+  return {
+    type: INCREMENT_ONE_IN_CART,
+    payload: productId
+  }
+};
+
+//Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
+export function removeOneFromCart (productId){
+  console.log(`removeOneFromCart - actions`);
+  return {
+    type: REMOVE_ONE_FROM_CART,
+    payload: productId
+  }
+};
+
+//Elimina el producto del cart (recibe id)
+export function removeAllFromCart (){
+  console.log(`removeAllFromCart - actions`);
+  return {
+    type: REMOVE_ALL_FROM_CART,
+    payload: productId
+  }
+};
+
+//Elimina todos los productos del cart (recibe id)
+export function clearCart (){
+  console.log(`clearCart - actions`);
+  return {
+    type: CLEAR_CART
+  }
+};
