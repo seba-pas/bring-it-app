@@ -23,7 +23,7 @@ function RegisterBusiness() {
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const PROVINCES = useSelector((state) => state.provinces);
-
+  const gState = useSelector((state) => state);
 
 
   const CITIES = useSelector((state) => state.cities);
@@ -39,7 +39,18 @@ function RegisterBusiness() {
     province: "",
     cityId: "",
     address: "",
+    city: "",
+    province: "",
   });
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    setInput((prevInput) => {
+      return {
+        ...prevInput,
+        [event.target.name]: event.target.value,
+      }
+    });
+  }
 
   const validateUsers = (input) => {
     const errors = {};
@@ -108,7 +119,7 @@ function RegisterBusiness() {
     if (
       input.email !== "" &&
       input.password !== "" &&
-      input.password === input.confirmPassword  &&
+      input.password === input.confirmPassword &&
       input.password.length >= 8 &&
       input.password.length <= 16 &&
       input.confirmPassword.length >= 8 &&
@@ -217,7 +228,7 @@ function RegisterBusiness() {
                   placeholder="Enter email"
                   onChange={(e) => handleChange(e)}
                 />
-                  {errors.email && <p>{errors.email}</p>}
+                {errors.email && <p>{errors.email}</p>}
 
               </Form.Group>
               <Form.Group className="mb-3">
@@ -231,7 +242,7 @@ function RegisterBusiness() {
                   id="password"
                   required
                 />
-                  {errors.password && <p>{errors.password}</p>}
+                {errors.password && <p>{errors.password}</p>}
 
               </Form.Group>
               <Form.Group className="mb-3">
@@ -245,7 +256,7 @@ function RegisterBusiness() {
                   id="confirmPassword"
                   required
                 />
-                  {errors.password && <p>{errors.password}</p>}
+                {errors.password && <p>{errors.password}</p>}
 
               </Form.Group>
               <Form.Group className="mb-3">
@@ -259,7 +270,7 @@ function RegisterBusiness() {
                   id="businessName"
                   required
                 />
-                  {errors.businessName && <p>{errors.businessName}</p>}
+                {errors.businessName && <p>{errors.businessName}</p>}
 
               </Form.Group>
               <Form.Group className="mb-3">
@@ -273,7 +284,7 @@ function RegisterBusiness() {
                   placeholder="Ingrese su numero de Cuit"
                   onChange={(e) => handleChange(e)}
                 />
-                  {errors.cuit && <p>{errors.cuit}</p>}
+                {errors.cuit && <p>{errors.cuit}</p>}
 
               </Form.Group>
 
@@ -289,7 +300,22 @@ function RegisterBusiness() {
 
               <Form.Label>Provincia</Form.Label>
               <Form.Group>
-                <select onChange={(e) => handleFilterByProvinces(e)}>
+
+                <label htmlFor='province'>Provincia:</label>
+                <select name="province" value={input.province} onChange={(e) => handleInputChange(e)}>
+                  <option value="">{ } </option>
+                  {
+                    gState.provinces?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
+                  }
+                </select>
+
+
+
+
+
+
+
+                {/* <select onChange={(e) => handleFilterByProvinces(e)}>
                   <option value="All">Todas</option>
                   {PROVINCES.map((PROVINCE) => {
                     return (
@@ -303,12 +329,27 @@ function RegisterBusiness() {
                       </option>
                     );
                   })}
-                </select>
+                </select> */}
               </Form.Group>
 
               <Form.Label>Ciudad</Form.Label>
               <Form.Group>
-                <select onChange={(e) => handleCheckCity(e)}>
+
+                <label htmlFor='cityId'>Ciudad:</label>
+                <select name="cityId" value={input.cityId} onChange={(e) => handleInputChange(e)}>
+                  <option value="">{ } </option>
+
+                  {
+                    // gState.cities?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
+                    input.province ? gState.allCities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.province)[0].id)?.map(e => <option key={e.id} name={e.nombre} value={e.id}>{e.nombre}</option>) : ""
+
+                  }
+                </select>
+
+
+
+
+                {/* <select onChange={(e) => handleCheckCity(e)}>
                   <option value="All">Todas</option>
                   {CITIES.map((CITY) => {
                     return (
@@ -321,7 +362,7 @@ function RegisterBusiness() {
                       </option>
                     );
                   })}
-                </select>
+                </select> */}
               </Form.Group>
 
               <Form.Group className="mb-3">
