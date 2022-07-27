@@ -29,9 +29,10 @@ const {loadDB } = require('./src/json/jsonControllers')
 
 conn.sync({ force: true }).then(() => {
   server.listen(process.env.PORT, async() => {
-     await apiProvince() ;
-     await apiCity() ;
-     await loadDB() ;
+
+    await apiProvince() ;
+    await apiCity() ;
+    await loadDB() ;
     console.log("BRING IT ON! Listening..."); // eslint-disable-line no-console
   });
 });
