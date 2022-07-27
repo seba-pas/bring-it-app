@@ -39,8 +39,8 @@ function RegisterBusiness() {
     province: "",
     cityId: "",
     address: "",
-    city: "",
     province: "",
+    logo: 'f'
   });
   const handleInputChange = (event) => {
     event.preventDefault();
