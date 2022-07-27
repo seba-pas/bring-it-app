@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "purchase",
+    "purchase_product",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -13,25 +13,26 @@ module.exports = (sequelize) => {
         autoIncrement: true
       },
       quantity: {
-
-      },
-      totalPrice: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-      },
-      waitingTime: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      arrivalCity: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      }      
+        allowNull: false, 
+        defaultValue: 1
+    },
+    price: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    totalPrice: {
+        type: DataTypes.INTEGER,
+        set(){
+            return (this.price * this.quantity) ;
+        }
+    },
     },
     {
         timestamps: true,
         createdAt: false,
         updatedAt: "Last update"
     }
+   
   );
 };
