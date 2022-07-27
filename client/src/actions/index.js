@@ -24,7 +24,7 @@ import {
   FILTER_BY_PROVINCES,
   GET_ALL_BUSINESS,
   FILTER_BY_BUSINESS,
-
+  PUT_USER,
   PUT_BUSINESS,
 
 
@@ -259,6 +259,24 @@ export const addUser = (body) => {
       const res = await axios.post(`http://localhost:3001/api/user`, body);
       return dispatch({
         type: POST_USER,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const editUser = (id, body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(
+        `http://localhost:3001/api/user/${id}`,
+        body
+      );
+      console.log("res", res)
+      return dispatch({
+        type: PUT_USER,
         payload: res.data,
       });
     } catch (error) {
