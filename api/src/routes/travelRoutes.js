@@ -18,19 +18,19 @@ router.get('/', async (req, res)=>{
 //POST / CREATE Travel
 // http://localhost:3001/api/travel
 router.post('/', async(req,res) => {
-    const {UserEmail, TravelProvince, TravelCity, ArrivalProvince, ArrivalCity, startDate, ArrivalDate} = req.body ; 
-    if (!UserEmail || !TravelProvince || !TravelCity || !ArrivalProvince || !ArrivalCity || !startDate || !ArrivalDate) {
+    const {userEmail, travelProvince, travelCityId, arrivalProvince, arrivalCityId, startDate, arrivalDate} = req.body ; 
+    if (!userEmail || !travelProvince || !travelCityId || !arrivalProvince || !arrivalCityId || !startDate || !arrivalDate) {
         res.status(404).send('Faltan datos para crear el viaje')
     } else {
         try{
             const newTravel = await Travel.create({
-               UserEmail,
-               TravelProvince, 
-               TravelCity, 
-               ArrivalProvince, 
-               ArrivalCity, 
+               userEmail,
+               travelProvince, 
+               travelCityId, 
+               arrivalProvince, 
+               arrivalCityId, 
                startDate, 
-               ArrivalDate
+               arrivalDate
             })
             res.status(201).send('Viaje creado')
         } catch (e) {

@@ -15,6 +15,8 @@ import PerfilBusiness from "./components/PerfilBusiness";
 import HomeAdmin from "./components/HomeAdmin";
 import PerfilUser from "./components/PerfilUser";
 
+
+
 // import NavBar from "./components/NavBar";
 
 // import Home from "./components/Home";
@@ -39,6 +41,8 @@ function App() {
         <Route exact path="/perfilUser" component={PerfilUser}/>
 
         <Route exact path="/admin" component={HomeAdmin} />
+
+        
 
       </Switch>
     </div>
