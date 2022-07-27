@@ -23,12 +23,13 @@ const { conn } = require("./src/db.js");
 const { apiCity } = require('./src/controllers/cityControllers')
 const { apiProvince } = require('./src/controllers/provinceControllers')
 const {loadDB } = require('./src/json/jsonControllers')
-// const municipios = json1.municipios;
+//const municipios = json1.municipios;
 
 // // Syncing all the models at once.
 
 conn.sync({ force: true }).then(() => {
   server.listen(process.env.PORT, async() => {
+
     await apiProvince() ;
     await apiCity() ;
     await loadDB() ;

@@ -1,13 +1,15 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProductsDetail, setDetail } from "../actions";
+import { getAllProductsDetail, setDetail, addToCart } from "../actions";
 import { useEffect } from "react";
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "../components/NavBar";
 
 import styles from "../styles/ProductDetail.module.css";
 import "bootstrap/dist/css/bootstrap.css";
+
+import Cart from "./Cart";
 
 export const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -24,6 +26,11 @@ export const ProductDetail = () => {
   function handleClick(e) {
     e.preventDefault();
     alert("PROXIMAMENTE!!!...");
+  }
+
+  function handleClickAddToCart (e){
+    e.preventDefault();
+    dispatch(addToCart(product));
   }
 
   console.log(product.categories);
@@ -80,13 +87,16 @@ export const ProductDetail = () => {
                 >
                   COMPRAR
                 </a>
+                
                 <a
                   className="btn btn-primary"
-                  onClick={(e) => handleClick(e)}
+                  // onClick={(e) => handleClick(e)}
+                  onClick={(e) => handleClickAddToCart(e)}
                   id={styles.boton}
                 >
                   AGREGAR AL CARRITO
                 </a>
+                
                 <Link to={"/persona"}>
                   <a className="btn btn-primary" id={styles.boton}>
                     VOLVER
@@ -95,7 +105,10 @@ export const ProductDetail = () => {
               </div>
             </div>
           </div>
+          <Cart/>          
         </div>
+
+
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed
