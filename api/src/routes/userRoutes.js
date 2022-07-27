@@ -26,25 +26,28 @@ router.post("/", async (req, res) => {
       });
       
       // nodemailer
-//     let transporter = nodemailer.createTransport({
-//     host: 'smtp.ethereal.email',
-//     port: 587,
-//     secure: false,
-//     auth: {
-//         user: 'ole85@ethereal.email',
-//         pass: 'SuJC1F27bydJJHSAW4'
-//     }
-// });
-      
+      let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'bringit662@gmail.com',
+          pass: 'owtgyxnzmbchbhjj'
+        }
+      });
 
-//       const email = await transporter.sendMail({
-//         from: "farias.agustin@outlook.com",
-//         to: 'fariasagustin3@gmail.com',
-//         subject: "Email de prueba",
-//         text: "Hola mundo"
-//       })
-
-//       console.log(email.messageId)
+      const email = await transporter.sendMail({
+        from: "Bring It App <bringit662@gmail.com>",
+        to: req.body.email,
+        subject: "¡Bienvenido/a!",
+        html: `<h3>Bienvenido a Bring It App, ${req.body.name}!</h3>
+        <p>Estamos muy contentos de que formes parte de esta gran comunidad
+        te invito a que te suscribas a nuestra newsletter
+        <br />
+        para recibir ofertas interesantes a futuro
+        </p>
+        `
+      })
 
       res.status(201).send(newUser[1] ? "Usuario creado" : "El usuario ya existe");
     } catch (e) {
