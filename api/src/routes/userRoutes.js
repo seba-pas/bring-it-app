@@ -8,7 +8,7 @@ const router = Router();
 //POST / CREATE User
 // http://localhost:3001/api/user
 router.post("/", async (req, res) => {
-  const { email, password, name, lastname, birthDate } = req.body;
+  const { email, password, name, lastname, birthDate, age} = req.body;
   if (!email || !password || !name || !lastname || !birthDate) {
     res.status(404).send("Faltan datos para crear el usuario");
   } else {

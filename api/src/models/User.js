@@ -37,6 +37,11 @@ module.exports = (sequelize) => {
       allowNull: true,
       defaultValue: false
     },
+    active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: true
+    },
     },
     {
         timestamps: false
