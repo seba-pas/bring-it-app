@@ -15,8 +15,10 @@ const initialState = {
   business2: [],
   allBusiness2: [],
   provinces: [],
+  putEmail : "",
   putBusiness: "",
   businessEditInfo: {},
+  userEditInfo:{},
   uniqueProvinces: [],
   users: [],
 };
@@ -81,6 +83,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         user: action.payload,
+      };
+      case "PUT_USER":
+      return {
+        ...state,
+        putEmail: action.payload,
       };
     case "POST_LOGINBUSINESS":
       return {
@@ -227,6 +234,9 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
+        userEditInfo: action.payload.filter(
+          (e) => e.email === state.email
+        )[0],
       };
 
     default:
