@@ -253,4 +253,4 @@ function HomeBusiness() {
     )
 }
 
-export default HomeBusiness
+export default HomeBusiness;
