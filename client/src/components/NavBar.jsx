@@ -12,7 +12,7 @@ export default function NavBar() {
         <NavLink exact to="/">
           <img
             src={image}
-            style={{ width: "auto", height: "100px" }}
+            style={{ width: "auto", height: "100%" }}
             alt="Logo no encontrado"
           />
         </NavLink>

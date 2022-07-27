@@ -26,7 +26,7 @@ export const ProductDetail = () => {
     alert("PROXIMAMENTE!!!...");
   }
 
-  console.log(product.categories);
+  
   console.log(product.business);
   return (
     <div>
@@ -34,44 +34,52 @@ export const ProductDetail = () => {
 
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
-          <div className="card" id={styles.card} style={{ width: "40%" }}>
+          <div  className={styles.imgCon}>
             <img
               style={{ objectFit: "cover" }}
               className="card-img-top"
               src={product.image}
               alt="Card image cap"
             />
+            </div>
+          <div className="card" id={styles.card} style={{ width: "25%" }}>
             <div className="card-body">
-              <h5 className="card-title" id={styles.name}>
-                {product.name}
-              </h5>
-              <h5 className="card-title" id={styles.price}>
-                ${product.price}
-              </h5>
-              <p className="card-text" id={styles.description}>
-                {product.description}
+            <p className="card-text" id={styles.empresa}>
+                <span >Empresa: </span>
+                {product.business === null ||
+                product.categories === undefined ||
+                product.business.length == 0
+                  ? ""
+                  : product.business.businessName}
               </p>
-              <p className="card-text" id={styles.categories}>
-                <span id={styles.bold}>Categorias: </span>
+              <h1 className="card-title" id={styles.name}>
+                {product.name}
+              </h1>
+              <h1 className="card-title" id={styles.provincia}>
+                Producto de: {product.business.province}
+              </h1>
+              <p className="card-text" id={styles.empresa}>
+                <span id={styles.categoria}>En: </span>
                 {product.categories === null ||
                 product.categories === undefined ||
                 product.categories.length == 0
                   ? "No tiene categoría"
                   : product.categories[0].name}
               </p>
-              <p className="card-text">
-                <span id={styles.bold}>Empresa: </span>
-                {product.business === null ||
-                product.categories === undefined ||
-                product.business.length == 0
-                  ? "No tiene Empresa asociada"
-                  : product.business.businessName}
+              <div className="card-title" id={styles.price}>
+                <span>${product.price}.00</span>
+              </div>
+              <p className="card-text" id={styles.description}>
+                {product.description}
               </p>
+             
+             
               <p className="card-text" id={styles.stock}>
                 {" "}
                 <span id={styles.bold}>Disponibles: </span>
                 {product.stock}
               </p>
+              <div className='card-footer'>
               <div className={styles.contBot}>
                 <a
                   className="btn btn-primary"
@@ -80,15 +88,16 @@ export const ProductDetail = () => {
                 >
                   COMPRAR
                 </a>
+                </div>
                 <a
                   className="btn btn-primary"
                   onClick={(e) => handleClick(e)}
-                  id={styles.boton}
+                  id={styles.boton2}
                 >
                   AGREGAR AL CARRITO
                 </a>
                 <Link to={"/persona"}>
-                  <a className="btn btn-primary" id={styles.boton}>
+                  <a className="btn btn-primary" id={styles.boton2}>
                     VOLVER
                   </a>
                 </Link>

@@ -74,9 +74,7 @@ export default function NavBarLanding() {
     }
     if (
       !input.password ||
-      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(
-        input.password
-      )
+      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)
     ) {
       errors.password = "La contraseña debe tener entre 8 y 16 caracteres";
     } else {
@@ -255,19 +253,18 @@ export default function NavBarLanding() {
   return (
     <div className={styles.navbarLanding}>
       <div className={styles.imagen}>
-        
-        <NavLink exact to="/">
-          <img
-            src={image}
-            style={{ width: "auto", height: "100px" }}
-            alt="Logo no encontrado"
-          />
-        </NavLink>
+        <img
+          src={image}
+          // style={{ width: "auto", height: "300px" }}
+          alt="Logo no encontrado"
+        />
       </div>
-      
-      <div className={styles.SearchBar}></div>
+
+     
       <div className={styles.contbotones2}>
-        <button id={styles.login} onClick={handleShowLogin}>LOGIN</button>
+        <button id={styles.login} onClick={handleShowLogin}>
+          LOGIN
+        </button>
         <Modal show={showLogin} onHide={handleCloseLogin}>
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
