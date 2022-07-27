@@ -20,30 +20,31 @@ router.post("/", async (req, res) => {
           name: req.body.name,
           lastname: req.body.lastname,
           birthDate: req.body.birthDate,
+          age: req.body.age,
           password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString()
         }
       });
       
       // nodemailer
-    let transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    secure: false,
-    auth: {
-        user: 'ole85@ethereal.email',
-        pass: 'SuJC1F27bydJJHSAW4'
-    }
-});
+//     let transporter = nodemailer.createTransport({
+//     host: 'smtp.ethereal.email',
+//     port: 587,
+//     secure: false,
+//     auth: {
+//         user: 'ole85@ethereal.email',
+//         pass: 'SuJC1F27bydJJHSAW4'
+//     }
+// });
       
 
-      const email = await transporter.sendMail({
-        from: "farias.agustin@outlook.com",
-        to: 'fariasagustin3@gmail.com',
-        subject: "Email de prueba",
-        text: "Hola mundo"
-      })
+//       const email = await transporter.sendMail({
+//         from: "farias.agustin@outlook.com",
+//         to: 'fariasagustin3@gmail.com',
+//         subject: "Email de prueba",
+//         text: "Hola mundo"
+//       })
 
-      console.log(email.messageId)
+//       console.log(email.messageId)
 
       res.status(201).send(newUser[1] ? "Usuario creado" : "El usuario ya existe");
     } catch (e) {

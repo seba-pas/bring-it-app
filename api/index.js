@@ -29,7 +29,6 @@ const {loadDB } = require('./src/json/jsonControllers')
 
 conn.sync({ force: true }).then(() => {
   server.listen(process.env.PORT, async() => {
-
     await apiProvince() ;
     await apiCity() ;
     await loadDB() ;
