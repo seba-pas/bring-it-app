@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { User } = require("./../db");
 const { getUsers, getUserByEmail } = require("../controllers/userControllers");
+const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
 const router = Router();
@@ -8,26 +9,47 @@ const router = Router();
 //POST / CREATE User
 // http://localhost:3001/api/user
 router.post("/", async (req, res) => {
-  const { email, password, name, lastname, birthDate } = req.body;
-  if (!email || !password || !name || !lastname || !birthDate) {
-    res.status(404).send("Faltan datos para crear el usuario");
-  } else {
+  // const { email, password, name, lastname, birthDate } = req.body;
+  // if (!email || !password || !name || !lastname || !birthDate) {
+    // res.status(404).send("Faltan datos para crear el usuario");
+  // } else {
     try {
       const newUser = await User.findOrCreate({
         where: {
-          email,
-          name,
-          lastname,
-          birthDate,
-          password: CryptoJS.AES.encrypt(password, process.env.PASS_SEC).toString()
+          email: req.body.email,
+          name: req.body.name,
+          lastname: req.body.lastname,
+          birthDate: req.body.birthDate,
+          password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString()
         }
       });
-      console.log(newUser)
+      
+      // nodemailer
+    let transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false,
+    auth: {
+        user: 'ole85@ethereal.email',
+        pass: 'SuJC1F27bydJJHSAW4'
+    }
+});
+      
+
+      const email = await transporter.sendMail({
+        from: "farias.agustin@outlook.com",
+        to: 'fariasagustin3@gmail.com',
+        subject: "Email de prueba",
+        text: "Hola mundo"
+      })
+
+      console.log(email.messageId)
+
       res.status(201).send(newUser[1] ? "Usuario creado" : "El usuario ya existe");
     } catch (e) {
       res.send("error:" + e.message);
     }
-  }
+  // }
 });
 
 // PUT / UPDATE USER
