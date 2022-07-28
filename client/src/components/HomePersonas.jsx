@@ -120,11 +120,7 @@ export default function HomePersonas() {
         <div><h1>No se encontraron productos asociados</h1></div> : (
 
         <div className={styles.containerCards}>
-          <Pagination
-            productsPerPage={productsPerPage}
-            PRODUCTS={PRODUCTS.length}
-            paginado={paginado}
-          />
+         
           <div className={styles.containerS}>
             {/* <div> Ordenar por */}
             <select onChange={(e) => handleSort(e)}>
@@ -196,6 +192,11 @@ export default function HomePersonas() {
           </div>
 
           <ProductCards currentProducts={currentProducts} />
+          <Pagination
+            productsPerPage={productsPerPage}
+            PRODUCTS={PRODUCTS.length}
+            paginado={paginado}
+          />
         </div>
         )
       ) : (
