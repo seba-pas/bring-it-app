@@ -103,6 +103,8 @@ export default function HomePersonas() {
       <NavBar />
 
       {PRODUCTS.length > 0 ? (
+        PRODUCTS == "no se encontro nada" ? 
+        <div><p>no se encontro nada</p></div> : (
         <div className={styles.containerCards}>
           <Pagination
             productsPerPage={productsPerPage}
@@ -181,6 +183,7 @@ export default function HomePersonas() {
 
           <ProductCards currentProducts={currentProducts} />
         </div>
+        )
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed
