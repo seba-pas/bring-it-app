@@ -225,6 +225,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allCities: action.payload,
       };
+      // case 'FILTER_BY_CITIES':
+      //   const allCities = state.allProducts;
+      //   const filterCities = action.payload === 'All'
+      //   ?allCities 
+      //   :allCities.filter((e) => console.log(e.business.cityId))
+      //   // console.log(allCities)
+      // return{
+      //   ...state,
+      //   products: filterCities
+      // };
 
     //Filtrado de ciudades segun la provincia (recibe provinceId (string))
     case "FILTER_BY_PROVINCE_CITY":

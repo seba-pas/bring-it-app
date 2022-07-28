@@ -26,6 +26,7 @@ import {
   FILTER_BY_BUSINESS,
   PUT_USER,
   PUT_BUSINESS,
+  FILTER_BY_CITIES,
 
 
   //Acciones del carrito (cart)
@@ -33,7 +34,7 @@ import {
   INCREMENT_ONE_IN_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
-  CLEAR_CART
+  CLEAR_CART,
 
 
 } from "./actionsTypes";
@@ -211,6 +212,12 @@ export const getAllCities = () => {
   };
 };
 
+export const filterByCities = (payload) => {
+  return{
+    type: FILTER_BY_CITIES,
+    payload
+  }
+ }
 export const filterByProvinceCity = (payload) => {  
   return {
     type: FILTER_BY_PROVINCE_CITY,

@@ -17,6 +17,8 @@ import {
   filterByBusiness,
   filterByProvinces,
   getAllProvinces,
+  filterByCities,
+  filterByProvinceCity,
 } from "../actions";
 
 export default function HomePersonas() {
@@ -24,8 +26,10 @@ export default function HomePersonas() {
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
   const CATEGORY = useSelector((state) => state.categories);
-
+  const CITIES = useSelector((state) =>state.business2);
   const PROVINCES = useSelector((state => state.uniqueProvinces));
+
+  // console.log(CITIES[0])
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -95,6 +99,14 @@ export default function HomePersonas() {
     setProvince(e.target.value);
     setCurrentPage(1);
     dispatch(filterByProvinces(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+   //funcion para filtrar por ciduades
+   function handleFilterByCities(e) {
+    e.preventDefault();
+    // setProvince(e.target.value);
+    setCurrentPage(1);
+    dispatch(filterByProvinceCity(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
 
@@ -172,7 +184,21 @@ export default function HomePersonas() {
                 );
               })}
             </select>
-          </div>
+            <select
+              value={province}
+              onChange={(e) => handleFilterByCities(e)}
+            >
+              <option value="All">Todas</option>
+
+              {CITIES?.map((city) => {
+                return(
+                  <option value={city.nombre} key={city.id}>
+                    {city.nombre}
+                  </option>
+                );
+              })}
+            </select>
+          </div>         
           <div>
             <button className={styles.botonvol} onClick={(e) => handleClick(e)}>
               Limpiar Filtros
