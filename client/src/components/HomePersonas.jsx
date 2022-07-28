@@ -115,8 +115,10 @@ export default function HomePersonas() {
       <NavBar />
 
       {PRODUCTS.length > 0 ? (
+
         PRODUCTS == "No se encontraron productos asociados" ? 
         <div><h1>No se encontraron productos asociados</h1></div> : (
+
         <div className={styles.containerCards}>
           <Pagination
             productsPerPage={productsPerPage}

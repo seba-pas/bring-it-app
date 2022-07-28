@@ -58,7 +58,12 @@ async function getProductsByName (name){
             },
             include: [{model: Business}, {model: Category}]
         });
-        return foundProductsName;
+        console.log(foundProductsName);
+        if (foundProductsName.length) {
+            return foundProductsName
+        } else {
+            return "no se encontro nada"
+        }
     } catch (error) {
         throw new Error (`No se encontraron productos con el nombre ${name}, ${error}`);
     }
