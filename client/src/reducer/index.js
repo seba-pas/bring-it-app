@@ -245,7 +245,7 @@ export default function rootReducer(state = initialState, action) {
 
     //Casos asociados al carrito (cart)
     //cart:  [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
-      //PERDON CELE
+    // [ [productId1, cant1] , [productId2, cant2] ]
     case "ADD_TO_CART":
       //Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto
       const productoCantidad = action.payload;
