@@ -151,7 +151,7 @@ export default function NavBarLanding() {
         });
         dispatch(cleanBusiness());
         return;
-      } else if (business.email) {
+      } else if (business.others) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
 
         setInputBusiness({
@@ -234,7 +234,7 @@ export default function NavBarLanding() {
         });
         dispatch(cleanUsers());
         return;
-      } else if (user.email) {
+      } else if (user.others) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",
