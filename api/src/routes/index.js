@@ -10,7 +10,7 @@ const businessRoutes = require("./businessRoutes");
 const cityRoutes = require("./cityRoutes");
 const provinceRoutes = require("./provinceRoutes");
 const cartRoutes = require("./cartRoutes");
-const stripe= require('./stripe')
+const stripeRoute = require('./stripe')
 
 const userRoutes = require('./userRoutes');
 const travelRoutes = require('./travelRoutes'); 
@@ -43,7 +43,7 @@ router.use('/cart', cartRoutes);
 
 //Configuracion de rutas Purchase
 router.use('/purchase', purchaseRouters);
-router.use('/checkout', stripe);
+router.use('/checkout', stripeRoute);
 
 //CREATE traveln
 router.post('/api/travel', async (req, res) => {
