@@ -15,6 +15,8 @@ const stripe= require('./stripe')
 const userRoutes = require('./userRoutes');
 const travelRoutes = require('./travelRoutes'); 
 
+const favoriteRoutes = require ('./favoriteRoutes');
+
 
 
 // const productRoutes = require ("./productRoutes");
@@ -40,6 +42,7 @@ router.use('/province', provinceRoutes);
 router.use('/user', userRoutes);
 router.use('/travel', travelRoutes);
 router.use('/cart', cartRoutes);
+router.use('/favorite', favoriteRoutes);
 
 //Configuracion de rutas Purchase
 router.use('/purchase', purchaseRouters);
