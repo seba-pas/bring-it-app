@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {Purchase, User, Product} = require('../db');
+const {Purchase, User, Product, Purchaseitem} = require('../db');
 const {getPurchase} = require( '../controllers/purchaseControllers');
 
 const router = Router();
@@ -82,15 +82,15 @@ router.get ('/', async (req, res)=>{
     }
 });
 
-// ruta funcionando sin email y producto
+// ruta funcionando sin email y producto //ACTUALIZADA
 router.post('/', async (req, res)=>{
     try {
         let {
-            idProduct,
             totalPrice,
             waitingTime,
             arrivalCity,
-            userEmail
+            userEmail,
+            items
         }= req.body;
 
         const createdPurchase = await Purchase.create({
@@ -99,10 +99,17 @@ router.post('/', async (req, res)=>{
             arrivalCity,
             userEmail,
         });
-        await createdPurchase.addProduct(idProduct);
 
-        res.status(200).send('Purchase completed');
-        
+        //AGREGADO DE ITEMS A PURCHASEITEMS
+        const addItems = items.forEach( async (i) => {
+            await Purchaseitem.create({
+                purchaseId: createdPurchase.id,
+                productId: i.id,
+                quantity: i.quantity
+            })
+        })
+
+        res.status(200).send("Compra creada");
     } catch (error) {
         res.status(400).send(error.message)
     }

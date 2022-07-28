@@ -199,7 +199,7 @@ export default function rootReducer(state = initialState, action) {
             );
       return {
         ...state,
-        products: filterBusiness,
+        products: filterBusiness.length? filterBusiness : "No se encontraron productos asociados" ,
       };
 
     case "GET_ALL_PROVINCES":
@@ -217,7 +217,7 @@ export default function rootReducer(state = initialState, action) {
           : allProvinces.filter((e) => e.business.province === action.payload);
       return {
         ...state,
-        products: filterProvinces,
+        products: filterProvinces.length? filterProvinces : "No se encontraron productos asociados",
       };
 
     case "GET_ALL_CITIES":
@@ -225,6 +225,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allCities: action.payload,
       };
+      // case 'FILTER_BY_CITIES':
+      //   const allCities = state.allProducts;
+      //   const filterCities = action.payload === 'All'
+      //   ?allCities 
+      //   :allCities.filter((e) => console.log(e.business.cityId))
+      //   // console.log(allCities)
+      // return{
+      //   ...state,
+      //   products: filterCities
+      // };
 
     //Filtrado de ciudades segun la provincia (recibe provinceId (string))
     case "FILTER_BY_PROVINCE_CITY":
