@@ -2,23 +2,54 @@ const { Router } = require ("express");
 const {  getBusiness } = require ('../controllers/businessControllers');
 const {Business} = require('./../db');
 const router = Router();
+const nodemailer = require('nodemailer')
+const CryptoJS = require('crypto-js');
+const jwt = require('jsonwebtoken');
 
 //POST Business (para cargar una nueva empresa, aparte de los datos del modelo tiene q recibir una CityId)
 // http://localhost:3001/api/business
 router.post('/', async (req,res) => {    
     try {
-        //a agregar taxBracket,, cityId  logo,
-        const {email, password, businessName, cuit, province, address, cityId, taxBracket, logo} = req.body;           
-        const newBusiness = await Business.findOrCreate ({
-            where: {email, password, businessName, cuit, province, address, cityId, taxBracket, logo}
-            });   
-            console.log(newBusiness);
-            // return res.status(201).send("Empresa creada")
-            res.send(newBusiness[1] ? "Empresa creada" : "La empresa ya existe"); 
+        const newBusiness = await Business.findOrCreate({
+            where: {
+                email: req.body.email,
+                password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString(),
+                businessName: req.body.businessName,
+                cuit: req.body.cuit,
+                province: req.body.province,
+                address: req.body.address,
+                cityId: req.body.cityId,
+                taxBracket: req.body.taxBracket,
+                logo: req.body.logo
+            }
+        });   
 
-        // const addedBusiness = await addBusiness ({...req.body});
-        // console.log(addedBusiness)   ;
-        // return res.send(addedBusiness[1] ? "Empresa agregada" : "La empresa ya existe");
+        // nodemailer
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+            user: 'bringit662@gmail.com',
+            pass: 'owtgyxnzmbchbhjj'
+            }
+        });
+
+        const email = await transporter.sendMail({
+            from: "Bring It App <bringit662@gmail.com>",
+            to: req.body.email,
+            subject: "¡Bienvenido a Bring It Empresas!",
+            html: `<h3>Bienvenido a Bring It App, ${req.body.businessName}!</h3>
+            <p>Estamos muy contentos de que formes parte de esta gran comunidad de 
+            empresas alrededor del país. Desde Bring It les deseamos el mejor de los
+            éxitos en su emprendimiento.
+            </p>
+            `
+        })
+
+        res.send(newBusiness[1] ? "Empresa creada" : "La empresa ya existe"); 
+
+
     } catch (error) {
         return res.send('error:'+ error.message);
     }
@@ -44,17 +75,24 @@ router.put('/:email', async(req,res) => {
 // http://localhost:3001/api/business/login
 router.post('/login', async(req,res) => {
     try {
-        const {email, password} = req.body;
-        const businessLogin = await Business.findByPk(email);
-        if (!businessLogin) { 
-        res.send('Usuario no encontrado') 
-    } else {
-        if (businessLogin.email === email && businessLogin.password === password) {
-             res.status(201).json(businessLogin)
-        } else { res.send('Datos incorrectos')}
-    }
+        const businessLogin = await Business.findByPk(req.body.email);
+
+        if (!businessLogin) res.send('Usuario no encontrado');
+
+        const hashedPassword = CryptoJS.AES.decrypt(businessLogin.password, process.env.PASS_SEC);
+        const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+        if(originalPassword !== req.body.password) return res.status(401).send(`Datos incorrectos`);
+
+        const accessToken = jwt.sign({
+            id: businessLogin.id
+        }, process.env.JWT_SEC, { expiresIn: '1d' });
+
+        const { password, ...others } = businessLogin;
+
+        res.status(200).json({others, accessToken});
     } catch (error) {
-        res.status(404).send(`error:${e.message}`)
+        res.status(404).send(`error:${error.message}`)
     }
 })
 
