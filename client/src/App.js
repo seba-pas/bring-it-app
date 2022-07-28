@@ -15,6 +15,7 @@ import PerfilBusiness from "./components/PerfilBusiness";
 import HomeAdmin from "./components/HomeAdmin";
 import PerfilUser from "./components/PerfilUser";
 
+import CheckOut from "./components/Stripe/CheckOut";
 
 
 // import NavBar from "./components/NavBar";
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
+        <Route path='/checkout' component={CheckOut} />
 
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser}/>
