@@ -29,7 +29,7 @@ export default function HomePersonas() {
   const CITIES = useSelector((state) =>state.business2);
   const PROVINCES = useSelector((state => state.uniqueProvinces));
 
-  // console.log(CITIES[0])
+  console.log(PRODUCTS)
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -115,6 +115,8 @@ export default function HomePersonas() {
       <NavBar />
 
       {PRODUCTS.length > 0 ? (
+        PRODUCTS == "No se encontraron productos asociados" ? 
+        <div><h1>No se encontraron productos asociados</h1></div> : (
         <div className={styles.containerCards}>
           <Pagination
             productsPerPage={productsPerPage}
@@ -184,21 +186,7 @@ export default function HomePersonas() {
                 );
               })}
             </select>
-            <select
-              value={province}
-              onChange={(e) => handleFilterByCities(e)}
-            >
-              <option value="All">Todas</option>
-
-              {CITIES?.map((city) => {
-                return(
-                  <option value={city.nombre} key={city.id}>
-                    {city.nombre}
-                  </option>
-                );
-              })}
-            </select>
-          </div>         
+          </div>
           <div>
             <button className={styles.botonvol} onClick={(e) => handleClick(e)}>
               Limpiar Filtros
@@ -207,6 +195,7 @@ export default function HomePersonas() {
 
           <ProductCards currentProducts={currentProducts} />
         </div>
+        )
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed

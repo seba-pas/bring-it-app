@@ -199,7 +199,7 @@ export default function rootReducer(state = initialState, action) {
             );
       return {
         ...state,
-        products: filterBusiness,
+        products: filterBusiness.length? filterBusiness : "No se encontraron productos asociados" ,
       };
 
     case "GET_ALL_PROVINCES":
@@ -217,7 +217,7 @@ export default function rootReducer(state = initialState, action) {
           : allProvinces.filter((e) => e.business.province === action.payload);
       return {
         ...state,
-        products: filterProvinces,
+        products: filterProvinces.length? filterProvinces : "No se encontraron productos asociados",
       };
 
     case "GET_ALL_CITIES":
