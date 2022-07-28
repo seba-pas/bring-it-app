@@ -120,7 +120,7 @@ export default function rootReducer(state = initialState, action) {
       // }else{
       let sortedPrice =
         action.payload === "asc"
-          ? state.allProducts.sort(function (a, b) {
+          ? state.products.sort(function (a, b) {
               if (a.price > b.price) {
                 return 1;
               }
@@ -129,7 +129,7 @@ export default function rootReducer(state = initialState, action) {
               }
               return 0;
             })
-          : state.allProducts.sort(function (a, b) {
+          : state.products.sort(function (a, b) {
               if (a.price > b.price) {
                 return -1;
               }
