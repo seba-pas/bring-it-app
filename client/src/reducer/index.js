@@ -3,6 +3,7 @@ const initialState = {
   productsDetail: {},
   allProducts: [],
   user: {},
+  productId: {},
   product: {},
   changeProduct: {},
   business: {},
@@ -15,15 +16,15 @@ const initialState = {
   business2: [],
   allBusiness2: [],
   provinces: [],
-  putEmail : "",
+  putEmail: "",
   putBusiness: "",
   businessEditInfo: {},
-  userEditInfo:{},
+  userEditInfo: {},
   uniqueProvinces: [],
   users: [],
 
   //Carrito (cart)
-  cart: [] // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
+  cart: [], // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -87,7 +88,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
-      case "PUT_USER":
+    case "PUT_USER":
       return {
         ...state,
         putEmail: action.payload,
@@ -163,8 +164,7 @@ export default function rootReducer(state = initialState, action) {
                 e.categories.map((e) => e.name).includes(action.payload)
             );
 
-      console.log(filterCategory);
-      console.log(action.payload, "Payload");
+      
       return {
         ...state,
         products: filterCategory,
@@ -177,15 +177,16 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case "GET_ALL_BUSINESS":
-      console.log(action.payload)
-      const uniqueProvince = [... new Set(action.payload.map((e) => e.province))]
+      const uniqueProvince = [
+        ...new Set(action.payload.map((e) => e.province)),
+      ];
       return {
         ...state,
         business2: action.payload,
         businessEditInfo: action.payload.filter(
           (e) => e.email === state.businessEmail
         )[0],
-        uniqueProvinces: uniqueProvince
+        uniqueProvinces: uniqueProvince,
       };
     case "FILTER_BY_BUSINESS":
       const allBusiness = state.allProducts;
@@ -227,7 +228,9 @@ export default function rootReducer(state = initialState, action) {
 
     //Filtrado de ciudades segun la provincia (recibe provinceId (string))
     case "FILTER_BY_PROVINCE_CITY":
-      const filteredCities = state.allCities.filter(city=>city.provinceId.includes(action.payload));
+      const filteredCities = state.allCities.filter((city) =>
+        city.provinceId.includes(action.payload)
+      );
       return {
         ...state,
         cities: filteredCities,
@@ -237,63 +240,61 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
-        userEditInfo: action.payload.filter(
-          (e) => e.email === state.email
-        )[0],
+        userEditInfo: action.payload.filter((e) => e.email === state.email)[0],
       };
 
-
-      //Casos asociados al carrito (cart) 
+    //Casos asociados al carrito (cart)
     //cart:  [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
-    
-    case "ADD_TO_CART":     
-    //Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto    
-    console.log(`ADD_TO_CART - reducer`);  
-    const productoCantidad = [action.payload,1]
-    console.log(productoCantidad);
-    return {
-      ...state,
-      cart: [...[productoCantidad]] //acomodar para q no se pisen (concat o spread)
-    };  
+      //PERDON CELE
+    case "ADD_TO_CART":
+      //Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto
+      const productoCantidad = action.payload;
 
-    //cart: [ [{productDetail}, cantidad], [{productDetail}, cantidad] ]
-    //cart: [ [productGroup], [productGroup], [productGroup]]
-    // productGroup = [productGroup[0], productGroup[1]]
-  //Incrementa en 1 la cantidad de un producto ya existente en el carrito (recibe id)
-  case "INCREMENT_ONE_IN_CART":
-    console.log(`INCREMENT_ONE_IN_CART - reducer`);
-    console.log(state.cart);
-    const mappedCart = state.cart.map(productGroup => {
-      if (productGroup[0].id === action.payload){
-        productGroup[1]++;
-      }
-    });
-    debugger;
-    console.log(mappedCart);
-    return {
-      ...state,
-      cart: mappedCart
-    }; 
+      let itemInCart = state.cart.find(
+        (item) => item.id === productoCantidad.id
+      );
+      return itemInCart
+        ? {
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === productoCantidad.id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+            ),
+          }
+        : {
+            ...state,
+            cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
+          };
 
-  //Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id) 
-  case "REMOVE_ONE_FROM_CART":
-    console.log(`REMOVE_ONE_IN_CART - reducer`);  
-    return {
-      
-    };
-  //Elimina el producto del arreglo cart (recibe id)
-  case "REMOVE_ALL_FROM_CART":
-    console.log(`REMOVE_ONE_IN_CART - reducer`); 
-    return {
-      
-    };
-  //Vuelve el cart a arreglo vacio
-  case "CLEAR_CART":
-    console.log(`CLEAR_CART - reducer`);
-    return {
-      ...state,
-      cart: []
-    };
+    //Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
+    case "REMOVE_ONE_FROM_CART":
+      let itemToDelete = state.cart.find((item) => item.id === action.payload);
+      return itemToDelete.quantity > 1
+        ? {
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === action.payload
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          }
+        : {
+            ...state,
+            cart: state.cart.filter((item) => item.id !== action.payload),
+          };
+    //Elimina el producto del arreglo cart (recibe id)
+    case "REMOVE_ALL_FROM_CART":
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== action.payload),
+      };
+    //Vuelve el cart a arreglo vacio
+    case "CLEAR_CART":
+      return {
+        ...state,
+        cart: [],
+      };
 
     default:
       return {
@@ -301,5 +302,3 @@ export default function rootReducer(state = initialState, action) {
       };
   }
 }
-
-

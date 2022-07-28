@@ -1,12 +1,11 @@
-import {React, useEffect,useState} from "react";
-import { NavLink,useHistory  } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { React, useEffect, useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
 import logo from "./img/logoCUT.png";
 import { getUsers } from "../actions";
 import userProfile from "./img/userPerfilImage.jpg";
-
 
 //seba
 export default function NavBar() {
@@ -28,7 +27,6 @@ export default function NavBar() {
       return {
         ...prevInput,
         user: { ...gState.user },
-        
       };
     });
   }, [gState]);
@@ -59,8 +57,8 @@ export default function NavBar() {
           />
         </NavLink>
       </div>
-      <div>
-      <SearchBar/>
+      <div className={styles.search}>
+        <SearchBar />
       </div>
       <div className={styles.perfil}>
         {/* <img

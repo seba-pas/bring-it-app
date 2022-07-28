@@ -33,8 +33,7 @@ export const ProductDetail = () => {
     dispatch(addToCart(product));
   }
 
-  console.log(product.categories);
-  console.log(product.business);
+ 
   return (
     <div>
       <NavBar />

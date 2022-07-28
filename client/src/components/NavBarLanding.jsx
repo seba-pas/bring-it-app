@@ -89,7 +89,6 @@ export default function NavBarLanding() {
   //Business
   function handleSubmitLoginBusiness(e) {
     e.preventDefault();
-    console.log(inputBusiness.password.length);
     if (
       inputBusiness.email !== "" &&
       inputBusiness.password !== "" &&

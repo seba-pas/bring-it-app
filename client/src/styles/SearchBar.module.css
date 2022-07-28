@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
 
-  margin-top: 5px;
-  margin-left: 100%;
+ /*  margin-top: 5px;
+  margin-left: 100%; */
 }
 .divContainer input {
  border-radius:5px;
