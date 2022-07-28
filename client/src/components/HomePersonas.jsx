@@ -28,8 +28,8 @@ export default function HomePersonas() {
   const CATEGORY = useSelector((state) => state.categories);
   const CITIES = useSelector((state) =>state.business2);
   const PROVINCES = useSelector((state => state.uniqueProvinces));
-
-  console.log(PRODUCTS)
+  const stateCart = useSelector ((state ) => state.cart)
+  
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -112,7 +112,7 @@ export default function HomePersonas() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar cart={stateCart}/>
 
       {PRODUCTS.length > 0 ? (
 

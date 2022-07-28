@@ -6,17 +6,18 @@ import SearchBar from "./SearchBar"; //AGREGAR
 import logo from "./img/logoCUT.png";
 import { getUsers } from "../actions";
 import userProfile from "./img/userPerfilImage.jpg";
-
+import "bootstrap/dist/css/bootstrap.css";
+import Cart from "./Cart";
 //seba
-export default function NavBar() {
+export default function NavBar({cart}) {
   const gState = useSelector((state) => state);
+  const stateCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const history = useHistory();
-
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-
+  const [opening, setOpening] = useState(false)
   const [input, setInput] = useState({
     perfil: "",
     user: {},
@@ -60,6 +61,19 @@ export default function NavBar() {
       <div className={styles.search}>
         <SearchBar />
       </div>
+      <ul className="navbar-right">
+        <li style={{listStyle: "none"}}>
+          {/* <a href="#" id="cart" > */}
+            
+            <i className="fa fa-shopping-cart" onClick={() => setOpening(!opening)}>Cart </i>{' '}
+            <span style={{ color: "black" }} className="badge">
+              {stateCart.length}
+            </span> 
+            {opening &&
+            <Cart/>}
+          {/* </a> */}
+        </li>
+      </ul>
       <div className={styles.perfil}>
         {/* <img
           src={input.user.logo ? input.user.logo : userProfile}
