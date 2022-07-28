@@ -104,11 +104,7 @@ export default function HomePersonas() {
 
       {PRODUCTS.length > 0 ? (
         <div className={styles.containerCards}>
-          <Pagination
-            productsPerPage={productsPerPage}
-            PRODUCTS={PRODUCTS.length}
-            paginado={paginado}
-          />
+         
           <div className={styles.containerS}>
             {/* <div> Ordenar por */}
             <select onChange={(e) => handleSort(e)}>
@@ -180,6 +176,11 @@ export default function HomePersonas() {
           </div>
 
           <ProductCards currentProducts={currentProducts} />
+          <Pagination
+            productsPerPage={productsPerPage}
+            PRODUCTS={PRODUCTS.length}
+            paginado={paginado}
+          />
         </div>
       ) : (
         <div className={styles.spinner}>
