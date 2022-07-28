@@ -26,6 +26,8 @@ import {
   FILTER_BY_BUSINESS,
   PUT_USER,
   PUT_BUSINESS,
+  ADD_TRAVEL,
+  GET_TRAVELS,
 
 
 } from "./actionsTypes";
@@ -195,7 +197,7 @@ export const filterByBusiness = (payload) => {
 export const getAllCities = () => {
   return async function (dispatch) {
     const res = await axios("/api/city");
-    console.log('soy Res',res)
+    console.log('soy Res', res)
     return dispatch({
       type: GET_ALL_CITIES,
       payload: res.data,
@@ -203,7 +205,7 @@ export const getAllCities = () => {
   };
 };
 
-export const filterByProvinceCity = (payload) => {  
+export const filterByProvinceCity = (payload) => {
   return {
     type: FILTER_BY_PROVINCE_CITY,
     payload,
@@ -221,7 +223,7 @@ export const cleanBusiness = () => {
 //COMIENZA ACTION USER
 
 export const getUsers = () => {
-  return async function(dispatch){
+  return async function (dispatch) {
     try {
       const res = await axios('/api/user');
       return dispatch({
@@ -331,6 +333,42 @@ export const editBusiness = (id, body) => {
       console.log("res", res)
       return dispatch({
         type: PUT_BUSINESS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//post travel
+export const addTravel = (body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(
+        `/api/travel`,
+        body
+      );
+      console.log("res", res)
+      return dispatch({
+        type: ADD_TRAVEL,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+//get travels
+export const getAllTravel = () => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(
+        `/api/travel`
+      );
+      console.log("res", res)
+      return dispatch({
+        type: GET_TRAVELS,
         payload: res.data,
       });
     } catch (error) {

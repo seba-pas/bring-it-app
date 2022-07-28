@@ -18,6 +18,7 @@ import {
   filterByProvinces,
   getAllProvinces,
 } from "../actions";
+import FormTravel from "./FormTravel";
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
@@ -101,6 +102,7 @@ export default function HomePersonas() {
   return (
     <div>
       <NavBar />
+      <FormTravel />
 
       {PRODUCTS.length > 0 ? (
         <div className={styles.containerCards}>
@@ -165,7 +167,7 @@ export default function HomePersonas() {
               <option value="All">Todas</option>
 
               {PROVINCES.map((province) => {
-                return(
+                return (
                   <option value={province} key={province}>
                     {province}
                   </option>
