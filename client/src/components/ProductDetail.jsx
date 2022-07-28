@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProductsDetail, setDetail } from "../actions";
+import { getAllProductsDetail, setDetail,addToCart } from "../actions";
 import { useEffect } from "react";
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "../components/NavBar";
@@ -96,7 +96,7 @@ export const ProductDetail = () => {
                 </div>
                 <a
                   className="btn btn-primary"
-                  onClick={(e) => handleClick(e)}
+                  onClick={(e) => handleClickAddToCart(e)}
                   id={styles.boton2}
                 >
                   AGREGAR AL CARRITO
