@@ -26,6 +26,7 @@ import {
   FILTER_BY_BUSINESS,
   PUT_USER,
   PUT_BUSINESS,
+  FILTER_BY_CITIES,
 
 
   //Acciones del carrito (cart)
@@ -33,7 +34,7 @@ import {
   INCREMENT_ONE_IN_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
-  CLEAR_CART
+  CLEAR_CART,
 
 
 } from "./actionsTypes";
@@ -211,6 +212,12 @@ export const getAllCities = () => {
   };
 };
 
+export const filterByCities = (payload) => {
+  return{
+    type: FILTER_BY_CITIES,
+    payload
+  }
+ }
 export const filterByProvinceCity = (payload) => {  
   return {
     type: FILTER_BY_PROVINCE_CITY,
@@ -352,26 +359,26 @@ export const editBusiness = (id, body) => {
 //cart:  [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
 
 //Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto
-export function addToCart (product){
+export function addToCart (productsDetail){
   //Importante: validar que si ya hay productos en el cart, la cityId sea la misma q la de los productos q ya estan en el cart  
   
-  console.log(`addToCart - actions. Product recibido: ${product}`);
+  console.log(`addToCart - actions. Product recibido: ${productsDetail}`);
   return {
     type: ADD_TO_CART,
-    payload: product
+    payload: productsDetail
   }
 };
 
 
 
 //Incrementa en 1 la cantidad de un producto ya existente en el carrito (recibe id)
-export function incrementOneInCart (productId){
-  console.log(`incrementOneInCart - actions`);
-  return {
-    type: INCREMENT_ONE_IN_CART,
-    payload: productId
-  }
-};
+// export function incrementOneInCart (productId){
+//   console.log(`incrementOneInCart - actions`);
+//   return {
+//     type: INCREMENT_ONE_IN_CART,
+//     payload: productId
+//   }
+// };
 
 //Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
 export function removeOneFromCart (productId){
@@ -382,8 +389,8 @@ export function removeOneFromCart (productId){
   }
 };
 
-//Elimina el producto del cart (recibe id)
-export function removeAllFromCart (){
+// Elimina el producto del cart (recibe id)
+export function removeAllFromCart (productId){
   console.log(`removeAllFromCart - actions`);
   return {
     type: REMOVE_ALL_FROM_CART,

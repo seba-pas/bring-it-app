@@ -17,6 +17,8 @@ import {
   filterByBusiness,
   filterByProvinces,
   getAllProvinces,
+  filterByCities,
+  filterByProvinceCity,
 } from "../actions";
 
 export default function HomePersonas() {
@@ -24,8 +26,10 @@ export default function HomePersonas() {
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
   const CATEGORY = useSelector((state) => state.categories);
-
+  const CITIES = useSelector((state) =>state.business2);
   const PROVINCES = useSelector((state => state.uniqueProvinces));
+
+  console.log(PRODUCTS)
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -97,12 +101,24 @@ export default function HomePersonas() {
     dispatch(filterByProvinces(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
+   //funcion para filtrar por ciduades
+   function handleFilterByCities(e) {
+    e.preventDefault();
+    // setProvince(e.target.value);
+    setCurrentPage(1);
+    dispatch(filterByProvinceCity(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+  }
 
   return (
     <div>
       <NavBar />
 
       {PRODUCTS.length > 0 ? (
+
+        PRODUCTS == "No se encontraron productos asociados" ? 
+        <div><h1>No se encontraron productos asociados</h1></div> : (
+
         <div className={styles.containerCards}>
          
           <div className={styles.containerS}>
@@ -182,6 +198,7 @@ export default function HomePersonas() {
             paginado={paginado}
           />
         </div>
+        )
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed

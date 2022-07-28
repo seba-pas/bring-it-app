@@ -89,7 +89,6 @@ export default function NavBarLanding() {
   //Business
   function handleSubmitLoginBusiness(e) {
     e.preventDefault();
-    console.log(inputBusiness.password.length);
     if (
       inputBusiness.email !== "" &&
       inputBusiness.password !== "" &&
@@ -152,7 +151,7 @@ export default function NavBarLanding() {
         });
         dispatch(cleanBusiness());
         return;
-      } else if (business.email) {
+      } else if (business.others) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
 
         setInputBusiness({
@@ -235,7 +234,7 @@ export default function NavBarLanding() {
         });
         dispatch(cleanUsers());
         return;
-      } else if (user.email) {
+      } else if (user.others) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",

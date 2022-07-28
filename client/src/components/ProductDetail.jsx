@@ -26,8 +26,13 @@ export const ProductDetail = () => {
     alert("PROXIMAMENTE!!!...");
   }
 
-  
-  console.log(product.business);
+  function handleClickAddToCart (e){
+    e.preventDefault();
+    dispatch(addToCart(product));
+  }
+
+ 
+
   return (
     <div>
       <NavBar />
