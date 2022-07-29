@@ -32,11 +32,24 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING, // DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
         allowNull: true
     },
+    age: {
+      type: DataTypes.INTEGER
+    },
     deleted: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: false
     },
+    active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: true
+    },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
+
     },
     {
         timestamps: false

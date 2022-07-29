@@ -1,8 +1,8 @@
 #boton {
   font-family: "Montserrat", sans-serif;
-  background-color: #3ab0ff;
+  background-color: chocolate;
   color: white;
-  border: 3px solid #3ab0ff;
+  border: 3px solid chocolate;
   font-weight: bold;
   border-radius: 5px;
   font-size: 15px;
@@ -11,29 +11,45 @@
 }
 
 #boton:hover {
-  transition: border 0.2s ease, background-color 0.4s ease;
-  background-color: #ffb562;
+  transition: border 1.5s ease, background-color 1.5s ease;
+  background-color: #3ab0ff;
   color: white;
-  border: 3px solid #ffb562;
+  border: 3px solid #3ab0ff;
 }
 #card {
+  text-align: left;
   transition: box-shadow 0.4s ease;
+  max-width: 100%;
+  min-width: 20%;
+  margin: 10px;
+  
+  
 }
+
+
 #card:hover {
   /* background-color: #41d4cf69; */
-  box-shadow: 0 8px 18px 0 rgba(0, 0, 0, 0.3), 0 8px 18px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3), 0 4px 10px 0 rgba(0, 0, 0, 0.3);
 }
 #name {
-  font-size: 32px;
-  font-weight: 200;
-
-  text-align: right;
-}
-#price {
   font-size: 37px;
-  font-weight: 200;
+  font-weight: 400;
 
   text-align: left;
+}
+#price {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 40px;
+  font-weight: 200;
+  /* margin-left: 10px; */
+
+  text-align: left;
+}
+
+ img {
+  max-height: 40%;
+  object-fit: fill;
 }
 .bold {
   justify-content: left;
@@ -42,6 +58,9 @@
 }
 #bold {
   font-weight: bolder;
+}
+#description {
+  margin-top:20px;
 }
 /* 
 

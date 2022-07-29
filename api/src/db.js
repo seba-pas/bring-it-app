@@ -68,7 +68,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-const { Product, Category, Business, City, Province, Purchase, Confirmed, User, Travel, Cart } = sequelize.models;
+const { Product, Category, Business, City, Province, Purchase, Confirmed, User, Travel, Purchaseitem, Review, Cart, Favorite } = sequelize.models;
 
 
 // Aca vendrian las relaciones
@@ -86,10 +86,6 @@ Business.belongsTo(City);
 Province.hasMany(City);
 City.belongsTo(Province);
 
-
-// Esta relación cambia de 1 a N, a N a N y se regula con el stock
-Purchase.belongsToMany(Product, {through: "purchase_product"});
-Product.belongsToMany(Purchase, {through: "purchase_product"});
 
 // Esta relación nos hace ruido pero no nos cierra ninguna otra alternativa mejor
 Purchase.hasOne(Confirmed);
@@ -110,6 +106,20 @@ Confirmed.belongsTo(Travel);
 City.hasOne(Travel, {as: 'travelCity', foreignKey: 'travelCityId'});
 City.hasOne(Travel, {as: 'arrivalCity', foreignKey: 'arrivalCityId'});
 
+//Relación 1-N product-purchaseItems y 1-N purchaseItems-purchase
+Purchase.hasMany(Purchaseitem);
+Purchaseitem.belongsTo(Purchase);
+
+Product.hasMany(Purchaseitem);
+Purchaseitem.belongsTo(Product);
+
+//Relaciones Review
+User.hasMany(Review);
+Review.belongsTo(User);
+
+Product.hasMany(Review);
+Review.belongsTo(Product);
+
 // product - cart
 Cart.hasMany(Product);
 Product.belongsTo(Cart);
@@ -117,6 +127,14 @@ Product.belongsTo(Cart);
 // user - cart
 Cart.hasOne(User);
 User.belongsTo(Cart);
+
+
+//Relaciones Favorite
+User.hasMany(Favorite);
+Favorite.belongsTo(User);
+
+Product.hasMany(Favorite);
+Favorite.belongsTo(Product);
 
 
 

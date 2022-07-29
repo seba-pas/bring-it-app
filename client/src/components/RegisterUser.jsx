@@ -1,13 +1,16 @@
 import { useHistory } from "react-router-dom";
-import { addUser, cleanUsers} from "../actions/index.js";
+import { addUser, cleanUsers } from "../actions/index.js";
 import { React, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import imgIcon from "./img/programmer.png";
 import style from "../styles/RegisterUser.module.css";
 import NavBarRegisters from "./NavBarRegisters.jsx";
+import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
+
 const validateUsers = (input) => {
   const errors = {};
 
@@ -44,7 +47,7 @@ function RegisterUser() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
-
+  const [value, setValue] = useState();
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -89,7 +92,6 @@ function RegisterUser() {
       input.birthDate !== ""
     ) {
       dispatch(addUser(input));
-      
     } else {
       swal(
         "Faltan datos por llenar",
@@ -98,31 +100,30 @@ function RegisterUser() {
       );
     }
   }
-//NUEVO AGUS -> PARA QUE MUESTRE CUANDO USUARIO YA EXISTE
-const user = useSelector((state) => state.user);
-const [didMount, setDidMount] = useState(true);
+  //NUEVO AGUS -> PARA QUE MUESTRE CUANDO USUARIO YA EXISTE
+  const user = useSelector((state) => state.user);
+  const [didMount, setDidMount] = useState(true);
   useEffect(() => {
     if (didMount) {
       setDidMount(false);
-      return; 
+      return;
     } else {
-      if ( user === "Usuario creado") {
-      swal("Buen trabajo!", "El usuario fue creado con exito!", "success");
-      setInput({
-        email: "",
-        password: "",
-        name: "",
-        lastname: "",
-        birthDate: "",
-      });
-      history.push("/persona");
-      } else if ( user === "error:Validation error") {
-      swal("Ya existe un usuario con el email");
-      dispatch(cleanUsers());
+      if (user === "Usuario creado") {
+        swal("Buen trabajo!", "El usuario fue creado con exito!", "success");
+        setInput({
+          email: "",
+          password: "",
+          name: "",
+          lastname: "",
+          birthDate: "",
+        });
+        history.push("/persona");
+      } else if (user === "error:Validation error") {
+        swal("Ya existe un usuario con el email");
+        dispatch(cleanUsers());
       }
     }
   }, [user]);
-
 
   return (
     <div className={style.divContainer}>
@@ -219,7 +220,18 @@ const [didMount, setDidMount] = useState(true);
                     required
                   />
                 </Form.Group>
-
+                <Form.Group>
+                  <Form.Label>Agrega tu numero de contacto</Form.Label>
+                  <div>
+                    <PhoneInput
+                      placeholder="Enter phone number"
+                      value={value}
+                      dropdownStyle={{width:"50%"}}
+                      onChange={setValue}
+                    />
+                    {value}
+                  </div>
+                </Form.Group>
                 <Button
                   variant="primary"
                   className="mt-3 mb-5 w-100 mt-3"

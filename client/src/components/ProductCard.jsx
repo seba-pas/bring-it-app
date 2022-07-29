@@ -13,11 +13,12 @@ export default function ProductCard({
   categories,
   id,
 }) {
+
   return (
     <div
       className="card"
       id={styles.card}
-      style={{ padding: "0", margin: "20px", width: "20%", height: "auto" }}
+      style={{ padding: "0", margin: "12px", width: "15%", height: "490px" }}
     >
       <img
         className="card-img-top"
@@ -30,18 +31,18 @@ export default function ProductCard({
           {name}
         </h5>
         <h5 className="card-title" id={styles.price}>
-          ${price}
+          ${price}.00
         </h5>
         <p className="card-text" id={styles.description}>
           
           {description}
         </p>
-        <p>
+        {/* <p>
           <span className={styles.bold}>Categorias:{"   "}</span>
           {Array.isArray(categories)
             ? categories.map((e) => e.name + "  ")
             : "No tiene categoria"}
-        </p>
+        </p> */}
       </div>
       <a
         href={`product/${id}`}

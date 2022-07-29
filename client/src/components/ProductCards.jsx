@@ -6,9 +6,8 @@ export default function ProductCards({ currentProducts }) {
    
   return (
     // <div className={styles.grid}>
-    <div className="card-deck" style={{display: "flex", justifyContent: "space-around", marginTop: "20px"}}>
+    <div className="card-deck" style={{display: "flex", justifyContent: "flex-end", marginTop: "40px", width: "100%"}}>
       <div className="row" style={{justifyContent: "space-around"}}>
-        {console.log(currentProducts)}
       {currentProducts.map((el) => (        
         <ProductCard
         key={el.id}

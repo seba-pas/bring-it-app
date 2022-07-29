@@ -47,6 +47,11 @@ module.exports = (sequelize) => {
         allowNull: true,
         defaultValue: false
       },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true
+      },
       //cityId no va definida aca, se vincula en las relaciones (archivo db.js)
     },
     {

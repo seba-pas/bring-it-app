@@ -18,6 +18,9 @@ import FormTravel from "./components/FormTravel";
 import UserTravels from "./components/UserTravels";
 
 
+import CheckOut from "./components/Stripe/CheckOut";
+
+
 // import NavBar from "./components/NavBar";
 
 // import Home from "./components/Home";
@@ -38,12 +41,15 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
+        <Route path='/checkout' component={CheckOut} />
 
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
 
         <Route exact path="/admin" component={HomeAdmin} />
         {/* <Route exact path="/testing" component={FormTravel} /> */}
+
+        
 
       </Switch>
     </div>
