@@ -402,7 +402,7 @@ export function removeAllFromCart(productId) {
 
 //Elimina todos los productos del cart (recibe id)
 export function clearCart() {
-  console.log(`clearCart - actions`);
+  console.log('llegue')
   return {
     type: CLEAR_CART,
   };

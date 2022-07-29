@@ -11,13 +11,13 @@ function PerfilUser(props) {
 
     const emailState = gState.email;
     const infoUser = gState.user;
-   
+    console.log(infoUser.others.dataValues)
     const [input, setInput] = useState({
-        email: infoUser.email,
-        password: infoUser.password,
-        name: infoUser.name,
-        lastname: infoUser.lastname,
-        birthDate: infoUser.birthDate,
+        email: infoUser.others.dataValues.email,
+        password: infoUser.others.dataValues.password,
+        name: infoUser.others.dataValues.name,
+        lastname: infoUser.others.dataValues.lastname,
+        birthDate: infoUser.others.dataValues.birthDate,
         arrayInfo: [],
     })
 

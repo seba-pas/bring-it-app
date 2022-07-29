@@ -17,13 +17,15 @@ import NavBarRegisters from "./NavBarRegisters.jsx";
 import swal from "sweetalert";
 import imgIcon from "./img/programmer.png";
 import "../styles/RegisterBusiness.css";
-
+import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
 function RegisterBusiness() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const PROVINCES = useSelector((state) => state.provinces);
   const gState = useSelector((state) => state);
+  const [value, setValue] = useState();
 
 
   const CITIES = useSelector((state) => state.cities);
@@ -377,7 +379,17 @@ function RegisterBusiness() {
                   onChange={(e) => handleChange(e)}
                 />
               </Form.Group>
-
+              <Form.Group>
+                  <Form.Label>Agrega tu numero de contacto</Form.Label>
+                  <div>
+                    <PhoneInput
+                      placeholder="Enter phone number"
+                      value={value}
+                      onChange={setValue}
+                    />
+                    {value}
+                  </div>
+                </Form.Group>
               {/* <Form.Group>
                 <select onChange={(e) => handleFilterByCities(e)}>
                   <option value="All">Todas</option>

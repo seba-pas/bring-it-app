@@ -9,7 +9,7 @@ import imgIcon from "./img/programmer.png";
 import style from "../styles/RegisterUser.module.css";
 import NavBarRegisters from "./NavBarRegisters.jsx";
 import PhoneInput from "react-phone-number-input";
-import 'react-phone-number-input/style.css'
+import "react-phone-number-input/style.css";
 
 const validateUsers = (input) => {
   const errors = {};
@@ -43,6 +43,7 @@ const validateUsers = (input) => {
 
   return errors;
 };
+
 function RegisterUser() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -56,11 +57,23 @@ function RegisterUser() {
     lastname: "",
     birthDate: "",
   });
+ /*  function getAge(input) {
+    var today = new Date();
+    var birthDate = new Date(input.birthDate);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+  } */
 
   function handleChange(e) {
+
     setInput({
       ...input,
       [e.target.name]: e.target.value,
+
     });
     setErrors(
       validateUsers({
@@ -226,7 +239,6 @@ function RegisterUser() {
                     <PhoneInput
                       placeholder="Enter phone number"
                       value={value}
-                      dropdownStyle={{width:"50%"}}
                       onChange={setValue}
                     />
                     {value}

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
 import logo from "./img/logoCUT.png";
-import { getUsers, getCart } from "../actions";
+import { getUsers, getCart, clearCart } from "../actions";
 import userProfile from "./img/userPerfilImage.jpg";
 import "bootstrap/dist/css/bootstrap.css";
 import Cart from "./Cart";
@@ -25,7 +25,7 @@ export default function NavBar() {
     perfil: "",
     user: {},
   });
-
+  // console.log(input.user.others.dataValues)
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -41,7 +41,9 @@ export default function NavBar() {
 
   useEffect(() => {
     if (input.perfil === "email") history.push("/perfilUser");
-    else if (input.perfil === "close") history.push("/");
+    else if (input.perfil === "close") {
+      dispatch(clearCart())
+      history.push("/")};
   }, [input.perfil]);
 
   const handleOnChange = (event) => {
@@ -108,7 +110,7 @@ export default function NavBar() {
         >
           <option value="">{input.perfil} </option>
 
-          <option value="email">{input.user.email}</option>
+          <option value="email">{gState.user.others.dataValues.email}</option>
           <option value="close">Cerrar sesión</option>
         </select>
       </div>
