@@ -8,8 +8,11 @@ import { getUsers, getCart } from "../actions";
 import userProfile from "./img/userPerfilImage.jpg";
 import "bootstrap/dist/css/bootstrap.css";
 import Cart from "./Cart";
+import { getAllProducts } from "../actions";
+
 //seba
-export default function NavBar({ cart }) {
+export default function NavBar() {
+  const [search, setSearch] = useState('');
   const gState = useSelector((state) => state);
   const stateCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -50,6 +53,11 @@ export default function NavBar({ cart }) {
       };
     });
   };
+
+  function onClick(e) {
+    e.preventDefault();
+    dispatch(getAllProducts())
+  }
 
   return (
     <div className={styles.navbar}>
@@ -103,6 +111,9 @@ export default function NavBar({ cart }) {
           <option value="email">{input.user.email}</option>
           <option value="close">Cerrar sesión</option>
         </select>
+      </div>
+      <div>
+        <button onClick={(e) => onClick(e)}>Volver</button>
       </div>
     </div>
   );

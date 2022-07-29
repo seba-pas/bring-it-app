@@ -77,7 +77,7 @@ export const getAllProductsName = (name) => {
         payload: res.data,
       });
     } catch (error) {
-      alert("No existe ese producto");
+      alert("No se encontraron productos asociados");
     }
   };
 };
