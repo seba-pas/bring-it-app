@@ -1,6 +1,7 @@
 const axios= require ("axios");
 const { Router } = require('express');
-const {User} = require('../db');
+const {User, Travel} = require('../db');
+
 
 async function getTravel(){
     const travel = await Travel.findAll({

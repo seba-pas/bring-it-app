@@ -1,8 +1,9 @@
-const { Product, User, Business, Category } = require('./../db');
+const { Product, User, Business, Category, Businessbranch, City } = require('./../db');
 const users = require('./user.json');
 const categories = require('./category.json');
 const businesses = require('./business.json');
 const products = require('./products.json');
+const businessbranch = require('./businessbranch.json');
 
 async function loadDB (){
     const usersLoad = users.forEach( async (u) => {
@@ -34,13 +35,21 @@ async function loadDB (){
           businessName: b.businessName,
           cuit: b.cuit,
           taxBracket: b.taxBracket,
+        }
+      })
+    }) ;
+    const businessesbranchLoad = businessbranch.forEach( async (b) => {      
+      await Businessbranch.findOrCreate({
+        where: {
+          businessEmail: b.businessEmail,           
+          businessBranchName: b.businessBranchName,           
           province: b.province,
           address: b.address,
           cityId: b.cityId
         }
       })
     }) ;
-    console.log('Businesses saved successfully') ;
+    console.log('Businessbranches saved successfully') ;
     const productsLoad = products.forEach( async (p) => {
          const newProduct = await Product.findOrCreate({
             where: {
@@ -50,7 +59,7 @@ async function loadDB (){
               image: p.image,
               stock: p.stock,
               description: p.description,
-              businessEmail: p.businessEmail
+              businessbranchId: p.businessbranchId
             }
           })
           const newProduct2 = await Product.findByPk(newProduct[0].dataValues.id);

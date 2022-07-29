@@ -1,4 +1,4 @@
-const { Product, Business, Category } = require ('../db');
+const { Product, Business, Category, Businessbranch } = require ('../db');
 const axios = require ('axios');
 const { Op } = require('sequelize');
 
@@ -6,24 +6,13 @@ const { Op } = require('sequelize');
 async function getProductById (id){
     try {
         const foundProduct = await Product.findByPk (id, {
-            include: [{model: Business}, {model: Category}]
+            include: [{model: Businessbranch}, {model: Category}]
         });      
         return foundProduct;  
     } catch (error) {
         return "No se encontró el producto solicitado";
     }
 }
-
-//Funcion del POST Product (es necesario q existan categorias y business cargadas)
-// async function addProduct (product){
-//     const categoryId = product.categoryId; //viene del front. Es un arreglo de ids de category, arreglo de enteros        
-//     try {        
-//         const newProduct = await Product.create ({...product});     
-//         await newProduct.addCategory (categoryId);        
-//     } catch (error) {
-//         throw new error (`No se puedo agregar el producto a la base de datos, ${error}`);
-//     }
-// }
 
 //Fucion del GET Products, redirecciona segun haya query name o no 
 function getProducts (name){
@@ -39,7 +28,7 @@ function getProducts (name){
 async function getAllProducts (){
     try {
         const foundProductsComplete = await Product.findAll({
-            include: [{model: Business}, {model: Category}]
+            include: [{model: Businessbranch}, {model: Category}]
         });       
         return foundProductsComplete;        
     } catch (error) {
@@ -56,9 +45,8 @@ async function getProductsByName (name){
                     [Op.iLike]: `%${name}%`,
                 }
             },
-            include: [{model: Business}, {model: Category}]
-        });
-        console.log(foundProductsName);
+            include: [{model: Businessbranch}, {model: Category}]
+        });        
         if (foundProductsName.length) {
             return foundProductsName
         } else {
@@ -69,7 +57,6 @@ async function getProductsByName (name){
     }
 
 }
-
 
 
 module.exports = {

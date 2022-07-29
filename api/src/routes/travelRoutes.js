@@ -1,5 +1,6 @@
 const { Router } = require ("express");
 const {Travel} = require('./../db')
+const { getTravel } = require ('../controllers/travelControllers');
 
 const router = Router();
 
