@@ -132,7 +132,7 @@ export default function HomePersonas() {
     e.preventDefault();
     // setProvince(e.target.value);
     setCurrentPage(1);
-    dispatch(filterByProvinceCity(e.target.value));
+    dispatch(filterByCities(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
 
@@ -210,6 +210,22 @@ export default function HomePersonas() {
                   );
                 })}
               </select>
+              <select
+                value={business.city}
+                onChange={(e) => handleFilterByCities(e)}
+              >
+                <option value="All">Todas</option>
+
+                {console.log(BUSINESS)}
+                {BUSINESS?.map((BUSINESS) => {
+                  return (
+                    <option value={BUSINESS.city.nombre} key={BUSINESS.city.id}>
+                      {BUSINESS.city.nombre}
+                    </option>
+                  );
+                })}
+              </select>
+
               <button
                 className={styles.botonvol}
                 onClick={(e) => handleClick(e)}
