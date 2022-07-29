@@ -21,6 +21,7 @@ import {
   filterByCities,
   filterByProvinceCity,
   clearCart,
+  getAllBranches,
 } from "../actions";
 import FormTravel from "./FormTravel";
 
@@ -34,6 +35,7 @@ export default function HomePersonas() {
   const PROVINCES = useSelector((state) => state.uniqueProvinces);
   const stateCart = useSelector((state) => state.cart);
   const gState = useSelector((state) => state);
+  const BRANCHES = useSelector((state) => state.branches);
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -69,10 +71,10 @@ export default function HomePersonas() {
   }, [gState]);
   useEffect(() => {
     if (input.perfil === "email") history.push("/perfil");
-    else if (input.perfil === "close"){
+    else if (input.perfil === "close") {
       cart = [];
       history.push("/");
-    } 
+    }
   }, [input.perfil]);
 
 
@@ -81,6 +83,7 @@ export default function HomePersonas() {
     dispatch(getCategories());
     dispatch(getAllBusiness());
     dispatch(getAllProvinces());
+    dispatch(getAllBranches());
   }, [dispatch]);
 
   //funcion para volver a cargar los productos
@@ -132,7 +135,7 @@ export default function HomePersonas() {
     e.preventDefault();
     // setProvince(e.target.value);
     setCurrentPage(1);
-    dispatch(filterByProvinceCity(e.target.value));
+    dispatch(filterByCities(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
 
@@ -189,10 +192,10 @@ export default function HomePersonas() {
                 <option hidden selected>
                   Empresa
                 </option>
-                {BUSINESS.map((BUSINESS) => {
+                {BRANCHES.map((BRANCHES) => {
                   return (
-                    <option value={BUSINESS.businessName} key={BUSINESS.email}>
-                      {BUSINESS.businessName}
+                    <option value={BRANCHES.businessBranchName} key={BRANCHES.id}>
+                      {BRANCHES.businessBranchName}
                     </option>
                   );
                 })}
@@ -203,14 +206,30 @@ export default function HomePersonas() {
               >
                 <option value="All">Todas</option>
 
-                {PROVINCES.map((province) => {
+                {BRANCHES.map((province) => {
                   return (
-                    <option value={province} key={province}>
-                      {province}
+                    <option value={province.province} key={business.province}>
+                      {province.province}
                     </option>
                   );
                 })}
               </select>
+              {/* <select
+                value={business.city}
+                onChange={(e) => handleFilterByCities(e)}
+              >
+                <option value="All">Todas</option>
+
+                {console.log(BUSINESS)}
+                {BUSINESS?.map((BUSINESS) => {
+                  return (
+                    <option value={BUSINESS.city.nombre} key={BUSINESS.city.id}>
+                      {BUSINESS.city.nombre}
+                    </option>
+                  );
+                })}
+              </select> */}
+
               <button
                 className={styles.botonvol}
                 onClick={(e) => handleClick(e)}

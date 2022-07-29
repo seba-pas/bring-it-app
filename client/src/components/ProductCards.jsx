@@ -1,8 +1,10 @@
 import React from "react";
 import ProductCard from './ProductCard'
 import styles from "../styles/ProductCards.module.css";
+import { useSelector } from "react-redux";
 
 export default function ProductCards({ currentProducts }) {
+  const BUSINESS = useSelector((state) => state.business2);
    
   return (
     // <div className={styles.grid}>
@@ -17,10 +19,16 @@ export default function ProductCards({ currentProducts }) {
           description={el.description}
           image={el.image}
           id={el.id}
-          businessName={el.business === null?'Ninguna Empresa': el.business.businessName }
+          // businessName={el.business === null?'Ninguna Empresa': el.business.businessName }
           categories={el.categories}
+          // cityId={el.business === null?'Ninguna Ciudad' : el.business.cityId}
           />     
           ))}
+          {/* <div>
+         { BUSINESS.map((e) => e.city.nombre)}
+
+          </div> */}
+          {console.log(currentProducts)}
     </div>
     </div>
   );
