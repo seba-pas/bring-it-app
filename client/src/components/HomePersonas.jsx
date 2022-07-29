@@ -146,7 +146,8 @@ export default function HomePersonas() {
       {PRODUCTS.length > 0 ? (
         PRODUCTS == "No se encontraron productos asociados" ? (
           <div>
-            <h1>No se encontraron productos asociados</h1>
+            <h1 >No se encontraron productos asociados</h1>
+            <button onClick={(e) => handleClick(e)}>Volver</button>
           </div>
         ) : (
           <div className={styles.layout}>
@@ -236,7 +237,7 @@ export default function HomePersonas() {
                 Limpiar Filtros
               </button>
             </div>
-            <div className={styles.contcards}>
+            <div className={styles.contcards} >
               <ProductCards currentProducts={currentProducts} />
             </div>
             {/* <Pagination
