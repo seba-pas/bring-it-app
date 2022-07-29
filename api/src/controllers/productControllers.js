@@ -62,7 +62,7 @@ async function getProductsByName (name){
         if (foundProductsName.length) {
             return foundProductsName
         } else {
-            return "no se encontro nada"
+            return "No se encontraron productos asociados"
         }
     } catch (error) {
         throw new Error (`No se encontraron productos con el nombre ${name}, ${error}`);

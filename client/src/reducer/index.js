@@ -108,7 +108,7 @@ export default function rootReducer(state = initialState, action) {
       } else {
         return {
           ...state,
-          products: action.payload,
+          products: action.payload? action.payload : "No se encontraron productos asociados",
         };
       }
 
