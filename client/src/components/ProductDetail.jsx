@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllProductsDetail,
@@ -10,11 +10,12 @@ import {
 import { useEffect } from "react";
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "../components/NavBar";
-
+import swal from "sweetalert";
 import styles from "../styles/ProductDetail.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 export const ProductDetail = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.productsDetail);
   const cart = useSelector((state) => state.cart);
@@ -34,12 +35,13 @@ export const ProductDetail = () => {
 
   function handleClick(e) {
     e.preventDefault();
-    alert("PROXIMAMENTE!!!...");
+    history.push("/compra")
   }
 
   function handleClickAddToCart(e) {
     e.preventDefault();
     dispatch(addToCart(product));
+    swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
   }
 
   return (

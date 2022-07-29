@@ -11,7 +11,7 @@ import { ProductDetail } from "./components/ProductDetail";
 import LandingPage1 from "./components/LandingPage1";
 
 import PerfilBusiness from "./components/PerfilBusiness";
-
+import FormPurchase from "./components/FormPurchase";
 import HomeAdmin from "./components/HomeAdmin";
 import PerfilUser from "./components/PerfilUser";
 import FormTravel from "./components/FormTravel";
@@ -42,7 +42,7 @@ function App() {
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
         <Route path='/checkout' component={CheckOut} />
-
+        <Route exact path='/compra' component={FormPurchase}/>
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
 
