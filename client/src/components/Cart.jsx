@@ -1,12 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import { React } from "react";
+import { React, useEffect } from "react";
 
-import { removeOneFromCart, removeAllFromCart, clearCart } from "../actions";
+import { removeOneFromCart, removeAllFromCart, clearCart, getCart } from "../actions";
 import "bootstrap/dist/css/bootstrap.css";
 
 export default function Cart() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(getCart())
+  }, [dispatch])
+
+
+ 
+
 
   function handleRemoveOne(productId, all = false) {
     if (all) {

@@ -24,7 +24,8 @@ const initialState = {
   users: [],
 
   //Carrito (cart)
-  cart: [], // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
+  cart: [],
+  cart2: [] // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -164,7 +165,6 @@ export default function rootReducer(state = initialState, action) {
                 e.categories.map((e) => e.name).includes(action.payload)
             );
 
-      
       return {
         ...state,
         products: filterCategory,
@@ -199,7 +199,9 @@ export default function rootReducer(state = initialState, action) {
             );
       return {
         ...state,
-        products: filterBusiness.length? filterBusiness : "No se encontraron productos asociados" ,
+        products: filterBusiness.length
+          ? filterBusiness
+          : "No se encontraron productos asociados",
       };
 
     case "GET_ALL_PROVINCES":
@@ -217,7 +219,9 @@ export default function rootReducer(state = initialState, action) {
           : allProvinces.filter((e) => e.business.province === action.payload);
       return {
         ...state,
-        products: filterProvinces.length? filterProvinces : "No se encontraron productos asociados",
+        products: filterProvinces.length
+          ? filterProvinces
+          : "No se encontraron productos asociados",
       };
 
     case "GET_ALL_CITIES":
@@ -225,16 +229,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allCities: action.payload,
       };
-      // case 'FILTER_BY_CITIES':
-      //   const allCities = state.allProducts;
-      //   const filterCities = action.payload === 'All'
-      //   ?allCities 
-      //   :allCities.filter((e) => console.log(e.business.cityId))
-      //   // console.log(allCities)
-      // return{
-      //   ...state,
-      //   products: filterCities
-      // };
+    // case 'FILTER_BY_CITIES':
+    //   const allCities = state.allProducts;
+    //   const filterCities = action.payload === 'All'
+    //   ?allCities
+    //   :allCities.filter((e) => console.log(e.business.cityId))
+    //   // console.log(allCities)
+    // return{
+    //   ...state,
+    //   products: filterCities
+    // };
 
     //Filtrado de ciudades segun la provincia (recibe provinceId (string))
     case "FILTER_BY_PROVINCE_CITY":
@@ -253,15 +257,15 @@ export default function rootReducer(state = initialState, action) {
         userEditInfo: action.payload.filter((e) => e.email === state.email)[0],
       };
 
-    
     case "ADD_TO_CART":
       //Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto
       const productoCantidad = action.payload;
-      // localStorage.setItem("Products", JSON.stringify(productoCantidad));
+
+
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
-        );
-        return itemInCart
+      );
+      return itemInCart
         ? {
             ...state,
             cart: state.cart.map((item) =>
@@ -271,6 +275,7 @@ export default function rootReducer(state = initialState, action) {
             ),
           }
           : {
+
             ...state,
             cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
           };
@@ -302,6 +307,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         cart: [],
+      };
+    case "GET_CART":
+      return {
+        ...state,
+        
+        cart: [...state.cart]
       };
 
     default:
