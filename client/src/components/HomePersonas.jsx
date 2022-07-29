@@ -20,6 +20,7 @@ import {
   filterByCities,
   filterByProvinceCity,
 } from "../actions";
+import FormTravel from "./FormTravel";
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
@@ -111,6 +112,7 @@ export default function HomePersonas() {
   return (
     <div>
       <NavBar />
+      <FormTravel />
 
       {PRODUCTS.length > 0 ? (
         PRODUCTS == "No se encontraron productos asociados" ? (
@@ -192,11 +194,11 @@ export default function HomePersonas() {
             <div className={styles.contcards}>
               <ProductCards currentProducts={currentProducts} />
             </div>
-            {/* <Pagination
+            <Pagination
               productsPerPage={productsPerPage}
               PRODUCTS={PRODUCTS.length}
               paginado={paginado}
-            /> */}
+            /> 
           </div>
         )
       ) : (

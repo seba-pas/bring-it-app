@@ -24,13 +24,13 @@ export const GET_ALL_PROVINCES = 'GET_ALL_PROVINCES';
 export const FILTER_BY_PROVINCES = 'FILTER_BY_PROVINCES';
 export const PUT_USER = 'PUT_USER'
 export const PUT_BUSINESS = 'PUT_BUSINESS';
-export const GET_CART = 'GET_CART'
-
-
+export const ADD_TRAVEL = 'ADD_TRAVEL';
+export const GET_TRAVELS = 'GET_TRAVELS';
 export const GET_USERS = 'GET_USERS';
 
 
 //Acciones del carrito (cart)
+export const GET_CART = 'GET_CART';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const INCREMENT_ONE_IN_CART = 'INCREMENT_ONE_IN_CART';
 export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';
