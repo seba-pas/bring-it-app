@@ -1,7 +1,10 @@
 .navbar {
   background-color: white;
-  display: grid;
-  grid-template-columns:repeat(3,1fr);
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  /* grid-template-columns:repeat(3,1fr); */
   /* display: flex;
   align-content: space-around;
   margin-bottom: 40px; */
@@ -12,7 +15,11 @@
 }
 
 .imagen {
+  height: 100%;
+  object-fit: cover;
+  width: auto;
   margin-top: 15px;
+  margin-bottom: 20px;
   margin-right: 20%;
 }
 
@@ -26,12 +33,13 @@
   color: #1687A7;
   height: 37px;
   width: 250px;
+  margin-right: 0px;
   padding-bottom: 20px;
 }
 
 .SearchBar button {
   margin-left: 10px;
-  border-radius: 50%;
+  border-radius: 50px;
 }
 
 .SearchBar input::placeholder {
@@ -69,12 +77,10 @@
 }
 
 .selectPerfil {
-  border: solid 4px #41d4cf;
-  background-color: transparent;
-  border-left-color: #41d4cf;
-  border-top-color: #41d4cf;
-  border-bottom-color: #41d4cf;
-  border-right-color: #41d4cf;
-  color: black;
+  margin: 15px;
+  margin-top: 40px;
+  border: none;
+  background-color: rgba(210, 105, 30, 0.345);  
+  color: chocolate;
   font-size: 1.05rem;
 }

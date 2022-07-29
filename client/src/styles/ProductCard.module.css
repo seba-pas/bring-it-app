@@ -29,10 +29,10 @@
 
 #card:hover {
   /* background-color: #41d4cf69; */
-  box-shadow: 0 8px 18px 0 rgba(0, 0, 0, 0.3), 0 8px 18px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3), 0 4px 10px 0 rgba(0, 0, 0, 0.3);
 }
 #name {
-  font-size: 40px;
+  font-size: 37px;
   font-weight: 400;
 
   text-align: left;
@@ -40,7 +40,7 @@
 #price {
   padding-top: 10px;
   padding-bottom: 10px;
-  font-size: 45px;
+  font-size: 40px;
   font-weight: 200;
   /* margin-left: 10px; */
 
@@ -48,7 +48,7 @@
 }
 
  img {
-  max-height: 35%;
+  max-height: 40%;
   object-fit: fill;
 }
 .bold {

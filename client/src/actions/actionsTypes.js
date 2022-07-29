@@ -24,6 +24,7 @@ export const GET_ALL_PROVINCES = 'GET_ALL_PROVINCES';
 export const FILTER_BY_PROVINCES = 'FILTER_BY_PROVINCES';
 export const PUT_USER = 'PUT_USER'
 export const PUT_BUSINESS = 'PUT_BUSINESS';
+export const GET_CART = 'GET_CART'
 
 
 export const GET_USERS = 'GET_USERS';

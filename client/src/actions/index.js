@@ -34,6 +34,7 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  GET_CART
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -366,4 +367,11 @@ export function clearCart() {
   return {
     type: CLEAR_CART,
   };
+}
+
+export function getCart(){
+  return {
+    type: GET_CART,
+    
+  }
 }
