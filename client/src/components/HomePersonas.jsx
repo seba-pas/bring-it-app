@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
 
+
 import { SpinnerCircularFixed } from "spinners-react";
 
 import {
@@ -21,6 +22,7 @@ import {
   filterByProvinceCity,
   clearCart,
 } from "../actions";
+import FormTravel from "./FormTravel";
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
@@ -32,10 +34,13 @@ export default function HomePersonas() {
   const PROVINCES = useSelector((state) => state.uniqueProvinces);
   const stateCart = useSelector((state) => state.cart);
   const gState = useSelector((state) => state);
+
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
   const [business, setBusinnes] = useState("All");
   const [province, setProvince] = useState("All");
+
+  // const history = useHistory();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(8);
@@ -69,6 +74,7 @@ export default function HomePersonas() {
       history.push("/");
     } 
   }, [input.perfil]);
+
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -133,7 +139,7 @@ export default function HomePersonas() {
   return (
     <div>
       <NavBar />
-
+      <FormTravel />
       {PRODUCTS.length > 0 ? (
         PRODUCTS == "No se encontraron productos asociados" ? (
           <div>
@@ -214,11 +220,11 @@ export default function HomePersonas() {
             <div className={styles.contcards}>
               <ProductCards currentProducts={currentProducts} />
             </div>
-            {/* <Pagination
+            <Pagination
               productsPerPage={productsPerPage}
               PRODUCTS={PRODUCTS.length}
               paginado={paginado}
-            /> */}
+            /> 
           </div>
         )
       ) : (

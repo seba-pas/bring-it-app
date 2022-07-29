@@ -22,7 +22,8 @@ const initialState = {
   userEditInfo: {},
   uniqueProvinces: [],
   users: [],
-
+  travel: "",
+  allTravels: [],
   //Carrito (cart)
   cart: [],
   cart2: [] // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
@@ -109,7 +110,7 @@ export default function rootReducer(state = initialState, action) {
       } else {
         return {
           ...state,
-          products: action.payload,
+          products: action.payload? action.payload : "No se encontraron productos asociados",
         };
       }
 
@@ -140,7 +141,6 @@ export default function rootReducer(state = initialState, action) {
               }
               return 0;
             });
-
       return {
         ...state,
         products: sortedPrice,
@@ -160,10 +160,10 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allProducts
           : allProducts.filter(
-              (e) =>
-                e.categories &&
-                e.categories.map((e) => e.name).includes(action.payload)
-            );
+            (e) =>
+              e.categories &&
+              e.categories.map((e) => e.name).includes(action.payload)
+          );
 
       return {
         ...state,
@@ -195,8 +195,8 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allBusiness
           : allBusiness.filter(
-              (e) => e.business.businessName === action.payload
-            );
+            (e) => e.business.businessName === action.payload
+          );
       return {
         ...state,
         products: filterBusiness.length
@@ -245,6 +245,7 @@ export default function rootReducer(state = initialState, action) {
       const filteredCities = state.allCities.filter((city) =>
         city.provinceId.includes(action.payload)
       );
+
       return {
         ...state,
         cities: filteredCities,
@@ -311,6 +312,17 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         
         cart: [...state.cart]
+      };
+
+    case "ADD_TRAVEL":
+      return {
+        ...state,
+        travel: action.payload,
+      };
+    case "GET_TRAVELS":
+      return {
+        ...state,
+        allTravels: action.payload,
       };
 
     default:
