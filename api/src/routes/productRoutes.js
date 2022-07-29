@@ -39,7 +39,7 @@ router.get('/', (req,res) => {
     console.log(`search: ${name}`);
     try {
         return getProducts(name).then(products => 
-            typeof products === "object" ? res.json(products) : res.status(404).json(products));
+           res.send(products));
     } catch (error) {
         return res.send(error);
     }
