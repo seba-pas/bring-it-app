@@ -1,3 +1,14 @@
+
+.PhoneInputCountryIcon--border {
+    width: 100%;
+    height: auto;
+}
+.PhoneInput {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 10% 90%;
+}
+
 .iconImg{
     width: 70px;
     height: 70px;

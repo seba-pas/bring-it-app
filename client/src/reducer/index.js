@@ -260,8 +260,6 @@ export default function rootReducer(state = initialState, action) {
     case "ADD_TO_CART":
       //Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto
       const productoCantidad = action.payload;
-
-
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
       );
