@@ -12,6 +12,7 @@ const verifyToken = (req, res, next) => {
 				return res.status(403).json(`El token no es válido o ha expirado`)
 			} else {
 				req.user = user;
+				console.log(user)
 				next()
 			}
 		});
@@ -47,6 +48,13 @@ const verifyTokenAndAdmin = (req, res, next) => {
 		}
 	});
 };
+
+
+
+// VERIFY IF USER TYPE IS BUSINESS
+const verifyTokenAndBusiness = (req, res, next) => {
+
+}
 
 
 

@@ -3,7 +3,6 @@ const { DataTypes } = require("sequelize");
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-
   sequelize.define(
     "business",
     {
@@ -52,6 +51,10 @@ module.exports = (sequelize) => {
         allowNull: true,
         defaultValue: true
       },
+      isBusiness: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+      }
       //cityId no va definida aca, se vincula en las relaciones (archivo db.js)
     },
     {
