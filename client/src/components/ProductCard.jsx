@@ -18,7 +18,7 @@ export default function ProductCard({
     <div
       className="card"
       id={styles.card}
-      style={{ padding: "0", margin: "12px", width: "15%", height: "530px" }}
+      style={{ padding: "0", margin: "12px", width: "15%", height: "490px" }}
     >
       <img
         className="card-img-top"

@@ -1,7 +1,12 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProductsDetail, setDetail,addToCart } from "../actions";
+import {
+  getAllProductsDetail,
+  setDetail,
+  addToCart,
+  getCart,
+} from "../actions";
 import { useEffect } from "react";
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "../components/NavBar";
@@ -12,8 +17,13 @@ import "bootstrap/dist/css/bootstrap.css";
 export const ProductDetail = () => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.productsDetail);
+  const cart = useSelector((state) => state.cart);
 
   const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getAllProductsDetail(id)); //component did mount
@@ -21,17 +31,16 @@ export const ProductDetail = () => {
       dispatch(setDetail());
     };
   }, [dispatch, id]);
+
   function handleClick(e) {
     e.preventDefault();
     alert("PROXIMAMENTE!!!...");
   }
 
-  function handleClickAddToCart (e){
+  function handleClickAddToCart(e) {
     e.preventDefault();
     dispatch(addToCart(product));
   }
-
- 
 
   return (
     <div>
@@ -39,18 +48,18 @@ export const ProductDetail = () => {
 
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
-          <div  className={styles.imgCon}>
+          <div className={styles.imgCon}>
             <img
               style={{ objectFit: "cover" }}
               className="card-img-top"
               src={product.image}
               alt="Card image cap"
             />
-            </div>
+          </div>
           <div className="card" id={styles.card} style={{ width: "25%" }}>
             <div className="card-body">
-            <p className="card-text" id={styles.empresa}>
-                <span >Empresa: </span>
+              <p className="card-text" id={styles.empresa}>
+                <span>Empresa: </span>
                 {product.business === null ||
                 product.categories === undefined ||
                 product.business.length == 0
@@ -77,22 +86,21 @@ export const ProductDetail = () => {
               <p className="card-text" id={styles.description}>
                 {product.description}
               </p>
-             
-             
+
               <p className="card-text" id={styles.stock}>
                 {" "}
                 <span id={styles.bold}>Disponibles: </span>
                 {product.stock}
               </p>
-              <div className='card-footer'>
-              <div className={styles.contBot}>
-                <a
-                  className="btn btn-primary"
-                  onClick={(e) => handleClick(e)}
-                  id={styles.boton}
-                >
-                  COMPRAR
-                </a>
+              <div className="card-footer">
+                <div className={styles.contBot}>
+                  <a
+                    className="btn btn-primary"
+                    onClick={(e) => handleClick(e)}
+                    id={styles.boton}
+                  >
+                    COMPRAR
+                  </a>
                 </div>
                 <a
                   className="btn btn-primary"
@@ -116,8 +124,8 @@ export const ProductDetail = () => {
             size={250}
             thickness={100}
             speed={100}
-            color="rgba(58, 176, 255, 1)"
-            secondaryColor="rgba(58, 176, 255, 0.23)"
+            color="rgba(210, 105, 30, 1)"
+            secondaryColor="rgba(210, 105, 30, 0.23)"
           />
         </div>
       )}

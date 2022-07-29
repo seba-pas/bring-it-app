@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
 import logo from "./img/logoCUT.png";
-import { getUsers } from "../actions";
+import { getUsers, getCart } from "../actions";
 import userProfile from "./img/userPerfilImage.jpg";
 import "bootstrap/dist/css/bootstrap.css";
 import Cart from "./Cart";
 //seba
-export default function NavBar({cart}) {
+export default function NavBar({ cart }) {
   const gState = useSelector((state) => state);
   const stateCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -17,11 +17,15 @@ export default function NavBar({cart}) {
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-  const [opening, setOpening] = useState(false)
+  const [opening, setOpening] = useState(false);
   const [input, setInput] = useState({
     perfil: "",
     user: {},
   });
+
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch]);
 
   useEffect(() => {
     setInput((prevInput) => {
@@ -50,27 +54,29 @@ export default function NavBar({cart}) {
   return (
     <div className={styles.navbar}>
       <div className={styles.imagen}>
-        <NavLink exact to="/">
-          <img
-            src={logo}
-            style={{ width: "auto", height: "100px" }}
-            alt="Logo no encontrado"
-          />
-        </NavLink>
+        <img
+          src={logo}
+          style={{ width: "auto", height: "100px" }}
+          alt="Logo no encontrado"
+        />
       </div>
       <div className={styles.search}>
         <SearchBar />
       </div>
       <ul className="navbar-right">
-        <li style={{listStyle: "none"}}>
+        <li style={{ listStyle: "none", color: "#d2691E", fontSize: "18px", margin: "3px", marginTop: "35px"}}>
           {/* <a href="#" id="cart" > */}
-            
-            <i className="fa fa-shopping-cart" onClick={() => setOpening(!opening)}>Cart </i>{' '}
-            <span style={{ color: "black" }} className="badge">
-              {stateCart.length}
-            </span> 
-            {opening &&
-            <Cart/>}
+          <i
+            className="fa fa-shopping-cart"
+            onClick={() => setOpening(!opening)}
+            style={{ color: "#d2691e", fontSize: "18px", margin: "3px"}}
+          >
+            Cart {" "}
+          </i>{" "}
+          <span style={{ color: "#D2691E", margin: "5px", fontSize: "18px"}} className="badge">
+            {stateCart.length}
+          </span>
+          {opening && <Cart />}
           {/* </a> */}
         </li>
       </ul>

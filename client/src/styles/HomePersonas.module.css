@@ -1,7 +1,5 @@
-
-
   .spinner {
-    background-color: #F6F5F5;
+  background-color: #F6F5F5;
   display: flex;
   margin-top:40px; 
   justify-content: center;
@@ -11,33 +9,36 @@
 }
 .containerS {
   font-family: "Montserrat", sans-serif;
-  margin-top: 20px;
   display: flex;
-  justify-content: space-evenly;
+ 
+  flex-direction: column;  
+  width: 20%;
+  margin: 2px;
+  margin-left: 40px;
+  /* gap: 1px; */
 }
 
 .botonvol{
-  border: none;
-  
-  justify-content: center;
-  align-items: center;
+  border: none;  
+ /* text-align: center; */
+ /* padding-left: 15px; */
   font-family: "Montserrat", sans-serif;
-  background-color: #3ab0ff;
-  color: white;
-  border: 3px solid #3ab0ff;
+  background-color: rgba(210, 105, 30, 0.2);
+  color: chocolate;
+  border: none;
   font-weight: bold;
   border-radius: 5px;
   font-size: 15px;
   height: 40px;
-  width: 130px;
-  margin-top: 25px;
-  padding-right:8px;
+  width: 200px;
+  margin-top: 100px;
+  padding: 9px;
 }
 .botonvol:hover{
-  border-color: #FFB562;
-  transition: border-color 0.1s ease, background-color 0.4s ease;
-  background-color: #FFB562; /* Green */
+  transition: border-color 0.2s ease-in, background-color 0.4s ease-in;
+  background-color: chocolate;
   color: white;
+  border-color: chocolate;
 }
 
 select {
@@ -58,12 +59,17 @@ option {
 }
 
 .containerS select {
-  padding-left: 9px;
+  margin-top: 30%;
+  padding-left: 9px;  
+  /* background-color:  rgba(210, 105, 30, 0.08); */
+  color: chocolate;
+  margin-right: 40px;
+ 
 }
 .containerS select:hover {
-  border-color:#FFB562;
+  border-color:chocolate;
   transition: background-color 0.4s ease;
-  background-color: #FFB562; /* Green */
+  background-color: chocolate; /* Green */
   color: white;
 }
 
@@ -72,4 +78,10 @@ option {
   grid-row: 1/3;
   background-color: rgba(53, 142, 183, 0.25);
   color: black;
+}
+
+.layout {
+  display:flex;
+  flex-direction: row;
+
 }
