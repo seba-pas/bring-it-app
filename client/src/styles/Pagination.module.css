@@ -10,30 +10,29 @@
   padding-right: 10px;
   display: flex;
   justify-content: space-evenly;
-  margin-left: 20%;
+  margin-left: 33%;
   margin-right: 20%;
   margin-top: 2%;
 }
 
 .paginado button {
-  color: #3ab0ff;
-  background-color: #F6F5F5;
+  color: white;
+  background-color: rgba(210, 105, 30, 0.7);
+  border-radius: 50%;
   border: none;
-  font-size: 23px;
-  font-weight: bolder;
-  transition: font-weight 0.5s ease;
+  width: 36px;
+  height: auto; 
+  font-size: 22px;
+  /* font-weight: bolder; */
+  transition: font-weight 0.1s ease, background-color 0.2s, color 0.2s ease;
+ 
 }
 
-button {
-  color: #3ab0ff;
-  background-color: #F6F5F5;
-  border: none;
-  font-weight: bolder;
-  transition: font-weight 0.5s ease;
-}
 
-button:hover {
+.paginado button:hover {
   font-weight: bold;
+  background-color: rgba(210, 105, 30, 0.15);
+  color:  chocolate;
 }
 
 .containerB {

@@ -252,7 +252,7 @@ export default function NavBarLanding() {
   const handleShow = () => setShow(true);
 
   return (
-    <div className={styles.navbarLanding}>
+    <div className={styles.navbarLanding} style={{border: "none"}}>
       {/* <div className={styles.imagen}> */}
         
         {/* <NavLink exact to="/"> */}
