@@ -71,9 +71,9 @@ function FormTravel() {
                 }
             )
         )
-        dispatch(getAllTravel());
+
         swal("Que tengas un excelente viaje!", "viaje agregado satisfactoriamente!", "success");
-        history.push('/persona/misviajes')
+
 
     }
 

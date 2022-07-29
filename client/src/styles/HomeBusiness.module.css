@@ -1,13 +1,13 @@
 .homeBusiness {
-    top: 1;
-    bottom: 1;
-    left: 1;
-    right: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .container {
-    width: 99vw;
-    height: 99vh;
+    width: 100vw;
+    height: 100vh;
     margin: 0.5vh 0.5vw;
     overflow: hidden;
     display: grid;
@@ -98,11 +98,11 @@ option:hover {
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    /* border: solid 2px rgb(38, 38, 241); */
+    border: solid 2px rgb(38, 38, 241);
     grid-row: 8/30;
     grid-column: 2/20;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     overflow: auto;
 
 }
@@ -114,12 +114,12 @@ option:hover {
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 8/31;
+    grid-row: 3/31;
     /* grid-row: 8/23; */
     grid-column: 2/17;
     /* grid-column: 21/35; */
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     overflow: auto;
 
 }
@@ -130,30 +130,31 @@ option:hover {
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
-    /* border: solid 2px rgb(241, 38, 38); */
-    grid-row: 9/31;
+    border: solid 2px rgb(241, 38, 38);
+    grid-row: 3/35;
     /* grid-row: 25/35; */
     grid-column: 18/35;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     overflow: auto;
 
 }
 
 .noStockTitle {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
     /* border: solid 2px rgb(241, 38, 38); */
-    grid-row: 8/9;
+    grid-row: 1/2;
     /* grid-row: 25/35; */
     grid-column: 18/35;
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
-
+    margin-top: 15px;
+    font-size: 40px;
 }
 
 .btnContainer {
@@ -163,7 +164,7 @@ option:hover {
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
     /* border: solid 2px rgb(241, 38, 38); */
-    grid-row: 8/9;
+    grid-row: 1/2;
     /* grid-row: 24/25; */
     grid-column: 17/18;
     /* grid-column: 33/35; */
@@ -173,6 +174,33 @@ option:hover {
 
 }
 
+.btnFilterNameContainer {
+    display: flex;
+    /* flex-direction: c; */
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);*/
+    border: solid 2px rgb(241, 38, 38);
+    grid-row: 1/2;
+    /* grid-row: 24/25; */
+    grid-column: 1/2;
+    /* grid-column: 33/35; */
+    justify-content: center;
+    align-items: center;
+    /* overflow: auto; */
+
+}
+
+.titlleTable {
+    color: black;
+    font-size: 140%;
+}
+
+.titlleTableNonSt {
+    color: red;
+    font-size: 140%;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -180,8 +208,9 @@ table {
 
 th,
 td {
-    padding: 1px 5px;
-    /* border: 1px solid #000; */
+    padding: 3px 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn {

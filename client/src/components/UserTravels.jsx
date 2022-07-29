@@ -12,18 +12,19 @@ function UserTravels() {
     const [input, setInput] = useState({
         travels: [],
     })
-    // useEffect(() => {
-    //     dispatch(getAllTravel());
-    // }, [dispatch])
+    useEffect(() => {
+        dispatch(getAllTravel());
+    }, [dispatch])
 
     useEffect(() => {
         setInput((prevInput) => {
             return {
                 ...prevInput,
-                travels: gState.allTravels.filter(e => e.userEmail === gState.user.others.dataValues.email),
+                travels: gState.allTravels.filter(e => e.userEmail === gState.user.others.dataValues.email,
+                )
             }
         })
-    }, []);
+    }, gState.allTravels)
 
     return (
         <div className={styles.travels} >
@@ -41,7 +42,7 @@ function UserTravels() {
                         </thead>
                         <tbody>
 
-                            {gState.allTravels.filter(e => e.userEmail === gState.user.others.dataValues.email)?.map(c => {
+                            {input.travels?.map(c => {
                                 return (
                                     <ProducTravelCard key={c.id} id={c.id} arrivalCityId={c.arrivalCityId} arrivalDate={c.arrivalDate} arrivalProvince={c.arrivalProvince} startDate={c.startDate} travelCityId={c.travelCityId} travelProvince={c.travelProvince} />
                                 )

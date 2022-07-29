@@ -70,7 +70,7 @@ export default function NavBarusiness() {
             <div className={styles.perfil}>
                 <img
                     src={input.businessInfo.logo ? input.businessInfo.logo : userProfile}
-                    style={{ width: "100px", height: "100px", borderRadius: "150px", border: "solid 4px transparent" }}
+                    style={{ width: "110px", height: "110px", borderRadius: "150px", border: "solid 4px transparent", }}
                     alt="Logo no encontrado"
                 />
 

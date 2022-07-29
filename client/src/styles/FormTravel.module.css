@@ -2,7 +2,7 @@
     position: fixed;
     left: 0;
     top: 25%;
-    height: 35%;
+    height: 350px;
     width: 10px;
     background: chocolate;
     padding: 6px 14px;
@@ -15,8 +15,8 @@
     position: fixed;
     left: 0;
     top: 25%;
-    height: 35%;
-    width: 70%;
+    height: 350px;
+    width: 1350px;
     background: rgb(246, 252, 255);
     padding: 6px 14px;
     z-index: 99;
@@ -60,11 +60,14 @@
 }
 
 .sidebaron .navList {
+    transition: all 0.5s ease;
     margin-top: 145px;
     height: 100%;
+
 }
 
 .sidebaron li {
+
     position: relative;
     margin: 2px 0;
     list-style: none;
