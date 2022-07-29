@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { IoArrowForward, IoChevronBackSharp, IoChevronForwardOutline, IoMenu } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { addTravel, getAllCities, getAllProvinces } from '../actions';
+import { addTravel, getAllCities, getAllProvinces, getAllTravel } from '../actions';
 
 import styles from '../styles/FormTravel.module.css';
 
@@ -13,7 +13,7 @@ function FormTravel() {
     const dispatch = useDispatch();
     const history = useHistory()
 
-    const emailState = gState.user;
+    const emailState = gState.user.others.dataValues.email;
     // const emailState = "tomas@gmail.com";
 
 
@@ -34,6 +34,7 @@ function FormTravel() {
 
     let onClickHandler = (event) => {
         event.preventDefault();
+        console.log("email",)
         setInput((prevInput) => {
             return {
                 ...prevInput,
@@ -59,7 +60,6 @@ function FormTravel() {
         dispatch(
             addTravel(
                 {
-
                     travelProvince: input.originProvince,
                     arrivalProvince: input.arrivalProvince,
                     startDate: input.dateTravel,
@@ -68,10 +68,10 @@ function FormTravel() {
                     travelCityId: input.originCity,
                     arrivalCityId: input.arrivalCity,
 
-
                 }
             )
         )
+        dispatch(getAllTravel());
         swal("Que tengas un excelente viaje!", "viaje agregado satisfactoriamente!", "success");
         history.push('/persona/misviajes')
 
@@ -84,7 +84,7 @@ function FormTravel() {
             <button className={`${input.sidebar ? styles.btnon : styles.btnoff}`} onClick={(event) => onClickHandler(event)}>{input.sidebar ? <IoChevronBackSharp /> : <IoChevronForwardOutline />}</button>
 
             <ul className={styles.navList}>
-                <li>
+                <li style={{ listStyle: "none" }}>
                     <span className={`${input.sidebar ? styles.whereSpan : styles.displaynone}`}>¿A dónde viajas? </span>
                     <span className={`${input.sidebar ? styles.fromSpan : styles.displaynone}`}>Desde: </span>
                     <select className={`${input.sidebar ? styles.inputFromProvince : styles.displaynone}`} name="originProvince" value={input.originProvince} onChange={(e) => handleInputChange(e)}>

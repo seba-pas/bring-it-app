@@ -69,10 +69,10 @@ export default function HomePersonas() {
   }, [gState]);
   useEffect(() => {
     if (input.perfil === "email") history.push("/perfil");
-    else if (input.perfil === "close"){
+    else if (input.perfil === "close") {
       cart = [];
       history.push("/");
-    } 
+    }
   }, [input.perfil]);
 
 
@@ -236,11 +236,11 @@ export default function HomePersonas() {
             <div className={styles.contcards}>
               <ProductCards currentProducts={currentProducts} />
             </div>
-            <Pagination
+            {/* <Pagination
               productsPerPage={productsPerPage}
               PRODUCTS={PRODUCTS.length}
               paginado={paginado}
-            /> 
+            />  */}
           </div>
         )
       ) : (
