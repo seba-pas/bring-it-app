@@ -1,13 +1,14 @@
-const axios= require ("axios");
+const axios = require("axios");
 const { Router } = require('express');
-const {User} = require('../db');
 
-async function getTravel(){
+const { User, Travel } = require('../db');
+
+async function getTravel() {
     const travel = await Travel.findAll({
-        include: [{model: User}]        
+        include: [{ model: User }]
     });
-    if (travel!== '') {
-        return travel;        
+    if (travel !== '') {
+        return travel;
     } else {
         return 'No HAY TRAVEL';
     }

@@ -6,7 +6,7 @@
     "stock": "15",
     "description": "muy divertido",
     "categoryId": [1,3],
-    "businessEmail": "sebastian@gmail.com"
+    "businessbranchId": "1"
    }
    ,
   { 
@@ -18,7 +18,7 @@
     "stock": "10",
     "description": "muy lindas cuerdas",
     "categoryId": [1,3],
-    "businessEmail": "sebastian@gmail.com"
+    "businessbranchId": "2"
   },
   { 
    
@@ -29,7 +29,7 @@
     "stock": "7",
     "description": "buena madera",
     "categoryId": [1],
-    "businessEmail": "sebastian@gmail.com"
+    "businessbranchId": "3"
   },
   { 
     
@@ -40,7 +40,7 @@
     "stock": "78",
     "description": "Riquisimos alfajores artesanales",
     "categoryId": [2],
-    "businessEmail": "felipe@gmail.com"
+    "businessbranchId": "4"
   },
   { 
   
@@ -51,7 +51,7 @@
     "stock": "78",
     "description": "Tod orgánico",
     "categoryId": [2],
-    "businessEmail": "felipe@gmail.com"
+    "businessbranchId": "5"
   },
   { 
    
@@ -62,7 +62,7 @@
     "stock": "37",
     "description": "Vino vegano y artesanal",
     "categoryId": [2 , 7],
-    "businessEmail": "guillermo@gmail.com"
+    "businessbranchId": "1"
   },
   { 
    
@@ -73,7 +73,7 @@
     "stock": "37",
     "description": "Gin artesanal a base de lupulo",
     "categoryId": [2 , 7],
-    "businessEmail": "felipe@gmail.com"
+    "businessbranchId": "2"
   },
   { 
     "id": "8",
@@ -84,7 +84,7 @@
     "stock": "10",
     "description": "Salame artesanal riquisimo",
     "categoryId": [2],
-    "businessEmail": "felipe@gmail.com"
+    "businessbranchId": "3"
   },
   { 
    
@@ -95,7 +95,7 @@
     "stock": "1",
     "description": "pintura al aloeo marilyn",
     "categoryId": [4,5],
-    "businessEmail": "guillermo@gmail.com"
+    "businessbranchId": "4"
   },
   { 
    
@@ -106,7 +106,7 @@
     "stock": "1",
     "description": "Pintura al oleo de frida khalo",
     "categoryId": [4,5],
-    "businessEmail": "guillermo@gmail.com"
+    "businessbranchId": "5"
   },
   { 
   
@@ -117,7 +117,7 @@
     "stock": "13",
     "description": "Cafe colombiano fuerte",
     "categoryId": [2,7],
-    "businessEmail": "alejandro@gmail.com"
+    "businessbranchId": "1"
   },
   { 
    
@@ -128,7 +128,7 @@
     "stock": "18",
     "description": "Queso paipa",
     "categoryId": [2],
-    "businessEmail": "alejandro@gmail.com"
+    "businessbranchId": "2"
   },
   {
    
@@ -139,7 +139,7 @@
     "stock": "10",
     "description": "Mouse optico avanzado",
     "categoryId": [6],
-    "businessEmail": "alejandro@gmail.com"
+    "businessbranchId": "3"
   }
 
 

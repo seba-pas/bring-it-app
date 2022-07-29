@@ -20,6 +20,7 @@ import {
   filterByCities,
   filterByProvinceCity,
   clearCart,
+  getAllBranches,
 } from "../actions";
 import FormTravel from "./FormTravel";
 
@@ -33,6 +34,7 @@ export default function HomePersonas() {
   const PROVINCES = useSelector((state) => state.uniqueProvinces);
   const stateCart = useSelector((state) => state.cart);
   const gState = useSelector((state) => state);
+  const BRANCHES = useSelector((state) => state.branches);
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -79,6 +81,7 @@ export default function HomePersonas() {
     dispatch(getCategories());
     dispatch(getAllBusiness());
     dispatch(getAllProvinces());
+    dispatch(getAllBranches());
   }, [dispatch]);
 
   //funcion para volver a cargar los productos
@@ -130,7 +133,7 @@ export default function HomePersonas() {
     e.preventDefault();
     // setProvince(e.target.value);
     setCurrentPage(1);
-    dispatch(filterByProvinceCity(e.target.value));
+    dispatch(filterByCities(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
 
@@ -141,7 +144,8 @@ export default function HomePersonas() {
       {PRODUCTS.length > 0 ? (
         PRODUCTS == "No se encontraron productos asociados" ? (
           <div>
-            <h1>No se encontraron productos asociados</h1>
+            <h1 >No se encontraron productos asociados</h1>
+            <button onClick={(e) => handleClick(e)}>Volver</button>
           </div>
         ) : (
           <div>
@@ -178,6 +182,7 @@ export default function HomePersonas() {
                     );
                   })}
                 </select>
+
 
                 <select
                   value={business}
@@ -222,12 +227,15 @@ export default function HomePersonas() {
               <div className={styles.contcards}>
                 <ProductCards currentProducts={currentProducts} />
               </div>
+
             </div>
-            <Pagination
+             <Pagination
               productsPerPage={productsPerPage}
               PRODUCTS={PRODUCTS.length}
               paginado={paginado}
+
             />
+
           </div>
         )
       ) : (

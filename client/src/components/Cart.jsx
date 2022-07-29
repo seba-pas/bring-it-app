@@ -1,75 +1,109 @@
 import { useSelector, useDispatch } from "react-redux";
 import { React, useEffect } from "react";
-
-import { removeOneFromCart, removeAllFromCart, clearCart, getCart } from "../actions";
+import "../styles/Cart.css";
+import {
+  removeOneFromCart,
+  removeAllFromCart,
+  clearCart,
+  getCart,
+} from "../actions";
 import "bootstrap/dist/css/bootstrap.css";
+import swal from "sweetalert";
+import { useHistory } from "react-router-dom";
 
 export default function Cart() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-    dispatch(getCart())
-  }, [dispatch])
-
-
- 
-
+    dispatch(getCart());
+  }, [dispatch]);
 
   function handleRemoveOne(productId, all = false) {
     if (all) {
       dispatch(removeAllFromCart(productId));
+      swal("Buen trabajo!", "El producto fue eliminado con exito!", "success");
     } else {
       dispatch(removeOneFromCart(productId));
+      swal("Buen trabajo!", "El producto fue eliminado con exito!", "success");
     }
   }
 
   function handleClearCart(e) {
     dispatch(clearCart(e.target.value));
   }
-
+  function handleClick(e) {
+    e.preventDefault();
+    console.log(cart);
+    if (cart.length === 0) {
+      swal(
+        "No tienes productos en tu carrito",
+        "Por favor primero agrega un producto!",
+        "error"
+      );
+      return;
+    } else {
+      history.push("/compra");
+    }
+  }
   return (
     <div className="container">
       <div className="shopping-cart">
-        <div className="shopping-cart-header">
-          {/* <div className="shopping-cart-total">
-            <span className="lighter-text">Total:</span>
-            <span className="main-color-text">$2,229.97</span>
-          </div> */}
-        </div>
+        <div className="shopping-cart-header"></div>
       </div>
-      <ul>
-        {cart.map((productGroup) => (
-          <li
-            className="clearfix"
-            key={productGroup.id}
-            value={productGroup.id}
-          >
-            {/* <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg"
-              alt="item1"
-            /> */}
-            <span className="item-name">{productGroup.name}</span>
-            <span className="item-price">
-              ${productGroup.price * productGroup.quantity}
-            </span>
-            <span className="item-quantity">
-              Cantidad: {productGroup.quantity}
-            </span>
-            <button onClick={() => handleRemoveOne(productGroup.id)}>
-              Eliminar uno
-            </button>
-            <button onClick={() => handleRemoveOne(productGroup.id, true)}>
-              Eliminar todos
-            </button>
-          </li>
-        ))}
-      </ul>
-      {cart.length > 0 ? (
-        <button onClick={(e) => handleClearCart(e)}>Vaciar carrito</button>
-      ) : (
-        <p>No hay productos para mostrar</p>
-      )}
+      <div id="page">
+        <table id="cart">
+          <thead>
+            <tr style={{ display: "flex", justifyContent: "space-around" }}>
+              <th className="first">Imagen</th>
+              <th className="second">Cant.</th>
+              <th className="third">Product</th>
+              <th className="fourth">Precio</th>
+              <th className="fifth">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((productGroup) => (
+              <div style={{ width: "100%" }}>
+                <tr className="productitm">
+                  <td style={{ height: "125px", marginLeft: "33px" }}>
+                    <img
+                      src={productGroup.image}
+                      className="thumb"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        border: "none",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </td>
+                  <td>{productGroup.quantity}</td>
+                  <td>{productGroup.name}</td>
+                  <td>${productGroup.price * productGroup.quantity}</td>
+                  <td>
+                    <span className="remove">
+                      <img
+                        src="https://i.imgur.com/h1ldGRr.png"
+                        alt="X"
+                        onClick={() => handleRemoveOne(productGroup.id)}
+                      />
+                    </span>
+                  </td>
+                </tr>
+              </div>
+            ))}
+            <tr class="checkoutrow">
+              <td colspan="5" class="checkout">
+                <button id="submitbtn" onClick={(e) => handleClick(e)}>
+                  COMPRAR
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

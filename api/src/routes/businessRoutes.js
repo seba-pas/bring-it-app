@@ -1,6 +1,6 @@
 const { Router } = require ("express");
 const {  getBusiness } = require ('../controllers/businessControllers');
-const {Business} = require('./../db');
+const {Business, Businessbranch, City} = require('./../db');
 const router = Router();
 const nodemailer = require('nodemailer')
 const CryptoJS = require('crypto-js');
@@ -15,15 +15,19 @@ router.post('/', async (req,res) => {
                 email: req.body.email,
                 password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString(),
                 businessName: req.body.businessName,
-                cuit: req.body.cuit,
-                province: req.body.province,
-                address: req.body.address,
-                cityId: req.body.cityId,
+                cuit: req.body.cuit,                
                 taxBracket: req.body.taxBracket,
                 logo: req.body.logo
             }
         });   
 
+        //Agregado de primera sede obligatoria
+        const businessEmail = req.body.email;
+        const { businessName, cityId, province, address } = req.body;
+        const cityName = (await City.findByPk(cityId)).nombre;
+        const businessBranchName = `${businessName} - sede ${cityName}`;
+        const newBusinessBranch = await Businessbranch.create({businessBranchName, businessEmail, cityId, province, address});               
+  
         // nodemailer
         let transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
@@ -47,7 +51,7 @@ router.post('/', async (req,res) => {
             `
         })
 
-        res.send(newBusiness[1] ? "Empresa creada" : "La empresa ya existe"); 
+        res.send(newBusiness[1] ? "Empresa y sede creada" : "La empresa ya existe"); 
 
 
     } catch (error) {
