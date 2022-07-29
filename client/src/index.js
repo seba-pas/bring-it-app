@@ -1,32 +1,34 @@
 import React from "react";
-// import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-// import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "../src/store/index";
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
+import {store} from "../src/store/index";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import dotenv from "dotenv";
-import axios from 'axios'
+import axios from "axios";
+import { PersistGate } from "redux-persist/integration/react";
+import {persistor} from '../src/store/index'
+
 dotenv.config();
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
-
 
 root.render(
   <StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
-  </StrictMode>,
+  </StrictMode>
   // document.getElementById("root")
 );
 

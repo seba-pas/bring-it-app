@@ -314,7 +314,7 @@ export default function LandingPage() {
                 </div>
               </Tab>
             </Tabs>
-            <div clasName={style.botonAhora}>
+            <div className={style.botonAhora}>
               <Button id={style.boton} type="submit">
                 Comprar con Bring It ahora!
               </Button>
@@ -325,71 +325,71 @@ export default function LandingPage() {
                 <h1>Unete a nuestra comunidad</h1>
               </div>
               <div>
-                <div class="social">
-                  <span class="line"></span>
+                <div className="social">
+                  <span className="line"></span>
                   <ul className={style.ul}>
-                    <li class="facebook">
+                    <li className="facebook">
                       <a
                         href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                         target="_blank"
                       >
-                        <i id={style.b} class="fa fa-facebook fa-2x"></i>
+                        <i id={style.b} className="fa fa-facebook fa-2x"></i>
                       </a>
                     </li>
-                    <li class="twitter">
+                    <li className="twitter">
                       <a
                         href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                         target="_blank"
                       >
-                        <i class="fa fa-twitter fa-2x"></i>
+                        <i className="fa fa-twitter fa-2x"></i>
                       </a>
                     </li>
-                    <li class="youtube">
+                    <li className="youtube">
                       <a
                         href="https://www.youtube.com/Hugmanrique"
                         target="_blank"
                       >
-                        <i class="fa fa-youtube fa-2x"></i>
+                        <i className="fa fa-youtube fa-2x"></i>
                       </a>
                     </li>
-                    <li class="instagram">
+                    <li className="instagram">
                       <a
                         href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                         target="_blank"
                       >
-                        <i class="fa fa-instagram fa-2x"></i>
+                        <i className="fa fa-instagram fa-2x"></i>
                       </a>
                     </li>
-                    <li class="pinterest">
+                    <li className="pinterest">
                       <a
                         href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                         target="_blank"
                       >
-                        <i class="fa fa-pinterest fa-2x"></i>
+                        <i className="fa fa-pinterest fa-2x"></i>
                       </a>
                     </li>
-                    <li class="github">
+                    <li className="github">
                       <a
                         href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                         target="_blank"
                       >
-                        <i class="fa fa-github fa-2x"></i>
+                        <i className="fa fa-github fa-2x"></i>
                       </a>
                     </li>
-                    <li class="flickr">
+                    <li className="flickr">
                       <a
                         href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                         target="_blank"
                       >
-                        <i class="fa fa-flickr fa-2x"></i>
+                        <i className="fa fa-flickr fa-2x"></i>
                       </a>
                     </li>
-                    <li class="linkedin">
+                    <li className="linkedin">
                       <a
                         href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                         target="_blank"
                       >
-                        <i class="fa fa-linkedin fa-2x"></i>
+                        <i className="fa fa-linkedin fa-2x"></i>
                       </a>
                     </li>
                   </ul>

@@ -26,15 +26,16 @@ import {
   FILTER_BY_BUSINESS,
   PUT_USER,
   PUT_BUSINESS,
-
-
+  ADD_TRAVEL,
+  GET_TRAVELS,
+  FILTER_BY_CITIES,
   //Acciones del carrito (cart)
   ADD_TO_CART,
   INCREMENT_ONE_IN_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
-  CLEAR_CART
-
+  CLEAR_CART,
+  GET_CART
 
 } from "./actionsTypes";
 
@@ -76,7 +77,7 @@ export const getAllProductsName = (name) => {
         payload: res.data,
       });
     } catch (error) {
-      alert("No existe ese producto");
+      alert("No se encontraron productos asociados");
     }
   };
 };
@@ -88,7 +89,7 @@ export const setDetail = () => {
 };
 
 export const addProduct = (body) => {
-  console.log("llega al add", body)
+  console.log("llega al add", body);
   return async function (dispatch) {
     try {
       const res = await axios.post(`/api/product`, body);
@@ -105,10 +106,7 @@ export const addProduct = (body) => {
 export const editProduct = (id, body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(
-        `/api/product/${id}`,
-        body
-      );
+      const res = await axios.put(`/api/product/${id}`, body);
       console.log("res", res);
       return dispatch({
         type: PUT_PRODUCT,
@@ -165,8 +163,7 @@ export const filterByCategory = (payload) => {
 
 export const getAllProvinces = () => {
   return async function (dispatch) {
-
-    const res = await axios('/api/province');
+    const res = await axios("/api/province");
 
     return dispatch({
       type: GET_ALL_PROVINCES,
@@ -174,7 +171,6 @@ export const getAllProvinces = () => {
     });
   };
 };
-
 
 export const filterByProvinces = (payload) => {
   return {
@@ -203,7 +199,7 @@ export const filterByBusiness = (payload) => {
 export const getAllCities = () => {
   return async function (dispatch) {
     const res = await axios("/api/city");
-    console.log('soy Res',res)
+    console.log('soy Res', res)
     return dispatch({
       type: GET_ALL_CITIES,
       payload: res.data,
@@ -211,7 +207,13 @@ export const getAllCities = () => {
   };
 };
 
-export const filterByProvinceCity = (payload) => {  
+export const filterByCities = (payload) => {
+  return {
+    type: FILTER_BY_CITIES,
+    payload,
+  };
+};
+export const filterByProvinceCity = (payload) => {
   return {
     type: FILTER_BY_PROVINCE_CITY,
     payload,
@@ -229,28 +231,24 @@ export const cleanBusiness = () => {
 //COMIENZA ACTION USER
 
 export const getUsers = () => {
-  return async function(dispatch){
+  return async function (dispatch) {
     try {
-      const res = await axios('/api/user');
+      const res = await axios("/api/user");
       return dispatch({
         type: GET_USERS,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 };
-
 
 export const login = (body) => {
   console.log("login body", body);
   return async function (dispatch) {
     try {
-      const res = await axios.post(
-        `/api/user/login`,
-        body
-      );
+      const res = await axios.post(`/api/user/login`, body);
       return dispatch({
         type: POST_LOGIN,
         payload: res.data,
@@ -278,11 +276,8 @@ export const addUser = (body) => {
 export const editUser = (id, body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(
-        `/api/user/${id}`,
-        body
-      );
-      console.log("res", res)
+      const res = await axios.put(`/api/user/${id}`, body);
+      console.log("res", res);
       return dispatch({
         type: PUT_USER,
         payload: res.data,
@@ -314,10 +309,7 @@ export const loginBusiness = (body) => {
   console.log("login body", body);
   return async function (dispatch) {
     try {
-      const res = await axios.post(
-        `/api/business/login`,
-        body
-      );
+      const res = await axios.post(`/api/business/login`, body);
       return dispatch({
         type: POST_LOGINBUSINESS,
         payload: [res.data, body.email],
@@ -328,15 +320,11 @@ export const loginBusiness = (body) => {
   };
 };
 
-
 export const editBusiness = (id, body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(
-        `/api/business/${id}`,
-        body
-      );
-      console.log("res", res)
+      const res = await axios.put(`/api/business/${id}`, body);
+      console.log("res", res);
       return dispatch({
         type: PUT_BUSINESS,
         payload: res.data,
@@ -348,53 +336,82 @@ export const editBusiness = (id, body) => {
 };
 
 
-//ACCIONES DEL CARRITO (CART)
-//cart:  [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
-
-//Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto
-export function addToCart (productsDetail){
-  //Importante: validar que si ya hay productos en el cart, la cityId sea la misma q la de los productos q ya estan en el cart  
-  
-  console.log(`addToCart - actions. Product recibido: ${productsDetail}`);
-  return {
-    type: ADD_TO_CART,
-    payload: productsDetail
-  }
+//post travel
+export const addTravel = (body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(
+        `/api/travel`,
+        body
+      );
+      console.log("res", res)
+      return dispatch({
+        type: ADD_TRAVEL,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+//get travels
+export const getAllTravel = () => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(
+        `/api/travel`
+      );
+      console.log("res", res)
+      return dispatch({
+        type: GET_TRAVELS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 
+export function addToCart(productsDetail) {
 
-//Incrementa en 1 la cantidad de un producto ya existente en el carrito (recibe id)
-// export function incrementOneInCart (productId){
-//   console.log(`incrementOneInCart - actions`);
-//   return {
-//     type: INCREMENT_ONE_IN_CART,
-//     payload: productId
-//   }
-// };
+  return {
+    type: ADD_TO_CART,
+    payload: productsDetail,
+  };
+}
+
 
 //Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
-export function removeOneFromCart (productId){
+export function removeOneFromCart(productId) {
   console.log(`removeOneFromCart - actions`);
   return {
     type: REMOVE_ONE_FROM_CART,
-    payload: productId
-  }
-};
+    payload: productId,
+  };
+}
 
 // Elimina el producto del cart (recibe id)
-export function removeAllFromCart (productId){
+export function removeAllFromCart(productId) {
   console.log(`removeAllFromCart - actions`);
   return {
     type: REMOVE_ALL_FROM_CART,
-    payload: productId
-  }
-};
+    payload: productId,
+  };
+}
 
 //Elimina todos los productos del cart (recibe id)
-export function clearCart (){
-  console.log(`clearCart - actions`);
+export function clearCart() {
+  console.log('llegue')
   return {
-    type: CLEAR_CART
+    type: CLEAR_CART,
+  };
+}
+
+export function getCart(){
+  return {
+    type: GET_CART,
+    
   }
-};
+}
+

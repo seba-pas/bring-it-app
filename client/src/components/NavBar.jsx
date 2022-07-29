@@ -4,23 +4,31 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
 import logo from "./img/logoCUT.png";
-import { getUsers } from "../actions";
+import { getUsers, getCart, clearCart } from "../actions";
 import userProfile from "./img/userPerfilImage.jpg";
+import "bootstrap/dist/css/bootstrap.css";
+import Cart from "./Cart";
+import { getAllProducts } from "../actions";
 
 //seba
 export default function NavBar() {
+  const [search, setSearch] = useState('');
   const gState = useSelector((state) => state);
+  const stateCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const history = useHistory();
-
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-
+  const [opening, setOpening] = useState(false);
   const [input, setInput] = useState({
     perfil: "",
     user: {},
   });
+  // console.log(input.user.others.dataValues)
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch]);
 
   useEffect(() => {
     setInput((prevInput) => {
@@ -33,7 +41,9 @@ export default function NavBar() {
 
   useEffect(() => {
     if (input.perfil === "email") history.push("/perfilUser");
-    else if (input.perfil === "close") history.push("/");
+    else if (input.perfil === "close") {
+      dispatch(clearCart())
+      history.push("/")};
   }, [input.perfil]);
 
   const handleOnChange = (event) => {
@@ -46,20 +56,40 @@ export default function NavBar() {
     });
   };
 
+  function onClick(e) {
+    e.preventDefault();
+    dispatch(getAllProducts())
+  }
+
   return (
     <div className={styles.navbar}>
       <div className={styles.imagen}>
-        <NavLink exact to="/">
-          <img
-            src={logo}
-            style={{ width: "auto", height: "100px" }}
-            alt="Logo no encontrado"
-          />
-        </NavLink>
+        <img
+          src={logo}
+          style={{ width: "auto", height: "100px" }}
+          alt="Logo no encontrado"
+        />
       </div>
       <div className={styles.search}>
         <SearchBar />
       </div>
+      <ul className="navbar-right">
+        <li style={{ listStyle: "none", color: "#d2691E", fontSize: "18px", margin: "3px", marginTop: "35px"}}>
+          {/* <a href="#" id="cart" > */}
+          <i
+            className="fa fa-shopping-cart"
+            onClick={() => setOpening(!opening)}
+            style={{ color: "#d2691e", fontSize: "18px", margin: "3px"}}
+          >
+            Cart {" "}
+          </i>{" "}
+          <span style={{ color: "#D2691E", margin: "5px", fontSize: "18px"}} className="badge">
+            {stateCart.length}
+          </span>
+          {opening && <Cart />}
+          {/* </a> */}
+        </li>
+      </ul>
       <div className={styles.perfil}>
         {/* <img
           src={input.user.logo ? input.user.logo : userProfile}
@@ -80,9 +110,12 @@ export default function NavBar() {
         >
           <option value="">{input.perfil} </option>
 
-          <option value="email">{input.user.email}</option>
+          <option value="email">{gState.user.others.dataValues.email}</option>
           <option value="close">Cerrar sesión</option>
         </select>
+      </div>
+      <div>
+        <button onClick={(e) => onClick(e)}>Volver</button>
       </div>
     </div>
   );

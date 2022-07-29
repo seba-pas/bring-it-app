@@ -23,8 +23,8 @@ router.post('/payment', async (req, res) => {
 	console.log("detalle compra: ", amount,"id: " ,id)
 	try {
 		const payment = await stripe.paymentIntents.create({
-			currency: "USD",
-			amount: amount,
+			currency: "ARS",
+			amount,
 			description: "Keyboard Gaming",
 			payment_method: id,
 			confirm: true

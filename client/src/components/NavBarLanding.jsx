@@ -253,16 +253,16 @@ export default function NavBarLanding() {
 
   return (
     <div className={styles.navbarLanding}>
-      <div className={styles.imagen}>
+      {/* <div className={styles.imagen}> */}
         
-        <NavLink exact to="/">
+        {/* <NavLink exact to="/"> */}
           <img
             src={image}
-            style={{ width: "auto", height: "100px" }}
+            style={{height: "130px",width: "auto",  paddingBottom: "0px", marginBottom: "0px" }}
             alt="Logo no encontrado"
           />
-        </NavLink>
-      </div>
+        {/* </NavLink> */}
+      {/* </div> */}
       
       <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
