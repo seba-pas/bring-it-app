@@ -24,6 +24,7 @@ const initialState = {
   users: [],
   travel: "",
   allTravels: [],
+  branches: [],
   //Carrito (cart)
   cart: [],
   cart2: [] // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
@@ -195,12 +196,33 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allBusiness
           : allBusiness.filter(
-            (e) => e.business.businessName === action.payload
+            (e) => e.businessbranch.businessBranchName === action.payload
           );
       return {
         ...state,
         products: filterBusiness.length
           ? filterBusiness
+          : "No se encontraron productos asociados",
+      };
+
+    case 'GET_ALL_BRANCHES':
+      return {
+        ...state,
+        branches: action.payload,
+      };
+      case "FILTER_BY_BRANCHES":
+      const allBranches = state.allProducts;
+
+      const filterBranches =
+        action.payload === "All"
+          ? allBranches
+          : allBranches.filter(
+            (e) => e.businessbranch.businessBranchName === action.payload
+          );
+      return {
+        ...state,
+        products: filterBranches.length
+          ? filterBranches
           : "No se encontraron productos asociados",
       };
 
@@ -216,7 +238,7 @@ export default function rootReducer(state = initialState, action) {
       const filterProvinces =
         action.payload === "All"
           ? allProvinces
-          : allProvinces.filter((e) => e.business.province === action.payload);
+          : allProvinces.filter((e) => e.businessbranch.province === action.payload);
       return {
         ...state,
         products: filterProvinces.length

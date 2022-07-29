@@ -21,6 +21,7 @@ import {
   filterByCities,
   filterByProvinceCity,
   clearCart,
+  getAllBranches,
 } from "../actions";
 import FormTravel from "./FormTravel";
 
@@ -34,6 +35,7 @@ export default function HomePersonas() {
   const PROVINCES = useSelector((state) => state.uniqueProvinces);
   const stateCart = useSelector((state) => state.cart);
   const gState = useSelector((state) => state);
+  const BRANCHES = useSelector((state) => state.branches);
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -81,6 +83,7 @@ export default function HomePersonas() {
     dispatch(getCategories());
     dispatch(getAllBusiness());
     dispatch(getAllProvinces());
+    dispatch(getAllBranches());
   }, [dispatch]);
 
   //funcion para volver a cargar los productos
@@ -188,10 +191,10 @@ export default function HomePersonas() {
                 <option hidden selected>
                   Empresa
                 </option>
-                {BUSINESS.map((BUSINESS) => {
+                {BRANCHES.map((BRANCHES) => {
                   return (
-                    <option value={BUSINESS.businessName} key={BUSINESS.email}>
-                      {BUSINESS.businessName}
+                    <option value={BRANCHES.businessBranchName} key={BRANCHES.id}>
+                      {BRANCHES.businessBranchName}
                     </option>
                   );
                 })}
@@ -202,15 +205,15 @@ export default function HomePersonas() {
               >
                 <option value="All">Todas</option>
 
-                {PROVINCES.map((province) => {
+                {BRANCHES.map((province) => {
                   return (
-                    <option value={province} key={province}>
-                      {province}
+                    <option value={province.province} key={business.province}>
+                      {province.province}
                     </option>
                   );
                 })}
               </select>
-              <select
+              {/* <select
                 value={business.city}
                 onChange={(e) => handleFilterByCities(e)}
               >
@@ -224,7 +227,7 @@ export default function HomePersonas() {
                     </option>
                   );
                 })}
-              </select>
+              </select> */}
 
               <button
                 className={styles.botonvol}
