@@ -257,8 +257,7 @@ export default function rootReducer(state = initialState, action) {
     case "ADD_TO_CART":
       //Agrega el producto completo al cart y pone cantidad 1 (recibe id). Se dispara desde la card de producto
       const productoCantidad = action.payload;
-      
-      localStorage.setItem("products", JSON.stringify(productoCantidad));
+      // localStorage.setItem("Products", JSON.stringify(productoCantidad));
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
         );
@@ -266,14 +265,14 @@ export default function rootReducer(state = initialState, action) {
         ? {
             ...state,
             cart: state.cart.map((item) =>
-              item.id === productoCantidad.id
-                ? { ...item, quantity: item.quantity + 1 }
-                : item
-                ),
-              }
-              : {
-                ...state,
-                cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
+            item.id === productoCantidad.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+            ),
+          }
+          : {
+            ...state,
+            cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
           };
 
     //Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
