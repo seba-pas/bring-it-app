@@ -14,6 +14,9 @@ import PerfilBusiness from "./components/PerfilBusiness";
 
 import HomeAdmin from "./components/HomeAdmin";
 import PerfilUser from "./components/PerfilUser";
+import FormTravel from "./components/FormTravel";
+import UserTravels from "./components/UserTravels";
+
 
 import CheckOut from "./components/Stripe/CheckOut";
 
@@ -26,11 +29,12 @@ import CheckOut from "./components/Stripe/CheckOut";
 
 function App() {
   return (
-    <div style={{backgroundColor: "#F6F5F5"}}  className="App">
+    <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
         <Route exact path="/product/:id" component={ProductDetail} />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/pre" component={LandingPage1} />
+        <Route exact path="/persona/misviajes" component={UserTravels} />
         <Route exact path="/persona" component={HomePersonas} />
         <Route exact path="/empresas" component={HomeBusiness} />
         <Route path="/productmanager/:id" component={ProductManager} />
@@ -40,9 +44,10 @@ function App() {
         <Route path='/checkout' component={CheckOut} />
 
         <Route exact path="/perfil" component={PerfilBusiness} />
-        <Route exact path="/perfilUser" component={PerfilUser}/>
+        <Route exact path="/perfilUser" component={PerfilUser} />
 
         <Route exact path="/admin" component={HomeAdmin} />
+        {/* <Route exact path="/testing" component={FormTravel} /> */}
 
         
 

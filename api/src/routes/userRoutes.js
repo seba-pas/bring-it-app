@@ -6,6 +6,36 @@ const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
 const router = Router();
 
+//Put desactivacion de cuenta 
+router.put('/desactivacion/:email'), async (req, res)=>{
+  const email=req.params.id;
+  console.log(email)
+  let {active}=req.body;
+  await User.update({active},{
+          where: {
+              email,
+          }
+      })
+  
+  res.status(200).send('Se suspendio cuenta temporalmente');
+}
+
+
+//PUT baneo usuario  
+router.put('/baneo/:email'), async (req, res)=>{
+  const email=req.params.id;
+  console.log(email)
+  let {deleted}=req.body;
+  await User.update({deleted},{
+          where: {
+              email,
+          }
+      })
+  
+  res.status(200).send('Se bloqueo el usuario correctamente');
+}
+
+
 //POST / CREATE User
 // http://localhost:3001/api/user
 router.post("/", async (req, res) => {
