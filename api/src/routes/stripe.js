@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
 	console.log(id, amount);
 	try {
 		const payment = await stripe.paymentIntents.create({
-			currency: "USD",
+			currency: "ARS",
 			amount,
 			payment_method: id,
 			confirm: true
