@@ -19,9 +19,9 @@ function ProductCardBusiness({ id, image, productName, amount, description }) {
     return (
         <tr>
             <th><img src={image} alt={productName} width="100" height="90"></img></th>
-            <th><h6>{productName}</h6></th >
-            <th><h6>{amount}</h6></th>
-            <th><h6>{description}</h6></th>
+            <th>{productName}</th >
+            <th>{amount}</th>
+            <th>{description}</th>
             <th>
                 <div className={styles.btncontainer}>
                     <NavLink to={`/productmanager/${id}`}>

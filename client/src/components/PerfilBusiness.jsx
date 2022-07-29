@@ -101,6 +101,10 @@ function PerfilBusiness(props) {
         event.preventDefault();
         props.history.goBack();
     }
+    const handlePass = (event) => {
+        event.preventDefault();
+
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -140,7 +144,7 @@ function PerfilBusiness(props) {
                     {!error.errorbusinessName ? <label> </label> : <label>          {error.errorbusinessName}             </label>}
                 </div>
                 <div className={styles.passwordContainer}>
-                    <label htmlFor='password'>Password:</label>
+                    {/* <label htmlFor='password'>Password:</label>
                     <input
                         // className={}
                         type="text"
@@ -148,9 +152,9 @@ function PerfilBusiness(props) {
                         value={input.password}
                         placeholder="Password"
                         onChange={handleInputChange}
-                    />
+                    /> */}
                     {/* {!error.errorProduct ? <h3><pre>    {null}                                          </pre></h3> : <h3><pre>          {error.errorProduct}             </pre></h3>} */}
-                    {!error.errorpassword ? <label> </label> : <label>          {error.errorpassword}             </label>}
+                    {/* {!error.errorpassword ? <label> </label> : <label>          {error.errorpassword}             </label>} */}
                 </div>
                 <div className={styles.addressContainer}>
                     <label htmlFor='address'>Dirección:</label>
@@ -203,7 +207,8 @@ function PerfilBusiness(props) {
                     {/* {!error.errorProduct ? <h3><pre>    {null}                                          </pre></h3> : <h3><pre>          {error.errorProduct}             </pre></h3>} */}
                     {!error.errorlogo ? <label> </label> : <label>          {error.errorlogo}             </label>}
                 </div>
-                <div className={styles.logoProvince}>
+                <div className={styles.provinceContainer}>
+
                     <label htmlFor='province'>Provincia:</label>
                     <select name="province" value={input.province} onChange={(e) => handleInputChange(e)}>
                         <option value="">{ } </option>
@@ -228,6 +233,16 @@ function PerfilBusiness(props) {
                         Listo
                     </button>
                 </div>
+                <div className={styles.passButton}>
+                    <button className={styles.btnPass} onClick={e => handlePass(e)}>
+                        Cambiar Contraseña
+                    </button>
+                </div>
+                {/* <div className={styles.addBranch}>
+                    <button className={styles.btnPass} onClick={e => handlePass(e)}>
+                        Agregar Sede
+                    </button>
+                </div> */}
                 <div className={styles.backButton}>
                     <button className={styles.btn} onClick={e => handleBack(e)}>
                         Atras

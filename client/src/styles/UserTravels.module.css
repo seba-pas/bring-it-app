@@ -17,13 +17,15 @@
 
 }
 
+
+
 .tableContainer {
     display: flex;
     flex-wrap: wrap;
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
-    border: solid 2px rgb(38, 38, 241);
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 25/99;
     /* grid-row: 8/23; */
     grid-column: 2/99;

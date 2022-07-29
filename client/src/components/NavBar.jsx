@@ -41,9 +41,11 @@ export default function NavBar() {
 
   useEffect(() => {
     if (input.perfil === "email") history.push("/perfilUser");
+    if (input.perfil === "misViajes") history.push('/persona/misviajes');
     else if (input.perfil === "close") {
       dispatch(clearCart())
-      history.push("/")};
+      history.push("/")
+    };
   }, [input.perfil]);
 
   const handleOnChange = (event) => {
@@ -74,16 +76,16 @@ export default function NavBar() {
         <SearchBar />
       </div>
       <ul className="navbar-right">
-        <li style={{ listStyle: "none", color: "#d2691E", fontSize: "18px", margin: "3px", marginTop: "35px"}}>
+        <li style={{ listStyle: "none", color: "#d2691E", fontSize: "18px", margin: "3px", marginTop: "35px" }}>
           {/* <a href="#" id="cart" > */}
           <i
             className="fa fa-shopping-cart"
             onClick={() => setOpening(!opening)}
-            style={{ color: "#d2691e", fontSize: "18px", margin: "3px"}}
+            style={{ color: "#d2691e", fontSize: "18px", margin: "3px" }}
           >
             Cart {" "}
           </i>{" "}
-          <span style={{ color: "#D2691E", margin: "5px", fontSize: "18px"}} className="badge">
+          <span style={{ color: "#D2691E", margin: "5px", fontSize: "18px" }} className="badge">
             {stateCart.length}
           </span>
           {opening && <Cart />}
@@ -111,6 +113,7 @@ export default function NavBar() {
           <option value="">{input.perfil} </option>
 
           <option value="email">{gState.user.others.dataValues.email}</option>
+          <option value="misViajes">Mis Viajes</option>
           <option value="close">Cerrar sesión</option>
         </select>
       </div>
