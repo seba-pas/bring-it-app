@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
           name: req.body.name,
           lastname: req.body.lastname,
           birthDate: req.body.birthDate,
-          // age: req.body.age,
+          age: req.body.age,
           password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString()
         }
       });
