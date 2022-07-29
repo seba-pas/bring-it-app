@@ -26,14 +26,17 @@ import {
   FILTER_BY_BUSINESS,
   PUT_USER,
   PUT_BUSINESS,
+  ADD_TRAVEL,
+  GET_TRAVELS,
   FILTER_BY_CITIES,
-
   //Acciones del carrito (cart)
   ADD_TO_CART,
   INCREMENT_ONE_IN_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  GET_CART
+
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -74,7 +77,7 @@ export const getAllProductsName = (name) => {
         payload: res.data,
       });
     } catch (error) {
-      alert("No existe ese producto");
+      alert("No se encontraron productos asociados");
     }
   };
 };
@@ -196,7 +199,7 @@ export const filterByBusiness = (payload) => {
 export const getAllCities = () => {
   return async function (dispatch) {
     const res = await axios("/api/city");
-    console.log("soy Res", res);
+    console.log('soy Res', res)
     return dispatch({
       type: GET_ALL_CITIES,
       payload: res.data,
@@ -333,6 +336,43 @@ export const editBusiness = (id, body) => {
 };
 
 
+//post travel
+export const addTravel = (body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(
+        `/api/travel`,
+        body
+      );
+      console.log("res", res)
+      return dispatch({
+        type: ADD_TRAVEL,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+//get travels
+export const getAllTravel = () => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(
+        `/api/travel`
+      );
+      console.log("res", res)
+      return dispatch({
+        type: GET_TRAVELS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
 export function addToCart(productsDetail) {
 
   return {
@@ -362,8 +402,16 @@ export function removeAllFromCart(productId) {
 
 //Elimina todos los productos del cart (recibe id)
 export function clearCart() {
-  console.log(`clearCart - actions`);
+  console.log('llegue')
   return {
     type: CLEAR_CART,
   };
 }
+
+export function getCart(){
+  return {
+    type: GET_CART,
+    
+  }
+}
+

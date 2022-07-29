@@ -1,0 +1,39 @@
+.travels {
+    top: 1;
+    bottom: 1;
+    left: 1;
+    right: 1;
+}
+
+.container {
+    width: 99vw;
+    height: 99vh;
+    margin: 0.5vh 0.5vw;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(99, 1fr);
+    grid-template-rows: repeat(99, 1fr);
+    border: solid 2px rgb(38, 38, 241);
+
+}
+
+.tableContainer {
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);*/
+    border: solid 2px rgb(38, 38, 241);
+    grid-row: 25/99;
+    /* grid-row: 8/23; */
+    grid-column: 2/99;
+    /* grid-column: 21/35; */
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+
+}
+
+.trStyle {
+    font-size: large;
+}

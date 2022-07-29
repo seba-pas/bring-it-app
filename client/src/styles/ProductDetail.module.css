@@ -1,51 +1,45 @@
 .cont {
   display: flex;
   background-color: white;
- 
   justify-content: center;
   margin-bottom: 50px;
- 
-
+}
+.layout {
+  display:flex;
+  flex-direction: column;
 }
 
 .contBot {
- 
- margin:0px;
+  margin: 0px;
   /* display: flex;
   justify-content: space-around; */
 }
 #card {
-  border: none;  
-  margin-left:20px;
-  padding:0;
-  text-align:left;
+  border: none;
+  margin-left: 20px;
+  padding: 0;
+  text-align: left;
   margin-top: 20px;
-  
- 
-
   transition: box-shadow 0.8s ease-in;
 }
 .imgCon {
   padding: 0px;
-  margin: 0px ;
+  margin: 0px;
   width: 25%;
-  
 }
 #provincia {
   font-size: 16px;
-  color: rgba(0,0,0,.55);
+  color: rgba(0, 0, 0, 0.55);
 }
 
-
 .imgCon img {
-  float:right;
+  float: right;
   object-fit: fill;
   max-height: 60%;
   width: auto;
   height: auto;
   margin: 20px;
   /* border: solid 1px black; */
-
 }
 /* #card:hover {
   background-color: #41d4cf69;
@@ -65,16 +59,15 @@
   width: 100%;
 }
 #categoria {
-  color: rgba(0,0,0,.55);
+  color: rgba(0, 0, 0, 0.55);
   font-size: 14px;
   font-weight: 400;
-  
 }
 #boton2 {
   font-family: "Montserrat", sans-serif;
   background-color: rgba(210, 105, 30, 0.2);
   color: chocolate;
-  border: 3px solid rgba(210, 105, 30, 0.2);;
+  border: 3px solid rgba(210, 105, 30, 0.2);
   font-weight: bold;
   border-radius: 5px;
   margin-bottom: 20px;
@@ -99,23 +92,20 @@
   /* margin-left: 20px; */
   font-size: 50px;
   font-weight: 200;
-
   text-align: left;
 }
 #categories span {
   text-align: left;
-  
-
 }
 #empresa {
-  color: rgba(0,0,0,.55);
-    font-size: 14px;
-    font-weight: 400;
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 14px;
+  font-weight: 400;
 }
 
 #categories {
   font-size: 22px;
-  color: rgba(0,0,0,.9);
+  color: rgba(0, 0, 0, 0.9);
 }
 #bold {
   font-weight: bold;
@@ -133,7 +123,6 @@
   font-size: 55px;
   font-weight: 200;
   /* margin-left: 10px; */
-
   text-align: left;
 }
 

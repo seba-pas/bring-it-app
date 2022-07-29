@@ -5,12 +5,16 @@ const businesses = require('./business.json');
 const products = require('./products.json');
 const businessbranch = require('./businessbranch.json');
 
+const jwt = require('jsonwebtoken');
+const CryptoJS = require('crypto-js');
+
+
 async function loadDB (){
     const usersLoad = users.forEach( async (u) => {
       await User.findOrCreate({
         where: {
           email: u.email,
-          password: u.password,
+          password: CryptoJS.AES.encrypt(u.password, process.env.PASS_SEC).toString(),
           name: u.name,
           lastname: u.lastname,
           birthDate: u.birthDate,
@@ -31,7 +35,7 @@ async function loadDB (){
       await Business.findOrCreate({
         where: {
           email: b.email,
-          password: b.password,
+          password: CryptoJS.AES.encrypt(b.password, process.env.PASS_SEC).toString(),
           businessName: b.businessName,
           cuit: b.cuit,
           taxBracket: b.taxBracket,
