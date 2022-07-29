@@ -1,0 +1,37 @@
+[{ 
+    "businessEmail": "sebastian@gmail.com",    
+    "businessName": "Seba's Business",    
+    "businessBranchName": "Seba's Business - sede Puesto Viejo",    
+    "province": "Jujuy",
+    "address": "Aca a la vuelta 123",
+    "cityId": "386049"
+  }, { 
+    "businessEmail": "felipe@gmail.com",    
+    "businessName": "Feli's Business",   
+    "businessBranchName": "Feli's Business - sede Las Lajitas", 
+    "province": "Salta",
+    "address": "Aca a la vuelta 123",
+    "cityId": "660035"
+  }, { 
+    "businessEmail": "guillermo@gmail.com",    
+    "businessName": "Guille's Business",    
+    "businessBranchName": "Guille's Business - sede Bahía Blanca",
+    "province": "Buenos Aires",
+    "address": "Aca a la vuelta 123",
+    "cityId": "060056"
+  }, { 
+    "businessEmail": "alejandro@gmail.com",    
+    "businessName": "Ale's Business",    
+    "businessBranchName": "Ale's Business - sede Hualfín",
+    "province": "Catamarca",
+    "address": "Aca a la vuelta 123",
+    "cityId": "100077"
+  }, { 
+    "businessEmail": "alejandro@gmail.com",    
+    "businessName": "Ale's Business",    
+    "businessBranchName": "Ale's Business - sede General Lamadrid",
+    "province": "La Rioja",
+    "address": "Aca cerca 456",
+    "cityId": "460077"
+  }
+]

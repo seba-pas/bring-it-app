@@ -34,14 +34,6 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      province: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      address: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       deleted: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
@@ -51,8 +43,7 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         allowNull: true,
         defaultValue: true
-      },
-      //cityId no va definida aca, se vincula en las relaciones (archivo db.js)
+      },      
     },
     {
         timestamps: true,

@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { Router } = require('express');
+
 const { User, Travel } = require('../db');
 
 async function getTravel() {
