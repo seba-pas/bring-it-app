@@ -23,6 +23,7 @@ async function loadDB (){
       })
     }) ;
     console.log('Users saved successfully') ;
+
     const categoryLoad = categories.forEach( async (c) => {
       await Category.findOrCreate({
         where: {
@@ -31,6 +32,7 @@ async function loadDB (){
       })
     }) ;
     console.log('Categories saved successfully') ;
+
     const businessesLoad = businesses.forEach( async (b) => {
       await Business.findOrCreate({
         where: {
@@ -42,6 +44,7 @@ async function loadDB (){
         }
       })
     }) ;
+
     const businessesbranchLoad = businessbranch.forEach( async (b) => {      
       await Businessbranch.findOrCreate({
         where: {
@@ -54,6 +57,7 @@ async function loadDB (){
       })
     }) ;
     console.log('Businessbranches saved successfully') ;
+    
     const productsLoad = products.forEach( async (p) => {
          const newProduct = await Product.findOrCreate({
             where: {
