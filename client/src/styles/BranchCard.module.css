@@ -1,0 +1,17 @@
+.btn {
+    border: solid 2px #41d4cf;
+    border-radius: 9px;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #41d4cf;
+}
+
+.btncontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

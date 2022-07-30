@@ -36,11 +36,13 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
+
         <Route exact path="/filtro" component={FilterBefore} />
         <Route exact path="/filtroprov" component={FilterProvince} />
         {/* <Route path='/checkout' component={CheckOut} /> */}
         <Route exact path='/compra' component={CheckOut}/>
 
+        <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
         <Route exact path="/admin" component={HomeAdmin} />

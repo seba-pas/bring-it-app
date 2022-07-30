@@ -40,3 +40,9 @@ export const INCREMENT_ONE_IN_CART = 'INCREMENT_ONE_IN_CART';
 export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';
 export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART';
 export const CLEAR_CART = 'CLEAR_CART';
+
+
+//acciones sedes
+export const POST_BRANCH = "POST_BRANCH";
+export const DELETE_BRANCH = "DELETE_BRANCH";
+export const EDIT_BRANCH = "EDIT_BRANCH";
