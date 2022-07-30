@@ -1,7 +1,9 @@
 import {React,useState, useEffect} from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector,useDispatch } from "react-redux";
-import CheckOut from "./Stripe/CheckOut";
+// import CheckOut from "./Stripe/CheckOut";
+import axios from 'axios';
+import {CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 // import NavBar from "./NavBar";
 
 function FormPurchase() {
@@ -36,6 +38,42 @@ function FormPurchase() {
   //   dispatch(getAllProvinces());
   //   dispatch(getAllCities());
   // }, [dispatch]);
+
+
+  const stripe = useStripe();
+  const elements = useElements();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements.getElement(CardElement)
+    });
+
+
+    if(!error) {
+
+      
+        const { id } = paymentMethod;
+        console.log(id);
+        const datos = await axios.post('http://localhost:3001/api/checkout/payment', {
+          id: id,
+          amount: (20 * 100) // son 20 dólares
+      });
+      
+      console.log(datos)
+      
+      elements.getElement(CardElement).clear();
+      
+      
+    } else {
+      console.log("Hay un error en el handleSubmit")
+    }
+  }
+
+
+
+
 
   return (
     <div>
@@ -103,7 +141,6 @@ function FormPurchase() {
                 <Form.Control
                   type="date"
                   placeholder="Espera de producto"
-                  onChange={(e) => handleChange(e)}
                   // value={input.birthDate}
                   name="birthDate"
                   id="birthDate"
@@ -116,7 +153,6 @@ function FormPurchase() {
                 <label htmlFor="province">Provincia:</label>
                 <select
                   // value={province}
-                  // onChange={(e) => handleFilterByProvinces(e)}
                 >
                  {/*  <option value="All">Todas</option>
 
@@ -162,7 +198,7 @@ function FormPurchase() {
                 <Form.Label></Form.Label>
               </Form.Group>
 
-              <CheckOut style={{ width: "100%" }} />
+              <CardElement />
               <Button
                 variant="primary"
                 className="mt-3 mb-5 w-100 mt-3"
