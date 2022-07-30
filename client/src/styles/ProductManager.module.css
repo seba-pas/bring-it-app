@@ -117,6 +117,20 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 20/25;
+    grid-column: 18/23;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.branchesContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 15/20;
     grid-column: 18/23;
     justify-content: center;
