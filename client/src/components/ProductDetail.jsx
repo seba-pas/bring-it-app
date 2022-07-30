@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams,useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllProductsDetail,
@@ -24,21 +24,20 @@ export const ProductDetail = () => {
 
   useEffect(() => {
     dispatch(getCart());
-    
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getAllProductsDetail(id));
-  //component did mount
+    //component did mount
     return () => {
       dispatch(setDetail());
     };
   }, [dispatch, id]);
 
-  function handleClick(e) {
-    e.preventDefault();
-    history.push("/compra")
-  }
+  // function handleClick(e) {
+  //   e.preventDefault();
+  //   history.go("/compra")
+  // }
 
   function handleClickAddToCart(e) {
     e.preventDefault();
@@ -64,7 +63,7 @@ export const ProductDetail = () => {
             <div className="card-body">
               <p className="card-text" id={styles.empresa}>
                 <span>Empresa: </span>
-                
+
                 {product.businessbranch.businessBranchName === null ||
                 product.categories === undefined ||
                 product.businessbranch.businessBranchName.length == 0
@@ -75,7 +74,8 @@ export const ProductDetail = () => {
                 {product.name}
               </h1>
               <h1 className="card-title" id={styles.provincia}>
-                Producto de: {product.businessbranch.businessBranchName.split(' - ')[1]}
+                Producto de:{" "}
+                {product.businessbranch.businessBranchName.split(" - ")[1]}
               </h1>
               <p className="card-text" id={styles.empresa}>
                 <span id={styles.categoria}>En: </span>
@@ -101,7 +101,7 @@ export const ProductDetail = () => {
                 <div className={styles.contBot}>
                   <a
                     className="btn btn-primary"
-                    onClick={(e) => handleClick(e)}
+                    onClick={() => history.goBack()}
                     id={styles.boton}
                   >
                     COMPRAR
@@ -114,11 +114,13 @@ export const ProductDetail = () => {
                 >
                   AGREGAR AL CARRITO
                 </a>
-                <Link to={"/persona"}>
-                  <a className="btn btn-primary" id={styles.boton2}>
-                    VOLVER
-                  </a>
-                </Link>
+                <a
+                  className="btn btn-primary"
+                  id={styles.boton2}
+                  onClick={() => history.goBack()}
+                >
+                  VOLVER
+                </a>
               </div>
             </div>
           </div>

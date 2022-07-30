@@ -15,6 +15,8 @@ import PerfilUser from "./components/PerfilUser";
 import UserTravels from "./components/UserTravels";
 import ConoceMas from "./components/ConoceMas";
 import CheckOut from "./components/Stripe/CheckOut";
+import FilterBefore from "./components/FilterBefore";
+import FilterProvince from "./components/FilterProvince";
 
 function App() {
   return (
@@ -30,7 +32,8 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
-
+        <Route exact path="/filtro" component={FilterBefore} />
+        <Route exact path="/filtroprov" component={FilterProvince} />
         {/* <Route path='/checkout' component={CheckOut} /> */}
         <Route exact path='/compra' component={CheckOut}/>
 
