@@ -15,24 +15,22 @@ import Paso6 from "./img/paso6.jpg";
 import Paso7 from "./img/paso7.jpg";
 import Paso8 from "./img/paso8.jpg";
 
-
 export default function ConoceMas() {
   const [key, setKey] = useState("home");
   return (
     <div style={{ backgroundColor: "white" }}>
       <NavBarLanding />
-      <div className={style.comoFunciona} style={{ marginTop: '60px'}}>
-        <h1 style={{marginBottom: '40px'}}>¿Cómo funciona Bring It?</h1>
+      <div className={style.comoFunciona} style={{ marginTop: "60px" }}>
+        <h1 style={{ marginBottom: "40px" }}>¿Cómo funciona Bring It?</h1>
         <div className={style.tabs}>
           <Tabs
-          
             id="controlled-tab-example"
             activeKey={key}
             onSelect={(k) => setKey(k)}
             className="mb-3"
             justify
           >
-            <Tab eventKey="home" title="Para compradores" >
+            <Tab eventKey="home" title="Para compradores">
               <h3>
                 Bring It es la mejor manera de comprar productos que no están
                 disponibles o son muy caros en tu ciudad. Puedes pedir desde
@@ -274,83 +272,6 @@ export default function ConoceMas() {
             <Button id={style.boton} type="submit">
               Comprar con Bring It ahora!
             </Button>
-          </div>
-
-          <div className={style.unete}>
-            <div className={style.titleUnete}>
-              <h1>Unete a nuestra comunidad</h1>
-            </div>
-            <div>
-              <div className="social">
-                <span className="line"></span>
-                <ul className={style.ul}>
-                  <li className="facebook">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i id={style.b} className="fa fa-facebook fa-2x"></i>
-                    </a>
-                  </li>
-                  <li className="twitter">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i className="fa fa-twitter fa-2x"></i>
-                    </a>
-                  </li>
-                  <li className="youtube">
-                    <a
-                      href="https://www.youtube.com/Hugmanrique"
-                      target="_blank"
-                    >
-                      <i className="fa fa-youtube fa-2x"></i>
-                    </a>
-                  </li>
-                  <li className="instagram">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i className="fa fa-instagram fa-2x"></i>
-                    </a>
-                  </li>
-                  <li className="pinterest">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i className="fa fa-pinterest fa-2x"></i>
-                    </a>
-                  </li>
-                  <li className="github">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i className="fa fa-github fa-2x"></i>
-                    </a>
-                  </li>
-                  <li className="flickr">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i className="fa fa-flickr fa-2x"></i>
-                    </a>
-                  </li>
-                  <li className="linkedin">
-                    <a
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                      target="_blank"
-                    >
-                      <i className="fa fa-linkedin fa-2x"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </div>
