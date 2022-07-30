@@ -6,14 +6,14 @@
 }
 
 .container {
-    width: 99vw;
-    height: 99vh;
+    width: 100vw;
+    height: 100vh;
     margin: 0.5vh 0.5vw;
     /* top: 0; */
     overflow: hidden;
     display: grid;
-    grid-template-columns: repeat(31, 1fr);
-    grid-template-rows: repeat(31, 1fr);
+    grid-template-columns: repeat(99, 1fr);
+    grid-template-rows: repeat(99, 1fr);
 
 }
 
@@ -32,12 +32,27 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 2/4;
-    grid-column: 5/28;
+    grid-row: 2/20;
+    grid-column: 5/50;
     justify-content: center;
     align-items: center;
     font-size: 300%;
     color: #41d4cf;
+}
+
+.branchManTittle {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 22/32;
+    grid-column: 55/75;
+    justify-content: center;
+    align-items: center;
+    font-size: 150%;
+    color: chocolate;
 }
 
 .nameContainer {
@@ -47,8 +62,8 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 5/9;
-    grid-column: 2/14;
+    grid-row: 25/35;
+    grid-column: 5/45;
     justify-content: center;
     align-items: left;
 
@@ -61,24 +76,12 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 5/9;
-    grid-column: 19/31;
+    grid-row: 2/20;
+    grid-column: 50/99;
     justify-content: center;
     align-items: center;
 }
 
-.addressContainer {
-    display: flex;
-    flex-direction: column;
-    /* background-color: rgba(255, 255, 255, 0.093);
-    border-radius: 0.5rem;
-    backdrop-filter: blur(4px); */
-    /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 10/14;
-    grid-column: 2/14;
-    justify-content: center;
-    align-items: left;
-}
 
 .cuitContainer {
     display: flex;
@@ -87,8 +90,8 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 15/19;
-    grid-column: 2/14;
+    grid-row: 35/45;
+    grid-column: 5/45;
     justify-content: center;
     align-items: left;
 }
@@ -100,8 +103,8 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 10/14;
-    grid-column: 19/31;
+    grid-row: 45/55;
+    grid-column: 5/45;
 
     justify-content: center;
     align-items: left;
@@ -113,9 +116,9 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 20/24;
-    grid-column: 2/6;
+    /* border: solid 2px rgb(241, 38, 38); */
+    grid-row: 35/45;
+    grid-column: 50/65;
     justify-content: center;
     align-items: center;
     font-size: medium;
@@ -127,10 +130,23 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 20/24;
-    grid-column: 7/11;
+    /* border: solid 2px rgb(241, 38, 38); */
+    grid-row: 35/45;
+    grid-column: 70/85;
 
+    justify-content: center;
+    align-items: center;
+}
+
+.addressContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(241, 38, 38); */
+    grid-row: 45/55;
+    grid-column: 50/80;
     justify-content: center;
     align-items: left;
 }
@@ -141,12 +157,25 @@
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
-    /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 20/24;
-    grid-column: 12/16;
-
+    /* border: solid 2px rgb(241, 38, 38); */
+    grid-row: 48/51;
+    grid-column: 83/85;
     justify-content: center;
-    align-items: left;
+    align-items: center;
+}
+
+.branchContainer {
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(241, 38, 38); */
+    grid-row: 60/95;
+    grid-column: 50/95;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
 }
 
 .taxBracketContainer {
@@ -156,8 +185,8 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 15/19;
-    grid-column: 19/31;
+    grid-row: 55/65;
+    grid-column: 5/45;
     justify-content: center;
     align-items: center;
     font-size: large;
@@ -170,8 +199,8 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 27/30;
-    grid-column: 27/30;
+    grid-row: 70/80;
+    grid-column: 5/10;
     justify-content: center;
     align-items: center;
 }
@@ -182,8 +211,8 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 27/30;
-    grid-column: 2/3;
+    grid-row: 85/95;
+    grid-column: 5/10;
     justify-content: center;
     align-items: center;
 }
@@ -215,6 +244,18 @@
     color: #41d4cf;
 }
 
+.btnAdd {
+    border: solid 2px #41d4cf;
+    border-radius: 9px;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #41d4cf;
+}
+
 input {
     background-color: transparent;
     border-top-color: transparent;
@@ -227,9 +268,26 @@ input {
 }
 
 select {
-    width: 300px;
+    width: 250px;
     background-color: transparent;
     border: solid 2px #41d4cf;
     color: #41d4cf;
     font-size: 1.4rem;
+}
+
+.titlleTable {
+    color: black;
+    font-size: 140%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th,
+td {
+    padding: 3px 20px;
+    justify-content: center;
+    align-items: center;
 }

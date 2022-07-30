@@ -32,8 +32,9 @@ function App() {
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
 
         <Route path='/checkout' component={CheckOut} />
-        <Route exact path='/compra' component={FormPurchase}/>
+        <Route exact path='/compra' component={FormPurchase} />
 
+        <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
         <Route exact path="/admin" component={HomeAdmin} />

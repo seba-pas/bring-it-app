@@ -40,7 +40,12 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   GET_CART,
- 
+
+  //acciones sedes
+  POST_BRANCH,
+  DELETE_BRANCH,
+  EDIT_BRANCH,
+
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -215,7 +220,7 @@ export const filterByBranches = (payload) => {
     type: FILTER_BY_BRANCHES,
     payload
   }
-} 
+}
 
 export const getAllCities = () => {
   return async function (dispatch) {
@@ -429,10 +434,66 @@ export function clearCart() {
   };
 }
 
-export function getCart(){
+export function getCart() {
   return {
     type: GET_CART,
-    
+
   }
 }
 
+
+// agregar sede
+
+export function postBranch(body) {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(
+        `/api/businessbranch`,
+        body
+      );
+      console.log("res", res)
+      return dispatch({
+        type: POST_BRANCH,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+
+//edit branch
+export function editBranch(id, body) {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(
+        `/api/businessbranch/${id}`,
+        body
+      );
+      console.log("res", res)
+      return dispatch({
+        type: EDIT_BRANCH,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+//borrar sede
+export const deleteBranch = (id) => {
+  console.log(id);
+  return async function (dispatch) {
+    try {
+      const res = await axios.delete(`/api/businessbranch/${id}`);
+      return dispatch({
+        type: DELETE_BRANCH,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

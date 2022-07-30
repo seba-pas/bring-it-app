@@ -27,7 +27,11 @@ const initialState = {
   branches: [],
   //Carrito (cart)
   cart: [],
-  cart2: [] // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
+  cart2: [], // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
+
+  branchAdded: "",
+  brancDeleted: "",
+  branchPut: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -111,7 +115,7 @@ export default function rootReducer(state = initialState, action) {
       } else {
         return {
           ...state,
-          products: action.payload? action.payload : "No se encontraron productos asociados",
+          products: action.payload ? action.payload : "No se encontraron productos asociados",
         };
       }
 
@@ -125,23 +129,23 @@ export default function rootReducer(state = initialState, action) {
       let sortedPrice =
         action.payload === "asc"
           ? state.products.sort(function (a, b) {
-              if (a.price > b.price) {
-                return 1;
-              }
-              if (b.price > a.price) {
-                return -1;
-              }
-              return 0;
-            })
+            if (a.price > b.price) {
+              return 1;
+            }
+            if (b.price > a.price) {
+              return -1;
+            }
+            return 0;
+          })
           : state.products.sort(function (a, b) {
-              if (a.price > b.price) {
-                return -1;
-              }
-              if (b.price > a.price) {
-                return 1;
-              }
-              return 0;
-            });
+            if (a.price > b.price) {
+              return -1;
+            }
+            if (b.price > a.price) {
+              return 1;
+            }
+            return 0;
+          });
       return {
         ...state,
         products: sortedPrice,
@@ -188,6 +192,9 @@ export default function rootReducer(state = initialState, action) {
           (e) => e.email === state.businessEmail
         )[0],
         uniqueProvinces: uniqueProvince,
+        branchAdded: "",
+        brancDeleted: "",
+        branchPut: "",
       };
     case "FILTER_BY_BUSINESS":
       const allBusiness = state.allProducts;
@@ -210,7 +217,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         branches: action.payload,
       };
-      case "FILTER_BY_BRANCHES":
+    case "FILTER_BY_BRANCHES":
       const allBranches = state.allProducts;
 
       const filterBranches =
@@ -251,13 +258,13 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allCities: action.payload,
       };
-      case 'FILTER_BY_CITIES':
-        const allCities = state.allProducts;
-        const filterCities = action.payload === 'All'
-        ?allCities
-        :allCities.filter((e) => e.business.cityId === action.payload)
-        // console.log(allCities)
-      return{
+    case 'FILTER_BY_CITIES':
+      const allCities = state.allProducts;
+      const filterCities = action.payload === 'All'
+        ? allCities
+        : allCities.filter((e) => e.business.cityId === action.payload)
+      // console.log(allCities)
+      return {
         ...state,
         products: filterCities.length ? filterCities : "No se encontraron productos asociados"
       };
@@ -288,35 +295,35 @@ export default function rootReducer(state = initialState, action) {
       );
       return itemInCart
         ? {
-            ...state,
-            cart: state.cart.map((item) =>
+          ...state,
+          cart: state.cart.map((item) =>
             item.id === productoCantidad.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-            ),
-          }
-          : {
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
+        }
+        : {
 
-            ...state,
-            cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
-          };
+          ...state,
+          cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
+        };
 
     //Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
     case "REMOVE_ONE_FROM_CART":
       let itemToDelete = state.cart.find((item) => item.id === action.payload);
       return itemToDelete.quantity > 1
         ? {
-            ...state,
-            cart: state.cart.map((item) =>
-              item.id === action.payload
-                ? { ...item, quantity: item.quantity - 1 }
-                : item
-            ),
-          }
+          ...state,
+          cart: state.cart.map((item) =>
+            item.id === action.payload
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          ),
+        }
         : {
-            ...state,
-            cart: state.cart.filter((item) => item.id !== action.payload),
-          };
+          ...state,
+          cart: state.cart.filter((item) => item.id !== action.payload),
+        };
     //Elimina el producto del arreglo cart (recibe id)
     case "REMOVE_ALL_FROM_CART":
       return {
@@ -332,7 +339,7 @@ export default function rootReducer(state = initialState, action) {
     case "GET_CART":
       return {
         ...state,
-        
+
         cart: [...state.cart]
       };
 
@@ -345,6 +352,21 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         allTravels: action.payload,
+      };
+    case "POST_BRANCH":
+      return {
+        ...state,
+        branchAdded: action.payload,
+      };
+    case "DELETE_BRANCH":
+      return {
+        ...state,
+        brancDeleted: action.payload,
+      };
+    case "EDIT_BRANCH":
+      return {
+        ...state,
+        branchPut: action.payload,
       };
 
     default:
