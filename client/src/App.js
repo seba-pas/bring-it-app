@@ -9,7 +9,7 @@ import RegisterUser from "./components/RegisterUser.jsx";
 import RegisterBusiness from "./components/RegisterBusiness.jsx";
 import { ProductDetail } from "./components/ProductDetail";
 import PerfilBusiness from "./components/PerfilBusiness";
-import FormPurchase from "./components/FormPurchase";
+// import FormPurchase from "./components/FormPurchase";
 import HomeAdmin from "./components/HomeAdmin";
 import PerfilUser from "./components/PerfilUser";
 import UserTravels from "./components/UserTravels";
@@ -31,8 +31,8 @@ function App() {
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
 
-        <Route path='/checkout' component={CheckOut} />
-        <Route exact path='/compra' component={FormPurchase}/>
+        {/* <Route path='/checkout' component={CheckOut} /> */}
+        <Route exact path='/compra' component={CheckOut}/>
 
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
