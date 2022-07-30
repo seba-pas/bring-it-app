@@ -192,13 +192,10 @@ export default function HomePersonas() {
                   <option hidden selected>
                     Empresa
                   </option>
-                  {BUSINESS.map((BUSINESS) => {
+                  {BRANCHES.map((BRANCHES) => {
                     return (
-                      <option
-                        value={BUSINESS.businessName}
-                        key={BUSINESS.email}
-                      >
-                        {BUSINESS.businessName}
+                      <option value={BRANCHES.businessBranchName} key={BRANCHES.id}>
+                          {BRANCHES.businessBranchName}
                       </option>
                     );
                   })}
@@ -209,10 +206,10 @@ export default function HomePersonas() {
                 >
                   <option value="All">Todas</option>
 
-                  {PROVINCES.map((province) => {
+                  {BRANCHES.map((province) => {
                     return (
-                      <option value={province} key={province}>
-                        {province}
+                      <option value={province.province} key={business.province}>
+                         {province.province}
                       </option>
                     );
                   })}
