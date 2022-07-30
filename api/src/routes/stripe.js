@@ -1,5 +1,8 @@
 const express = require('express');
 const Stripe = require('stripe');
+const nodemailer = require('nodemailer')
+const { verifyTokenUser } = require('../middlewares/verifyToken')
+
 
 const router = express.Router();
 
@@ -19,8 +22,8 @@ const stripe = new Stripe('sk_test_51LPy6xFKxxhhwn5aTDrHK0XOqnU4aa8DjaPvLu6YLW0r
 // Ahora creamos la ruta a la que vamos a recibir los datos del post en el 
 // frontend
 router.post('/payment', async (req, res) => {
-	const { id, amount } = req.body;
-	console.log("detalle compra: ", amount,"id: " ,id)
+	const { id, amount, email, name } = req.body;
+	console.log("id: ", id, "amount: ", amount, "email: ", email, "name: ", name)
 	try {
 		const payment = await stripe.paymentIntents.create({
 			currency: "USD",
@@ -30,10 +33,37 @@ router.post('/payment', async (req, res) => {
 			confirm: true
 		});
 		console.log("payment", payment)
+
+		// nodemailer
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+            user: 'bringit662@gmail.com',
+            pass: 'owtgyxnzmbchbhjj'
+            }
+        });
+
+        await transporter.sendMail({
+            from: "Bring It App <bringit662@gmail.com>",
+            to: name,
+            subject: "Pago realizado satisfactoriamente",
+            html: `<h3>¡Muchas gracias por tu compra, ${email}!</h3>
+            <p>Tu compra del <b>acá va el elemento</b> se ha completado satisfactoriamente
+            muchas gracias por elegir Bring It App.
+            </p>
+            `
+        })
+
+
+
+
+
 		res.json({ msg: "Successful payment" })
 	} catch(error) {
 		console.log(error)
-		res.json({ message: error.row.message })
+		res.json({ message: error })
 	}
 });
 
