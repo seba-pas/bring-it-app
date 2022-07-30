@@ -237,7 +237,7 @@ export default function NavBarLanding() {
           email: "",
           password: "",
         });
-        history.push("/persona");
+        history.push("/filtro");
       }
     }
   }, [user]);

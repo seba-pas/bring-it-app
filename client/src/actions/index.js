@@ -31,6 +31,8 @@ import {
   FILTER_BY_CITIES,
   GET_ALL_BRANCHES,
   FILTER_BY_BRANCHES,
+  FILTER_BY_BRANCHES_PROVINCES,
+  SET_PRODUCTS,
 
 
   //Acciones del carrito (cart)
@@ -89,6 +91,12 @@ export const getAllProductsName = (name) => {
 export const setDetail = () => {
   return {
     type: SET_PRODUCT_DETAIL,
+  };
+};
+
+export const setProduct = () => {
+  return{
+    type: SET_PRODUCTS
   };
 };
 
@@ -216,6 +224,13 @@ export const filterByBranches = (payload) => {
     payload
   }
 } 
+
+export const filterByBranchesProvince = (payload) => {
+  return {
+    type: FILTER_BY_BRANCHES_PROVINCES,
+    payload
+  }
+}
 
 export const getAllCities = () => {
   return async function (dispatch) {
