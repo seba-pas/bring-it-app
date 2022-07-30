@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       phone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       deleted: {

@@ -158,7 +158,7 @@ export const orderByPrice = (payload) => {
 export const getCategories = () => {
   return async function (dispatch) {
     const res = await axios.get("/api/category");
-    console.log("response categoresi", res);
+   
     return dispatch({
       type: GET_CATEGORIES,
       payload: res.data,
@@ -235,7 +235,7 @@ export const filterByBranchesProvince = (payload) => {
 export const getAllCities = () => {
   return async function (dispatch) {
     const res = await axios("/api/city");
-    console.log('soy Res', res)
+    
     return dispatch({
       type: GET_ALL_CITIES,
       payload: res.data,
@@ -346,7 +346,9 @@ export const loginBusiness = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/api/business/login`, body);
-      // localStorage.setItem("users",JSON.stringify(res.data))     
+      // localStorage.setItem("access_user", JSON.stringify(res.data));
+
+     
       return dispatch({
         type: POST_LOGINBUSINESS,
         payload: [res.data, body.email],

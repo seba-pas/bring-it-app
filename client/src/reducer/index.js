@@ -312,14 +312,8 @@ export default function rootReducer(state = initialState, action) {
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
       );
-      /* var quetrae = state.cart.map((e) => e.price)
-      console.log(itemInCart)
-      debugger;
-      var totalAmount = 0; */
-     /*  for (let i = 0; i < quetrae.length; i++) {
-        totalAmount = totalAmount + quetrae[i] ;
-        i++
-      } */
+
+      
       return itemInCart
         ? {
             ...state,

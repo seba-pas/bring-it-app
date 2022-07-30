@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
@@ -74,9 +73,7 @@ export default function NavBarLanding() {
     }
     if (
       !input.password ||
-      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(
-        input.password
-      )
+      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)
     ) {
       errors.password = "La contraseña debe tener entre 8 y 16 caracteres";
     } else {
@@ -252,21 +249,28 @@ export default function NavBarLanding() {
   const handleShow = () => setShow(true);
 
   return (
-    <div className={styles.navbarLanding} style={{border: "none"}}>
+    <div className={styles.navbarLanding} style={{ border: "none" }}>
       {/* <div className={styles.imagen}> */}
-        
-        {/* <NavLink exact to="/"> */}
-          <img
-            src={image}
-            style={{height: "130px",width: "auto",  paddingBottom: "0px", marginBottom: "0px" }}
-            alt="Logo no encontrado"
-          />
-        {/* </NavLink> */}
+
+      {/* <NavLink exact to="/"> */}
+      <img
+        src={image}
+        style={{
+          height: "130px",
+          width: "auto",
+          paddingBottom: "0px",
+          marginBottom: "0px",
+        }}
+        alt="Logo no encontrado"
+      />
+      {/* </NavLink> */}
       {/* </div> */}
-      
+
       <div className={styles.SearchBar}></div>
       <div className={styles.contbotones2}>
-        <button id={styles.login} onClick={handleShowLogin}>LOGIN</button>
+        <button id={styles.login} onClick={handleShowLogin}>
+          LOGIN
+        </button>
         <Modal show={showLogin} onHide={handleCloseLogin}>
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
@@ -319,33 +323,41 @@ export default function NavBarLanding() {
 
               <Tab eventKey="profile" title="Usuario">
                 <Form onSubmit={(e) => handleSubmitLoginUser(e)}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      placeholder="Enter email"
-                      type="email"
-                      name="email"
-                      value={input.email}
-                      id="email"
-                      required
-                      onChange={(e) => handleChange(e)}
-                    />
-                    {errors.email && <p>{errors.email}</p>}
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Password"
-                      name="password"
-                      id="password"
-                      value={input.password}
-                      onChange={(e) => handleChange(e)}
-                      required
-                    />
-                    {errors.password && <p>{errors.password}</p>}
-                  </Form.Group>
-
+                  <Row>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control
+                        placeholder="Enter email"
+                        type="email"
+                        name="email"
+                        value={input.email}
+                        id="email"
+                        required
+                        onChange={(e) => handleChange(e)}
+                      />
+                      {errors.email && <p>{errors.email}</p>}
+                    </Form.Group>
+                  </Row>
+                  <Row>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        id="password"
+                        value={input.password}
+                        onChange={(e) => handleChange(e)}
+                        required
+                      />
+                      {errors.password && <p>{errors.password}</p>}
+                    </Form.Group>
+                  </Row>
+                  <Row style={{ marginBottom: "20px" }}>
+                    <Link to="/recuperarPassword">
+                      <a href="">¿Olvidaste tu contraseña?</a>
+                    </Link>
+                  </Row>
                   <Button
                     variant="info"
                     type="submit"

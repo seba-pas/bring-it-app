@@ -23,13 +23,29 @@
   width: auto;
   margin-top: 15px;
   margin-bottom: 20px;
-  margin-right: 20%;
+  margin-right: 25%;
   
+}
+#botonCart:hover {
+  border-color: #3ab0ff;
+  transition: background-color 0.8s ease;
+  background-color: chocolate;
+  color: white;
 }
 
 .search {
+
   margin-top: 45px;
-  margin-right: 5%;
+  /* margin-right: 5%; */
+}
+.selectPerfil {
+  margin-left:2%;
+}
+.selectPerfil option {
+
+  background-color: chocolate;
+  color: white;
+ 
 }
 
 .SearchBar input {

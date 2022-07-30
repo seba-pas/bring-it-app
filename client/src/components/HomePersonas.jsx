@@ -222,7 +222,7 @@ export default function HomePersonas() {
                   Limpiar Filtros
                 </button>
               </div>
-              <div className={styles.contcards}>
+              <div className={styles.contcards} style={{width: "100%"}}>
                 <ProductCards currentProducts={currentProducts} />
               </div>
 

@@ -15,8 +15,12 @@ import PerfilUser from "./components/PerfilUser";
 import UserTravels from "./components/UserTravels";
 import ConoceMas from "./components/ConoceMas";
 import CheckOut from "./components/Stripe/CheckOut";
+
 import FilterBefore from "./components/FilterBefore";
 import FilterProvince from "./components/FilterProvince";
+
+import RecuperarPassword from "./components/RecuperarPassword";
+
 
 function App() {
   return (
@@ -40,6 +44,7 @@ function App() {
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
         <Route exact path="/admin" component={HomeAdmin} />
+        <Route exact path="/recuperarPassword" component={RecuperarPassword}/>
         {/* <Route exact path="/testing" component={FormTravel} /> */}
       </Switch>
     </div>
