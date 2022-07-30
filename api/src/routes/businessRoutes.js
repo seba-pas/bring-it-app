@@ -85,7 +85,8 @@ router.post('/login', async(req,res) => {
         if(originalPassword !== req.body.password) return res.status(401).send(`Datos incorrectos`);
 
         const accessToken = jwt.sign({
-            id: businessLogin.id
+            id: businessLogin.id,
+            isBusiness: businessLogin.isBusiness
         }, process.env.JWT_SEC, { expiresIn: '1d' });
 
         const { password, ...others } = businessLogin;
