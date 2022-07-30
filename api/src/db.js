@@ -15,9 +15,14 @@ let sequelize =
         username: DB_USER,
         password: DB_PASSWORD,
         pool: {
-          max: 3,
-          min: 1,
-          idle: 10000,
+          // max: 3,
+          // min: 1,
+          // idle: 10000,
+          max: 100,
+          min: 0,
+          idle: 200000,
+          // @note https://github.com/sequelize/sequelize/issues/8133#issuecomment-359993057
+          acquire: 1000000,
         },
         dialectOptions: {
           ssl: {
@@ -82,6 +87,8 @@ City.belongsTo(Province);
 // Esta relación nos hace ruido pero no nos cierra ninguna otra alternativa mejor
 Purchase.hasOne(Confirmed);
 Confirmed.belongsTo(Purchase);
+
+City.hasOne(Purchase, {as: 'arrivalCityId', foreignKey: 'arrivalCityId'});
 
 //Descomentar cuando este el modelo User creado e importado
 User.hasMany(Purchase);

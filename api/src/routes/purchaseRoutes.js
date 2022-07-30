@@ -6,29 +6,29 @@ const router = Router();
 
 //ruta de actualizacion purchase
 
-router.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { totalPrice, waitingTime, arrivalCity } = req.body;
-    try {
-        await Purchase.update({
-            totalPrice,
-            waitingTime,
-            arrivalCity
-        }, {
-            where: {
-                id
-            }
-        });
-        res.status(200).send(`Purchase updated successfully`);
-    } catch(err) {
-        res.status(500).send(`Error at update route: ${err}`);
-        }
-    })
+// router.put('/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const { totalPrice, maxDeliveryDate, arrivalCityId } = req.body;
+//     try {
+//         await Purchase.update({
+//             totalPrice,
+//             waitingTime,
+//             arrivalCityId
+//         }, {
+//             where: {
+//                 id
+//             }
+//         });
+//         res.status(200).send(`Purchase updated successfully`);
+//     } catch(err) {
+//         res.status(500).send(`Error at update route: ${err}`);
+//         }
+//     })
 
 
 //ruta Delete borra purchase por Id
 
-router.delete('/delete/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     Purchase.findByPk(req.params.id).then(function(purchase) {
       purchase.destroy();
 
@@ -55,22 +55,22 @@ router.get('/:id', async (req, res)=>{
 });
 
 
-//ruta get para purchase por id
-router.get('/:id', async (req, res)=>{
-    const {id}= req.params;
-    let purchase= await getPurchase();
-    if (id){
-        let idPurchase= await purchase.filter(e=>e.id==id);
-        if (idPurchase.length!==0) {
-            res.status(200).send(idPurchase)
+// //ruta get para purchase por id
+// router.get('/:id', async (req, res)=>{
+//     const {id}= req.params;
+//     let purchase= await getPurchase();
+//     if (id){
+//         let idPurchase= await purchase.filter(e=>e.id==id);
+//         if (idPurchase.length!==0) {
+//             res.status(200).send(idPurchase)
             
-        } else {
-            res.status(200).send('no se ecnontro Purchese');
-        };
-    }else{
-        res.status(200).send('ingrese ID')
-    };
-});
+//         } else {
+//             res.status(200).send('no se ecnontro Purchese');
+//         };
+//     }else{
+//         res.status(200).send('ingrese ID')
+//     };
+// });
 
 // ruta funcionando todos los purchase
 router.get ('/', async (req, res)=>{
@@ -82,21 +82,21 @@ router.get ('/', async (req, res)=>{
     }
 });
 
-// ruta funcionando sin email y producto //ACTUALIZADA
+// POST //ACTUALIZADA
 router.post('/', async (req, res)=>{
     try {
         let {
             totalPrice,
-            waitingTime,
-            arrivalCity, //pasar a id
+            maxDeliveryDate,
+            arrivalCityId, //pasar a id
             userEmail,
             items
         }= req.body;
 
         const createdPurchase = await Purchase.create({
             totalPrice,
-            waitingTime,
-            arrivalCity,
+            maxDeliveryDate,
+            arrivalCityId,
             userEmail,
         });
 
@@ -118,24 +118,24 @@ router.post('/', async (req, res)=>{
 
 // UPDATE
 
-router.put('/edit/:id', async (req, res) => {
-    const { id } = req.params;
-    const { totalPrice, waitingTime, arrivalCity } = req.body;
-    try {
-        const updatedPurchase = await Purchase.update({
-            totalPrice,
-            waitingTime,
-            arrivalCity
-        }, {
-            where: {
-                id
-            }
-        });
-        res.status(200).send(`Purchase updated successfully`);
-    } catch(err) {
-        res.status(500).send(`Error at update route: ${err}`);
-    }
-})
+// router.put('/edit/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const { totalPrice, waitingTime, arrivalCity } = req.body;
+//     try {
+//         const updatedPurchase = await Purchase.update({
+//             totalPrice,
+//             waitingTime,
+//             arrivalCity
+//         }, {
+//             where: {
+//                 id
+//             }
+//         });
+//         res.status(200).send(`Purchase updated successfully`);
+//     } catch(err) {
+//         res.status(500).send(`Error at update route: ${err}`);
+//     }
+// })
 
 
 module.exports = router;

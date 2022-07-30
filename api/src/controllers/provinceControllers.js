@@ -11,15 +11,23 @@ const apiProvince = async(req, res) => {
 	try {
 		// const apiProvinces = await axios(`https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre&max=24`);
 		// const getProvinces = apiProvinces.data.provincias;
-		const savedProvinces = provinces.map(async(p) => {
-			const provinces = await Province.findOrCreate({
-				where: {
-					id: p.id,
-					nombre: p.nombre
-				}
-			})
-		})
-		console.log(`Provinces loaded successfully!`)
+		const foundProvince = await Province.findOne();
+		if (!foundProvince) {
+			await Province.bulkCreate(provinces) ;
+			console.log(`Provinces loaded successfully!`)
+		} else {
+			console.log(`Provinces already loaded`)
+		}
+
+		// const savedProvinces = provinces.map(async(p) => {
+		// 	const provinces = await Province.findOrCreate({
+		// 		where: {
+		// 			id: p.id,
+		// 			nombre: p.nombre
+		// 		}
+		// 	})
+		// })
+		
 	} catch(error) {
 		console.log(error);
 	}

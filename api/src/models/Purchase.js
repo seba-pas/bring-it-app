@@ -16,14 +16,10 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      waitingTime: {
-        type: DataTypes.INTEGER,
+      maxDeliveryDate: {
+        type: DataTypes.DATEONLY,
         allowNull: false,
-      },
-      arrivalCity: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      }      
+      },     
     },
     {
         timestamps: true,
