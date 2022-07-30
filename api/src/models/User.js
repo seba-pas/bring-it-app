@@ -1,16 +1,16 @@
 const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
-function getAge(birthDate) {
-  var today = new Date();
-  var birthDate = new Date(birthDate);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-  }
-  return age;
-}
+// function getAge(birthDate) {
+//   var today = new Date();
+//   var birthDate = new Date(birthDate);
+//   var age = today.getFullYear() - birthDate.getFullYear();
+//   var m = today.getMonth() - birthDate.getMonth();
+//   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+//       age--;
+//   }
+//   return age;
+// }
 
 module.exports = (sequelize) => {
   // defino el modelo
@@ -43,12 +43,12 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING, // DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
         allowNull: true
     },
-    age: {
-      type: DataTypes.INTEGER,
-      set() {
-        this.setDataValue('age', getAge(this.birthDate));
-      }
-    },
+    // age: {
+    //   type: DataTypes.INTEGER,
+    //   set() {
+    //     this.setDataValue('age', getAge(this.birthDate));
+    //   }
+    // },
     phone: {
       type: DataTypes.STRING,
       allowNull: false

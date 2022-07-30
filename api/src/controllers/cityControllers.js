@@ -12,18 +12,26 @@ const apiCity = async () => {
 		// const getCities = apiCities.data.municipios;
 		// const saveCities = getCities.map(async(city) => {
 
-		const saveCities = cities.map(async(city) => {
-			const cities = await City.findOrCreate({
-				where: {
-					id: city.id,
-					nombre: city.nombre,
-					provinceId: city.provinceId
-					// provinceId: city.provincia.id
+		const foundCity = await City.findOne();
+		if (!foundCity) {
+			await City.bulkCreate(cities) ;
+			console.log(`Cities saved successfully!`)
+		} else {
+			console.log(`Cities already loaded`)
+		}
+		
+		// const saveCities = cities.map(async(city) => {
+		// 	const cities = await City.findOrCreate({
+		// 		where: {
+		// 			id: city.id,
+		// 			nombre: city.nombre,
+		// 			provinceId: city.provinceId
+		// 			// provinceId: city.provincia.id
 
-				},
-			})
-		})
-		console.log(`Cities saved successfully!`)
+		// 		},
+		// 	})
+		// })
+		
 	} catch(error) {
 		console.log(`Error at apiInfo function: ${error}`);
 	}

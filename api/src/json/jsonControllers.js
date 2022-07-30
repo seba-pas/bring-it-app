@@ -10,6 +10,8 @@ const CryptoJS = require('crypto-js');
 
 
 async function loadDB (){
+  const foundProduct = await User.findByPk("agustina@gmail.com");
+  if (!foundProduct) {
     const usersLoad = users.forEach( async (u) => {
       await User.findOrCreate({
         where: {
@@ -18,7 +20,7 @@ async function loadDB (){
           name: u.name,
           lastname: u.lastname,
           birthDate: u.birthDate,
-          age: u.age,
+          // age: u.age,
           phone: u.phone
         }
       })
@@ -47,7 +49,7 @@ async function loadDB (){
       })
     }) ;
 
-    const businessesbranchLoad = businessbranch.forEach( async (b) => {      
+    const businessesbranchLoad = businessbranch.forEach( async (b) => {     
       await Businessbranch.findOrCreate({
         where: {
           businessEmail: b.businessEmail,           
@@ -77,7 +79,8 @@ async function loadDB (){
       })
      ;
     console.log('Products saved successfully') ;
-  }
+  } else {console.log('Db already loaded')}
+} 
 
   module.exports = {
     loadDB
