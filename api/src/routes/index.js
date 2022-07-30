@@ -17,6 +17,8 @@ const travelRoutes = require('./travelRoutes');
 
 const favoriteRoutes = require ('./favoriteRoutes');
 
+const businessBranchRoutes = require ('./businessBranchRoutes');
+
 
 
 // const productRoutes = require ("./productRoutes");
@@ -43,7 +45,11 @@ router.use('/user', userRoutes);
 router.use('/travel', travelRoutes);
 router.use('/cart', cartRoutes);
 router.use('/favorite', favoriteRoutes);
+
+router.use('/businessbranch', businessBranchRoutes);
+
 router.use('/review', reviewRoutes);
+
 
 //Configuracion de rutas Purchase
 router.use('/purchase', purchaseRouters);

@@ -13,4 +13,9 @@
 .btncontainer {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
+
+/* th { */
+/* font-size: 85%; */
+/* } */

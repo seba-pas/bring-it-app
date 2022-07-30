@@ -88,7 +88,7 @@ router.post('/', async (req, res)=>{
         let {
             totalPrice,
             waitingTime,
-            arrivalCity,
+            arrivalCity, //pasar a id
             userEmail,
             items
         }= req.body;

@@ -6,6 +6,7 @@ import ProductCardBusiness from './ProductCardBusiness';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBusiness, getAllProducts, getCategories } from '../actions';
 import NavBarBusiness from "./NavBarBusiness"
+import { IoCaretDownOutline, IoCaretUpOutline } from 'react-icons/io5';
 
 function HomeBusiness() {
 
@@ -27,6 +28,7 @@ function HomeBusiness() {
         perfil: "",
         products: [],
         businessInfo: {},
+        asc: true,
     });
 
     useEffect(() => {
@@ -65,118 +67,33 @@ function HomeBusiness() {
         });
     }
 
-
-
-
-
-    let soldProducts = [
-        {
-            id: 1,
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-            productName: "zapatos>",
-            amount: 2,
-            description: "size:41",
-            clientName: "Agustina Eciolaza",
-            clientPhone: 555 - 5555 - 5555,
-            date: "19-07-22",
-            BringerPending: true,
-            BringerName: "",
-            BringerContact: null,
-        },
-        {
-            id: 2,
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-            productName: "bag",
-            amount: 1,
-            description: "color:brown",
-            clientName: "Cele Chelu",
-            clientPhone: 222 - 2222 - 2222,
-            date: "18-07-22",
-            BringerPending: false,
-            BringerName: "Sebastian",
-            BringerContact: 333 - 33333 - 333,
-        },
-        {
-            id: 3,
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-            productName: "vino tinto",
-            amount: 10,
-            description: "asd",
-            clientName: "Felipe Aviani",
-            clientPhone: 777 - 5555 - 5555,
-            date: "07-07-22",
-            BringerPending: true,
-            BringerName: "",
-            BringerContact: null,
-        },
-        {
-            id: 4,
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-            productName: "vino tinto",
-            amount: 10,
-            description: "asd",
-            clientName: "Guillermo Ahrens",
-            clientPhone: 777 - 5555 - 5555,
-            date: "07-07-22",
-            BringerPending: false,
-            BringerName: "Agustín Farias",
-            BringerContact: 3213 - 5445 - 55,
-        },
-        {
-            id: 5,
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-            productName: "reloj",
-            amount: 10,
-            description: "asd",
-            clientName: "Tomas Gelvez",
-            clientPhone: 777 - 5555 - 5555,
-            date: "07-07-22",
-            BringerPending: true,
-            BringerName: "",
-            BringerContact: null,
-        },
-        {
-            id: 6,
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-            productName: "gafas",
-            amount: 1,
-            description: "asd",
-            clientName: "Sebastina",
-            clientPhone: 777 - 5555 - 5555,
-            date: "07-07-22",
-            BringerPending: false,
-            BringerName: "Cele ",
-            BringerContact: 3213 - 5445 - 55,
-        },
-        {
-            id: 7,
-            productImage: "https://thumbs.dreamstime.com/b/imagen-del-icono-de-la-u%C3%B1a-del-pulgar-de-la-fotograf%C3%ADa-o-del-bot%C3%B3n-de-la-galer%C3%ADa-de-la-imagen-84717969.jpg",
-            productName: "gafas",
-            amount: 1,
-            description: "asd",
-            clientName: "Agustín Farias",
-            clientPhone: 777 - 5555 - 5555,
-            date: "07-07-22",
-            BringerPending: false,
-            BringerName: "Agustina",
-            BringerContact: 3213 - 5445 - 55,
-        },
-    ]
-
-
+    // const orderName = (event)=>{
+    //     event.preventDefault();
+    //     setInput((prevInput) => {
+    //         return {
+    //             ...prevInput,
+    //             asc: !asc,
+    //         }
+    //     });
+    // }
 
     return (
         <div>
             <NavBarBusiness />
-            <div className={styles.btnContainer}>
-                <NavLink to='/productmanager'>
-                    <button className={styles.btn}>+</button>
-                </NavLink>
-            </div>
-            <div className={styles.home} >
+            <div className={styles.HomeBusiness} >
                 <div className={styles.container}>
+                    <div className={styles.btnContainer}>
+                        <NavLink to='/productmanager'>
+                            <button className={styles.btn}>+</button>
+                        </NavLink>
+                    </div>
+                    {/* <div className={styles.btnFilterNameContainer}>
+                        <NavLink to='/productmanager'>
+                            <button onClick={(event) => orderName(event)}><IoCaretDownOutline /></button>  <IoCaretUpOutline />
+                        </NavLink>
+                    </div> */}
 
-                    <div className={styles.soldProductsContainer}>
+                    {/* <div className={styles.soldProductsContainer}>
                         {<table>
                             <thead>
                                 <tr>
@@ -199,10 +116,10 @@ function HomeBusiness() {
                             </tbody>
                         </table>
                         }
-                    </div>
+                    </div> */}
                     <div className={styles.inventoryContainer}>
                         {<table>
-                            <thead>
+                            <thead className={styles.titlleTable}>
                                 <tr>
                                     <th>Imagen</th>
                                     <th>Producto</th>
@@ -223,11 +140,11 @@ function HomeBusiness() {
                         }
                     </div>
                     <div className={styles.noStockTitle}>
-                        <h2>Inventario Bajo</h2>
+                        Inventario Bajo
                     </div>
                     <div className={styles.noStock}>
                         {<table>
-                            <thead>
+                            <thead className={styles.titlleTableNonSt}>
                                 <tr>
                                     <th>Imagen</th>
                                     <th>Producto</th>

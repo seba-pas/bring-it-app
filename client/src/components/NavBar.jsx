@@ -45,10 +45,12 @@ export default function NavBar() {
 
   useEffect(() => {
     if (input.perfil === "email") history.push("/perfilUser");
+    if (input.perfil === "misViajes") history.push('/persona/misviajes');
     else if (input.perfil === "close") {
-      dispatch(clearCart());
-      history.push("/");
-    }
+
+      dispatch(clearCart())
+      history.push("/")
+    };
   }, [input.perfil]);
 
   const handleOnChange = (event) => {
@@ -84,6 +86,7 @@ export default function NavBar() {
         <SearchBar />
       </div>
       <ul className="navbar-right">
+
         <li
           style={{
             listStyle: "none",
@@ -122,6 +125,7 @@ export default function NavBar() {
             </Modal.Footer>
           </Modal>
 
+
           {/* </a> */}
         </li>
       </ul>
@@ -145,7 +149,9 @@ export default function NavBar() {
         >
           <option value="">{input.perfil} </option>
 
+
           <option value="email">{gState.user.others.dataValues.email}</option>
+          <option value="misViajes">Mis Viajes</option>
           <option value="close">Cerrar sesión</option>
         </select>
       </div>

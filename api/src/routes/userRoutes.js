@@ -39,10 +39,6 @@ router.put('/baneo/:email'), async (req, res)=>{
 //POST / CREATE User
 // http://localhost:3001/api/user
 router.post("/", async (req, res) => {
-  // const { email, password, name, lastname, birthDate } = req.body;
-  // if (!email || !password || !name || !lastname || !birthDate) {
-    // res.status(404).send("Faltan datos para crear el usuario");
-  // } else {
     try {
       const newUser = await User.findOrCreate({
         where: {
@@ -50,7 +46,8 @@ router.post("/", async (req, res) => {
           name: req.body.name,
           lastname: req.body.lastname,
           birthDate: req.body.birthDate,
-          // age: req.body.age,
+          age: req.body.age,
+          phone: req.body.phone,
           password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString()
         }
       });

@@ -8,24 +8,13 @@ import HomePersonas from "./components/HomePersonas.jsx";
 import RegisterUser from "./components/RegisterUser.jsx";
 import RegisterBusiness from "./components/RegisterBusiness.jsx";
 import { ProductDetail } from "./components/ProductDetail";
-import LandingPage1 from "./components/LandingPage1";
-
 import PerfilBusiness from "./components/PerfilBusiness";
 // import FormPurchase from "./components/FormPurchase";
 import HomeAdmin from "./components/HomeAdmin";
 import PerfilUser from "./components/PerfilUser";
-import FormTravel from "./components/FormTravel";
 import UserTravels from "./components/UserTravels";
-
-
+import ConoceMas from "./components/ConoceMas";
 import CheckOut from "./components/Stripe/CheckOut";
-
-
-// import NavBar from "./components/NavBar";
-
-// import Home from "./components/Home";
-// import ProductCard from "./components/ProductCard";
-// style={{backgroundColor: "#F6F5F5"}}
 
 function App() {
   return (
@@ -33,7 +22,7 @@ function App() {
       <Switch>
         <Route exact path="/product/:id" component={ProductDetail} />
         <Route exact path="/" component={LandingPage} />
-        <Route exact path="/pre" component={LandingPage1} />
+        <Route exact path="/conocemas" component={ConoceMas} />
         <Route exact path="/persona/misviajes" component={UserTravels} />
         <Route exact path="/persona" component={HomePersonas} />
         <Route exact path="/empresas" component={HomeBusiness} />
@@ -41,16 +30,14 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
+
         {/* <Route path='/checkout' component={CheckOut} /> */}
         <Route exact path='/compra' component={CheckOut}/>
+
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
-
         <Route exact path="/admin" component={HomeAdmin} />
         {/* <Route exact path="/testing" component={FormTravel} /> */}
-
-        
-
       </Switch>
     </div>
   );
