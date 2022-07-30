@@ -331,7 +331,9 @@ export const loginBusiness = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/api/business/login`, body);
-      // localStorage.setItem("users",JSON.stringify(res.data))     
+      // localStorage.setItem("access_user", JSON.stringify(res.data));
+
+     
       return dispatch({
         type: POST_LOGINBUSINESS,
         payload: [res.data, body.email],

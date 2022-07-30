@@ -41,6 +41,7 @@ export const ProductDetail = () => {
   }
 
   function handleClickAddToCart(e) {
+    
     e.preventDefault();
     dispatch(addToCart(product));
     swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
@@ -98,7 +99,7 @@ export const ProductDetail = () => {
                 {product.stock}
               </p>
               <div className="card-footer">
-                <div className={styles.contBot}>
+                {/* <div className={styles.contBot}>
                   <a
                     className="btn btn-primary"
                     onClick={(e) => handleClick(e)}
@@ -106,7 +107,7 @@ export const ProductDetail = () => {
                   >
                     COMPRAR
                   </a>
-                </div>
+                </div> */}
                 <a
                   className="btn btn-primary"
                   onClick={(e) => handleClickAddToCart(e)}

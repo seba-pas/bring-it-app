@@ -61,18 +61,7 @@ function PerfilUser(props) {
                     {input.email}
                 </div>
                 
-                <div className={styles.passwordContainer}>
-                    <label htmlFor='password'>Password:</label>
-                    <input
-                        // className={}
-                        type="text"
-                        name="password"
-                        value={input.password}
-                        placeholder="Password"
-                        onChange={handleInputChange}
-                    />
-                    {/* {!error.errorProduct ? <h3><pre>    {null}                                          </pre></h3> : <h3><pre>          {error.errorProduct}             </pre></h3>} */}
-                </div>
+               
                 <div className={styles.nameContainer}>
                     <label htmlFor='name'>Nombre:</label>
                     <input

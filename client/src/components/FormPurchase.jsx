@@ -79,45 +79,75 @@ function FormPurchase() {
         </h1>
         <Row>
           <Col>
-            <ul>
-              {cart.map((productGroup) => (
-                <li
-                  className="clearfix"
-                  key={productGroup.id}
-                  value={productGroup.id}
-                  style={{ listStyle: "none" }}
-                >
-                  <img
-                    src={productGroup.image}
-                    alt=""
-                    style={{
-                      width: "100px",
-                      height: "90px",
-                      objetFit: "cover",
-                    }}
-                  />
-                  <span className="item-name">{productGroup.name}</span>
-                  <span className="item-price">
-                    ${productGroup.price * productGroup.quantity}
-                  </span>
-                  <span className="item-quantity">
-                    Cantidad: {productGroup.quantity}
-                  </span>
-
-                  {/* <button onClick={() => handleRemoveOne(productGroup.id)}>
-                    Eliminar uno
-                  </button>
-                  <button
-                    onClick={() => handleRemoveOne(productGroup.id, true)}
+            <div id="page">
+              <table id="cart">
+                <thead>
+                  <tr
+                    style={{ display: "flex", justifyContent: "space-around" }}
                   >
-                    Eliminar todos
-                  </button> */}
-                </li>
-              ))}
-            </ul>
-            PRECIO TOTAL: {cart
-              .reduce((acc, item) => acc + item.quantity * item.price, 0)
-              .toFixed(2)}
+                    <th className="first">Imagen</th>
+                    <th className="third">Product</th>
+                    <th className="fourth">Precio</th>
+                    <th className="second">Cant.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cart.map((productGroup) => (
+                    <div
+                      style={{
+                        width: "100%",
+                      }}
+                      className="containerTable"
+                      key={productGroup.id}
+                      value={productGroup.id}
+                    >
+                      <tr
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <td>
+                          <img
+                            src={productGroup.image}
+                            alt=""
+                            style={{
+                              width: "100px",
+                              height: "90px",
+                              objetFit: "cover",
+                            }}
+                          />
+                        </td>
+                        <td
+                          className="item-name"
+                          style={{ paddingTop: "30px" }}
+                        >
+                          {productGroup.name}
+                        </td>
+                        <td
+                          className="item-price"
+                          style={{ paddingTop: "30px" }}
+                        >
+                          ${productGroup.price * productGroup.quantity}
+                        </td>
+                        <td
+                          className="item-quantity"
+                          style={{ paddingTop: "30px" }}
+                        >
+                          Cantidad: {productGroup.quantity}
+                        </td>
+                      </tr>
+                    </div>
+                  ))}
+                  <hr />
+                  PRECIO TOTAL:{" "}
+                  {cart
+                    .reduce((acc, item) => acc + item.quantity * item.price, 0)
+                    .toFixed(2)}
+                </tbody>
+              </table>
+            </div>
           </Col>
         </Row>
         <Row>
