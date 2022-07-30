@@ -7,9 +7,9 @@ function RecuperarPassword() {
     <div>
       <NavBarLanding/>
       <div>
-        <Container>
+      <Container>
           <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-            Recuperar contraseña
+            Modificar contraseña
           </h1>
           <Row>
             <Col
@@ -23,6 +23,18 @@ function RecuperarPassword() {
                 onSubmit={(e) => handleSubmit(e)}
                 // className={style.forms}
               >
+                <Form.Group className="mb-3">
+                  <Form.Label>Contraseña anterior</Form.Label>
+                  <Form.Control
+                    placeholder="Ingresa tu contraseña antigua"
+                    type="password"
+                    /* value={input.email} */
+                    /* name="email"
+                    id="email" */
+                    required
+                    // onChange={(e) => handleChange(e)}
+                  />
+                </Form.Group>
                  <Form.Group className="mb-3">
                   <Form.Label>Contraseña nueva</Form.Label>
                   <Form.Control
