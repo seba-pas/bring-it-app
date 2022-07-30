@@ -29,11 +29,12 @@
   border: none;
   font-weight: bold;
   border-radius: 5px;
-  font-size: 15px;
+  font-size: 20px;
   height: 40px;
-  width: 200px;
+  width: 300px;
   margin-top: 100px;
   padding: 9px;
+  padding-bottom: 10px;
 }
 .botonvol:hover{
   transition: border-color 0.2s ease-in, background-color 0.4s ease-in;
@@ -54,14 +55,20 @@ select {
   padding-left: 3px;
 }
 
-option {
+.containerS option {
   font-family: "Montserrat", sans-serif;
+  background-color: chocolate;
+  color: white;
 
+}
+.containerS option-selected {
+  background-color: black;
 }
 
 .containerS select {
   margin-top: 30%;
   padding-left: 9px;  
+  border-color: chocolate;
   /* background-color:  rgba(210, 105, 30, 0.08); */
   color: chocolate;
   margin-right: 40px;

@@ -9,27 +9,20 @@ import userProfile from "./img/userPerfilImage.jpg";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.css";
 import Button from "react-bootstrap/Button";
-
 import Cart from "./Cart";
 import { getAllProducts } from "../actions";
 
-//seba
-export default function NavBar() {
-  const [search, setSearch] = useState("");
-  const gState = useSelector((state) => state);
+export default function NavBarProvince() {
   const stateCart = useSelector((state) => state.cart);
+  const gState = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
   const history = useHistory();
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
-  const [opening, setOpening] = useState(false);
+  const [show, setShow] = useState(false);
   const [input, setInput] = useState({
     perfil: "",
     user: {},
   });
-  // console.log(input.user.others.dataValues)
+
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -64,28 +57,18 @@ export default function NavBar() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  function handleClick(e) {
-    e.preventDefault();
-    history.push("/compra");
-  }
-
-  function onClick(e) {
-    e.preventDefault();
-    dispatch(getAllProducts());
-  }
-
   return (
     <div className={styles.navbar}>
       <div className={styles.imagen}>
+        <NavLink to='/'>
         <img
           src={logo}
           style={{ width: "auto", height: "100px" }}
           alt="Logo no encontrado"
         />
+        </NavLink>
       </div>
-      <div className={styles.search}>
-        <SearchBar />
-      </div>
+      <SearchBar />
       <ul className="navbar-right">
         <li
           style={{
@@ -96,11 +79,10 @@ export default function NavBar() {
             marginTop: "35px",
           }}
         >
-          
-          <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "white", borderColor: "chocolate", marginTop: '5px', paddingBottom: '10px', paddingBottom: '10px'}}>
+          <button onClick={handleShow}>
             <i
               className="fa fa-shopping-cart"
-              style={{ color: "#d2691e", fontSize: "30px"}}
+              style={{ color: "#d2691e", fontSize: "30px", margin: "3px" }}
             ></i>{" "}
             <span
               style={{ color: "#D2691E", margin: "5px", fontSize: "18px" }}
@@ -123,20 +105,14 @@ export default function NavBar() {
               </Button>
             </Modal.Footer>
           </Modal>
+
+          {/* </a> */}
         </li>
       </ul>
-      <div className={styles.perfil}>
-        {/* <img
-          src={input.user.logo ? input.user.logo : userProfile}
-          style={{
-            width: "100px",
-            height: "100px",
-            borderRadius: "150px",
-            border: "solid 4px transparent",
-          }}
-          alt="Logo no encontrado"
-        /> */}
-
+      <NavLink to="/persona">
+        <button className={styles.boton}>Ver todos los productos</button>
+      </NavLink>
+      <div>
         <select
           className={styles.selectPerfil}
           name="perfil"
@@ -145,14 +121,11 @@ export default function NavBar() {
         >
           <option value="">{input.perfil} </option>
 
-           <option value="email">{gState.user.others.dataValues.email}</option>
+          {/* <option value="email">{gState.user.others.dataValues.email}</option> */}
           <option value="misViajes">Mis Viajes</option>
           <option value="close">Cerrar sesión</option>
         </select>
       </div>
-      {/* <div>
-        <button onClick={(e) => onClick(e)}>Volver</button>
-      </div> */}
     </div>
   );
 }

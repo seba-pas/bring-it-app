@@ -11,14 +11,13 @@ import {
   getCities,
   cleanBusiness,
   getAllCities,
-
 } from "../actions/index.js";
 import NavBarRegisters from "./NavBarRegisters.jsx";
 import swal from "sweetalert";
 import imgIcon from "./img/programmer.png";
 import "../styles/RegisterBusiness.css";
 import PhoneInput from "react-phone-number-input";
-import 'react-phone-number-input/style.css'
+import "react-phone-number-input/style.css";
 function RegisterBusiness() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -27,9 +26,7 @@ function RegisterBusiness() {
   const gState = useSelector((state) => state);
   const [value, setValue] = useState();
 
-
   const CITIES = useSelector((state) => state.cities);
-
 
   const [input, setInput] = useState({
     email: "",
@@ -42,7 +39,8 @@ function RegisterBusiness() {
     cityId: "",
     address: "",
     province: "",
-    logo: 'f'
+    logo: "f",
+    phone: "",
   });
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -50,9 +48,9 @@ function RegisterBusiness() {
       return {
         ...prevInput,
         [event.target.name]: event.target.value,
-      }
+      };
     });
-  }
+  };
 
   const validateUsers = (input) => {
     const errors = {};
@@ -131,10 +129,17 @@ function RegisterBusiness() {
       input.address !== "" &&
       input.province !== "" &&
       input.cityId !== "" &&
-      input.taxBracket !== ""
+      input.taxBracket !== "" &&
+      input.phone !== "" /* &&
+      input.phone.length <= 10 */
     ) {
       dispatch(addBusiness(input));
-
+      swal(
+        "Buen trabajo",
+        "Empresa creada con exito",
+        "success"
+      );
+      history.push("/");
     } else {
       swal(
         "Faltan datos por llenar",
@@ -152,7 +157,7 @@ function RegisterBusiness() {
       setDidMount(false);
       return;
     } else {
-      if (business === "Empresa y sede creada") {
+      if (business === "Empresa creada") {
         swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
         setInput({
           email: "",
@@ -161,6 +166,7 @@ function RegisterBusiness() {
           cuit: "",
           address: "",
           province: "",
+          phone: "",
         });
         history.push("/");
       } else if (business === "error:Validation error") {
@@ -169,7 +175,6 @@ function RegisterBusiness() {
       }
     }
   }, [business]);
-
 
   //funcion para filtrar por provincias
   function handleFilterByProvinces(e) {
@@ -231,7 +236,6 @@ function RegisterBusiness() {
                   onChange={(e) => handleChange(e)}
                 />
                 {errors.email && <p>{errors.email}</p>}
-
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
@@ -245,7 +249,6 @@ function RegisterBusiness() {
                   required
                 />
                 {errors.password && <p>{errors.password}</p>}
-
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Confirmar password</Form.Label>
@@ -259,7 +262,6 @@ function RegisterBusiness() {
                   required
                 />
                 {errors.password && <p>{errors.password}</p>}
-
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Empresa nombre </Form.Label>
@@ -273,7 +275,6 @@ function RegisterBusiness() {
                   required
                 />
                 {errors.businessName && <p>{errors.businessName}</p>}
-
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Cuit</Form.Label>
@@ -287,84 +288,72 @@ function RegisterBusiness() {
                   onChange={(e) => handleChange(e)}
                 />
                 {errors.cuit && <p>{errors.cuit}</p>}
-
               </Form.Group>
 
               <Form.Label>Categoría Tributaria </Form.Label>
               <Form.Group>
                 <select onChange={(e) => handleTaxBracket(e)}>
-                  <option selected disabled>Categoría Tributaria</option>
-                  <option value='Categoría tributaria 1'>Categoría tributaria 1</option>
-                  <option value='Categoría tributaria 2'>Categoría tributaria 2</option>
-                  <option value='Categoría tributaria 3'>Categoría tributaria 3</option>
+                  <option selected disabled>
+                    Categoría Tributaria
+                  </option>
+                  <option value="Categoría tributaria 1">
+                    Categoría tributaria 1
+                  </option>
+                  <option value="Categoría tributaria 2">
+                    Categoría tributaria 2
+                  </option>
+                  <option value="Categoría tributaria 3">
+                    Categoría tributaria 3
+                  </option>
                 </select>
               </Form.Group>
 
               <Form.Label>Provincia</Form.Label>
               <Form.Group>
-
-                <label htmlFor='province'>Provincia:</label>
-                <select name="province" value={input.province} onChange={(e) => handleInputChange(e)}>
-                  <option value="">{ } </option>
-                  {
-                    gState.provinces?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
-                  }
+                <label htmlFor="province">Provincia:</label>
+                <select
+                  name="province"
+                  value={input.province}
+                  onChange={(e) => handleInputChange(e)}
+                >
+                  <option value="">{} </option>
+                  {gState.provinces?.map((e) => (
+                    <option key={e.id} value={e.nombre}>
+                      {e.nombre}
+                    </option>
+                  ))}
                 </select>
-
-
-
-
-
-
-
-                {/* <select onChange={(e) => handleFilterByProvinces(e)}>
-                  <option value="All">Todas</option>
-                  {PROVINCES.map((PROVINCE) => {
-                    return (
-                      <option
-                        value={PROVINCE.id}
-                        name={PROVINCE.nombre}
-                        name2={PROVINCE.nombre}
-                        key={PROVINCE.id}
-                      >
-                        {PROVINCE.nombre}
-                      </option>
-                    );
-                  })}
-                </select> */}
               </Form.Group>
 
               <Form.Label>Ciudad</Form.Label>
               <Form.Group>
-
-                <label htmlFor='cityId'>Ciudad:</label>
-                <select name="cityId" value={input.cityId} onChange={(e) => handleInputChange(e)}>
-                  <option value="">{ } </option>
+                <label htmlFor="cityId">Ciudad:</label>
+                <select
+                  name="cityId"
+                  value={input.cityId}
+                  onChange={(e) => handleInputChange(e)}
+                >
+                  <option value="">{} </option>
 
                   {
                     // gState.cities?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
-                    input.province ? gState.allCities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.province)[0].id)?.map(e => <option key={e.id} name={e.nombre} value={e.id}>{e.nombre}</option>) : ""
-
+                    input.province
+                      ? gState.allCities
+                          ?.filter(
+                            (e) =>
+                              e.provinceId ===
+                              gState.provinces?.filter(
+                                (e) => e.nombre === input.province
+                              )[0].id
+                          )
+                          ?.map((e) => (
+                            <option key={e.id} name={e.nombre} value={e.id}>
+                              {e.nombre}
+                            </option>
+                          ))
+                      : ""
                   }
                 </select>
-
-
-
-
-                {/* <select onChange={(e) => handleCheckCity(e)}>
-                  <option value="All">Todas</option>
-                  {CITIES.map((CITY) => {
-                    return (
-                      <option
-                        value={CITY.id}
-                        name={CITY.nombre}
-                        key={CITY.id}
-                      >
-                        {CITY.nombre}
-                      </option>
-                    );
-                  })}
-                </select> */}
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -379,29 +368,27 @@ function RegisterBusiness() {
                   onChange={(e) => handleChange(e)}
                 />
               </Form.Group>
-              {/* <Form.Group>
-                  <Form.Label>Agrega tu numero de contacto</Form.Label>
-                  <div>
+              <Form.Group>
+                <Form.Label>Agrega tu número de contacto</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={input.phone}
+                  name="phone"
+                  id="phone"
+                  required
+                  placeholder="Ingresa tu número de contacto"
+                  onChange={(e) => handleChange(e)}
+                />
+                {/* <div>
                     <PhoneInput
                       placeholder="Enter phone number"
                       value={value}
                       onChange={setValue}
                     />
                     {value}
-                  </div>
-                </Form.Group> */}
-              {/* <Form.Group>
-                <select onChange={(e) => handleFilterByCities(e)}>
-                  <option value="All">Todas</option>
-                  {CITIES.map((CITY) => {
-                    return (
-                      <option value={CITY.id} name={CITY.nombre}>
-                        {CITY.nombre}
-                      </option>
-                    );
-                  })}
-                </select>
-              </Form.Group> */}
+                  </div> */}
+              </Form.Group>
+            
               <div>
                 <Button
                   variant="primary btn btn-block w-100 mt-3"

@@ -11,7 +11,7 @@ function PerfilUser(props) {
 
     const emailState = gState.email;
     const infoUser = gState.user;
-    console.log(infoUser.others.dataValues)
+    
     const [input, setInput] = useState({
         email: infoUser.others.dataValues.email,
         password: infoUser.others.dataValues.password,
@@ -61,18 +61,7 @@ function PerfilUser(props) {
                     {input.email}
                 </div>
                 
-                <div className={styles.passwordContainer}>
-                    <label htmlFor='password'>Password:</label>
-                    <input
-                        // className={}
-                        type="text"
-                        name="password"
-                        value={input.password}
-                        placeholder="Password"
-                        onChange={handleInputChange}
-                    />
-                    {/* {!error.errorProduct ? <h3><pre>    {null}                                          </pre></h3> : <h3><pre>          {error.errorProduct}             </pre></h3>} */}
-                </div>
+               
                 <div className={styles.nameContainer}>
                     <label htmlFor='name'>Nombre:</label>
                     <input

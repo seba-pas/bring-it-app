@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams,useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllProductsDetail,
@@ -27,18 +27,20 @@ export const ProductDetail = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getAllProductsDetail(id)); //component did mount
+    dispatch(getAllProductsDetail(id));
+    //component did mount
     return () => {
       dispatch(setDetail());
     };
   }, [dispatch, id]);
 
-  function handleClick(e) {
-    e.preventDefault();
-    history.push("/compra")
-  }
+  // function handleClick(e) {
+  //   e.preventDefault();
+  //   history.go("/compra")
+  // }
 
   function handleClickAddToCart(e) {
+    
     e.preventDefault();
     dispatch(addToCart(product));
     swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
@@ -62,17 +64,19 @@ export const ProductDetail = () => {
             <div className="card-body">
               <p className="card-text" id={styles.empresa}>
                 <span>Empresa: </span>
-                {product.business === null ||
+
+                {product.businessbranch.businessBranchName === null ||
                 product.categories === undefined ||
-                product.business.length == 0
+                product.businessbranch.businessBranchName.length == 0
                   ? ""
-                  : product.business.businessName}
+                  : product.businessbranch.businessBranchName.split(" - ")[0]}
               </p>
               <h1 className="card-title" id={styles.name}>
                 {product.name}
               </h1>
               <h1 className="card-title" id={styles.provincia}>
-                Producto de: {product.business.province}
+                Producto de:{" "}
+                {product.businessbranch.businessBranchName.split(" - ")[1]}
               </h1>
               <p className="card-text" id={styles.empresa}>
                 <span id={styles.categoria}>En: </span>
@@ -95,15 +99,15 @@ export const ProductDetail = () => {
                 {product.stock}
               </p>
               <div className="card-footer">
-                <div className={styles.contBot}>
+                {/* <div className={styles.contBot}>
                   <a
                     className="btn btn-primary"
-                    onClick={(e) => handleClick(e)}
+                    onClick={() => history.goBack()}
                     id={styles.boton}
                   >
                     COMPRAR
                   </a>
-                </div>
+                </div> */}
                 <a
                   className="btn btn-primary"
                   onClick={(e) => handleClickAddToCart(e)}
@@ -111,11 +115,13 @@ export const ProductDetail = () => {
                 >
                   AGREGAR AL CARRITO
                 </a>
-                <Link to={"/persona"}>
-                  <a className="btn btn-primary" id={styles.boton2}>
-                    VOLVER
-                  </a>
-                </Link>
+                <a
+                  className="btn btn-primary"
+                  id={styles.boton2}
+                  onClick={() => history.goBack()}
+                >
+                  VOLVER
+                </a>
               </div>
             </div>
           </div>

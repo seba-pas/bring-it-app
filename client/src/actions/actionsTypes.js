@@ -29,6 +29,8 @@ export const GET_TRAVELS = 'GET_TRAVELS';
 export const GET_USERS = 'GET_USERS';
 export const GET_ALL_BRANCHES = 'GET_ALL_BRANCHES';
 export const FILTER_BY_BRANCHES = 'FILTER_BY_BRANCHES';
+export const FILTER_BY_BRANCHES_PROVINCES = 'FILTER_BY_BRANCHES_PROVINCES';
+export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 
 //Acciones del carrito (cart)

@@ -50,7 +50,7 @@ module.exports = (sequelize) => {
       }
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     deleted: {
@@ -64,6 +64,10 @@ module.exports = (sequelize) => {
       defaultValue: true
     },
     isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isBusiness: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     }

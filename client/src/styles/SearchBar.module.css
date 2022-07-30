@@ -1,10 +1,12 @@
 .divContainer {
   display: flex;
   justify-content: center;
+  margin-top: 0px;
 
  /*  margin-top: 5px;
   margin-left: 100%; */
 }
+
 .divContainer input {
  border-radius:5px;
   border-color: #3ab0ff;

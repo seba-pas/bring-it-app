@@ -35,7 +35,7 @@ export default function Cart() {
   }
   function handleClick(e) {
     e.preventDefault();
-    console.log(cart);
+
     if (cart.length === 0) {
       swal(
         "No tienes productos en tu carrito",
@@ -94,6 +94,11 @@ export default function Cart() {
                 </tr>
               </div>
             ))}
+            <tr style={{textAlign:"end",marginRight:"5px"}}>
+              Precio total:{''}{cart
+                .reduce((acc, item) => acc + item.quantity * item.price, 0)
+                .toFixed(2)}
+            </tr>
             <tr class="checkoutrow">
               <td colspan="5" class="checkout">
                 <button id="submitbtn" onClick={(e) => handleClick(e)}>

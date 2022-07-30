@@ -56,16 +56,14 @@ function RegisterUser() {
     name: "",
     lastname: "",
     birthDate: "",
-    age: "1"
+    age: "1",
+    phone: "",
   });
 
-
   function handleChange(e) {
-
     setInput({
       ...input,
       [e.target.name]: e.target.value,
-
     });
     setErrors(
       validateUsers({
@@ -94,9 +92,12 @@ function RegisterUser() {
       input.confirmPassword.length <= 16 &&
       input.name !== "" &&
       input.lastname !== "" &&
-      input.birthDate !== ""
+      input.birthDate !== "" &&
+      input.phone !== ""
     ) {
       dispatch(addUser(input));
+      swal("Buen trabajo", "Usuario creado con exito", "success");
+      history.push("/");
     } else {
       swal(
         "Faltan datos por llenar",
@@ -121,7 +122,8 @@ function RegisterUser() {
           name: "",
           lastname: "",
           birthDate: "",
-          age: "1"
+          age: "1",
+          phone: "",
         });
         history.push("/"); // /persona
       } else if (user === "error:Validation error") {
@@ -226,17 +228,18 @@ function RegisterUser() {
                     required
                   />
                 </Form.Group>
-                {/* <Form.Group>
+                <Form.Group>
                   <Form.Label>Agrega tu numero de contacto</Form.Label>
-                  <div>
-                    <PhoneInput
-                      placeholder="Enter phone number"
-                      value={value}
-                      onChange={setValue}
-                    />
-                    {value}
-                  </div>
-                </Form.Group> */}
+                  <Form.Control
+                    type="text"
+                    value={input.phone}
+                    name="phone"
+                    id="phone"
+                    required
+                    placeholder="Ingresa tu número de contacto"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </Form.Group>
                 <Button
                   variant="primary"
                   className="mt-3 mb-5 w-100 mt-3"

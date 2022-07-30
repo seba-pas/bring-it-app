@@ -18,7 +18,7 @@ function LandingPage1() {
               viajeros a tu ciudad.
             </span>
             <div className={style.containerButton}>
-              <Link to={`/persona`}>
+              <Link to={`/filtro`}>
                 <Button id={style.boton}>COMPRAR</Button>
               </Link>
               <Link to={"/conocemas"}>

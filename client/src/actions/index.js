@@ -31,6 +31,8 @@ import {
   FILTER_BY_CITIES,
   GET_ALL_BRANCHES,
   FILTER_BY_BRANCHES,
+  FILTER_BY_BRANCHES_PROVINCES,
+  SET_PRODUCTS,
 
 
   //Acciones del carrito (cart)
@@ -97,6 +99,12 @@ export const setDetail = () => {
   };
 };
 
+export const setProduct = () => {
+  return{
+    type: SET_PRODUCTS
+  };
+};
+
 export const addProduct = (body) => {
   console.log("llega al add", body);
   return async function (dispatch) {
@@ -155,7 +163,7 @@ export const orderByPrice = (payload) => {
 export const getCategories = () => {
   return async function (dispatch) {
     const res = await axios.get("/api/category");
-    console.log("response categoresi", res);
+   
     return dispatch({
       type: GET_CATEGORIES,
       payload: res.data,
@@ -222,10 +230,17 @@ export const filterByBranches = (payload) => {
   }
 }
 
+export const filterByBranchesProvince = (payload) => {
+  return {
+    type: FILTER_BY_BRANCHES_PROVINCES,
+    payload
+  }
+}
+
 export const getAllCities = () => {
   return async function (dispatch) {
     const res = await axios("/api/city");
-    console.log('soy Res', res)
+    
     return dispatch({
       type: GET_ALL_CITIES,
       payload: res.data,
@@ -336,6 +351,9 @@ export const loginBusiness = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/api/business/login`, body);
+      // localStorage.setItem("access_user", JSON.stringify(res.data));
+
+     
       return dispatch({
         type: POST_LOGINBUSINESS,
         payload: [res.data, body.email],

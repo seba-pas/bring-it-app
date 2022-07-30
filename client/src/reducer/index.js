@@ -25,6 +25,7 @@ const initialState = {
   travel: "",
   allTravels: [],
   branches: [],
+  provinceBranches : [],
   //Carrito (cart)
   cart: [],
   cart2: [], // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
@@ -32,6 +33,7 @@ const initialState = {
   branchAdded: "",
   brancDeleted: "",
   branchPut: "",
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -116,6 +118,7 @@ export default function rootReducer(state = initialState, action) {
         return {
           ...state,
           products: action.payload ? action.payload : "No se encontraron productos asociados",
+
         };
       }
 
@@ -165,10 +168,10 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allProducts
           : allProducts.filter(
-            (e) =>
-              e.categories &&
-              e.categories.map((e) => e.name).includes(action.payload)
-          );
+              (e) =>
+                e.categories &&
+                e.categories.map((e) => e.name).includes(action.payload)
+            );
 
       return {
         ...state,
@@ -203,8 +206,10 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allBusiness
           : allBusiness.filter(
+
             (e) => e.businessbranch.businessBranchName === action.payload
           );
+
       return {
         ...state,
         products: filterBusiness.length
@@ -232,6 +237,27 @@ export default function rootReducer(state = initialState, action) {
           ? filterBranches
           : "No se encontraron productos asociados",
       };
+
+    case 'FILTER_BY_BRANCHES_PROVINCES':
+      const allProvBranches = state.allProducts;
+      const filterBranchesProvince = 
+      action.payload === 'All'
+      ? allProvBranches
+      : allProvBranches.filter(
+        (e) => e.businessbranch.province === action.payload
+      );
+      return {
+        ...state,
+        products: filterBranchesProvince.length
+            ? filterBranchesProvince
+            : "No se encontraron productos asociados",
+
+      };
+    case 'SET_PRODUCTS':
+      return{
+        ...state,
+        allProducts: []
+      }
 
     case "GET_ALL_PROVINCES":
       return {
@@ -293,20 +319,22 @@ export default function rootReducer(state = initialState, action) {
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
       );
+
+      
       return itemInCart
         ? {
-          ...state,
-          cart: state.cart.map((item) =>
-            item.id === productoCantidad.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          ),
-        }
-        : {
 
-          ...state,
-          cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
-        };
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === productoCantidad.id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+            ),
+          }
+        : {
+            ...state,
+            cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
+          };
 
     //Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
     case "REMOVE_ONE_FROM_CART":
@@ -339,8 +367,7 @@ export default function rootReducer(state = initialState, action) {
     case "GET_CART":
       return {
         ...state,
-
-        cart: [...state.cart]
+        cart: [...state.cart],
       };
 
     case "ADD_TRAVEL":
