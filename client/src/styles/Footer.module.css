@@ -1,8 +1,9 @@
 .footerContainer{
-    height: 300px;
+    height: 100%;
 }
 
 .main_footer{
+    font-size: 1em;
     background: #151515;
     color: white;
     padding: 30px 20px;

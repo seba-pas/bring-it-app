@@ -42,7 +42,7 @@ export default function ConoceMas() {
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
-                      <h2>Consulta acerca del producto que quieras </h2>
+                      <h2>1 - Consulta acerca del producto que quieras </h2>
                       <span>
                         Con Bring It, puedes conseguir el producto que sea, de
                         cualquier parte del pais. Para empezar, crea un pedido
@@ -51,18 +51,18 @@ export default function ConoceMas() {
                       </span>
                     </div>
                   </div>
-                  <img
+                  {/* <img
                     src={Paso1}
                     id={style.ph}
                     className={style.imgPaso1}
                     alt=""
-                  />
+                  /> */}
                 </div>
               </div>
               <div className={style.pasoPorPasos}>
                 <div className={style.pasoPorInfo}>
                   <div className={style.paso1}>
-                    <h2>Espera ofertas de entrega de los viajeros</h2>
+                    <h2>2 - Espera ofertas de entrega de los viajeros</h2>
                     <span>
                       Una vez publiques tu pedido, lo compartiremos con toda
                       nuestra comunidad de viajeros. Luego, espera las ofertas
@@ -72,17 +72,17 @@ export default function ConoceMas() {
                   </div>
                 </div>
 
-                <img
+                {/* <img
                   src={Paso2}
                   id={style.ph}
                   className={style.imgPaso1}
                   alt=""
-                />
+                /> */}
               </div>
               <div className={style.pasoPorPasos}>
                 <div className={style.pasoPorInfo}>
                   <div className={style.paso1}>
-                    <h2>Elige el viajero con la oferta que mas te convenga.</h2>
+                    <h2>3 - Elige el viajero con la oferta que mas te convenga.</h2>
                     <span>
                       Podras ver las ofertas, el perfil del viajero, la
                       puntuacion y la calificacion de compradores anteriores asi
@@ -91,17 +91,17 @@ export default function ConoceMas() {
                   </div>
                 </div>
 
-                <img
+                {/* <img
                   src={Paso3}
                   id={style.ph}
                   className={style.imgPaso1}
                   alt=""
-                />
+                /> */}
               </div>
               <div className={style.pasoPorPasos}>
                 <div className={style.pasoPorInfo}>
                   <div className={style.paso1}>
-                    <h2>Coordina con tu viajero y recibe tu producto </h2>
+                    <h2>4 - Coordina con tu viajero y recibe tu producto </h2>
                     <span>
                       Chatea directamente con el viajero, Coordina una hora y
                       lugar para la entrega con tu viajero. Cuando recibas tu
@@ -110,13 +110,13 @@ export default function ConoceMas() {
                     </span>
                   </div>
                 </div>
-
+{/* 
                 <img
                   src={Paso4}
                   id={style.ph}
                   className={style.imgPaso1}
                   alt=""
-                />
+                /> */}
               </div>
             </Tab>
 
@@ -132,7 +132,7 @@ export default function ConoceMas() {
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
                       <h2>
-                        Encuentra un pedido que puedas entregar y haz una
+                        1 - Encuentra un pedido que puedas entregar y haz una
                         oferta.{" "}
                       </h2>
                       <span>
@@ -143,13 +143,13 @@ export default function ConoceMas() {
                     </div>
                   </div>
 
-                  <img src={Paso5} className={style.imgPaso1} alt="" />
+                  {/* <img src={Paso5} className={style.imgPaso1} alt="" /> */}
                 </div>
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
                       <h2>
-                        Confirma los detalles del pedido con tu comprador.
+                        2 - Confirma los detalles del pedido con tu comprador.
                       </h2>
                       <span>
                         Utiliza el messenger de Bring It para confirmar con tu
@@ -165,7 +165,7 @@ export default function ConoceMas() {
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
-                      <h2>Compra el artículo con tu propio dinero.</h2>
+                      <h2>3 - Compra el artículo con tu propio dinero.</h2>
                       <span>
                         De esta forma, sabrás exactamente lo que llevas. Tras la
                         entrega, recibirás un reembolso por el precio del
@@ -174,13 +174,13 @@ export default function ConoceMas() {
                     </div>
                   </div>
 
-                  <img src={Paso7} className={style.imgPaso1} alt="" />
+                  {/* <img src={Paso7} className={style.imgPaso1} alt="" /> */}
                 </div>
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
                       <h2>
-                        Entrega el pedido de tu comprador y recibe el pago
+                        4 - Entrega el pedido de tu comprador y recibe el pago
                       </h2>
                       <span>
                         Coordina una hora y lugar público para encontrarte con
@@ -190,7 +190,7 @@ export default function ConoceMas() {
                     </div>
                   </div>
 
-                  <img src={Paso8} className={style.imgPaso1} alt="" />
+                  {/* <img src={Paso8} className={style.imgPaso1} alt="" /> */}
                 </div>
               </div>
             </Tab>
@@ -205,7 +205,7 @@ export default function ConoceMas() {
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
-                      <h2>Encuentra compradores y haz una oferta. </h2>
+                      <h2>1 - Encuentra compradores y haz una oferta. </h2>
                       <span>
                         En función de tu próximo destino encuentra pedidos. Haz
                         una oferta y establece la cantidad de dinero que tu
@@ -214,13 +214,13 @@ export default function ConoceMas() {
                     </div>
                   </div>
 
-                  <img src={Paso5} className={style.imgPaso1} alt="" />
+                  {/* <img src={Paso5} className={style.imgPaso1} alt="" /> */}
                 </div>
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
                       <h2>
-                        Confirma los detalles del pedido con tu comprador.
+                        2 - Confirma los detalles del pedido con tu comprador.
                       </h2>
                       <span>
                         Con el chat de Bring It puedes confirmar con tu
@@ -232,12 +232,12 @@ export default function ConoceMas() {
                     </div>
                   </div>
 
-                  <img src={Paso6} className={style.imgPaso1} alt="" />
+                  {/* <img src={Paso6} className={style.imgPaso1} alt="" /> */}
                 </div>
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
-                      <h2>Compra el artículo con tu propio dinero.</h2>
+                      <h2>3 - Compra el artículo con tu propio dinero.</h2>
                       <span>
                         Tras la entrega, recibirás un reembolso por el precio
                         del artículo mas el pago de tu recompensa. De esta forma
@@ -247,13 +247,13 @@ export default function ConoceMas() {
                     </div>
                   </div>
 
-                  <img src={Paso7} className={style.imgPaso1} alt="" />
+                  {/* <img src={Paso7} className={style.imgPaso1} alt="" /> */}
                 </div>
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>
                     <div className={style.paso1}>
                       <h2>
-                        Entrega el pedido de tu comprador y recibe el pago
+                        4 - Entrega el pedido de tu comprador y recibe el pago
                       </h2>
                       <span>
                         Coordina los detalles de entrega con tu comprador. Una
@@ -263,7 +263,7 @@ export default function ConoceMas() {
                     </div>
                   </div>
 
-                  <img src={Paso8} className={style.imgPaso1} alt="" />
+                  {/* <img src={Paso8} className={style.imgPaso1} alt="" /> */}
                 </div>
               </div>
             </Tab>
