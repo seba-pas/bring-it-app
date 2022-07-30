@@ -45,12 +45,11 @@ export default function NavBar() {
 
   useEffect(() => {
     if (input.perfil === "email") history.push("/perfilUser");
-    if (input.perfil === "misViajes") history.push('/persona/misviajes');
+    if (input.perfil === "misViajes") history.push("/persona/misviajes");
     else if (input.perfil === "close") {
-
-      dispatch(clearCart())
-      history.push("/")
-    };
+      dispatch(clearCart());
+      history.push("/");
+    }
   }, [input.perfil]);
 
   const handleOnChange = (event) => {
@@ -64,10 +63,12 @@ export default function NavBar() {
   };
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   function handleClick(e) {
     e.preventDefault();
-    history.push("/compra")
+    history.push("/compra");
   }
+
   function onClick(e) {
     e.preventDefault();
     dispatch(getAllProducts());
@@ -86,7 +87,6 @@ export default function NavBar() {
         <SearchBar />
       </div>
       <ul className="navbar-right">
-
         <li
           style={{
             listStyle: "none",
@@ -96,12 +96,11 @@ export default function NavBar() {
             marginTop: "35px",
           }}
         >
-          {/* <a href="#" id="cart" > */}
-          <button onClick={handleShow}>
+          
+          <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "white", borderColor: "chocolate", marginTop: '5px', paddingBottom: '10px', paddingBottom: '10px'}}>
             <i
               className="fa fa-shopping-cart"
-              
-              style={{ color: "#d2691e", fontSize: "30px", margin: "3px" }}
+              style={{ color: "#d2691e", fontSize: "30px"}}
             ></i>{" "}
             <span
               style={{ color: "#D2691E", margin: "5px", fontSize: "18px" }}
@@ -111,12 +110,12 @@ export default function NavBar() {
             </span>
           </button>
 
-          <Modal show={show} onHide={handleClose} >
+          <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Productos seleccionados</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-               <Cart />
+              <Cart />
             </Modal.Body>
             <Modal.Footer>
               <Button variant="danger" onClick={handleClose}>
@@ -124,9 +123,6 @@ export default function NavBar() {
               </Button>
             </Modal.Footer>
           </Modal>
-
-
-          {/* </a> */}
         </li>
       </ul>
       <div className={styles.perfil}>
@@ -148,7 +144,6 @@ export default function NavBar() {
           onChange={(e) => handleOnChange(e)}
         >
           <option value="">{input.perfil} </option>
-
 
           {/* <option value="email">{gState.user.others.dataValues.email}</option> */}
           <option value="misViajes">Mis Viajes</option>
