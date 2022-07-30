@@ -28,7 +28,7 @@ export default function ProductCards({ currentProducts }) {
          { BUSINESS.map((e) => e.city.nombre)}
 
           </div> */}
-          {console.log(currentProducts)}
+         
     </div>
     </div>
   );
