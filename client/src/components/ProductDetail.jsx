@@ -24,10 +24,12 @@ export const ProductDetail = () => {
 
   useEffect(() => {
     dispatch(getCart());
+    
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getAllProductsDetail(id)); //component did mount
+    dispatch(getAllProductsDetail(id));
+  //component did mount
     return () => {
       dispatch(setDetail());
     };
@@ -62,17 +64,18 @@ export const ProductDetail = () => {
             <div className="card-body">
               <p className="card-text" id={styles.empresa}>
                 <span>Empresa: </span>
-                {product.business === null ||
+                
+                {product.businessbranch.businessBranchName === null ||
                 product.categories === undefined ||
-                product.business.length == 0
+                product.businessbranch.businessBranchName.length == 0
                   ? ""
-                  : product.business.businessName}
+                  : product.businessbranch.businessBranchName.split(" - ")[0]}
               </p>
               <h1 className="card-title" id={styles.name}>
                 {product.name}
               </h1>
               <h1 className="card-title" id={styles.provincia}>
-                Producto de: {product.business.province}
+                Producto de: {product.businessbranch.businessBranchName.split(' - ')[1]}
               </h1>
               <p className="card-text" id={styles.empresa}>
                 <span id={styles.categoria}>En: </span>

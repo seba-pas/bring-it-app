@@ -34,7 +34,7 @@ function FormTravel() {
 
     let onClickHandler = (event) => {
         event.preventDefault();
-        console.log("email",)
+       
         setInput((prevInput) => {
             return {
                 ...prevInput,

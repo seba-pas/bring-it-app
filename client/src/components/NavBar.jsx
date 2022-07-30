@@ -150,7 +150,7 @@ export default function NavBar() {
           <option value="">{input.perfil} </option>
 
 
-          <option value="email">{gState.user.others.dataValues.email}</option>
+          {/* <option value="email">{gState.user.others.dataValues.email}</option> */}
           <option value="misViajes">Mis Viajes</option>
           <option value="close">Cerrar sesión</option>
         </select>
