@@ -2,10 +2,7 @@ import { React, useState, useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 // import CheckOut from "./Stripe/CheckOut";
-import {
-  getAllProvinces,
-  getAllCities,
-} from "../actions/index.js";
+import { getAllProvinces, getAllCities } from "../actions/index.js";
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 // import NavBar from "./NavBar";
@@ -26,9 +23,9 @@ function FormPurchase() {
       return {
         ...prevInput,
         [event.target.name]: event.target.value,
-      }
+      };
     });
-  }
+  };
   //funcion para filtrar por provincias
   // function handleFilterByProvinces(e) {
   //   e.preventDefault();
@@ -106,6 +103,7 @@ function FormPurchase() {
                   <span className="item-quantity">
                     Cantidad: {productGroup.quantity}
                   </span>
+
                   {/* <button onClick={() => handleRemoveOne(productGroup.id)}>
                     Eliminar uno
                   </button>
@@ -117,6 +115,9 @@ function FormPurchase() {
                 </li>
               ))}
             </ul>
+            PRECIO TOTAL: {cart
+              .reduce((acc, item) => acc + item.quantity * item.price, 0)
+              .toFixed(2)}
           </Col>
         </Row>
         <Row>
