@@ -56,7 +56,7 @@ function RegisterUser() {
     name: "",
     lastname: "",
     birthDate: "",
-    age: "1",
+    /* age: "1", */
     phone: "",
   });
 
@@ -122,7 +122,7 @@ function RegisterUser() {
           name: "",
           lastname: "",
           birthDate: "",
-          age: "1",
+          /* age: "1", */
           phone: "",
         });
         history.push("/"); // /persona

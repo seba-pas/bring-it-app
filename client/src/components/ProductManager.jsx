@@ -268,6 +268,20 @@ function ProductManager(props) {
                     </div>
                     {!error.errorcategoryId ? <label> </label> : <label>          {error.errorcategoryId}             </label>}
                 </div>
+                <div className={styles.branchesContainer}>
+                    <div>
+                        Sedes
+                    </div>
+                    <div>
+                        <select name="branch" value="branch" onChange={handleInputChange}>
+                            <option value="">{ }</option>
+                            {
+                                gState.businessEditInfo.businessbranches?.map(e => <option key={e.id} value={e.id}>{e.businessBranchName}</option>)
+                            }
+                        </select>
+                    </div>
+                    {/* {!error.errorcategoryId ? <label> </label> : <label>          {error.errorcategoryId}             </label>} */}
+                </div>
                 <div className={styles.categoriesCardContainer}>
                     <div>
                         {

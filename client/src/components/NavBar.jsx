@@ -47,6 +47,7 @@ export default function NavBar() {
     if (input.perfil === "email") history.push("/perfilUser");
     if (input.perfil === "misViajes") history.push("/persona/misviajes");
     if(input.perfil === "modificarPassword") history.push("/persona/modificarPassword")
+
     else if (input.perfil === "close") {
       dispatch(clearCart());
       history.push("/");

@@ -36,7 +36,7 @@ function HomeBusiness() {
             return {
                 ...prevInput,
                 businessInfo: { ...gState.businessEditInfo },
-                products: gState.allProducts.filter(e => e.businessEmail === gState.businessEditInfo.email),
+                products: gState.allProducts ? gState.allProducts.filter(e => e.businessbranch.businessEmail === gState.businessEmail) : [],//.filter(e => e.businessBranch.businessEmail === gState.businessEditInfo.email),
             }
         })
     }, [gState]);
@@ -45,7 +45,7 @@ function HomeBusiness() {
         setInput((prevInput) => {
             return {
                 ...prevInput,
-                products: gState.allProducts.filter(e => e.businessEmail === gState.businessEditInfo.email),
+                products: gState.allProducts ? gState.allProducts.filter(e => e.businessbranch.businessEmail === gState.businessEmail) : [],  //.filter(e => e.businessBranch.businessEmail === gState.businessEditInfo.email),
             }
         })
 
@@ -66,6 +66,7 @@ function HomeBusiness() {
             }
         });
     }
+    console.log("productos", input.products)
 
     // const orderName = (event)=>{
     //     event.preventDefault();
