@@ -38,7 +38,7 @@ function App() {
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
         <Route exact path="/admin" component={HomeAdmin} />
-        <Route exact path="/recuperarPassword" component={RecuperarPassword}/>
+        <Route exact path="/persona/recuperarPassword" component={RecuperarPassword}/>
         {/* <Route exact path="/testing" component={FormTravel} /> */}
       </Switch>
     </div>
