@@ -6,9 +6,12 @@ const routes = require("./routes/index.js");
 
 require("./db.js");
 
+const cors = require('cors')
 const server = express();
 
 server.name = "API";
+
+server.use(cors())
 
 server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
