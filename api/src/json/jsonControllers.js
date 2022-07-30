@@ -18,7 +18,8 @@ async function loadDB (){
           name: u.name,
           lastname: u.lastname,
           birthDate: u.birthDate,
-          age: u.age
+          age: u.age,
+          phone: u.phone
         }
       })
     }) ;
@@ -41,6 +42,7 @@ async function loadDB (){
           businessName: b.businessName,
           cuit: b.cuit,
           taxBracket: b.taxBracket,
+          phone: b.phone
         }
       })
     }) ;

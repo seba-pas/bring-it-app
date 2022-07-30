@@ -17,7 +17,8 @@ router.post('/', async (req,res) => {
                 businessName: req.body.businessName,
                 cuit: req.body.cuit,                
                 taxBracket: req.body.taxBracket,
-                logo: req.body.logo
+                logo: req.body.logo,
+                phone: req.body.phone
             }
         });   
 

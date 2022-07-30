@@ -152,7 +152,7 @@ function RegisterBusiness() {
       setDidMount(false);
       return;
     } else {
-      if (business === "Empresa creada") {
+      if (business === "Empresa y sede creada") {
         swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
         setInput({
           email: "",
@@ -162,7 +162,7 @@ function RegisterBusiness() {
           address: "",
           province: "",
         });
-        history.push("/empresas");
+        history.push("/");
       } else if (business === "error:Validation error") {
         swal("Ya existe una empresa con el email");
         dispatch(cleanBusiness());
@@ -379,7 +379,7 @@ function RegisterBusiness() {
                   onChange={(e) => handleChange(e)}
                 />
               </Form.Group>
-              <Form.Group>
+              {/* <Form.Group>
                   <Form.Label>Agrega tu numero de contacto</Form.Label>
                   <div>
                     <PhoneInput
@@ -389,7 +389,7 @@ function RegisterBusiness() {
                     />
                     {value}
                   </div>
-                </Form.Group>
+                </Form.Group> */}
               {/* <Form.Group>
                 <select onChange={(e) => handleFilterByCities(e)}>
                   <option value="All">Todas</option>

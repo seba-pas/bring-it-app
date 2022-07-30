@@ -34,6 +34,10 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      phone: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       deleted: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
