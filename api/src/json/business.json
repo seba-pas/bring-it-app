@@ -3,24 +3,28 @@
     "password": "123456789",
     "businessName": "Seba's Business",
     "cuit": "27-33447628-1",
-    "taxBracket": "Categoría tributaria 1"    
+    "taxBracket": "Categoría tributaria 1",
+    "phone": "1234567890"
   }, { 
     "email": "felipe@gmail.com",
     "password": "123456789",
     "businessName": "Feli's Business",
     "cuit": "27-33447628-1",
-    "taxBracket": "Categoría tributaria 2" 
+    "taxBracket": "Categoría tributaria 2",
+    "phone": "1234567890"
   }, { 
     "email": "guillermo@gmail.com",
     "password": "123456789",
     "businessName": "Guille's Business",
     "cuit": "27-33447628-1",
-    "taxBracket": "Categoría tributaria 3"    
+    "taxBracket": "Categoría tributaria 3"    ,
+    "phone": "1234567890"
   }, { 
     "email": "alejandro@gmail.com",
     "password": "123456789",
     "businessName": "Ale's Business",
     "cuit": "27-33447628-1",
-    "taxBracket": "Categoría tributaria 1"    
+    "taxBracket": "Categoría tributaria 1" ,
+    "phone": "1234567890"   
   }
 ]

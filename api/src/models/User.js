@@ -49,6 +49,10 @@ module.exports = (sequelize) => {
         this.setDataValue('age', getAge(this.birthDate));
       }
     },
+    phone: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     deleted: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
