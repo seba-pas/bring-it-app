@@ -1,10 +1,13 @@
-const { Product, User, Business, Category } = require('./../db');
+const { Product, User, Business, Category, Businessbranch, City } = require('./../db');
 const users = require('./user.json');
 const categories = require('./category.json');
 const businesses = require('./business.json');
 const products = require('./products.json');
+const businessbranch = require('./businessbranch.json');
+
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
+
 
 async function loadDB (){
     const usersLoad = users.forEach( async (u) => {
@@ -15,11 +18,13 @@ async function loadDB (){
           name: u.name,
           lastname: u.lastname,
           birthDate: u.birthDate,
-          age: u.age
+          age: u.age,
+          phone: u.phone
         }
       })
     }) ;
     console.log('Users saved successfully') ;
+
     const categoryLoad = categories.forEach( async (c) => {
       await Category.findOrCreate({
         where: {
@@ -28,6 +33,7 @@ async function loadDB (){
       })
     }) ;
     console.log('Categories saved successfully') ;
+
     const businessesLoad = businesses.forEach( async (b) => {
       await Business.findOrCreate({
         where: {
@@ -36,13 +42,24 @@ async function loadDB (){
           businessName: b.businessName,
           cuit: b.cuit,
           taxBracket: b.taxBracket,
+          phone: b.phone
+        }
+      })
+    }) ;
+
+    const businessesbranchLoad = businessbranch.forEach( async (b) => {      
+      await Businessbranch.findOrCreate({
+        where: {
+          businessEmail: b.businessEmail,           
+          businessBranchName: b.businessBranchName,           
           province: b.province,
           address: b.address,
           cityId: b.cityId
         }
       })
     }) ;
-    console.log('Businesses saved successfully') ;
+    console.log('Businessbranches saved successfully') ;
+    
     const productsLoad = products.forEach( async (p) => {
          const newProduct = await Product.findOrCreate({
             where: {
@@ -52,7 +69,7 @@ async function loadDB (){
               image: p.image,
               stock: p.stock,
               description: p.description,
-              businessEmail: p.businessEmail
+              businessbranchId: p.businessbranchId
             }
           })
           const newProduct2 = await Product.findByPk(newProduct[0].dataValues.id);

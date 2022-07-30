@@ -1,0 +1,161 @@
+
+#page {
+    display: block;
+    background: #fff;
+    padding: 15px 0;
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  }
+  
+  /** cart table **/
+  #cart {
+    border-collapse: collapse;
+    margin: 0;
+    width: 100%;
+    font-size: 1.2em;
+    color: #444;
+  }
+  #cart thead th {
+    padding: 8px 0;
+    font-weight: bold;
+  }
+  
+ /*  #cart thead th.first {
+    margin: 0;
+    font-size: 16px;
+    width: auto;
+  } */
+  #cart thead th.second {
+    width: auto;
+    font-size: 16px;
+
+  }
+  #cart thead th.third {
+    width: auto;
+    font-size: 16px;
+
+  }
+  #cart thead th.fourth {
+    width: auto;
+    font-size: 16px;
+
+  }
+  #cart thead th.fifth {
+    width: auto;
+    font-size: 16px;
+
+  }
+  
+  #cart tbody td {
+    text-align: center;
+    margin-top: 4px;
+  }
+  
+  tr.productitm {
+    display: flex;
+    justify-content: space-between;
+    height: 65px;
+    /* line-height: 65px; */
+    border-bottom: 1px solid #d7dbe0;
+  }
+  
+  
+  #cart tbody td img.thumb {
+    vertical-align: bottom;
+    border: 1px solid #ddd;
+    margin-bottom: 4px;
+  }
+  
+  .qtyinput {
+    width: 33px;
+    height: 22px;
+    border: 1px solid #a3b8d3;
+    background: #dae4eb;
+    color: #616161;
+    text-align: center;
+  }
+  
+  tr.totalprice, tr.extracosts {
+    height: 35px;
+    line-height: 35px;
+  }
+  tr.extracosts {
+    background: #e4edf4;
+  }
+  
+  .remove {
+    /* http://findicons.com/icon/261449/trash_can?id=397422 */
+    cursor: pointer;
+    position: relative;
+    right: 12px;
+    top: 5px;
+  }
+  
+  
+  .light {
+    color: #888b8d;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.45);
+    font-size: 1.1em;
+    font-weight: normal;
+  }
+  .thick {
+    color: #272727;
+    font-size: 1.7em;
+    font-weight: bold;
+  }
+  
+  
+  /** submit btn **/
+  tr.checkoutrow {
+    background: #cfdae8;
+    border-top: 1px solid #abc0db;
+    border-bottom: 1px solid #abc0db;
+  }
+  td.checkout {
+    padding: 12px 0;
+    padding-top: 20px;
+    width: 100%;
+    text-align: right;
+  }
+  
+  
+  /* https://codepen.io/guvootes/pen/eyDAb */
+  #submitbtn {
+    width: 150px;
+    height: 35px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+    font-size: 1.3em;
+    letter-spacing: 0.05em;
+    font-family: Arial, Tahoma, sans-serif;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+    overflow: hidden;
+    border-bottom: 1px solid #0071ff;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #66aaff), color-stop(100%, #4d9cff));
+    background-image: -webkit-linear-gradient(#66aaff, #4d9cff);
+    background-image: -moz-linear-gradient(#66aaff, #4d9cff);
+    background-image: -o-linear-gradient(#66aaff, #4d9cff);
+    background-image: linear-gradient(#66aaff, #4d9cff);
+  }
+  #submitbtn:hover {
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4d9cff), color-stop(100%, #338eff));
+    background-image: -webkit-linear-gradient(#4d9cff, #338eff);
+    background-image: -moz-linear-gradient(#4d9cff, #338eff);
+    background-image: -o-linear-gradient(#4d9cff, #338eff);
+    background-image: linear-gradient(#4d9cff, #338eff);
+  }
+  #submitbtn:active {
+    border-bottom: 0;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #338eff), color-stop(100%, #4d9cff));
+    background-image: -webkit-linear-gradient(#338eff, #4d9cff);
+    background-image: -moz-linear-gradient(#338eff, #4d9cff);
+    background-image: -o-linear-gradient(#338eff, #4d9cff);
+    background-image: linear-gradient(#338eff, #4d9cff);
+    -webkit-box-shadow: inset 0 1px 3px 1px rgba(0,0,0,0.25);
+    -moz-box-shadow: inset 0 1px 3px 1px rgba(0,0,0,0.25);
+    box-shadow: inset 0 1px 3px 1px rgba(0,0,0,0.25);
+  }

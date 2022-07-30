@@ -46,9 +46,15 @@
   color: white;
 }
 .img {
+
     border-radius: 5px;
-    margin-top: 50px;
-  width: 75%;
-  height: 75%;
+    margin-top: 55px;
+  width: auto;
+  height: 100%;
   object-fit: cover;
+}
+.photos {
+  height: 900px;
+
+  
 }

@@ -19,7 +19,7 @@ export default function ProductCards({ currentProducts }) {
           description={el.description}
           image={el.image}
           id={el.id}
-          businessName={el.business === null?'Ninguna Empresa': el.business.businessName }
+          // businessName={el.business === null?'Ninguna Empresa': el.business.businessName }
           categories={el.categories}
           // cityId={el.business === null?'Ninguna Ciudad' : el.business.cityId}
           />     

@@ -2,9 +2,9 @@
     position: fixed;
     left: 0;
     top: 25%;
-    height: 35%;
+    height: 350px;
     width: 10px;
-    background: #41d4cf;
+    background: chocolate;
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.5s ease;
@@ -15,14 +15,14 @@
     position: fixed;
     left: 0;
     top: 25%;
-    height: 35%;
-    width: 70%;
+    height: 350px;
+    width: 1350px;
     background: rgb(246, 252, 255);
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.5s ease;
     /* border-radius: 20px; */
-    border: solid 2px #41d4cf;
+    border: solid 2px chocolate;
 }
 
 .btnoff {
@@ -46,7 +46,7 @@
     font-size: 2rem;
     border: solid 2px transparent;
     background-color: transparent;
-    color: #41d4cf;
+    color: chocolate;
 }
 
 .sidebaron .btnon {
@@ -60,11 +60,14 @@
 }
 
 .sidebaron .navList {
+    transition: all 0.5s ease;
     margin-top: 145px;
     height: 100%;
+
 }
 
 .sidebaron li {
+
     position: relative;
     margin: 2px 0;
     list-style: none;
@@ -120,7 +123,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px #41d4cf;
+    border: solid 4px chocolate;
 
 }
 
@@ -138,7 +141,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px #41d4cf;
+    border: solid 4px chocolate;
 }
 
 
@@ -175,9 +178,9 @@
     background-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-bottom-color: #41d4cf;
-    border-bottom-color: #41d4cf;
-    border-right-color: #41d4cf;
+    border-bottom-color: chocolate;
+    border-bottom-color: chocolate;
+    border-right-color: chocolate;
     font-size: 1.3rem;
 }
 
@@ -214,7 +217,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px #41d4cf;
+    border: solid 4px chocolate;
 }
 
 .sidebaron li .inputToCity {
@@ -231,7 +234,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px #41d4cf;
+    border: solid 4px chocolate;
 }
 
 .sidebaron li .arrivaldateSpan {
@@ -267,9 +270,9 @@
     background-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-bottom-color: #41d4cf;
-    border-bottom-color: #41d4cf;
-    border-right-color: #41d4cf;
+    border-bottom-color: chocolate;
+    border-bottom-color: chocolate;
+    border-right-color: chocolate;
     font-size: 1.3rem;
 }
 
@@ -281,14 +284,14 @@
     z-index: 0;
     height: 50px;
     width: 200px;
-    border: solid 2px #41d4cf;
+    border: solid 2px chocolate;
     border-radius: 9px;
     font-size: 1.3rem;
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #41d4cf;
+    color: chocolate;
 }
 
 .displaynone {

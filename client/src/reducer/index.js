@@ -24,9 +24,10 @@ const initialState = {
   users: [],
   travel: "",
   allTravels: [],
+  branches: [],
   //Carrito (cart)
   cart: [],
-  cart2: [] // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
+  cart2: [], // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -110,7 +111,9 @@ export default function rootReducer(state = initialState, action) {
       } else {
         return {
           ...state,
-          products: action.payload? action.payload : "No se encontraron productos asociados",
+          products: action.payload
+            ? action.payload
+            : "No se encontraron productos asociados",
         };
       }
 
@@ -160,10 +163,10 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allProducts
           : allProducts.filter(
-            (e) =>
-              e.categories &&
-              e.categories.map((e) => e.name).includes(action.payload)
-          );
+              (e) =>
+                e.categories &&
+                e.categories.map((e) => e.name).includes(action.payload)
+            );
 
       return {
         ...state,
@@ -195,12 +198,35 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allBusiness
           : allBusiness.filter(
-            (e) => e.business.businessName === action.payload
+
+            (e) => e.businessbranch.businessBranchName === action.payload
           );
+
       return {
         ...state,
         products: filterBusiness.length
           ? filterBusiness
+          : "No se encontraron productos asociados",
+      };
+
+    case 'GET_ALL_BRANCHES':
+      return {
+        ...state,
+        branches: action.payload,
+      };
+      case "FILTER_BY_BRANCHES":
+      const allBranches = state.allProducts;
+
+      const filterBranches =
+        action.payload === "All"
+          ? allBranches
+          : allBranches.filter(
+            (e) => e.businessbranch.businessBranchName === action.payload
+          );
+      return {
+        ...state,
+        products: filterBranches.length
+          ? filterBranches
           : "No se encontraron productos asociados",
       };
 
@@ -216,7 +242,7 @@ export default function rootReducer(state = initialState, action) {
       const filterProvinces =
         action.payload === "All"
           ? allProvinces
-          : allProvinces.filter((e) => e.business.province === action.payload);
+          : allProvinces.filter((e) => e.businessbranch.province === action.payload);
       return {
         ...state,
         products: filterProvinces.length
@@ -264,17 +290,24 @@ export default function rootReducer(state = initialState, action) {
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
       );
+      /* var quetrae = state.cart.map((e) => e.price)
+      console.log(itemInCart)
+      debugger;
+      var totalAmount = 0; */
+     /*  for (let i = 0; i < quetrae.length; i++) {
+        totalAmount = totalAmount + quetrae[i] ;
+        i++
+      } */
       return itemInCart
         ? {
             ...state,
             cart: state.cart.map((item) =>
-            item.id === productoCantidad.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+              item.id === productoCantidad.id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
             ),
           }
-          : {
-
+        : {
             ...state,
             cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
           };
@@ -310,8 +343,8 @@ export default function rootReducer(state = initialState, action) {
     case "GET_CART":
       return {
         ...state,
-        
-        cart: [...state.cart]
+
+        cart: [...state.cart],
       };
 
     case "ADD_TRAVEL":

@@ -4,7 +4,8 @@
     "name": "Agustina",
     "lastname": "Eciolaza",
     "birthDate": "1995-12-10",
-    "age": "26"
+    "age": "26",
+    "phone": "1234567890"
 },
 { 
     "email": "tomas@gmail.com",
@@ -12,7 +13,8 @@
     "name": "Tomas",
     "lastname": "Gelvez",
     "birthDate": "2000-12-10",
-    "age": "26"
+    "age": "26",
+    "phone": "1234567890"
 },
 { 
     "email": "celeste@gmail.com",
@@ -20,7 +22,8 @@
     "name": "Celeste",
     "lastname": "Cancio",
     "birthDate": "1993-05-10",
-    "age": "26"
+    "age": "26",
+    "phone": "1234567890"
 },
 { 
     "email": "agustin@gmail.com",
@@ -28,6 +31,7 @@
     "name": "Agustin",
     "lastname": "Farias",
     "birthDate": "1998-03-10",
-    "age": "26"
+    "age": "26",
+    "phone": "1234567890"
 }
 ]

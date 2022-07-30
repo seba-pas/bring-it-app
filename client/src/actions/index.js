@@ -29,14 +29,18 @@ import {
   ADD_TRAVEL,
   GET_TRAVELS,
   FILTER_BY_CITIES,
+  GET_ALL_BRANCHES,
+  FILTER_BY_BRANCHES,
+
+
   //Acciones del carrito (cart)
   ADD_TO_CART,
   INCREMENT_ONE_IN_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
-  GET_CART
-
+  GET_CART,
+ 
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -196,6 +200,23 @@ export const filterByBusiness = (payload) => {
   };
 };
 
+export const getAllBranches = () => {
+  return async function (dispatch) {
+    const res = await axios('/api/businessbranch');
+    return dispatch({
+      type: GET_ALL_BRANCHES,
+      payload: res.data
+    });
+  };
+};
+
+export const filterByBranches = (payload) => {
+  return {
+    type: FILTER_BY_BRANCHES,
+    payload
+  }
+} 
+
 export const getAllCities = () => {
   return async function (dispatch) {
     const res = await axios("/api/city");
@@ -310,6 +331,7 @@ export const loginBusiness = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/api/business/login`, body);
+      // localStorage.setItem("users",JSON.stringify(res.data))     
       return dispatch({
         type: POST_LOGINBUSINESS,
         payload: [res.data, body.email],

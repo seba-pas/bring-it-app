@@ -54,7 +54,7 @@
 
 }
 
-.passwordContainer {
+.passButton {
     display: flex;
     flex-direction: column;
     /* background-color: rgba(255, 255, 255, 0.093);
@@ -64,7 +64,7 @@
     grid-row: 5/9;
     grid-column: 19/31;
     justify-content: center;
-    align-items: left;
+    align-items: center;
 }
 
 .addressContainer {
@@ -78,20 +78,6 @@
     grid-column: 2/14;
     justify-content: center;
     align-items: left;
-}
-
-.cityContainer {
-    display: flex;
-    flex-direction: column;
-    /* background-color: rgba(255, 255, 255, 0.093);
-    border-radius: 0.5rem;
-    backdrop-filter: blur(4px); */
-    /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 20/24;
-    grid-column: 19/31;
-
-    justify-content: center;
-    align-items: center;
 }
 
 .cuitContainer {
@@ -121,7 +107,7 @@
     align-items: left;
 }
 
-.logoProvince {
+.provinceContainer {
     display: flex;
     flex-direction: column;
     /* background-color: rgba(255, 255, 255, 0.093);
@@ -129,10 +115,38 @@
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 20/24;
-    grid-column: 2/14;
+    grid-column: 2/6;
     justify-content: center;
     align-items: center;
     font-size: medium;
+}
+
+.cityContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 20/24;
+    grid-column: 7/11;
+
+    justify-content: center;
+    align-items: left;
+}
+
+.addBranch {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 20/24;
+    grid-column: 12/16;
+
+    justify-content: center;
+    align-items: left;
 }
 
 .taxBracketContainer {
@@ -146,7 +160,7 @@
     grid-column: 19/31;
     justify-content: center;
     align-items: center;
-    font-size: medium;
+    font-size: large;
 }
 
 .subButton {
@@ -176,8 +190,21 @@
 
 
 
+
 .btn {
     border: solid 2px #41d4cf;
+    border-radius: 9px;
+    width: 8rem;
+    height: 4rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #41d4cf;
+}
+
+.btnPass {
+    /* border: solid 2px #41d4cf; */
     border-radius: 9px;
     width: 8rem;
     height: 4rem;
@@ -200,13 +227,9 @@ input {
 }
 
 select {
-
+    width: 300px;
     background-color: transparent;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    border-bottom-color: #41d4cf;
-    border-bottom-color: #41d4cf;
-    border-right-color: #41d4cf;
+    border: solid 2px #41d4cf;
     color: #41d4cf;
-    font-size: 1.05rem;
+    font-size: 1.4rem;
 }

@@ -33,12 +33,8 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      province: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      address: {
-        type: DataTypes.STRING,
+      phone: {
+        type: DataTypes.INTEGER,
         allowNull: false
       },
       deleted: {

@@ -32,7 +32,7 @@
   font-family: "Montserrat", sans-serif;
     background-color: white;
     color: chocolate;
-    border: 3px solid #3ab0ff;
+    border: 3px solid chocolate;
     font-weight: bold;
     border-radius: 5px;
     font-size: 15px;
@@ -86,8 +86,8 @@
   .buttonModals button{
     font-family: "Montserrat", sans-serif;
     background-color: white;
-    color: #3ab0ff;
-    border: 3px solid #3ab0ff;
+    color: chocolate;
+    border: 3px solid chocolate;
     font-weight: bold;
     border-radius: 5px;
     font-size: 15px;

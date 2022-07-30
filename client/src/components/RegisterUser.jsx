@@ -56,17 +56,9 @@ function RegisterUser() {
     name: "",
     lastname: "",
     birthDate: "",
+    age: "1"
   });
- /*  function getAge(input) {
-    var today = new Date();
-    var birthDate = new Date(input.birthDate);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
-  } */
+
 
   function handleChange(e) {
 
@@ -129,8 +121,9 @@ function RegisterUser() {
           name: "",
           lastname: "",
           birthDate: "",
+          age: "1"
         });
-        history.push("/persona");
+        history.push("/"); // /persona
       } else if (user === "error:Validation error") {
         swal("Ya existe un usuario con el email");
         dispatch(cleanUsers());
@@ -233,7 +226,7 @@ function RegisterUser() {
                     required
                   />
                 </Form.Group>
-                <Form.Group>
+                {/* <Form.Group>
                   <Form.Label>Agrega tu numero de contacto</Form.Label>
                   <div>
                     <PhoneInput
@@ -243,7 +236,7 @@ function RegisterUser() {
                     />
                     {value}
                   </div>
-                </Form.Group>
+                </Form.Group> */}
                 <Button
                   variant="primary"
                   className="mt-3 mb-5 w-100 mt-3"
