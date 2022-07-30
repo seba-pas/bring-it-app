@@ -9,7 +9,7 @@ export default function ProductCard({
   description,
   image,
   price,
-  businessName,
+  business,
   categories,
   id,
 }) {
@@ -54,7 +54,7 @@ export default function ProductCard({
       <div className="card-footer">
        <small> Empresa:{" "}</small>
         <small className="text-muted" id={styles.bold}>
-          {businessName ? businessName : "No esta asociado a una empresa"}
+          {business.businessBranchName ? business.businessBranchName.split(" - ")[0] : "No esta asociado a una empresa"}
         </small>
       </div>
     </div>

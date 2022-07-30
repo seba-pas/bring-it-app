@@ -11,7 +11,7 @@ function PerfilUser(props) {
 
     const emailState = gState.email;
     const infoUser = gState.user;
-    console.log(infoUser.others.dataValues)
+    
     const [input, setInput] = useState({
         email: infoUser.others.dataValues.email,
         password: infoUser.others.dataValues.password,

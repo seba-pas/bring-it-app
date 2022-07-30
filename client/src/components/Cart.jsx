@@ -35,7 +35,7 @@ export default function Cart() {
   }
   function handleClick(e) {
     e.preventDefault();
-    console.log(cart);
+    
     if (cart.length === 0) {
       swal(
         "No tienes productos en tu carrito",
