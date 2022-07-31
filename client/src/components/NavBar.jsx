@@ -111,6 +111,7 @@ export default function NavBar() {
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Productos seleccionados</Modal.Title>
+              <span>{stateCart.length > 0 ? stateCart[0].businessbranch.businessBranchName : ""}</span>
             </Modal.Header>
             <Modal.Body>
               <Cart />
@@ -141,11 +142,12 @@ export default function NavBar() {
           value="perfil"
           onChange={(e) => handleOnChange(e)}
         >
+          <option value="">Mi cuenta</option>
            <option value="email">{gState.user.others.dataValues.email}</option>
           <option value="misCompras">Mis compras</option>
             <option value="modificarPassword">Modificar contraseña</option>
           <option value="misViajes">Mis Viajes</option>
-          <option value="close">Cerrar sesión</option> */}
+          <option value="close">Cerrar sesión</option> 
         </select>
       </div>
       {/* <div>

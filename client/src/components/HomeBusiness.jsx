@@ -53,6 +53,7 @@ function HomeBusiness() {
 
     useEffect(() => {
         if (input.perfil === "email") history.push("/perfil");
+        
         else if (input.perfil === "close") history.push("/");
     }, [input.perfil]);
 
