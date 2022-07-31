@@ -7,7 +7,6 @@ import { NavLink } from 'react-router-dom';
 
 function BranchCard({ id, name, city, province, address }) {
     const dispatch = useDispatch();
-    console.log("id", id)
     async function handleEdit(event) {
         event.preventDefault();
         //dispatch(editBranch(id));

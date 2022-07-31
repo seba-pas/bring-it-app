@@ -33,8 +33,7 @@ import {
   FILTER_BY_BRANCHES,
   FILTER_BY_BRANCHES_PROVINCES,
   SET_PRODUCTS,
-
-
+  POST_PURCHASE,
   //Acciones del carrito (cart)
   ADD_TO_CART,
   INCREMENT_ONE_IN_CART,
@@ -47,7 +46,6 @@ import {
   POST_BRANCH,
   DELETE_BRANCH,
   EDIT_BRANCH,
-
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -100,13 +98,12 @@ export const setDetail = () => {
 };
 
 export const setProduct = () => {
-  return{
-    type: SET_PRODUCTS
+  return {
+    type: SET_PRODUCTS,
   };
 };
 
 export const addProduct = (body) => {
-  console.log("llega al add", body);
   return async function (dispatch) {
     try {
       const res = await axios.post(`/api/product`, body);
@@ -124,7 +121,6 @@ export const editProduct = (id, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(`/api/product/${id}`, body);
-      console.log("res", res);
       return dispatch({
         type: PUT_PRODUCT,
         payload: res.data,
@@ -135,7 +131,6 @@ export const editProduct = (id, body) => {
   };
 };
 export const deleteProduct = (id) => {
-  console.log(id);
   return async function (dispatch) {
     try {
       const res = await axios.delete(`/api/product/${id}`);
@@ -163,7 +158,7 @@ export const orderByPrice = (payload) => {
 export const getCategories = () => {
   return async function (dispatch) {
     const res = await axios.get("/api/category");
-   
+
     return dispatch({
       type: GET_CATEGORIES,
       payload: res.data,
@@ -215,10 +210,10 @@ export const filterByBusiness = (payload) => {
 
 export const getAllBranches = () => {
   return async function (dispatch) {
-    const res = await axios('/api/businessbranch');
+    const res = await axios("/api/businessbranch");
     return dispatch({
       type: GET_ALL_BRANCHES,
-      payload: res.data
+      payload: res.data,
     });
   };
 };
@@ -226,21 +221,21 @@ export const getAllBranches = () => {
 export const filterByBranches = (payload) => {
   return {
     type: FILTER_BY_BRANCHES,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const filterByBranchesProvince = (payload) => {
   return {
     type: FILTER_BY_BRANCHES_PROVINCES,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const getAllCities = () => {
   return async function (dispatch) {
     const res = await axios("/api/city");
-    
+
     return dispatch({
       type: GET_ALL_CITIES,
       payload: res.data,
@@ -286,7 +281,6 @@ export const getUsers = () => {
 };
 
 export const login = (body) => {
-  console.log("login body", body);
   return async function (dispatch) {
     try {
       const res = await axios.post(`/api/user/login`, body);
@@ -318,7 +312,6 @@ export const editUser = (id, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(`/api/user/${id}`, body);
-      console.log("res", res);
       return dispatch({
         type: PUT_USER,
         payload: res.data,
@@ -335,7 +328,6 @@ export function addBusiness(body) {
   return async function (dispatch) {
     try {
       let json = await axios.post(`/api/business`, body);
-      console.log(json.data);
       return dispatch({
         type: POST_BUSINESS,
         payload: [json.data, body.email],
@@ -346,14 +338,24 @@ export function addBusiness(body) {
   };
 }
 
+export function postPurchase(body) {
+  return async function (dispatch) {
+    let res = await axios.post(`/api/purchase`, body);
+    try {
+      return dispatch({
+        type: POST_PURCHASE,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 export const loginBusiness = (body) => {
-  console.log("login body", body);
   return async function (dispatch) {
     try {
       const res = await axios.post(`/api/business/login`, body);
-      // localStorage.setItem("access_user", JSON.stringify(res.data));
-
-     
       return dispatch({
         type: POST_LOGINBUSINESS,
         payload: [res.data, body.email],
@@ -368,7 +370,6 @@ export const editBusiness = (id, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(`/api/business/${id}`, body);
-      console.log("res", res);
       return dispatch({
         type: PUT_BUSINESS,
         payload: res.data,
@@ -379,16 +380,11 @@ export const editBusiness = (id, body) => {
   };
 };
 
-
 //post travel
 export const addTravel = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(
-        `/api/travel`,
-        body
-      );
-      console.log("res", res)
+      const res = await axios.post(`/api/travel`, body);
       return dispatch({
         type: ADD_TRAVEL,
         payload: res.data,
@@ -402,10 +398,7 @@ export const addTravel = (body) => {
 export const getAllTravel = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(
-        `/api/travel`
-      );
-      console.log("res", res)
+      const res = await axios.get(`/api/travel`);
       return dispatch({
         type: GET_TRAVELS,
         payload: res.data,
@@ -416,19 +409,15 @@ export const getAllTravel = () => {
   };
 };
 
-
 export function addToCart(productsDetail) {
-
   return {
     type: ADD_TO_CART,
     payload: productsDetail,
   };
 }
 
-
 //Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
 export function removeOneFromCart(productId) {
-  console.log(`removeOneFromCart - actions`);
   return {
     type: REMOVE_ONE_FROM_CART,
     payload: productId,
@@ -437,7 +426,6 @@ export function removeOneFromCart(productId) {
 
 // Elimina el producto del cart (recibe id)
 export function removeAllFromCart(productId) {
-  console.log(`removeAllFromCart - actions`);
   return {
     type: REMOVE_ALL_FROM_CART,
     payload: productId,
@@ -446,7 +434,6 @@ export function removeAllFromCart(productId) {
 
 //Elimina todos los productos del cart (recibe id)
 export function clearCart() {
-  console.log('llegue')
   return {
     type: CLEAR_CART,
   };
@@ -455,21 +442,15 @@ export function clearCart() {
 export function getCart() {
   return {
     type: GET_CART,
-
-  }
+  };
 }
-
 
 // agregar sede
 
 export function postBranch(body) {
   return async function (dispatch) {
     try {
-      const res = await axios.post(
-        `/api/businessbranch`,
-        body
-      );
-      console.log("res", res)
+      const res = await axios.post(`/api/businessbranch`, body);
       return dispatch({
         type: POST_BRANCH,
         payload: res.data,
@@ -480,16 +461,11 @@ export function postBranch(body) {
   };
 }
 
-
 //edit branch
 export function editBranch(id, body) {
   return async function (dispatch) {
     try {
-      const res = await axios.put(
-        `/api/businessbranch/${id}`,
-        body
-      );
-      console.log("res", res)
+      const res = await axios.put(`/api/businessbranch/${id}`, body);
       return dispatch({
         type: EDIT_BRANCH,
         payload: res.data,
@@ -502,7 +478,6 @@ export function editBranch(id, body) {
 
 //borrar sede
 export const deleteBranch = (id) => {
-  console.log(id);
   return async function (dispatch) {
     try {
       const res = await axios.delete(`/api/businessbranch/${id}`);

@@ -15,6 +15,7 @@ const initialState = {
   allCities: [],
   business2: [],
   allBusiness2: [],
+  purchase: [],
   provinces: [],
   putEmail: "",
   putBusiness: "",
@@ -50,7 +51,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         productsDetail: action.payload,
       };
-
+    case "POST_PURCHASE":
+      return{
+        ...state,
+        purchase: action.payload
+      }
     case "POST_USER":
       return {
         ...state,
@@ -289,7 +294,6 @@ export default function rootReducer(state = initialState, action) {
       const filterCities = action.payload === 'All'
         ? allCities
         : allCities.filter((e) => e.business.cityId === action.payload)
-      // console.log(allCities)
       return {
         ...state,
         products: filterCities.length ? filterCities : "No se encontraron productos asociados"

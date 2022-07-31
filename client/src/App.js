@@ -18,7 +18,7 @@ import CheckOut from "./components/Stripe/CheckOut";
 
 import FilterBefore from "./components/FilterBefore";
 import FilterProvince from "./components/FilterProvince";
-
+import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 
 
@@ -36,18 +36,16 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
-
         <Route exact path="/filtro" component={FilterBefore} />
         <Route exact path="/filtroprov" component={FilterProvince} />
         {/* <Route path='/checkout' component={CheckOut} /> */}
         <Route exact path='/compra' component={CheckOut}/>
-
         <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
         <Route exact path="/admin" component={HomeAdmin} />
         <Route exact path="/persona/modificarPassword" component={RecuperarPassword}/>
-
+        <Route exact path="/persona/homeUserPurchase" component={HomeUserPurchase}/>
         {/* <Route exact path="/testing" component={FormTravel} /> */}
       </Switch>
     </div>
