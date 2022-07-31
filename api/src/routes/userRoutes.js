@@ -7,25 +7,23 @@ const CryptoJS = require('crypto-js');
 const router = Router();
 
 //Put desactivacion de cuenta 
-router.put('/desactivacion/:email'), async (req, res)=>{
-  const email=req.params.id;
-  console.log(email)
-  let {active}=req.body;
-  await User.update({active},{
-          where: {
-              email,
-          }
-      })
-  
-  res.status(200).send('Se suspendio cuenta temporalmente');
-}
+// router.put('/desactivacion/:email', async (req, res)=>{
+// try {
+//   const {email} = req.params ;
+//   const modification = {active: false}
+//   const q = await User.update(modification, {
+//     where: { email: email },
+//   });
+//   res.status(201).send(`${q} usuario desactivado`);
+// } catch (error) {
+//   res.send(`error:${e.message}`)
+// }});
 
 
 //PUT baneo usuario  
 router.put('/baneo/:email'), async (req, res)=>{
   const email=req.params.id;
   console.log(email)
-  let {deleted}=req.body;
   await User.update({deleted},{
           where: {
               email,

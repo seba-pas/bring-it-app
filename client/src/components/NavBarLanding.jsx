@@ -13,6 +13,8 @@ import {
   loginBusiness,
   cleanUsers,
   cleanBusiness,
+  activateUser,
+  activateBusiness
 } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -148,9 +150,22 @@ export default function NavBarLanding() {
         });
         dispatch(cleanBusiness());
         return;
-      } else if (business.others) {
+      } else if (!business.others.dataValues.active) {
+        swal("Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?", {
+          buttons: ["No", "Si"],
+        }).then(value => {
+          if (value) {
+            swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+            dispatch(activateBusiness(business.others.dataValues.email));
+        setInput({
+          email: "",
+          password: "",
+        });
+        history.push("/empresas");
+          } else { history.push("/");}
+        })
+      }else if (business.others.dataValues.active) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-
         setInputBusiness({
           email: "",
           password: "",
@@ -231,7 +246,23 @@ export default function NavBarLanding() {
         });
         dispatch(cleanUsers());
         return;
-      } else if (user.others) {
+      } else if (!user.others.dataValues.active) {
+        swal("Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?", {
+          buttons: ["No", "Si"],
+        }).then(value => {
+          if (value) {
+            swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+            dispatch(activateUser(user.others.dataValues.email));
+        setInput({
+          email: "",
+          password: "",
+        });
+        history.push("/filtro");
+          } else {
+            history.push("/");
+          }
+        })
+      } else if (user.others.dataValues.active) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",

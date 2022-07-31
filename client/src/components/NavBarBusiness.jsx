@@ -4,7 +4,7 @@ import styles from "../styles/NavBar.module.css"
 
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBusiness, getCategories } from '../actions';
+import { getAllBusiness, getCategories , desactivateBusiness , cleanBusiness } from '../actions';
 import logo from "./img/logoCUT.png";
 import userProfile from "./img/userPerfilImage.jpg";
 
@@ -13,9 +13,6 @@ export default function NavBarusiness() {
     const gState = useSelector((state) => state);
     const dispatch = useDispatch();
     const history = useHistory();
-
-
-
 
     useEffect(() => {
         dispatch(getAllBusiness());
@@ -41,9 +38,13 @@ export default function NavBarusiness() {
 
 
     useEffect(() => {
-        if (input.perfil === "email") history.push("/perfil");
-        else if (input.perfil === "close") history.push("/");
-    }, [input.perfil]);
+        if (input.perfil === "email") {history.push("/perfil");
+    } else if (input.perfil === "desactivarMiCuenta"){
+        dispatch(desactivateBusiness(gState.business.others.dataValues.email));
+        dispatch(cleanBusiness());
+        history.push('/');
+    } else if (input.perfil === "close") {history.push("/"); }
+     }, [input.perfil]);
 
 
     const handleOnChange = (event) => {
@@ -78,6 +79,7 @@ export default function NavBarusiness() {
                     {/* <option value="">{input.perfil} </option> */}
                     <option value="">Mi cuenta</option>
                     <option value="email">{input.businessInfo.email}</option>
+                    <option value="desactivarMiCuenta">Desactivar mi cuenta</option>
                     <option value="close">Cerrar sesión</option>
 
                 </select>

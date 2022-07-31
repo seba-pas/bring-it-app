@@ -28,11 +28,15 @@ function getProducts (name){
 async function getAllProducts (){
     try {
         const foundProductsComplete = await Product.findAll({
-            include: [{model: Businessbranch}, {model: Category}]
-        });       
-        return foundProductsComplete;        
+            include: [{model: Category}, {model: Businessbranch,
+            include: [{model : Business}]}]
+        });    
+        const filtrado = foundProductsComplete.filter(e => (e.businessbranch.business.active))
+         
+        return filtrado;   
+        // return (foundProductsComplete) 
     } catch (error) {
-        throw new Error (`No se encontraron productos cargados en la base de datos, ${error}`);
+        res.send(e.message);
     }     
 }
 
