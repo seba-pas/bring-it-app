@@ -67,7 +67,6 @@ function HomeBusiness() {
             }
         });
     }
-    console.log("productos", input.products)
 
     // const orderName = (event)=>{
     //     event.preventDefault();

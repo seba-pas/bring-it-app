@@ -7,6 +7,7 @@ import Pagination from "./Pagination";
 import { filterByBranchesProvince, getAllProducts, setProduct } from "../actions";
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBarProvince from "./NavBarProvince";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function FilterProvince() {
   const dispatch = useDispatch();

@@ -46,6 +46,7 @@ let sequelize =
 //     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 //   }
 // );
+//dale la concha de tu vieja de guacho me fui
 const basename = path.basename(__filename);
 
 const modelDefiners = [];

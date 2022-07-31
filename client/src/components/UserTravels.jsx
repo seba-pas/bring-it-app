@@ -16,15 +16,15 @@ function UserTravels() {
         dispatch(getAllTravel());
     }, [dispatch])
 
-    useEffect(() => {
-        setInput((prevInput) => {
-            return {
-                ...prevInput,
-                travels: gState.allTravels.filter(e => e.userEmail === gState.user.others.dataValues.email,
-                )
-            }
-        })
-    }, gState.allTravels)
+    // useEffect(() => {
+    //     setInput((prevInput) => {
+    //         return {
+    //             ...prevInput,
+    //             travels: gState.allTravels.filter(e => e.userEmail === gState.user.others.dataValues.email,
+    //             )
+    //         }
+    //     })
+    // }, gState.allTravels)
 
     return (
         <div className={styles.travels} >

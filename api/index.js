@@ -19,19 +19,21 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
-// const { db } = require('./src/db');
+const { db } = require('./src/db');
 const { apiCity } = require('./src/controllers/cityControllers')
 const { apiProvince } = require('./src/controllers/provinceControllers')
 const { loadDB } = require('./src/json/jsonControllers')
-//const municipios = json1.municipios;
+// const municipios = json1.municipios;
+
 
 // // Syncing all the models at once.
 
-conn.sync({ force: false}).then(() => {
-  server.listen(process.env.PORT || 3001, async () => {
-    await apiProvince();
-    await apiCity();
-    await loadDB();
+conn.sync({ force: false }).then(() => {
+  server.listen(process.env.PORT || 3001,  async () => {
+     await apiProvince();
+     await loadDB();
+     await apiCity();
+   
     console.log("BRING IT ON! Listening..."); // eslint-disable-line no-console
   });
 });

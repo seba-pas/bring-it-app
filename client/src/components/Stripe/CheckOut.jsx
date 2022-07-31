@@ -7,7 +7,7 @@ const stripePromise = loadStripe('pk_test_51LPy6xFKxxhhwn5aXODvS3zdy44zruD9o4bUL
 
 function CheckOut() {
   return (
-    <div>
+    <div style={{height:"90px"}}>
       <Elements stripe={stripePromise}>
         <FormPurchase/>
       </Elements>
