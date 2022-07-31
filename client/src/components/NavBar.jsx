@@ -157,11 +157,13 @@ export default function NavBar() {
           <option value="misViajes">Mis Viajes</option>
           <option value="desactivarMiCuenta">Desactivar mi cuenta</option>
           <option value="close">Cerrar sesión</option>
-        </select>
+
+
+        </select> 
       </div>
       {/* <div>
         <button onClick={(e) => onClick(e)}>Volver</button>
       </div> */}
-    </div>
+     </div>
   );
 }

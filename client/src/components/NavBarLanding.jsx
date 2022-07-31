@@ -280,17 +280,20 @@ export default function NavBarLanding() {
   const handleShow = () => setShow(true);
 
   return (
-    <div className={styles.navbarLanding} style={{ border: "none" }}>
+    <div className={styles.navbarLanding} style={{ border: "none", display: 'flex', justifyContent: 'space-between' }}>
       {/* <div className={styles.imagen}> */}
 
       {/* <NavLink exact to="/"> */}
       <img
         src={image}
         style={{
-          height: "130px",
+          height: "auto",
           width: "auto",
+          objectFit: "cover",
           paddingBottom: "0px",
           marginBottom: "0px",
+          marginRight: '28%',
+          marginTop: "20px"
         }}
         alt="Logo no encontrado"
       />
@@ -298,10 +301,13 @@ export default function NavBarLanding() {
       {/* </div> */}
 
       <div className={styles.SearchBar}></div>
-      <div className={styles.contbotones2}>
+      <div className={styles.contbotones2} style={{marginLeft: '30%'}}>
         <button id={styles.login} onClick={handleShowLogin}>
           LOGIN
         </button>
+        <button onClick={handleShow}>REGISTRARSE</button>
+        </div>
+        <div>
         <Modal show={showLogin} onHide={handleCloseLogin}>
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
@@ -402,9 +408,7 @@ export default function NavBarLanding() {
               Close
             </Button>
           </Modal.Footer>
-        </Modal>
-
-        <button onClick={handleShow}>REGISTRARSE</button>
+        </Modal> 
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
