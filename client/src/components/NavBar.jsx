@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
 import logo from "./img/logoCUT.png";
-import { getUsers, getCart, clearCart } from "../actions";
+import { getUsers, getCart, clearCart , desactivateUser, cleanUsers} from "../actions";
 import userProfile from "./img/userPerfilImage.jpg";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.css";
@@ -44,10 +44,14 @@ export default function NavBar() {
   }, [gState]);
 
   useEffect(() => {
-    if (input.perfil === "email") history.push("/perfilUser");
-    if (input.perfil === "misViajes") history.push("/persona/misviajes");
-    if(input.perfil === "modificarPassword") history.push("/persona/modificarPassword")
-
+    if (input.perfil === "email") {history.push("/perfilUser");}
+    if (input.perfil === "misViajes") {history.push("/persona/misviajes"); }
+    if(input.perfil === "modificarPassword") {history.push("/persona/modificarPassword")}
+    if (input.perfil === "desactivarMiCuenta") {
+      dispatch(desactivateUser(input.user.others.dataValues.email));
+      dispatch(cleanUsers());
+      history.push('/');
+    }
     else if (input.perfil === "close") {
       dispatch(clearCart());
       history.push("/");
@@ -149,6 +153,7 @@ export default function NavBar() {
             <option value="modificarPassword">Modificar contraseña</option>
            <option value="email">{gState.user.others.dataValues.email}</option>
           <option value="misViajes">Mis Viajes</option>
+          <option value="desactivarMiCuenta">Desactivar mi cuenta</option>
           <option value="close">Cerrar sesión</option>
         </select>
       </div>
