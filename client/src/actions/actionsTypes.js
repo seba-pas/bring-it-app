@@ -46,3 +46,12 @@ export const CLEAR_CART = 'CLEAR_CART';
 export const POST_BRANCH = "POST_BRANCH";
 export const DELETE_BRANCH = "DELETE_BRANCH";
 export const EDIT_BRANCH = "EDIT_BRANCH";
+
+//borrado lógico
+export const DESACTIVATE_USER = "DESACTIVATE_USER";
+export const DESACTIVATE_BUSINESS = "DESACTIVATE_BUSINESS";
+export const ACTIVATE_USER = "ACTIVATE_USER";
+export const ACTIVATE_BUSINESS = "ACTIVATE_BUSINESS";
+export const DELETE_USER = "DELETE_USER";
+export const DELETE_BUSINESS = "DELETE_BUSINESS";
+

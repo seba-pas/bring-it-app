@@ -46,6 +46,16 @@ import {
   POST_BRANCH,
   DELETE_BRANCH,
   EDIT_BRANCH,
+
+
+  //borrado lógico
+  ACTIVATE_BUSINESS,
+  ACTIVATE_USER,
+  DESACTIVATE_BUSINESS,
+  DESACTIVATE_USER,
+  DELETE_BUSINESS,
+  DELETE_USER
+
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -511,3 +521,69 @@ export const deleteBranch = (id) => {
     }
   };
 };
+
+
+// desactivar cuenta usuario 
+export const desactivateUser = (email) => {
+  return async function (dispatch) {
+    try {
+      const body = {active: false};
+      const res =  await axios.put(`/api/user/${email}`, body);
+      return dispatch ({
+        type: DESACTIVATE_USER,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+// activar cuenta usuario 
+export const activateUser = (email) => {
+  return async function (dispatch) {
+    try {
+      const body = {active: true};
+      const res =  await axios.put(`/api/user/${email}`, body);
+      return dispatch ({
+        type: ACTIVATE_USER,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+// desactivar cuenta usuario 
+export const desactivateBusiness = (email) => {
+  return async function (dispatch) {
+    try {
+      const body = {active: false};
+      const res =  await axios.put(`/api/business/${email}`, body);
+      return dispatch ({
+        type: DESACTIVATE_BUSINESS,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+// activar cuenta usuario 
+export const activateBusiness = (email) => {
+  return async function (dispatch) {
+    try {
+      const body = {active: true};
+      const res =  await axios.put(`/api/business/${email}`, body);
+      return dispatch ({
+        type: ACTIVATE_BUSINESS,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
