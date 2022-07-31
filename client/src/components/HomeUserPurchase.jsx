@@ -2,7 +2,11 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 
-function HomeUserPurchase() {
+function HomeUserPurchase(props) {
+  const handleBack = (event) => {
+    event.preventDefault();
+    props.history.goBack();
+  };
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }
@@ -52,6 +56,7 @@ function HomeUserPurchase() {
             <br />
           </Col>
         </Row>
+        <Button onClick={(e) => handleBack(e)}>Atras</Button>
       </Container>
     </div>
   );

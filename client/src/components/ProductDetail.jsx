@@ -38,13 +38,25 @@ export const ProductDetail = () => {
   //   e.preventDefault();
   //   history.go("/compra")
   // }
-
   function handleClickAddToCart(e) {
-    
     e.preventDefault();
-    dispatch(addToCart(product));
-    swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+    if (cart.length>0){
+      if (cart[0].businessbranchId !== product.businessbranchId){
+        swal(
+          "Este producto pertenece a otra empresa",
+          "Podés agregarlo como favorito para comprarlo en tu proximo carrito!",
+          "error"
+        );
+      }else{
+        dispatch(addToCart(product));
+        swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+      }      
+    }else{
+      dispatch(addToCart(product));
+      swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+    }    
   }
+  
 
   return (
     <div>
