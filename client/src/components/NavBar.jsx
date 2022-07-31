@@ -9,7 +9,7 @@ import userProfile from "./img/userPerfilImage.jpg";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.css";
 import Button from "react-bootstrap/Button";
-
+import {FaShoppingBag} from 'react-icons/fa'
 import Cart from "./Cart";
 import { getAllProducts } from "../actions";
 
@@ -29,7 +29,6 @@ export default function NavBar() {
     perfil: "",
     user: {},
   });
-  // console.log(input.user.others.dataValues)
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -47,7 +46,7 @@ export default function NavBar() {
     if (input.perfil === "email") history.push("/perfilUser");
     if (input.perfil === "misViajes") history.push("/persona/misviajes");
     if(input.perfil === "modificarPassword") history.push("/persona/modificarPassword")
-
+    if(input.perfil === "misCompras") history.push("/persona/homeUserPurchase")
     else if (input.perfil === "close") {
       dispatch(clearCart());
       history.push("/");
@@ -100,10 +99,7 @@ export default function NavBar() {
         >
           
           <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "white", borderColor: "chocolate", marginTop: '5px', paddingBottom: '10px', paddingBottom: '10px'}}>
-            <i
-              className="fa fa-shopping-cart"
-              style={{ color: "#d2691e", fontSize: "30px"}}
-            ></i>{" "}
+            <FaShoppingBag/>
             <span
               style={{ color: "#D2691E", margin: "5px", fontSize: "18px" }}
               className="badge"
@@ -145,9 +141,9 @@ export default function NavBar() {
           value="perfil"
           onChange={(e) => handleOnChange(e)}
         >
-          {/* <option value="">{input.perfil} </option>
-            <option value="modificarPassword">Modificar contraseña</option>
            <option value="email">{gState.user.others.dataValues.email}</option>
+          <option value="misCompras">Mis compras</option>
+            <option value="modificarPassword">Modificar contraseña</option>
           <option value="misViajes">Mis Viajes</option>
           <option value="close">Cerrar sesión</option> */}
         </select>

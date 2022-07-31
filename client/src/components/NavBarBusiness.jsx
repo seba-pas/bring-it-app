@@ -75,7 +75,7 @@ export default function NavBarusiness() {
                 />
 
                 <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
-                    <option value="">{input.perfil} </option>
+                    {/* <option value="">{input.perfil} </option> */}
 
                     <option value="email">{input.businessInfo.email}</option>
                     <option value="close">Cerrar sesión</option>

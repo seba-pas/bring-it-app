@@ -1,21 +1,35 @@
 import { React, useState, useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 // import CheckOut from "./Stripe/CheckOut";
-import { getAllProvinces, getAllCities } from "../actions/index.js";
+import {
+  getAllProvinces,
+  getAllCities,
+  postPurchase,
+  clearCart
+} from "../actions/index.js";
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import swal from "sweetalert";
 // import NavBar from "./NavBar";
 
 function FormPurchase() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const cart = useSelector((state) => state.cart);
   const PROVINCES = useSelector((state) => state.uniqueProvinces);
   const [province, setProvince] = useState("All");
   const gState = useSelector((state) => state);
   const [input, setInput] = useState({
-    cityId: "",
-    province: "",
+    // arrivalCityId: "",
+    maxDeliveryDate: "",
+    totalPrice: cart
+      .reduce((acc, item) => acc + item.quantity * item.price, 0)
+      .toFixed(2),
+    userEmail: gState.user.others.dataValues.email,
+    items: cart
+    
   });
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -26,16 +40,6 @@ function FormPurchase() {
       };
     });
   };
-  //funcion para filtrar por provincias
-  // function handleFilterByProvinces(e) {
-  //   e.preventDefault();
-  //   setInput({
-  //     ...input,
-  //     province: e.target.value,
-  //   });
-  //   dispatch(filterByProvinceCity(e.target.value));
-  // }
-
   useEffect(() => {
     dispatch(getAllProvinces());
     dispatch(getAllCities());
@@ -53,7 +57,6 @@ function FormPurchase() {
 
     if (!error) {
       const { id } = paymentMethod;
-      console.log(id);
       const datos = await axios.post(
         "/checkout/payment",
         {
@@ -62,9 +65,11 @@ function FormPurchase() {
         }
       );
 
-      console.log(datos);
-
       elements.getElement(CardElement).clear();
+      dispatch(postPurchase(input));
+      swal('Buen trabajo', 'La compra fue realizada con exito', 'success')
+      history.push("/persona/homeUserPurchase")
+      dispatch(clearCart());
     } else {
       console.log("Hay un error en el handleSubmit");
     }
@@ -162,21 +167,21 @@ function FormPurchase() {
               <Form.Group>
                 {" "}
                 {/* WaitingTime */}
-                <Form.Label>Fecha limite de producto</Form.Label>
+                <Form.Label>Fecha limite de espera</Form.Label>
                 <Form.Control
                   type="date"
                   placeholder="Espera de producto"
-                  // value={input.birthDate}
-                  name="birthDate"
-                  id="birthDate"
+                  value={input.maxDeliveryDate}
+                  name="maxDeliveryDate"
+                  id="maxDeliveryDate"
                   required
+                  onChange={(e) => handleInputChange(e)}
                 />
               </Form.Group>
 
-              <Form.Label>Provincia</Form.Label>
-              <Form.Group>
-                <label htmlFor="province">Provincia:</label>
-                <select
+              <Form.Group style={{marginTop:"15px", marginBottom:"15px"}}>
+                <label htmlFor="province">Elija la provincia donde recibira su compra:</label>
+                <Form.Select
                   name="province"
                   value={input.province}
                   onChange={(e) => handleInputChange(e)}
@@ -187,16 +192,15 @@ function FormPurchase() {
                       {e.nombre}
                     </option>
                   ))}
-                </select>
+                </Form.Select>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Llegada a la ciudad</Form.Label>
               </Form.Group>
               <Form.Group>
-                <Form.Label></Form.Label>
-                <select
-                  name="cityId"
-                  value={input.cityId}
+                <Form.Label>Elija la ciudad que desee recibir su compra</Form.Label>
+                <Form.Select
+                  name="arrivalCityId"
+                  value={input.arrivalCityId}
                   onChange={(e) => handleInputChange(e)}
                 >
                   <option value="">{} </option>
@@ -216,10 +220,11 @@ function FormPurchase() {
                           </option>
                         ))
                     : ""}
-                </select>
+                </Form.Select>
               </Form.Group>
-
+              <div>
               <CardElement />
+              </div>
               <Button
                 variant="primary"
                 className="mt-3 mb-5 w-100 mt-3"

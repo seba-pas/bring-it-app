@@ -353,11 +353,7 @@ export default function NavBarLanding() {
                       {errors.password && <p>{errors.password}</p>}
                     </Form.Group>
                   </Row>
-                  <Row style={{ marginBottom: "20px" }}>
-                    <Link to="/recuperarPassword">
-                      <a href="">¿Olvidaste tu contraseña?</a>
-                    </Link>
-                  </Row>
+                  
                   <Button
                     variant="info"
                     type="submit"
