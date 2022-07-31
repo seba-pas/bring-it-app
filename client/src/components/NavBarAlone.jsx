@@ -7,6 +7,7 @@ import userProfile from "./img/userPerfilImage.jpg";
 
 
 
+
 export default function NavBarAlone() {
   return (
     <div className={styles.navbar}>
