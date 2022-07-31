@@ -100,7 +100,7 @@ export default function NavBarProvince() {
               <Cart />
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="danger" onClick={handleClose}>
+              <Button variant="danger" onClick={handleClose} className='btn btn-primary'>
                 Close
               </Button>
             </Modal.Footer>

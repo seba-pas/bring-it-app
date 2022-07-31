@@ -52,7 +52,7 @@ import {
 export const getAllProducts = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get("/api/product");
+      const res = await axios.get("/product");
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: res.data,
@@ -66,7 +66,7 @@ export const getAllProducts = () => {
 export const getAllProductsDetail = (id) => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`/api/product/${id}`);
+      const res = await axios.get(`/product/${id}`);
       return dispatch({
         type: GET_PRODUCTS_DETAIL,
         payload: res.data,
@@ -80,7 +80,7 @@ export const getAllProductsDetail = (id) => {
 export const getAllProductsName = (name) => {
   return async function (dispatch) {
     try {
-      const res = await axios(`/api/product?name=${name}`);
+      const res = await axios(`//product?name=${name}`);
       return dispatch({
         type: GET_ALL_PRODUCTS_NAME,
         payload: res.data,
@@ -106,7 +106,7 @@ export const setProduct = () => {
 export const addProduct = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/api/product`, body);
+      const res = await axios.post(`/product`, body);
       return dispatch({
         type: POST_PRODUCT,
         payload: res.data,
@@ -120,7 +120,9 @@ export const addProduct = (body) => {
 export const editProduct = (id, body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/api/product/${id}`, body);
+
+      const res = await axios.put(`/product/${id}`, body);
+
       return dispatch({
         type: PUT_PRODUCT,
         payload: res.data,
@@ -133,7 +135,7 @@ export const editProduct = (id, body) => {
 export const deleteProduct = (id) => {
   return async function (dispatch) {
     try {
-      const res = await axios.delete(`/api/product/${id}`);
+      const res = await axios.delete(`/product/${id}`);
       return dispatch({
         type: DELETE_PRODUCT,
         payload: res.data,
@@ -157,7 +159,9 @@ export const orderByPrice = (payload) => {
 
 export const getCategories = () => {
   return async function (dispatch) {
-    const res = await axios.get("/api/category");
+
+    const res = await axios.get("/category");
+   
 
     return dispatch({
       type: GET_CATEGORIES,
@@ -175,7 +179,7 @@ export const filterByCategory = (payload) => {
 
 export const getAllProvinces = () => {
   return async function (dispatch) {
-    const res = await axios("/api/province");
+    const res = await axios("/province");
 
     return dispatch({
       type: GET_ALL_PROVINCES,
@@ -193,7 +197,7 @@ export const filterByProvinces = (payload) => {
 
 export const getAllBusiness = () => {
   return async function (dispatch) {
-    const res = await axios("/api/business");
+    const res = await axios("/business");
     return dispatch({
       type: GET_ALL_BUSINESS,
       payload: res.data,
@@ -210,7 +214,8 @@ export const filterByBusiness = (payload) => {
 
 export const getAllBranches = () => {
   return async function (dispatch) {
-    const res = await axios("/api/businessbranch");
+
+    const res = await axios('/businessbranch');
     return dispatch({
       type: GET_ALL_BRANCHES,
       payload: res.data,
@@ -234,8 +239,9 @@ export const filterByBranchesProvince = (payload) => {
 
 export const getAllCities = () => {
   return async function (dispatch) {
-    const res = await axios("/api/city");
 
+    const res = await axios("/city");
+    
     return dispatch({
       type: GET_ALL_CITIES,
       payload: res.data,
@@ -269,7 +275,7 @@ export const cleanBusiness = () => {
 export const getUsers = () => {
   return async function (dispatch) {
     try {
-      const res = await axios("/api/user");
+      const res = await axios("/user");
       return dispatch({
         type: GET_USERS,
         payload: res.data,
@@ -283,7 +289,7 @@ export const getUsers = () => {
 export const login = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/api/user/login`, body);
+      const res = await axios.post(`/user/login`, body);
       return dispatch({
         type: POST_LOGIN,
         payload: res.data,
@@ -297,7 +303,7 @@ export const login = (body) => {
 export const addUser = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/api/user`, body);
+      const res = await axios.post(`/user`, body);
       return dispatch({
         type: POST_USER,
         payload: res.data,
@@ -311,7 +317,9 @@ export const addUser = (body) => {
 export const editUser = (id, body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/api/user/${id}`, body);
+
+      const res = await axios.put(`/user/${id}`, body);
+
       return dispatch({
         type: PUT_USER,
         payload: res.data,
@@ -327,7 +335,9 @@ export const editUser = (id, body) => {
 export function addBusiness(body) {
   return async function (dispatch) {
     try {
-      let json = await axios.post(`/api/business`, body);
+
+      let json = await axios.post(`/business`, body);
+
       return dispatch({
         type: POST_BUSINESS,
         payload: [json.data, body.email],
@@ -355,7 +365,7 @@ export function postPurchase(body) {
 export const loginBusiness = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/api/business/login`, body);
+      const res = await axios.post(`/business/login`, body);
       return dispatch({
         type: POST_LOGINBUSINESS,
         payload: [res.data, body.email],
@@ -369,7 +379,7 @@ export const loginBusiness = (body) => {
 export const editBusiness = (id, body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/api/business/${id}`, body);
+      const res = await axios.put(`/business/${id}`, body);
       return dispatch({
         type: PUT_BUSINESS,
         payload: res.data,
@@ -384,7 +394,10 @@ export const editBusiness = (id, body) => {
 export const addTravel = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/api/travel`, body);
+      const res = await axios.post(
+        `/travel`,
+        body
+      );
       return dispatch({
         type: ADD_TRAVEL,
         payload: res.data,
@@ -398,7 +411,9 @@ export const addTravel = (body) => {
 export const getAllTravel = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`/api/travel`);
+      const res = await axios.get(
+        `/travel`
+      );
       return dispatch({
         type: GET_TRAVELS,
         payload: res.data,
@@ -450,7 +465,10 @@ export function getCart() {
 export function postBranch(body) {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/api/businessbranch`, body);
+      const res = await axios.post(
+        `/businessbranch`,
+        body
+      );
       return dispatch({
         type: POST_BRANCH,
         payload: res.data,
@@ -465,7 +483,10 @@ export function postBranch(body) {
 export function editBranch(id, body) {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/api/businessbranch/${id}`, body);
+      const res = await axios.put(
+        `/businessbranch/${id}`,
+        body
+      );
       return dispatch({
         type: EDIT_BRANCH,
         payload: res.data,
@@ -480,7 +501,7 @@ export function editBranch(id, body) {
 export const deleteBranch = (id) => {
   return async function (dispatch) {
     try {
-      const res = await axios.delete(`/api/businessbranch/${id}`);
+      const res = await axios.delete(`/businessbranch/${id}`);
       return dispatch({
         type: DELETE_BRANCH,
         payload: res.data,

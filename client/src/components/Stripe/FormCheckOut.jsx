@@ -26,7 +26,7 @@ const FormCheckOut= () => {
       
         const { id } = paymentMethod;
 
-        const datos = await axios.post('http://localhost:3001/api/checkout/payment', {
+        const datos = await axios.post('/checkout/payment', {
           id: id,
           amount: (20 * 100), // son 20 dólares
           email: email,

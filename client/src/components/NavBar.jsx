@@ -141,13 +141,11 @@ export default function NavBar() {
           value="perfil"
           onChange={(e) => handleOnChange(e)}
         >
-          {/* <option value="">{input.perfil} </option> */}
-          
            <option value="email">{gState.user.others.dataValues.email}</option>
           <option value="misCompras">Mis compras</option>
             <option value="modificarPassword">Modificar contraseña</option>
           <option value="misViajes">Mis Viajes</option>
-          <option value="close">Cerrar sesión</option>
+          <option value="close">Cerrar sesión</option> */}
         </select>
       </div>
       {/* <div>
