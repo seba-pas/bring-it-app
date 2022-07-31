@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { addProduct, editProduct, getCategories } from '../actions';
 import styles from "../styles/ProductManager.module.css"
 import swal from "sweetalert";
@@ -8,6 +9,7 @@ function ProductManager(props) {
 
     const gState = useSelector((state) => state);
     const dispatch = useDispatch();
+    const history = useHistory();
     let id = props.match.params.id;
 
 
@@ -15,7 +17,8 @@ function ProductManager(props) {
         dispatch(getCategories());
     }, [dispatch]);
 
-    let product = gState.allProducts ? gState.allProducts.filter(e => e.id === parseInt(id))[0] : "";
+    let product = gState.allProducts ? gState.allProducts.filter(e => e.id === parseInt(id))[0] : {}
+
     let categories = gState.categories;
 
     const [input, setInput] = useState(id ? {
@@ -27,6 +30,7 @@ function ProductManager(props) {
         description: product.description || "",
         categoryId: product.categories?.map(e => e.id) || [],
         allCategories: categories,
+        branch: "",
 
     } : {
         name: "",
@@ -37,6 +41,7 @@ function ProductManager(props) {
         description: "",
         categoryId: [],
         allCategories: categories,
+        branch: "",
     })
 
 
@@ -50,11 +55,12 @@ function ProductManager(props) {
         errorcategoryId: "",
         errorWeight: "",
         errorStock: "",
+        errorbranch: "",
     });
 
     useEffect(() => {
         validate();
-    }, [input.name, input.price, input.description, input.categoryId, input.weight, input.stock]);
+    }, [input.name, input.price, input.description, input.categoryId, input.weight, input.stock, input.branch]);
 
     const handleInputChange = (event) => {
         event.preventDefault();
@@ -89,12 +95,14 @@ function ProductManager(props) {
         let errorWeight = "";
         let errorStock = "";
         let errorcategoryId = "";
+        let errorbranch = "";
 
 
         if (!/^[a-zA-Z ]{0,50}$/.test(input.name) || input.name[0] === " " || input.name === "") errorname = "Debe escribir el nombre del producto";
         if (!/^[0-9]{0,10}$/.test(input.price) || input.price < 0 || input.price === "") errorPrice = "Introduzca el precio";
         if (input.description[0] === " " || input.description === "") errorDescription = "Debe escribir descripcion del producto";
         if (input.categoryId.length < 1) errorcategoryId = "Seleccione  categorias";
+        if (input.branch === "") errorbranch = "Seleccione  Sede";
         if (!/^[0-9]{0,10}$/.test(input.weight) || input.weight < 0 || input.weight === "") errorWeight = "Introduzca el peso del producto";
         if (!/^[0-9]{0,10}$/.test(input.stock) || input.stock < 0 || input.stock === "") errorStock = "Introduzca stock del producto";
 
@@ -106,6 +114,7 @@ function ProductManager(props) {
                 errorWeight: errorWeight,
                 errorStock: errorStock,
                 errorcategoryId: errorcategoryId,
+                errorbranch: errorbranch,
             }
         });
 
@@ -116,7 +125,7 @@ function ProductManager(props) {
 
     const handleBack = (event) => {
         event.preventDefault();
-        props.history.goBack();
+        history.push("/empresas");
     }
 
     const handleSubmit = (event) => {
@@ -131,7 +140,8 @@ function ProductManager(props) {
                 stock: input.stock,
                 description: input.description,
                 categoryId: [...input.categoryId],
-                businessEmail: gState.businessEmail,
+                // businessEmail: gState.businessEmail,
+                businessbranchId: parseInt(input.branch),
             }))
             swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
         } else {
@@ -144,7 +154,8 @@ function ProductManager(props) {
                 stock: input.stock,
                 description: input.description,
                 categoryId: [...input.categoryId],
-                businessEmail: gState.businessEmail,
+                // businessEmail: gState.businessEmail,
+                businessbranchId: parseInt(input.branch),
             }))
 
             swal("Buen trabajo!", "Producto agregado satisfactoriamente!", "success");
@@ -158,6 +169,7 @@ function ProductManager(props) {
                     stock: 0,
                     description: "",
                     categoryId: [],
+                    branch: "",
                 }
             })
 
@@ -273,14 +285,14 @@ function ProductManager(props) {
                         Sedes
                     </div>
                     <div>
-                        <select name="branch" value="branch" onChange={handleInputChange}>
+                        <select name="branch" value={input.branch} onChange={handleInputChange}>
                             <option value="">{ }</option>
                             {
                                 gState.businessEditInfo.businessbranches?.map(e => <option key={e.id} value={e.id}>{e.businessBranchName}</option>)
                             }
                         </select>
                     </div>
-                    {/* {!error.errorcategoryId ? <label> </label> : <label>          {error.errorcategoryId}             </label>} */}
+                    {!error.errorbranch ? <label> </label> : <label>          {error.errorbranch}             </label>}
                 </div>
                 <div className={styles.categoriesCardContainer}>
                     <div>
@@ -292,13 +304,13 @@ function ProductManager(props) {
                     </div>
                 </div>
                 <div className={styles.subButton}>
-                    <button className={styles.btn} type="submit" disabled={error.errorname || error.errorPrice || error.errorDescription || error.errorWeight || error.errorStock || error.errorcategoryId}>
+                    <button className={styles.btn} type="submit" disabled={error.errorname || error.errorPrice || error.errorDescription || error.errorWeight || error.errorStock || error.errorcategoryId || error.errorbranch}>
                         Listo
                     </button>
                 </div>
                 <div className={styles.backButton}>
                     <button className={styles.btn} onClick={e => handleBack(e)}>
-                        Atras
+                        Volver
                     </button>
                 </div>
             </form>
