@@ -1,63 +1,65 @@
-const { Product, Business, Category, Businessbranch } = require ('../db');
-const axios = require ('axios');
+const { Product, Business, Category, Businessbranch } = require('../db');
+const axios = require('axios');
 const { Op } = require('sequelize');
 
 //Funcion del GET Product detail 
-async function getProductById (id){
+async function getProductById(id) {
     try {
-        const foundProduct = await Product.findByPk (id, {
-            include: [{model: Businessbranch}, {model: Category}]
-        });      
-        return foundProduct;  
+        const foundProduct = await Product.findByPk(id, {
+            include: [{ model: Businessbranch }, { model: Category }]
+        });
+        return foundProduct;
     } catch (error) {
         return "No se encontró el producto solicitado";
     }
 }
 
 //Fucion del GET Products, redirecciona segun haya query name o no 
-function getProducts (name){
-    if (name){
-        return getProductsByName (name);
+function getProducts(name) {
+    if (name) {
+        return getProductsByName(name);
     }
-    else{
-        return getAllProducts ();
+    else {
+        return getAllProducts();
     }
 }
 
 //Funcion interna, es llamada por getProducts cuando no viene query name
-async function getAllProducts (){
+async function getAllProducts() {
     try {
         const foundProductsComplete = await Product.findAll({
-            include: [{model: Category}, {model: Businessbranch,
-            include: [{model : Business}]}]
-        });    
+            include: [{ model: Category }, {
+                model: Businessbranch,
+                include: [{ model: Business }]
+            }]
+        });
         const filtrado = foundProductsComplete.filter(e => (e.businessbranch.business.active))
-         
-        return filtrado;   
+
+        return filtrado;
         // return (foundProductsComplete) 
     } catch (error) {
-        res.send(e.message);
-    }     
+        console.log(error)//res.send(error.message);
+    }
 }
 
 //Funcion interna, es llamada por getProducts cuando viene query name
-async function getProductsByName (name){    
+async function getProductsByName(name) {
     try {
         const foundProductsName = await Product.findAll({
             where: {
-                name: {                    
+                name: {
                     [Op.iLike]: `%${name}%`,
                 }
             },
-            include: [{model: Businessbranch}, {model: Category}]
-        });        
+            include: [{ model: Businessbranch }, { model: Category }]
+        });
         if (foundProductsName.length) {
             return foundProductsName
         } else {
             return "No se encontraron productos asociados"
         }
     } catch (error) {
-        throw new Error (`No se encontraron productos con el nombre ${name}, ${error}`);
+        throw new Error(`No se encontraron productos con el nombre ${name}, ${error}`);
     }
 
 }

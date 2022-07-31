@@ -20,6 +20,7 @@ function HomeBusiness() {
     }, [dispatch, gState.deleteProduct]);
 
     useEffect(() => {
+        dispatch(getAllProducts());
         dispatch(getAllBusiness());
         dispatch(getCategories());
     }, [dispatch]);

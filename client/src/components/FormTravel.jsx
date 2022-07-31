@@ -13,8 +13,8 @@ function FormTravel() {
     const dispatch = useDispatch();
     const history = useHistory()
 
-    // const emailState = gState.user.others.dataValues.email;
-    // const emailState = "tomas@gmail.com";
+    const emailState = gState.user.others.dataValues.email;
+
 
 
     useEffect(() => {
@@ -34,7 +34,7 @@ function FormTravel() {
 
     let onClickHandler = (event) => {
         event.preventDefault();
-       
+
         setInput((prevInput) => {
             return {
                 ...prevInput,

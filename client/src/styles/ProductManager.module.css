@@ -117,7 +117,7 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 20/25;
+    grid-row: 15/20;
     grid-column: 18/23;
     justify-content: center;
     align-items: center;
@@ -131,7 +131,7 @@
     border-radius: 0.5rem;
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
-    grid-row: 15/20;
+    grid-row: 20/25;
     grid-column: 18/23;
     justify-content: center;
     align-items: center;
@@ -146,7 +146,7 @@
     backdrop-filter: blur(4px); */
     /* border: solid 2px rgb(38, 38, 241); */
     grid-row: 15/25;
-    grid-column: 23/30;
+    grid-column: 24/30;
     /* justify-content: center; */
     /* align-items: left; */
 

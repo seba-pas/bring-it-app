@@ -14,11 +14,13 @@ import DataTable from "react-data-table-component";
 import styles from "../styles/PerfilBusiness.module.css";
 import swal from "sweetalert";
 import BranchCard from "./BranchCard";
+import { useHistory } from "react-router-dom";
 
 function PerfilBusiness(props) {
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
   let id = props.match.params.id;
+  let history = useHistory();
 
   const infoBusiness = gState.businessEditInfo;
   const branchId = gState.businessEditInfo.businessbranches.filter(
@@ -37,35 +39,35 @@ function PerfilBusiness(props) {
   const [input, setInput] = useState(
     id
       ? {
-          businessEmail: infoBusiness.email,
-          businessName: infoBusiness.businessName,
-          businessbranches: infoBusiness.businessbranches,
-          cuit: infoBusiness.cuit,
-          email: infoBusiness.email,
-          logo: infoBusiness.logo || "",
-          phone: infoBusiness.phone,
-          taxBracket: infoBusiness.taxBracket,
-          arrayInfo: [],
-          province: branchId[0].province || "",
-          address: branchId[0].address || "",
-          city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
-        }
+        businessEmail: infoBusiness.email,
+        businessName: infoBusiness.businessName,
+        businessbranches: infoBusiness.businessbranches,
+        cuit: infoBusiness.cuit,
+        email: infoBusiness.email,
+        logo: infoBusiness.logo || "",
+        phone: infoBusiness.phone,
+        taxBracket: infoBusiness.taxBracket,
+        arrayInfo: [],
+        province: branchId[0].province || "",
+        address: branchId[0].address || "",
+        city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
+      }
       : {
-          businessEmail: infoBusiness.email,
-          businessName: infoBusiness.businessName,
-          businessbranches: infoBusiness.businessbranches,
-          cuit: infoBusiness.cuit,
-          email: infoBusiness.email,
-          logo: infoBusiness.logo || "",
-          phone: infoBusiness.phone,
-          taxBracket: infoBusiness.taxBracket,
-          arrayInfo: [],
-          province: "",
-          address: "",
-          city: "",
-        }
+        businessEmail: infoBusiness.email,
+        businessName: infoBusiness.businessName,
+        businessbranches: infoBusiness.businessbranches,
+        cuit: infoBusiness.cuit,
+        email: infoBusiness.email,
+        logo: infoBusiness.logo || "",
+        phone: infoBusiness.phone,
+        taxBracket: infoBusiness.taxBracket,
+        arrayInfo: [],
+        province: "",
+        address: "",
+        city: "",
+      }
   );
-  
+
   const [error, setError] = useState({
     errorbusinessName: "",
     errorbusinessBranches: "",
@@ -181,7 +183,8 @@ function PerfilBusiness(props) {
   };
   const handleBack = (event) => {
     event.preventDefault();
-    props.history.goBack();
+    history.push("/empresas")
+    //props.history.goBack();
   };
   const handlePass = (event) => {
     event.preventDefault();
@@ -191,35 +194,37 @@ function PerfilBusiness(props) {
     event.preventDefault();
     id
       ? dispatch(
-          editBranch(id, {
-            businessName: input.businessName,
-            businessEmail: input.businessEmail,
-            cityId: input.city,
-            province: input.province,
-            address: input.address,
-          })
-        )
+        editBranch(id, {
+          businessName: input.businessName,
+          businessEmail: input.businessEmail,
+          cityId: input.city,
+          province: input.province,
+          address: input.address,
+        })
+      )
       : dispatch(
-          postBranch({
-            businessName: input.businessName,
-            businessEmail: input.businessEmail,
-            cityId: input.city,
-            province: input.province,
-            address: input.address,
-          })
-        );
+        postBranch({
+          businessName: input.businessName,
+          businessEmail: input.businessEmail,
+          cityId: input.city,
+          province: input.province,
+          address: input.address,
+        })
+      );
+    history.push("/perfil")
   };
 
   const handleSubmit = (event) => {
+    console.log("si")
     event.preventDefault();
     dispatch(
       editBusiness(input.email, {
         businessName: input.businessName,
-        // businessBranches: input.businessBranches,
         cuit: input.cuit,
         logo: input.logo,
         taxBracket: input.taxBracket,
-        arrayInfo: [],
+        logo: input.logo,
+        // phone: input.phone,
       })
     );
     swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
@@ -319,7 +324,7 @@ function PerfilBusiness(props) {
                       value={input.province}
                       onChange={(e) => handleInputChange(e)}
                     >
-                      <option value="">{} </option>
+                      <option value="">{ } </option>
                       {gState.provinces?.map((e) => (
                         <option key={e.id} value={e.nombre}>
                           {e.nombre}
@@ -341,22 +346,22 @@ function PerfilBusiness(props) {
                       value={input.city}
                       onChange={(e) => handleInputChange(e)}
                     >
-                      <option value="">{} </option>
+                      <option value="">{ } </option>
 
                       {input.province
                         ? gState.allCities
-                            ?.filter(
-                              (e) =>
-                                e.provinceId ===
-                                gState.provinces?.filter(
-                                  (e) => e.nombre === input.province
-                                )[0].id
-                            )
-                            ?.map((e) => (
-                              <option key={e.id} value={e.id}>
-                                {e.nombre}
-                              </option>
-                            ))
+                          ?.filter(
+                            (e) =>
+                              e.provinceId ===
+                              gState.provinces?.filter(
+                                (e) => e.nombre === input.province
+                              )[0].id
+                          )
+                          ?.map((e) => (
+                            <option key={e.id} value={e.id}>
+                              {e.nombre}
+                            </option>
+                          ))
                         : ""}
                     </Form.Select>
                     {!error.errorcity ? (
@@ -397,9 +402,9 @@ function PerfilBusiness(props) {
             </Form>
           </Col>
         </Row>
-          <h4 className="shadow-sm text-success mt-5 p-3 text-center rounded">
+        <h4 className="shadow-sm text-success mt-5 p-3 text-center rounded">
           Administración de sedes
-          </h4>
+        </h4>
         <Row>
           <Col>
             <div className={styles.branchContainer}>
@@ -436,12 +441,13 @@ function PerfilBusiness(props) {
         <Row style={{ marginTop: "30px", marginBottom: "30px" }}>
           <Col>
             <Button
-              type="submit"
+              // type="submit"
               disabled={
                 error.errorbusinessName ||
                 error.errorcuit ||
                 error.errortaxBracket
               }
+              onClick={(e) => handleSubmit(e)}
             >
               Editar Empresa
             </Button>
@@ -463,7 +469,7 @@ function PerfilBusiness(props) {
             </Button>
           </Col>
           <Col>
-            <Button onClick={(e) => handleBack(e)}>Atras</Button>
+            <Button onClick={(e) => handleBack(e)}>Volver</Button>
           </Col>
         </Row>
       </Container>

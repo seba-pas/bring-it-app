@@ -62,7 +62,7 @@ import {
 export const getAllProducts = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get("/product");
+      const res = await axios.get('/product');
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: res.data,
@@ -171,7 +171,7 @@ export const getCategories = () => {
   return async function (dispatch) {
 
     const res = await axios.get("/category");
-   
+
 
     return dispatch({
       type: GET_CATEGORIES,
@@ -251,7 +251,7 @@ export const getAllCities = () => {
   return async function (dispatch) {
 
     const res = await axios("/city");
-    
+
     return dispatch({
       type: GET_ALL_CITIES,
       payload: res.data,
@@ -527,9 +527,9 @@ export const deleteBranch = (id) => {
 export const desactivateUser = (email) => {
   return async function (dispatch) {
     try {
-      const body = {active: false};
-      const res =  await axios.put(`/api/user/${email}`, body);
-      return dispatch ({
+      const body = { active: false };
+      const res = await axios.put(`/api/user/${email}`, body);
+      return dispatch({
         type: DESACTIVATE_USER,
         payload: res.data
       })
@@ -543,9 +543,9 @@ export const desactivateUser = (email) => {
 export const activateUser = (email) => {
   return async function (dispatch) {
     try {
-      const body = {active: true};
-      const res =  await axios.put(`/api/user/${email}`, body);
-      return dispatch ({
+      const body = { active: true };
+      const res = await axios.put(`/api/user/${email}`, body);
+      return dispatch({
         type: ACTIVATE_USER,
         payload: res.data
       })
@@ -559,9 +559,9 @@ export const activateUser = (email) => {
 export const desactivateBusiness = (email) => {
   return async function (dispatch) {
     try {
-      const body = {active: false};
-      const res =  await axios.put(`/api/business/${email}`, body);
-      return dispatch ({
+      const body = { active: false };
+      const res = await axios.put(`/api/business/${email}`, body);
+      return dispatch({
         type: DESACTIVATE_BUSINESS,
         payload: res.data
       })
@@ -575,9 +575,9 @@ export const desactivateBusiness = (email) => {
 export const activateBusiness = (email) => {
   return async function (dispatch) {
     try {
-      const body = {active: true};
-      const res =  await axios.put(`/api/business/${email}`, body);
-      return dispatch ({
+      const body = { active: true };
+      const res = await axios.put(`/api/business/${email}`, body);
+      return dispatch({
         type: ACTIVATE_BUSINESS,
         payload: res.data
       })
