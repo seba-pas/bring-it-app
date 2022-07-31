@@ -15,7 +15,7 @@ function ProductManager(props) {
         dispatch(getCategories());
     }, [dispatch]);
 
-    let product = gState.allProducts.filter(e => e.id === parseInt(id))[0];
+    let product = gState.allProducts ? gState.allProducts.filter(e => e.id === parseInt(id))[0] : "";
     let categories = gState.categories;
 
     const [input, setInput] = useState(id ? {

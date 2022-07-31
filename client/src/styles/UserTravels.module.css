@@ -17,6 +17,16 @@
 
 }
 
+.spinner {
+    background-color: #F6F5F5;
+    display: flex;
+    margin-top: 40px;
+    justify-content: center;
+    align-content: center;
+    height: 800px;
+    width: auto;
+}
+
 
 
 .tableContainer {
