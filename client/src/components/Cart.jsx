@@ -56,6 +56,7 @@ export default function Cart() {
         <table id="cart">
           <thead>
             <tr style={{ display: "flex", justifyContent: "space-around" }}>
+              
               <th className="first">Imagen</th>
               <th className="second">Cant.</th>
               <th className="third">Product</th>

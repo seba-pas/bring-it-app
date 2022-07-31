@@ -54,6 +54,7 @@ function HomeBusiness() {
     //esto tambien esta en NavBarBusiness, cual es el oficial?
     useEffect(() => {
         if (input.perfil === "email") history.push("/perfil");
+        
         else if (input.perfil === "close") history.push("/");
     }, [input.perfil]);
 
