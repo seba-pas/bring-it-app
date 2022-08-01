@@ -65,6 +65,7 @@ export default function FilterProvince() {
               <select
                 value={BRANCHES.businessbranches}
                 onChange={(e) => handleFilterByBranchesProvinces(e)}
+                style={{color: 'white', marginTop: '33px', backgroundColor: 'chocolate'}}
               >
                 <option value="All">Todas</option>
 
