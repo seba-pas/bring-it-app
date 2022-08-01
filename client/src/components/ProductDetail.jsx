@@ -59,7 +59,7 @@ export const ProductDetail = () => {
   
 
   return (
-    <div>
+    <div style={{marginBottom: '0px', background: "white"}}>
       <NavBar />
 
       {Object.entries(product).length > 0 ? (
@@ -72,7 +72,7 @@ export const ProductDetail = () => {
               alt="Card image cap"
             />
           </div>
-          <div className="card" id={styles.card} style={{ width: "25%" }}>
+          <div className="card" id={styles.card} style={{ width: "22%" }}>
             <div className="card-body">
               <p className="card-text" id={styles.empresa}>
                 <span>Empresa: </span>
@@ -107,7 +107,7 @@ export const ProductDetail = () => {
 
               <p className="card-text" id={styles.stock}>
                 {" "}
-                <span id={styles.bold}>Disponibles: </span>
+                <span id={styles.bold} style={{textAlign: 'left', marginLeft: '0', marginTop: '10px'}}>Disponibles: </span>
                 {product.stock}
               </p>
               <div className="card-footer">

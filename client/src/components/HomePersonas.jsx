@@ -139,6 +139,7 @@ export default function HomePersonas() {
 
   return (
     <div>
+      {console.log(BRANCHES, PRODUCTS)}
       <NavBar />
       <FormTravel />
       {PRODUCTS.length > 0 ? (
@@ -182,7 +183,7 @@ export default function HomePersonas() {
                       </option>
                     );
                   })}
-                </select>
+                  </select>
 
 
                 <select

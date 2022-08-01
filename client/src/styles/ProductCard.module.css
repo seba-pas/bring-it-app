@@ -5,13 +5,13 @@
   border: 3px solid chocolate;
   font-weight: bold;
   border-radius: 5px;
-  font-size: 15px;
-  height: 40px;
+  font-size: 10px;
+  height: 30px;
   width: auto;
+  transition: border 0.5s ease, background-color 0.5s ease-in-out;
 }
 
 #boton:hover {
-  transition: border 1.5s ease, background-color 1.5s ease;
   background-color: #3ab0ff;
   color: white;
   border: 3px solid #3ab0ff;
@@ -20,27 +20,29 @@
   text-align: left;
   transition: box-shadow 0.4s ease;
   max-width: 100%;
-  min-width: 20%;
-  margin: 10px;
+  min-width: 21%;
+  margin: 8px;
   
   
 }
+
 
 
 #card:hover {
   /* background-color: #41d4cf69; */
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3), 0 4px 10px 0 rgba(0, 0, 0, 0.3);
 }
+
 #name {
-  font-size: 37px;
+  font-size: 25px;
   font-weight: 400;
 
   text-align: left;
 }
 #price {
   padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 40px;
+  padding-bottom: 8px;
+  font-size: 22px;
   font-weight: 200;
   /* margin-left: 10px; */
 
@@ -57,10 +59,13 @@
   font-weight: bolder;
 }
 #bold {
+  font-size: 10px;
   font-weight: bolder;
 }
 #description {
-  margin-top:20px;
+  font-size: 15px;
+  margin-top:12px;
+  margin-bottom: 8px;
 }
 /* 
 
