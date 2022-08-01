@@ -86,11 +86,13 @@ export default function NavBar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.imagen}>
-        <img
+        <a onClick={() => history.goBack()} style={{cursor:'pointer'}}>
+        <img      
           src={logo}
           style={{ width: "auto", height: "100px" }}
           alt="Logo no encontrado"
         />
+        </a>
       </div>
       <div className={styles.search}>
         <SearchBar />
@@ -152,7 +154,8 @@ export default function NavBar() {
           style={{
             marginTop: '33px',
             marginRight: '15px',
-            fontSize: '18px'
+            fontSize: '18px',
+            cursor:'pointer'
 
           }}
         >
