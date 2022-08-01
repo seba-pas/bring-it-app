@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {getByPurchaseEmail} from '../actions'
 import { FaSearchLocation } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
-
+import moment from 'moment'
 function HomeUserPurchase(props) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -13,7 +13,7 @@ function HomeUserPurchase(props) {
   const user = useSelector((state) => state.user)
   const handleBack = (event) => {
     event.preventDefault();
-    props.history.goBack();
+    history.push("/filtro");
   };
   
 
@@ -23,12 +23,14 @@ function HomeUserPurchase(props) {
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }
- 
+  function formatDate(value) {
+    return value ? moment(value).format("DD/MM/YYYY") : "";
+  }
   // { name: "Fecha de compra" , selector: "last update", sortable: true },
   const columnas = [
     { name: "Nro de orden" , selector: row => row.id, sortable: true },
     { name: "Producto" , selector: row => row.purchaseitems.map((e) => `${e.product.name}, `), sortable: true }, 
-    { name: "Fecha de max de espera" , selector: row => row.maxDeliveryDate, sortable: true },
+    { name: "Fecha de max de espera" , selector: row => formatDate(row.maxDeliveryDate), sortable: true },
     { name: "Cantidad" , selector: row => row.purchaseitems.map((e) => e.quantity), sortable: true }, 
     { name: "Precio total" , selector: row => row.totalPrice, sortable: true },
     {
