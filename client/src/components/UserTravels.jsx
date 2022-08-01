@@ -24,11 +24,25 @@ function UserTravels() {
         setInput((prevInput) => {
             return {
                 ...prevInput,
-                travels: gState.allTravels.filter(e => e.userEmail === gState.user.others.dataValues.email,
-                )
+                travels: gState.allTravels.filter(e => e.userEmail === gState.user.others.dataValues.email),
+                // editTravels: input.travels.length > 0 ? input.travels.map(e => e.travelCityId = gState.allCities.filter(el => parseInt(el.id) === parseInt(e.travelCityId))[0].nombre) : [],
             }
         })
     }, gState.allTravels)
+
+    let toChange = input.travels
+    let changedCityNames = toChange.map(e => {
+        return {
+            startDate: e.startDate,
+            travelProvince: e.travelProvince,
+            travelCityId: gState.allCities.filter(el => parseInt(el.id) === parseInt(e.travelCityId))[0].nombre,
+            arrivalDate: e.arrivalDate,
+            arrivalProvince: e.arrivalProvince,
+            arrivalCityId: gState.allCities.filter(el => parseInt(el.id) === parseInt(e.arrivalCityId))[0].nombre,
+        }
+    })
+    console.log(changedCityNames)
+
 
     function deleteTravel() {
         alert("PROXIMAMENTE!!!");
@@ -61,27 +75,29 @@ function UserTravels() {
 
     return (
         <div>
-            {input.travels.length > 0 ? (
+            {changedCityNames.length > 0 ? (
                 <div>
                     <DataTable
                         columns={columnas}
-                        data={input.travels}
+                        data={changedCityNames}
                         title="Listado de viajes"
                     />
                     <br />
 
                 </div>
-            ) : (
-                <div className={styles.spinner}>
-                    <SpinnerCircularFixed
-                        size={150}
-                        thickness={100}
-                        speed={100}
-                        color="rgba(65, 212, 207, 1)"
-                        secondaryColor="rgba(0, 0, 0, 1)"
-                    />
-                </div>
-            )}
+            )
+                : (
+                    <div className={styles.spinner}>
+                        <SpinnerCircularFixed
+                            size={150}
+                            thickness={100}
+                            speed={100}
+                            color="rgba(65, 212, 207, 1)"
+                            secondaryColor="rgba(0, 0, 0, 1)"
+                        />
+                    </div>
+                )
+            }
         </div>
 
     )

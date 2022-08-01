@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { addTravel, getAllCities, getAllProvinces, getAllTravel } from '../actions';
 
 import styles from '../styles/FormTravel.module.css';
+import moment from 'moment'
 
 function FormTravel() {
 
@@ -26,11 +27,60 @@ function FormTravel() {
         sidebar: false,
         originProvince: "",
         originCity: "",
-        dateTravel: "",
+        dateTravel: moment().format("YYYY-MM-DD"),
         arrivalProvince: "",
         arrivalCity: "",
-        dateArrival: "",
+        dateArrival: moment().format("YYYY-MM-DD"),
     })
+
+    const [error, setError] = useState({
+        errordateTravel: "",
+        errororiginProvince: "",
+        errororiginCity: "",
+        errordateArrival: "",
+        errorarrivalProvince: "",
+        errorarrivalCity: "",
+    });
+
+    useEffect(() => {
+        validate();
+    }, [input.dateTravel, input.dateArrival, input.originProvince, input.originCity, input.arrivalProvince, input.arrivalCity]);
+
+    const validate = () => {
+        let errordateTravel = "";
+        let errordateArrival = "";
+        let errororiginProvince = "";
+        let errororiginCity = "";
+        let errorarrivalProvince = "";
+        let errorarrivalCity = "";
+
+        let today = new Date();
+        let day = today.getDate();
+        let month = today.getMonth() + 1;
+        let year = today.getFullYear();
+
+        let now = (`${year}-${month}-${day}`);
+        console.log("no2", now, "dat", input.dateTravel)
+
+        if (input.dateTravel === "" || input.dateTravel < moment().format("YYYY-MM-DD")) errordateTravel = "Ingrese Fecha";
+        if (input.dateArrival === "" || input.dateTravel >= input.dateArrival) errordateArrival = "Debe ingresar una fecha correcta";
+        if (input.originProvince === "") errororiginProvince = "Seleccione una provincia";
+        if (input.arrivalProvince === "") errorarrivalProvince = "Seleccione una provincia";
+        if (input.originCity === "") errororiginCity = "Seleccione una Ciudad";
+        if (input.arrivalCity === "") errorarrivalCity = "Seleccione una Ciudad";
+
+        setError((prevInput) => {
+            return {
+                errordateTravel: errordateTravel,
+                errordateArrival: errordateArrival,
+                errororiginProvince: errororiginProvince,
+                errororiginCity: errororiginCity,
+                errorarrivalProvince: errorarrivalProvince,
+                errorarrivalCity: errorarrivalCity,
+            }
+        });
+    }
+
 
     let onClickHandler = (event) => {
         event.preventDefault();
@@ -93,14 +143,14 @@ function FormTravel() {
                             gState.provinces?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
                         }
                     </select>
-
+                    {!error.errororiginProvince ? <label> </label> : <label className={`${input.sidebar ? styles.errororiginProvince : styles.displaynone}`}>          {error.errororiginProvince}             </label>}
                     <select className={`${input.sidebar ? styles.inputFromCity : styles.displaynone}`} name="originCity" value={input.originCity} onChange={(e) => handleInputChange(e)}>
                         <option value="">{"Ciudad"} </option>
                         {
                             input.originProvince ? gState.allCities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.originProvince)[0].id)?.map(e => <option key={e.id} value={e.id}>{e.nombre}</option>) : ""
                         }
                     </select>
-
+                    {!error.errororiginCity ? <label> </label> : <label className={`${input.sidebar ? styles.errororiginCity : styles.displaynone}`}>          {error.errororiginCity}             </label>}
                     <span className={`${input.sidebar ? styles.dateTravelSpan : styles.displaynone}`}>Fecha de partida: </span>
                     <input
                         className={`${input.sidebar ? styles.inputDateTravel : styles.displaynone}`}
@@ -110,6 +160,7 @@ function FormTravel() {
                         placeholder="Date"
                         onChange={handleInputChange}
                     />
+                    {!error.errordateTravel ? <label> </label> : <label className={`${input.sidebar ? styles.arrivaldateErrorSpan : styles.displaynone}`}>          {error.errordateTravel}             </label>}
                     <span className={`${input.sidebar ? styles.toSpan : styles.displaynone}`}>Hacia: </span>
                     <select className={`${input.sidebar ? styles.inputToProvince : styles.displaynone}`} name="arrivalProvince" value={input.arrivalProvince} onChange={(e) => handleInputChange(e)}>
                         <option value="">{"Provincia"} </option>
@@ -117,13 +168,14 @@ function FormTravel() {
                             gState.provinces?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
                         }
                     </select>
+                    {!error.errorarrivalProvince ? <label> </label> : <label className={`${input.sidebar ? styles.errorarrivalProvince : styles.displaynone}`}>          {error.errorarrivalProvince}             </label>}
                     <select className={`${input.sidebar ? styles.inputToCity : styles.displaynone}`} name="arrivalCity" value={input.arrivalCity} onChange={(e) => handleInputChange(e)}>
                         <option value="">{"Ciudad"} </option>
                         {
                             input.arrivalProvince ? gState.allCities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.arrivalProvince)[0].id)?.map(e => <option key={e.id} value={e.id}>{e.nombre}</option>) : ""
                         }
                     </select>
-
+                    {!error.errorarrivalCity ? <label> </label> : <label className={`${input.sidebar ? styles.errorarrivalCity : styles.displaynone}`}>          {error.errorarrivalCity}             </label>}
                     <span className={`${input.sidebar ? styles.arrivaldateSpan : styles.displaynone}`}>Fecha de llegada:</span>
                     <input
                         className={`${input.sidebar ? styles.inputDate : styles.displaynone}`}
@@ -133,8 +185,12 @@ function FormTravel() {
                         placeholder="Fecha"
                         onChange={handleInputChange}
                     />
-
-                    <button className={`${input.sidebar ? styles.btnadd : styles.displaynone}`} onClick={(event) => handleSubmit(event)}>Agregar</button>
+                    {!error.errordateArrival ? <label> </label> : <label className={`${input.sidebar ? styles.traveldateErrorSpan : styles.displaynone}`}>          {error.errordateArrival}             </label>}
+                    <button
+                        className={`${input.sidebar ? styles.btnadd : styles.displaynone}`}
+                        onClick={(event) => handleSubmit(event)}
+                        disabled={error.errororiginProvince || error.errororiginCity || error.errordateTravel || error.errorarrivalProvince || error.errorarrivalCity || error.errordateArrival}
+                    >Agregar</button>
                 </li>
             </ul>
 

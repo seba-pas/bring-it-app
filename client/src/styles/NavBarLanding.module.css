@@ -58,9 +58,10 @@
   }
   .navbarLanding button:hover {
     transition: border-color 0.2s ease-in, background-color 0.4s ease-in;
-    background-color: #0000008c;
+    background-color: #3ab0ff;    
     color: white;
-    border-color: #0000008c;
+    border-color:  #3ab0ff;
+    ;
   }
 
 

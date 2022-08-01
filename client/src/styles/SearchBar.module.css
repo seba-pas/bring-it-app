@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   margin-top: 0px;
+  margin-left: 0px;
 
  /*  margin-top: 5px;
   margin-left: 100%; */
@@ -14,15 +15,16 @@
   padding-top:10px;
   padding-bottom: 10px;
   margin-right: 0px;
-  padding-left: 10px;
+  padding-left: 5px;
   
 
   height: 40px;
 }
 .divContainer input::placeholder {
   font-family: "Montserrat";
+  font-size: 14px;
   margin-left: 6px;
-  font-size: 18px; 
+ 
   margin-top: 0px;
   color:rgba(210, 105, 30, 0.35);
   font-weight: bold;

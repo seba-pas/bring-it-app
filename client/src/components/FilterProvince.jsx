@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
-import { filterByBranchesProvince, getAllProducts, orderByPrice } from "../actions";
+
+import { filterByBranchesProvince, getAllProducts, orderByPrice,setProduct } from "../actions";
+
 import { SpinnerCircularFixed } from "spinners-react";
-import NavBarProvince from "./NavBarProvince";
+import NavBar from "./NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function FilterProvince() {
@@ -30,6 +32,9 @@ export default function FilterProvince() {
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(filterByBranchesProvince());
+     return () => {
+      dispatch(setProduct());
+    };
   }, [dispatch]);
 
     //funcion para ordenar los precios
@@ -39,7 +44,6 @@ export default function FilterProvince() {
       dispatch(orderByPrice(e.target.value));
       setOrden(`Ordenado ${e.target.value}`);
     }
-
 
   function handleFilterByBranchesProvinces(e) {
     e.preventDefault();
@@ -56,26 +60,36 @@ export default function FilterProvince() {
   }
 
   return (
-    
-      <div>
-          <NavBarProvince />
-        {PRODUCTS.length > 0 ? (
-          PRODUCTS == "No se encontraron productos asociados" ? (
-            <div>
-              <h1>No se encontraron productos asociados</h1>
-              <button onClick={(e) => handleClick(e)}>Volver</button>
-            </div>
-          ) : (
-            <div className={styles.layout}>
+    <div>
+      <NavBar />
+      {PRODUCTS.length > 0 &&
+      PRODUCTS !== "No se encontraron productos asociados" ? (
+        <div>
+          <select
+            value={BRANCHES.businessbranches}
+            onChange={(e) => handleFilterByBranchesProvinces(e)}
+            style={{
+              color: "white",
+              marginTop: "33px",
+              backgroundColor: "chocolate",
+              border: 'none',
+              fontSize: '18px',
+              fontFamily: "Montserrat",
+              fontWeight: '400'
+              
+            }}
+          >
+            <option value="All">Todas</option>
 
-            <div className={styles.containerS} >
-              <h1>
-                Estás viendo los productos por provincias
-              </h1>
-              <NavLink to="/persona">
-                <button className={styles.boton}>Ver todos los productos</button>
-              </NavLink>
-                <select onChange={(e) => handleSort(e)}>
+            {BRANCHES.map((province) => {
+              return (
+                <option value={province.province} key={province.province}>
+                  {province.province}
+                </option>
+              );
+            })}
+          </select>
+          <select onChange={(e) => handleSort(e)}>
                 Todos
                   <option value="Desordenado" hidden selected>
                     Ordenar por
@@ -83,42 +97,26 @@ export default function FilterProvince() {
                   <option value="asc">Menor Precio</option>
                   <option value="desc">Mayor Precio</option>
                 </select>
-              <select
-                value={BRANCHES.businessbranches}
-                onChange={(e) => handleFilterByBranchesProvinces(e)}
-              >
-                <option value="All">Todas</option>
-
-                {BRANCHES.map((province) => {
-                  return (
-                    <option value={province.province} key={province.province}>
-                      {province.province}
-                    </option>
-                  );
-                })}
-              </select>
-              </div>
-              <div className={styles.contcards} style={{ width: "100%" }}>
-                <ProductCards currentProducts={currentProducts} />
-              <Pagination
-                productsPerPage={productsPerPage}
-                PRODUCTS={PRODUCTS.length}
-                paginado={paginado}
-                />
-              </div>
-                </div>
-          )
-        ) : (
-          <div className={styles.spinner}>
-            <SpinnerCircularFixed
-              size={250}
-              thickness={100}
-              speed={100}
-              color="rgba(210, 105, 30, 1)"
-              secondaryColor="rgba(210, 105, 30, 0.23)"
-            />
+          <div className={styles.contcards} style={{ width: "100%" }}>
+            <ProductCards currentProducts={currentProducts} />
           </div>
-        )}
-      </div>
+          <Pagination
+            productsPerPage={productsPerPage}
+            PRODUCTS={PRODUCTS.length}
+            paginado={paginado}
+          />
+        </div>
+      ) : (
+        <div className={styles.spinner}>
+          <SpinnerCircularFixed
+            size={250}
+            thickness={100}
+            speed={100}
+            color="rgba(210, 105, 30, 1)"
+            secondaryColor="rgba(210, 105, 30, 0.23)"
+          />
+        </div>
+      )}
+    </div>
   );
 }
