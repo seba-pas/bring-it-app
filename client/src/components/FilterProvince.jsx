@@ -89,7 +89,17 @@ export default function FilterProvince() {
               );
             })}
           </select>
-          <select onChange={(e) => handleSort(e)}>
+          <select onChange={(e) => handleSort(e)} style={{
+              color: "white",
+              marginTop: "33px",
+              backgroundColor: "chocolate",
+              border: 'none',
+              fontSize: '18px',
+              fontFamily: "Montserrat",
+              fontWeight: '400',
+              margin: '10px'
+              
+            }}>
                 Todos
                   <option value="Desordenado" hidden selected>
                     Ordenar por
