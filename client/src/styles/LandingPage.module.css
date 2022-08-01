@@ -96,11 +96,11 @@
 }
 
 .pasoPorPasos {
-  display: grid;
+ 
   grid-template-columns: repeat(2, 1fr);
   height: 210px;
   /* margin: 40px; */
-  text-align: left;
+  text-align: center;
   margin-left: 50px;
 
 
