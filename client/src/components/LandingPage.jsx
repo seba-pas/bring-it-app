@@ -7,7 +7,7 @@ import imagen from './img/unboxing.jpg'
 
 function LandingPage1() {
   return (
-    <div style={{ backgroundColor: "white", height: '75vh' }}>
+    <div style={{ backgroundColor: "white", height: '70vh' }}>
       <NavBarLanding />
       <div>
         <div className={style.divContainer}>
@@ -26,7 +26,7 @@ function LandingPage1() {
               </Link>
             </div>
           </div>
-          <div className={style.photos}>
+          <div className={style.photos} style={{height: '70vh'}}>
             <img src={imagen} className={style.img} alt="" />
           </div>
         </div>
