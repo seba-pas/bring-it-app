@@ -10,6 +10,8 @@ import style from "../styles/RegisterUser.module.css";
 import NavBarRegisters from "./NavBarRegisters.jsx";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import moment from 'moment'
+
 
 const validateUsers = (input) => {
   const errors = {};
@@ -40,6 +42,21 @@ const validateUsers = (input) => {
   } else {
     errors.lastname = "✅Hecho!";
   }
+  if (input.birthDate[0] === " " || input.birthDate === "") {
+    errors.birthDate = "Debe ingresar su fecha de nacimiento";
+  } else {
+    errors.birthDate = "✅Hecho!"
+  }
+  if (!/^[0-9]{0,10}$/.test(input.phone) || input.phone[0] === " " || input.phone === "") {
+    errors.phone = "Debe ingresar su número de contacto";
+  } else {
+    errors.birthDate = "✅Hecho!"
+  }
+  if (input.confirmPassword !== input.password) {
+    errors.confirmPassword = "las contraseñas no coinciden";
+  } else {
+    errors.confirmPassword = "✅Hecho!"
+  }
 
   return errors;
 };
@@ -55,10 +72,52 @@ function RegisterUser() {
     confirmPassword: "",
     name: "",
     lastname: "",
-    birthDate: "",
+    birthDate: moment().format("YYYY-MM-DD"),
     /* age: "1", */
     phone: "",
   });
+  const [error, setError] = useState({
+    erroremail: "",
+    errorpassword: "",
+    errorconfirmPassword: "",
+    errorname: "",
+    errorlastname: "",
+    errorbirthDate: "",
+    errorphone: "",
+  });
+  useEffect(() => {
+    validate();
+  }, [input.email, input.password, input.name, input.lastname, input.birthDate, input.phone, input.confirmPassword]);
+  const validate = () => {
+    let erroremail = "";
+    let errorpassword = "";
+    let errorconfirmPassword = "";
+    let errorname = "";
+    let errorlastname = "";
+    let errorbirthDate = "";
+    let errorphone = "";
+
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)) erroremail = "❌ Debe escribir una direccion de email correcta.";
+    if (!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)) errorpassword = "La contraseña debe tener entre 8 y 16 caracteres";
+    if (input.confirmPassword !== input.password) errorconfirmPassword = "las contraseñas no coinciden";
+    if (!/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.name)) errorname = "❌ La primera letra debe estar en mayúscula";
+    if (!/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.lastname)) errorlastname = "❌ La primera letra debe estar en mayúscula";
+    if (input.birthDate[0] === " " || input.birthDate === "") errorbirthDate = "Debe ingresar su fecha de nacimiento";
+    if (!/^[0-9]{0,10}$/.test(input.phone) || input.phone[0] === " " || input.phone === "") errorphone = "Debe ingresar su número de contacto";
+
+
+    setError((prevInput) => {
+      return {
+        erroremail: erroremail,
+        errorpassword: errorpassword,
+        errorname: errorname,
+        errorlastname: errorlastname,
+        errorbirthDate: errorbirthDate,
+        errorphone: errorphone,
+        errorconfirmPassword: errorconfirmPassword,
+      }
+    });
+  }
 
   function handleChange(e) {
     setInput({
@@ -72,6 +131,7 @@ function RegisterUser() {
       })
     );
   }
+
   function handleSubmit(e) {
     e.preventDefault();
     if (input.password !== input.confirmPassword) {
@@ -187,7 +247,8 @@ function RegisterUser() {
                     id="confirmPassword"
                     required
                   />
-                  {errors.password && <p>{errors.password}</p>}
+                  {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+                  {/* {errors.password && <p>{errors.password}</p>} */}
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Nombre</Form.Label>
@@ -227,6 +288,7 @@ function RegisterUser() {
                     id="birthDate"
                     required
                   />
+                  {errors.birthDate && <p>{errors.birthDate}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Agrega tu numero de contacto</Form.Label>
@@ -239,8 +301,10 @@ function RegisterUser() {
                     placeholder="Ingresa tu número de contacto"
                     onChange={(e) => handleChange(e)}
                   />
+                  {errors.phone && <p>{errors.phone}</p>}
                 </Form.Group>
                 <Button
+                  disabled={error.erroremail === "❌ Debe escribir una direccion de email correcta." || error.errorpassword === "La contraseña debe tener entre 8 y 16 caracteres " || error.errorname === "❌ La primera letra debe estar en mayúscula" || error.errorlastname === "❌ La primera letra debe estar en mayúscula" || error.errorbirthDate === "Debe ingresar su fecha de nacimiento" || error.errorphone === "Debe ingresar su número de contacto" || error.errorconfirmPassword === "las contraseñas no coinciden"}
                   variant="primary"
                   className="mt-3 mb-5 w-100 mt-3"
                   type="submit"
