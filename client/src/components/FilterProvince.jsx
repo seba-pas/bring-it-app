@@ -66,6 +66,11 @@ export default function FilterProvince() {
               color: "white",
               marginTop: "33px",
               backgroundColor: "chocolate",
+              border: 'none',
+              fontSize: '18px',
+              fontFamily: "Montserrat",
+              fontWeight: '400'
+              
             }}
           >
             <option value="All">Todas</option>

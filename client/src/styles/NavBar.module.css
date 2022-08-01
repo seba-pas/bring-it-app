@@ -102,3 +102,12 @@
   background-color: chocolate;
   color:white;
 }
+
+.spinner {
+  padding-top: 250px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 400px;
+  width: auto;
+}
