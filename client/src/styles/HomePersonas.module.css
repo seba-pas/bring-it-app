@@ -57,6 +57,7 @@ select {
   height: 40px;
   width: 150px;
   padding-left: 3px;
+  cursor: pointer;
 }
 
 .containerS option {

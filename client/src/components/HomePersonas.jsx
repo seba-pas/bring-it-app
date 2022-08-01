@@ -7,6 +7,7 @@ import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
 
 import { SpinnerCircularFixed } from "spinners-react";
+import "bootstrap/dist/css/bootstrap.css";
 
 import {
   getAllProducts,
@@ -138,16 +139,16 @@ export default function HomePersonas() {
   }
 
   return (
-    <div>
+    <div style={{background:'white'}}>
       {console.log(BRANCHES, PRODUCTS)}
       <NavBar />
       <FormTravel />
       {PRODUCTS.length > 0 ? (
 
         PRODUCTS == "No se encontraron productos asociados" ? (
-          <div>
+          <div style={{color:'chocolate', background:'white', marginTop:'150px'}}>
             <h1>No se encontraron productos asociados</h1>
-            <button onClick={(e) => handleClick(e)}>Volver</button>
+            <button className='btn btn-primary' style={{marginTop: '40px'}} onClick={(e) => handleClick(e)}>Volver</button>
           </div>
         ) : (
           <div>

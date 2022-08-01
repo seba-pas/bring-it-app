@@ -74,7 +74,8 @@ export default function FilterProvince() {
               border: 'none',
               fontSize: '18px',
               fontFamily: "Montserrat",
-              fontWeight: '400'
+              fontWeight: '400',
+              cursor:'pointer'
               
             }}
           >
@@ -96,7 +97,8 @@ export default function FilterProvince() {
               fontSize: '18px',
               fontFamily: "Montserrat",
               fontWeight: '400',
-              margin: '10px'
+              margin: '10px',
+              cursor:'pointer'
               
             }}>
                 Todos
