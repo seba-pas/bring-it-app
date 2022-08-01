@@ -59,24 +59,24 @@ export default function NavBarBusiness() {
     }
 
     return (
-        <div className={styles.navbar}>
+        <div className={styles.navbar} style={{width: '100%',display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
             <div className={styles.imagen}>
                 <NavLink exact to="/">
                     <img
                         src={logo}
-                        style={{ width: "auto", height: "100px" }}
+                        style={{ width: "auto", height: "100%", objectFit: 'cover' }}
                         alt="Logo no encontrado"
                     />
                 </NavLink>
             </div>
             <div className={styles.perfil}>
-                <img
+                {/* <img
                     src={input.businessInfo.logo ? input.businessInfo.logo : userProfile}
-                    style={{ width: "110px", height: "110px", borderRadius: "150px", border: "solid 4px transparent", }}
+                    style={{ width: "auto", height: "100px", borderRadius: "150px", border: "solid 4px transparent",marginLeft: '0px' }}
                     alt="Logo no encontrado"
-                />
+                /> */}
 
-                <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
+                <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)} style={{display: 'flex',width: 'auto', marginRight: '50px', marginTop: '33px'}}>
                     <option value="">Mi cuenta</option>
                     {/* <option value="">{input.perfil} </option> */}
                     <option value="email">{input.businessInfo.email}</option>

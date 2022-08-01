@@ -40,7 +40,7 @@
 }
 .ul li {
   float: left;
-  margin: 40px;
+  margin: 20px;
   justify-content: space-evenly;
 }
 
@@ -191,6 +191,8 @@
 
 } */
 .botonAhora {
+  height: auto;
+  width: auto;
   margin-top: 40px;
   margin-bottom: 40px;
 }
@@ -202,12 +204,12 @@
   border: none;
   font-weight: bold;
   border-radius: 5px;
-  font-size: 40px;
+  font-size: 25px;
   margin-left: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  height: 95px;
-  width: 600px;
+  height: 40px;
+  width: 200px;
 }
 #boton:focus {
   border: none;

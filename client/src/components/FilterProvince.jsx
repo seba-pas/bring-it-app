@@ -10,6 +10,7 @@ import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "./NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 export default function FilterProvince() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products)
@@ -58,7 +59,7 @@ export default function FilterProvince() {
   }
 
   return (
-    <div>
+    <div className={styles.div}>
       <NavBar />
       {PRODUCTS.length > 0 &&
       PRODUCTS !== "No se encontraron productos asociados" ? (
