@@ -57,7 +57,7 @@ export default function NavBar() {
 
     else if (input.perfil === "close") {
       dispatch(clearCart());
-      history.push("/");
+       history.push("/");
     }
   }, [input.perfil]);
 
@@ -151,7 +151,7 @@ export default function NavBar() {
           onChange={(e) => handleOnChange(e)}
         >
           <option value="">Mi cuenta</option>
-           <option value="email">{gState.user.others.dataValues.email}</option>
+           <option value="email">Editar mi cuenta</option>  {/* {gState.user.others.dataValues.email} */}
           <option value="misCompras">Mis compras</option>
             <option value="modificarPassword">Modificar contraseña</option>
           <option value="misViajes">Mis Viajes</option>

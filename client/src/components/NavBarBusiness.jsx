@@ -9,7 +9,7 @@ import logo from "./img/logoCUT.png";
 import userProfile from "./img/userPerfilImage.jpg";
 
 
-export default function NavBarusiness() {
+export default function NavBarBusiness() {
     const gState = useSelector((state) => state);
     const dispatch = useDispatch();
     const history = useHistory();

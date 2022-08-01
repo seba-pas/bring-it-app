@@ -10,15 +10,18 @@ import DataTable from "react-data-table-component";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import moment from 'moment'
+// import { FaSearchLocation } from "react-icons/fa";
 
 export default function HomeAdmin() {
   const dispatch = useDispatch();
+  // const purchases = useSelector((state) => state.purchases)
   const USERS = useSelector((state) => state.users);
   const products = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
   const allTravels = useSelector((state) => state.allTravels)
   const [orden, setOrden] = useState("");
 
+  // console.log(purchases)
   function deleteUsers() {
     alert("PROXIMAMENTE!!!");
   }
@@ -37,10 +40,30 @@ export default function HomeAdmin() {
     dispatch(getAllProducts());
     dispatch(getUsers());
     dispatch(getAllBusiness());
-    dispatch(getAllTravel())
+    dispatch(getAllTravel());
+    // dispatch(getByPurchaseEmail(USERS.email))
   }, [dispatch]);
 
-
+  // const columnasPurchases = [
+  //   { name: "Nro de orden" , selector: row => row.id, sortable: true },
+  //   { name: "Producto" , selector: row => row.purchaseitems.map((e) => `${e.product.name}, `), sortable: true }, 
+  //   { name: "Fecha de max de espera" , selector: row => row.maxDeliveryDate, sortable: true },
+  //   { name: "Cantidad" , selector: row => row.purchaseitems.map((e) => e.quantity), sortable: true }, 
+  //   { name: "Precio total" , selector: row => row.totalPrice, sortable: true },
+  //   {
+  //     button: true,
+  //     cell: () => (
+        
+  //         <FaSearchLocation
+  //         title="Encontrar viajero"
+  //           style={{ marginRight: "15px", fontSize: "30px" }}
+  //           onClick={(e) => editUsers(e)}
+  //         />
+          
+        
+  //     ),
+  //   },
+  // ];
   const columnasTravels = [
     { name: "Provincia a viajar", selector:row => row.travelProvince, sortable: true },
     { name: "Destino", selector: row => row.arrivalProvince, sortable: true },
@@ -157,6 +180,11 @@ export default function HomeAdmin() {
             title="Listado de viajeros"
             style={{marginBottom:"30px"}}
           />
+          {/* <DataTable
+              columns={columnasPurchases}
+              data={purchases} 
+              title="Listado de compras"
+            /> */}
         </div>
         <h6 className="mt-5 p-5 text-center text-secondary ">
           © 2022 Bring it. All Rights Reserved | Design by Grupo 8 Soy Henry

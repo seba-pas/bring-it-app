@@ -125,7 +125,7 @@ router.post("/login", async (req, res) => {
   try {
     const userLogin = await User.findByPk(req.body.email);
 
-    if (!userLogin) res.send("Usuario no encontrado");
+    if (!userLogin) return res.send("Usuario no encontrado");
 
     const hashedPassword = CryptoJS.AES.decrypt(userLogin.password, process.env.PASS_SEC);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
@@ -133,7 +133,7 @@ router.post("/login", async (req, res) => {
     if(originalPassword !== req.body.password) return res.status(401).send(`Datos incorrectos`);
 
     const accessToken = jwt.sign({
-      id: userLogin.id
+      email: userLogin.email
     }, process.env.JWT_SEC, { expiresIn: '1d' });
 
     const { password, ...others } = userLogin;
