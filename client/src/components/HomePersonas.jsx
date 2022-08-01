@@ -40,7 +40,6 @@ export default function HomePersonas() {
   const [category, setCategory] = useState("All");
   const [business, setBusinnes] = useState("All");
   const [province, setProvince] = useState("All");
-
   // const history = useHistory();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -84,6 +83,7 @@ export default function HomePersonas() {
     dispatch(getAllBranches());
   }, [dispatch]);
 
+  if (BRANCHES === "No se encontraron sedes en la bd") dispatch(getAllBranches());
   //funcion para volver a cargar los productos
   function handleClick(e) {
     e.preventDefault();
@@ -142,7 +142,7 @@ export default function HomePersonas() {
       <NavBar />
       <FormTravel />
       {PRODUCTS.length > 0 ? (
-        
+
         PRODUCTS == "No se encontraron productos asociados" ? (
           <div>
             <h1 >No se encontraron productos asociados</h1>
@@ -193,10 +193,10 @@ export default function HomePersonas() {
                   <option hidden selected>
                     Empresa
                   </option>
-                  {BRANCHES.map((BRANCHES) => {
+                  {BRANCHES?.map((BRANCHES) => {
                     return (
                       <option value={BRANCHES.businessBranchName} key={BRANCHES.id}>
-                          {BRANCHES.businessBranchName}
+                        {BRANCHES.businessBranchName}
                       </option>
                     );
                   })}
@@ -210,7 +210,7 @@ export default function HomePersonas() {
                   {BRANCHES.map((province) => {
                     return (
                       <option value={province.province} key={business.province}>
-                         {province.province}
+                        {province.province}
                       </option>
                     );
                   })}
@@ -222,12 +222,12 @@ export default function HomePersonas() {
                   Limpiar Filtros
                 </button>
               </div>
-              <div className={styles.contcards} style={{width: "100%"}}>
+              <div className={styles.contcards} style={{ width: "100%" }}>
                 <ProductCards currentProducts={currentProducts} />
               </div>
 
             </div>
-             <Pagination
+            <Pagination
               productsPerPage={productsPerPage}
               PRODUCTS={PRODUCTS.length}
               paginado={paginado}
