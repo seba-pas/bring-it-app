@@ -2,23 +2,21 @@ import React from "react";
 import styles from "../styles/HomePersonas.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
-import {
-  filterByBranchesProvince,
-  getAllProducts,
-  setProduct,
-} from "../actions";
+
+import { filterByBranchesProvince, getAllProducts, orderByPrice,setProduct } from "../actions";
+
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "./NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function FilterProvince() {
   const dispatch = useDispatch();
-  const PRODUCTS = useSelector((state) => state.products);
+  const PRODUCTS = useSelector((state) => state.products)
   const BRANCHES = useSelector((state) => state.branches);
   const [orden, setOrden] = useState("All");
-
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(8);
   const indexOfLastProduct = currentPage * productsPerPage; // 10
@@ -34,10 +32,18 @@ export default function FilterProvince() {
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(filterByBranchesProvince());
-    return () => {
+     return () => {
       dispatch(setProduct());
     };
   }, [dispatch]);
+
+    //funcion para ordenar los precios
+    function handleSort(e) {
+      e.preventDefault();
+      setCurrentPage(1);
+      dispatch(orderByPrice(e.target.value));
+      setOrden(`Ordenado ${e.target.value}`);
+    }
 
   function handleFilterByBranchesProvinces(e) {
     e.preventDefault();
@@ -83,6 +89,14 @@ export default function FilterProvince() {
               );
             })}
           </select>
+          <select onChange={(e) => handleSort(e)}>
+                Todos
+                  <option value="Desordenado" hidden selected>
+                    Ordenar por
+                  </option>
+                  <option value="asc">Menor Precio</option>
+                  <option value="desc">Mayor Precio</option>
+                </select>
           <div className={styles.contcards} style={{ width: "100%" }}>
             <ProductCards currentProducts={currentProducts} />
           </div>

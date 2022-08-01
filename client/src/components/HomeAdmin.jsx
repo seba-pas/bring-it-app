@@ -22,6 +22,9 @@ export default function HomeAdmin() {
   const [orden, setOrden] = useState("");
 
   // console.log(purchases)
+  function formatDate(value) {
+    return value ? moment(value).format("DD/MM/YYYY") : "";
+  }
   function deleteUsers() {
     alert("PROXIMAMENTE!!!");
   }
@@ -67,8 +70,8 @@ export default function HomeAdmin() {
   const columnasTravels = [
     { name: "Provincia a viajar", selector:row => row.travelProvince, sortable: true },
     { name: "Destino", selector: row => row.arrivalProvince, sortable: true },
-    { name: "Fecha de inicio", selector: row => row.startDate, sortable: true },
-    { name: "Fecha de llegada", selector:row => row.arrivalDate, sortable: true },
+    { name: "Fecha de inicio", selector: row => formatDate(row.startDate), sortable: true },
+    { name: "Fecha de llegada", selector:row => formatDate(row.arrivalDate), sortable: true },
     { name: "Email", selector: row => row.userEmail, sortable: true },
     {
       button: true,
@@ -114,7 +117,7 @@ export default function HomeAdmin() {
     { name: "Apellido", selector: row => row.lastname, sortable: true },
     {
       name: "Fecha de nacimiento",
-      selector: row => row.birthDate,
+      selector: row => formatDate(row.birthDate),
       sortable: true,
     },
     /* { name: "Acciones", selector: "acciones", sortable: true }, */

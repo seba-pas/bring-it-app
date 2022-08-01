@@ -188,7 +188,7 @@ export default function rootReducer(state = initialState, action) {
 
       return {
         ...state,
-        products: filterCategory,
+        products: filterCategory.length ? filterCategory : "No se encontraron productos asociados",
       };
 
     case "SET_PRODUCT_DETAIL":
@@ -331,15 +331,13 @@ export default function rootReducer(state = initialState, action) {
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
       );
-
-      
       return itemInCart
         ? {
 
             ...state,
             cart: state.cart.map((item) =>
               item.id === productoCantidad.id
-                ? { ...item, quantity: item.quantity + 1 }
+                ? { ...item, quantity: item.quantity + 1  }
                 : item
             ),
           }
