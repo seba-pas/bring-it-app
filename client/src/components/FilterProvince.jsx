@@ -6,7 +6,7 @@ import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
 import { filterByBranchesProvince, getAllProducts, setProduct } from "../actions";
 import { SpinnerCircularFixed } from "spinners-react";
-import NavBarProvince from "./NavBarProvince";
+import NavBar from "./NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function FilterProvince() {
@@ -53,7 +53,7 @@ export default function FilterProvince() {
   return (
     
       <div>
-          <NavBarProvince />
+         <NavBar />
         {PRODUCTS.length > 0 ? (
           PRODUCTS == "No se encontraron productos asociados" ? (
             <div>
@@ -65,6 +65,7 @@ export default function FilterProvince() {
               <select
                 value={BRANCHES.businessbranches}
                 onChange={(e) => handleFilterByBranchesProvinces(e)}
+                style={{color: 'white', marginTop: '33px', backgroundColor: 'chocolate'}}
               >
                 <option value="All">Todas</option>
 
