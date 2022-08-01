@@ -428,6 +428,11 @@ export default function rootReducer(state = initialState, action) {
                 activeBusiness: action.payload,
               }
               // fin borrado lógico
+              case 'GET_EMAIL':
+                return {
+                  ...state,
+                  allEmail: action.payload, 
+                }
     default:
       return {
         ...state,

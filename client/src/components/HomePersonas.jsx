@@ -140,7 +140,7 @@ export default function HomePersonas() {
 
   return (
     <div style={{background:'white'}}>
-      {console.log(BRANCHES, PRODUCTS)}
+      {/* {console.log(BRANCHES, PRODUCTS)} */}
       <NavBar />
       <FormTravel />
       {PRODUCTS.length > 0 ? (

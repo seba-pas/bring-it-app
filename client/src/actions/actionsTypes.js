@@ -55,3 +55,5 @@ export const ACTIVATE_BUSINESS = "ACTIVATE_BUSINESS";
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_BUSINESS = "DELETE_BUSINESS";
 
+// email
+export const GET_EMAIL='GET_EMAIL';

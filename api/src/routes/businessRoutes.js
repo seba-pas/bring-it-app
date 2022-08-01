@@ -1,5 +1,5 @@
 const { Router } = require ("express");
-const {  getBusiness } = require ('../controllers/businessControllers');
+const {  getBusiness, getAllEmail } = require ('../controllers/businessControllers');
 const {Business, Businessbranch, City} = require('./../db');
 const router = Router();
 const nodemailer = require('nodemailer')
@@ -113,6 +113,16 @@ router.get('/', (req,res) => {
             typeof business === "object" ? res.json(business) : res.status(404).json(business));
     } catch (error) {
         return res.send(error);
+    }
+});
+
+//get all emails
+router.get('/email',async (req,res) => {
+    try {
+        const allEmail= await getAllEmail();
+        res.status(200).send(allEmail);
+    } catch (error) {
+        res.status(400).send(error.message);
     }
 });
 
