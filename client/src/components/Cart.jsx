@@ -68,7 +68,8 @@ export default function Cart() {
             {cart.map((productGroup) => (
               <div style={{ width: "100%" }}>
                 <tr className="productitm">
-                  <td style={{ height: "125px", marginLeft: "33px" }}>
+                  <td style={{ height: "125px"}}>
+                    <div style={{width: "40px", marginLeft: "15px"}}>
                     <img
                       src={productGroup.image}
                       className="thumb"
@@ -79,18 +80,20 @@ export default function Cart() {
                         objectFit: "cover",
                       }}
                     />
+                    </div>
                   </td>
-                  <td>{productGroup.quantity}</td>
-                  <td>{productGroup.name}</td>
-                  <td>${productGroup.price * productGroup.quantity}</td>
+                  
+                  <td><div style={{marginLeft:"15px"}}>{productGroup.quantity}</div></td>
+                  <td><div style={{marginLeft:"25px"}}>{productGroup.name}</div></td>
+                  <td><div style={{marginLeft:"10px"}}>${productGroup.price * productGroup.quantity}</div></td>
                   <td>
-                    <span className="remove">
+                    <div>
                       <img
                         src="https://i.imgur.com/h1ldGRr.png"
                         alt="X"
                         onClick={() => handleRemoveOne(productGroup.id)}
                       />
-                    </span>
+                    </div>
                   </td>
                 </tr>
               </div>

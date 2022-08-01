@@ -47,10 +47,10 @@ router.post('/payment', async (req, res) => {
 
         await transporter.sendMail({
             from: "Bring It App <bringit662@gmail.com>",
-            to: name,
+            to: email,
             subject: "Pago realizado satisfactoriamente",
-            html: `<h3>¡Muchas gracias por tu compra, ${email}!</h3>
-            <p>Tu compra del <b>acá va el elemento</b> se ha completado satisfactoriamente
+            html: `<h3>¡Muchas gracias por tu compra, ${name}!</h3>
+            <p>Tu compra se ha completado satisfactoriamente
             muchas gracias por elegir Bring It App.
             </p>
             `

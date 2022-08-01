@@ -107,9 +107,10 @@
   
   /** submit btn **/
   tr.checkoutrow {
-    background: #cfdae8;
-    border-top: 1px solid #abc0db;
-    border-bottom: 1px solid #abc0db;
+    background: transparent;
+    border:none
+    /* border-top: 1px solid #abc0db;
+    border-bottom: 1px solid #abc0db; */
   }
   td.checkout {
     padding: 12px 0;
@@ -134,19 +135,21 @@
     text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
     cursor: pointer;
     overflow: hidden;
-    border-bottom: 1px solid #0071ff;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #66aaff), color-stop(100%, #4d9cff));
+    background: chocolate;
+   /*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #66aaff), color-stop(100%, #4d9cff));
     background-image: -webkit-linear-gradient(#66aaff, #4d9cff);
     background-image: -moz-linear-gradient(#66aaff, #4d9cff);
     background-image: -o-linear-gradient(#66aaff, #4d9cff);
-    background-image: linear-gradient(#66aaff, #4d9cff);
+    background-image: linear-gradient(#66aaff, #4d9cff); */
   }
   #submitbtn:hover {
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4d9cff), color-stop(100%, #338eff));
+    transition: background-color 0.5s ease;
+
+   /*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4d9cff), color-stop(100%, #338eff));
     background-image: -webkit-linear-gradient(#4d9cff, #338eff);
     background-image: -moz-linear-gradient(#4d9cff, #338eff);
     background-image: -o-linear-gradient(#4d9cff, #338eff);
-    background-image: linear-gradient(#4d9cff, #338eff);
+    background-image: linear-gradient(#4d9cff, #338eff); */
   }
   #submitbtn:active {
     border-bottom: 0;

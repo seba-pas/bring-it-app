@@ -40,7 +40,6 @@ export default function HomePersonas() {
   const [category, setCategory] = useState("All");
   const [business, setBusinnes] = useState("All");
   const [province, setProvince] = useState("All");
-
   // const history = useHistory();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -84,6 +83,7 @@ export default function HomePersonas() {
     dispatch(getAllBranches());
   }, [dispatch]);
 
+  if (BRANCHES === "No se encontraron sedes en la bd") dispatch(getAllBranches());
   //funcion para volver a cargar los productos
   function handleClick(e) {
     e.preventDefault();
@@ -143,30 +143,23 @@ export default function HomePersonas() {
       <NavBar />
       <FormTravel />
       {PRODUCTS.length > 0 ? (
-        
+
         PRODUCTS == "No se encontraron productos asociados" ? (
           <div>
-            <h1 >No se encontraron productos asociados</h1>
+            <h1>No se encontraron productos asociados</h1>
             <button onClick={(e) => handleClick(e)}>Volver</button>
           </div>
         ) : (
           <div>
             <div className={styles.layout}>
               <div className={styles.containerS}>
-                {/* <div> Ordenar por */}
                 <select onChange={(e) => handleSort(e)}>
-                  {/* <span>Todos</span> */}
-                  {/* <option value="All">
-                Todos
-              </option> */}
                   <option value="Desordenado" hidden selected>
                     Ordenar por
                   </option>
                   <option value="asc">Menor Precio</option>
                   <option value="desc">Mayor Precio</option>
                 </select>
-
-                {/* </div> */}
 
                 <select
                   value={category}
@@ -183,8 +176,7 @@ export default function HomePersonas() {
                       </option>
                     );
                   })}
-                  </select>
-
+                </select>
 
                 <select
                   value={business}
@@ -194,10 +186,12 @@ export default function HomePersonas() {
                   <option hidden selected>
                     Empresa
                   </option>
-                  {BRANCHES.map((BRANCHES) => {
+                  {BRANCHES?.map((BRANCHES) => {
                     return (
+
                       <option value={BRANCHES.businessBranchName} key={BRANCHES.id}>
-                          {BRANCHES.businessBranchName}
+
+                        {BRANCHES.businessBranchName}
                       </option>
                     );
                   })}
@@ -211,7 +205,7 @@ export default function HomePersonas() {
                   {BRANCHES.map((province) => {
                     return (
                       <option value={province.province} key={business.province}>
-                         {province.province}
+                        {province.province}
                       </option>
                     );
                   })}
@@ -223,18 +217,15 @@ export default function HomePersonas() {
                   Limpiar Filtros
                 </button>
               </div>
-              <div className={styles.contcards} style={{width: "100%"}}>
+              <div className={styles.contcards} style={{ width: "100%" }}>
                 <ProductCards currentProducts={currentProducts} />
               </div>
-
             </div>
-             <Pagination
+            <Pagination
               productsPerPage={productsPerPage}
               PRODUCTS={PRODUCTS.length}
               paginado={paginado}
-
             />
-
           </div>
         )
       ) : (

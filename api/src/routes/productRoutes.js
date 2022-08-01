@@ -36,10 +36,10 @@ router.get('/:id', (req, res) => {
 // http://localhost:3001/api/product
 router.get('/', async (req, res) => {
     console.log("postproducts")
-    // const { name } = req.query;
+    const { name } = req.query;
     // console.log(`search: ${name}`);
     try {
-        return getProducts().then(products =>
+        return getProducts(name).then(products =>
             res.send(products));
     } catch (error) {
         return res.send(error);
