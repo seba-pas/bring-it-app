@@ -146,7 +146,7 @@ function FormPurchase() {
                     </div>
                   ))}
                   <hr />
-                  PRECIO TOTAL:{" "}
+                  PRECIO TOTAL:{' '}${" "}
                   {cart
                     .reduce((acc, item) => acc + item.quantity * item.price, 0)
                     .toFixed(2)}

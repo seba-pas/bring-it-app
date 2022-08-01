@@ -1,37 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
+import { useDispatch, useSelector } from "react-redux";
+import {getByPurchaseEmail} from '../actions'
+import { FaSearchLocation } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
 
-function HomeUserPurchase(props) {
+function HomeUserPurchase() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const purchases = useSelector((state) => state.purchases)
+  const user = useSelector((state) => state.user)
   const handleBack = (event) => {
     event.preventDefault();
-    props.history.goBack();
+    history.push("/persona")
   };
+  
+
+  useEffect(() => {
+    dispatch(getByPurchaseEmail(user.others.dataValues.email))
+  })
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }
-  function editBusiness() {
-    alert("PROXIMAMENTE!!!");
-  }
+ 
+  // { name: "Fecha de compra" , selector: "last update", sortable: true },
   const columnas = [
-    { name: "Image Product"/* , selector: "email" */, sortable: true },
-    { name: "Producto"/* , selector: "password" */, sortable: true },
-    { name: "Provincia elegida"/* , selector: "name" */, sortable: true },
-    { name: "Ciudad elegida"/* , selector: "lastname" */, sortable: true },
-    { name: "Fecha Limite"/* , selector: "birthDate" */, sortable: true },
+    { name: "Nro de orden" , selector: row => row.id, sortable: true },
+    { name: "Producto" , selector: row => row.purchaseitems.map((e) => `${e.product.name}, `), sortable: true }, 
+    { name: "Fecha de max de espera" , selector: row => row.maxDeliveryDate, sortable: true },
+    { name: "Cantidad" , selector: row => row.purchaseitems.map((e) => e.quantity), sortable: true }, 
+    { name: "Precio total" , selector: row => row.totalPrice, sortable: true },
     {
       button: true,
       cell: () => (
-        <button>
-          <FaPencilAlt
-            style={{ marginRight: "15px", fontSize: "20px" }}
+        
+          <FaSearchLocation
+          title="Encontrar viajero"
+            style={{ marginRight: "15px", fontSize: "30px" }}
             onClick={(e) => editUsers(e)}
           />
-          <FaTrashAlt
-            style={{ fontSize: "20px" }}
-            onClick={(e) => deleteUsers(e)}
-          />
-        </button>
+          
+        
       ),
     },
   ];
@@ -50,7 +60,7 @@ function HomeUserPurchase(props) {
           >
             <DataTable
               columns={columnas}
-              /* data={USERS} */
+              data={purchases} 
               title="Listado de compras"
             />
             <br />
