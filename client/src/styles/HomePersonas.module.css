@@ -102,3 +102,8 @@ select {
   flex-direction: row;
 
 }
+
+.div option {
+  background-color: chocolate;
+  color:white;
+}
