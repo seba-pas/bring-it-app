@@ -57,13 +57,18 @@ router.get('/:id', async (req, res)=>{
 //GET para purchases por email del usuario
 router.get('/email/:email', async (req, res)=>{
     const {email}= req.params;
-    let filteredPurchase = await Purchase.findAll({
+    try {
+        let filteredPurchase = await Purchase.findAll({
         where: {userEmail: email},
         include: [{model: Purchaseitem, 
         include: [{model: Product, 
         attributes: ["name"]}]}]
     })
         res.status(201).send(filteredPurchase ? filteredPurchase : "No se encontraron compras")
+    } catch (error) {
+        console.log(error)
+    }
+    
 });
 
 

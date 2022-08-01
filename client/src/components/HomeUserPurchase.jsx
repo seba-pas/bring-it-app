@@ -19,7 +19,7 @@ function HomeUserPurchase() {
 
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.others.dataValues.email))
-  })
+  },[dispatch])
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }

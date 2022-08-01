@@ -116,7 +116,7 @@ export default function NavBar() {
             </span>
           </button>
 
-          <Modal show={show} onHide={handleClose}>
+          <Modal show={show} onHide={handleClose} style={{width:"100%"}}>
             <Modal.Header closeButton>
               <Modal.Title>Productos seleccionados</Modal.Title>
               <span>{stateCart.length > 0 ? stateCart[0].businessbranch.businessBranchName : ""}</span>

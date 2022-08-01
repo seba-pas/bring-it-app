@@ -2,16 +2,18 @@ import { React, useState, useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import "../styles/FormPurchase.module.css";
 // import CheckOut from "./Stripe/CheckOut";
 import {
   getAllProvinces,
   getAllCities,
   postPurchase,
-  clearCart
+  clearCart,
 } from "../actions/index.js";
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import swal from "sweetalert";
+import moment from 'moment';
 // import NavBar from "./NavBar";
 
 function FormPurchase() {
@@ -23,13 +25,10 @@ function FormPurchase() {
   const gState = useSelector((state) => state);
   const [input, setInput] = useState({
     // arrivalCityId: "",
-    maxDeliveryDate: "",
-    totalPrice: cart
-      .reduce((acc, item) => acc + item.quantity * item.price, 0)
-      .toFixed(2),
+    name: "",
+    maxDeliveryDate: moment().format("YYYY-MM-DD"),
     userEmail: gState.user.others.dataValues.email,
-    items: cart
-    
+    items: cart,
   });
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -40,35 +39,60 @@ function FormPurchase() {
       };
     });
   };
+  /* const handleBack = (event) => {
+    event.preventDefault();
+    event.history.goBack()
+  }; */
   useEffect(() => {
     dispatch(getAllProvinces());
     dispatch(getAllCities());
   }, [dispatch]);
+  var totalAmount = 0;
 
+  for (let i = 0; i < cart.length; i++) {
+    totalAmount = totalAmount + cart[i].price * cart[i].quantity;
+  }
+  const cardStyle = {
+    style: {
+      base: {
+        color: "#32325d",
+        fontFamily: 'Arial, sans-serif',
+        fontSmoothing: "antialiased",
+        fontSize: "25px",
+        "::placeholder": {
+          color: "#32325d"
+        }
+      },
+      invalid: {
+        fontFamily: 'Arial, sans-serif',
+        color: "#fa755a",
+        iconColor: "#fa755a"
+      }
+    }
+  };
   const stripe = useStripe();
   const elements = useElements();
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
+      
     });
 
     if (!error) {
       const { id } = paymentMethod;
-      const datos = await axios.post(
-        "/checkout/payment",
-        {
-          id: id,
-          amount: 20 * 100, // son 20 dólares
-        }
-      );
+      const datos = await axios.post("/checkout/payment", {
+        id: id,
+        amount: totalAmount * 100,
+        name: input.name, // son 20 dólares
+        email: input.userEmail,
+      });
 
       elements.getElement(CardElement).clear();
       dispatch(postPurchase(input));
-      swal('Buen trabajo', 'La compra fue realizada con exito', 'success')
-      history.push("/persona/homeUserPurchase")
+      swal("Buen trabajo", "La compra fue realizada con exito", "success");
+      history.push("/persona/homeUserPurchase");
       dispatch(clearCart());
     } else {
       console.log("Hay un error en el handleSubmit");
@@ -79,7 +103,7 @@ function FormPurchase() {
     <div>
       {/* <NavBar/> */}
       <Container>
-        <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
+        <h1 className="shadow-sm mt-5 p-3 text-center rounded" style={{color:"chocolate"}}>
           Finalizar Compra
         </h1>
         <Row>
@@ -114,6 +138,7 @@ function FormPurchase() {
                         }}
                       >
                         <td>
+                          <div style={{marginLeft: "70px"}}>
                           <img
                             src={productGroup.image}
                             alt=""
@@ -123,33 +148,31 @@ function FormPurchase() {
                               objetFit: "cover",
                             }}
                           />
+                          </div>
                         </td>
                         <td
                           className="item-name"
-                          style={{ paddingTop: "30px" }}
+                          style={{ paddingTop: "30px",marginRight: "50px" }}
                         >
                           {productGroup.name}
                         </td>
                         <td
                           className="item-price"
-                          style={{ paddingTop: "30px" }}
+                          style={{ paddingTop: "30px",marginRight: "50px" }}
                         >
                           ${productGroup.price * productGroup.quantity}
                         </td>
                         <td
                           className="item-quantity"
-                          style={{ paddingTop: "30px" }}
+                          style={{ paddingTop: "30px",marginRight:"100px" }}
                         >
-                          Cantidad: {productGroup.quantity}
+                           {productGroup.quantity}
                         </td>
                       </tr>
                     </div>
                   ))}
                   <hr />
-                  PRECIO TOTAL:{' '}${" "}
-                  {cart
-                    .reduce((acc, item) => acc + item.quantity * item.price, 0)
-                    .toFixed(2)}
+                  PRECIO TOTAL: $ {totalAmount}
                 </tbody>
               </table>
             </div>
@@ -179,8 +202,10 @@ function FormPurchase() {
                 />
               </Form.Group>
 
-              <Form.Group style={{marginTop:"15px", marginBottom:"15px"}}>
-                <label htmlFor="province">Elija la provincia donde recibira su compra:</label>
+              <Form.Group style={{ marginTop: "15px", marginBottom: "15px" }}>
+                <label htmlFor="province">
+                  Elija la provincia donde recibira su compra:
+                </label>
                 <Form.Select
                   name="province"
                   value={input.province}
@@ -194,10 +219,11 @@ function FormPurchase() {
                   ))}
                 </Form.Select>
               </Form.Group>
+              <Form.Group></Form.Group>
               <Form.Group>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Elija la ciudad que desee recibir su compra</Form.Label>
+                <Form.Label>
+                  Elija la ciudad que desee recibir su compra
+                </Form.Label>
                 <Form.Select
                   name="arrivalCityId"
                   value={input.arrivalCityId}
@@ -222,16 +248,34 @@ function FormPurchase() {
                     : ""}
                 </Form.Select>
               </Form.Group>
-              <div>
-              <CardElement />
-              </div>
-              <Button
-                variant="primary"
-                className="mt-3 mb-5 w-100 mt-3"
-                type="submit"
-              >
-                FINALIZAR COMPRA
-              </Button>
+
+              <Form.Group style={{marginBottom:"30px"}}>
+                <Form.Label></Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Indique su nombre completo"
+                  value={input.name}
+                  name="name"
+                  id="name"
+                  required
+                  onChange={(e) => handleInputChange(e)}
+                />
+              </Form.Group>
+              
+                <CardElement className="tarjetaCredito" options={cardStyle} />
+              
+              <Row>
+                <Col
+                  lg={6}
+                  md={6}
+                  sm={12}
+                  className="text-center p-5 m-auto rounded-lg"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <Button onClick={() => history.goBack()} style={{width: "50%"}}>ATRAS</Button>
+                  <Button type="submit" >COMPRAR</Button>
+                </Col>
+              </Row>
             </Form>
           </Col>
         </Row>
