@@ -3,29 +3,21 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  /* grid-template-columns:repeat(3,1fr); */
-  /* display: flex;
-  align-content: space-around;
-  margin-bottom: 40px; */
-  /* border-bottom: solid 1px rgba(0, 0, 0, 0.364);  */
-  /*  padding-bottom: 15px;
-  padding-left: 20px; */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.08);
-  /* position: sticky;
-  top: 0;
-  z-index: 1; */
+  width: 100%; 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.08);  
+  height: 100px;
 }
 
 .imagen {
-  height: 100%;
+  height:100%;
   object-fit: cover;
   width: auto;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  margin-right: 25%;
-  
+  margin-right: 25%;  
 }
+#botonCart {
+  height: 40px;
+}
+
 #botonCart:hover {
   border-color: #3ab0ff;
   transition: background-color 0.8s ease;
@@ -34,15 +26,13 @@
 }
 
 .search {
-
-  margin-top: 45px;
-  /* margin-right: 5%; */
+  margin-top: 33px;
+ 
 }
 .selectPerfil {
   margin-left:2%;
 }
 .selectPerfil option {
-
   background-color: chocolate;
   color: white;
  
@@ -51,19 +41,20 @@
 .SearchBar input {
   border: 3px solid #1687a7;
   color: #1687a7;
-  height: 37px;
-  width: 250px;
+  height: 33px;
+  width: 200px;
   margin-right: 0px;
   padding-bottom: 20px;
 }
 
 .SearchBar button {
   margin-left: 10px;
-  border-radius: 50px;
+  border-radius: 5px;
 }
 
 .SearchBar input::placeholder {
   color: #1687a7;
+  font-size: 10px;
 }
 
 .contbotones {
@@ -84,9 +75,9 @@
   font-weight: bold;
   border-radius: 5px;
   font-size: 15px;
-
   height: 40px;
-  width: 130px;
+  width: 90px;
+ 
 }
 
 .navbar button:hover {
@@ -97,10 +88,17 @@
 }
 
 .selectPerfil {
-  margin: 15px;
-  margin-top: 40px;
+ font-weight: 400;
+ font-family: "Montserrat";
+ 
   border: none;
-  background-color: rgba(210, 105, 30, 0.345);
+  background-color: rgba(210, 105, 30, 0.1);
   color: chocolate;
-  font-size: 1.05rem;
+  font-size: 1rem;
+}
+
+.señectPerfil select-selected {
+  transition:color 0.5s, background-color 0.5s,;
+  background-color: chocolate;
+  color:white;
 }

@@ -18,11 +18,11 @@ export default function ProductCard({
     <div
       className="card"
       id={styles.card}
-      style={{ padding: "0", margin: "12px", width: "15%", height: "490px" }}
+      style={{ padding: "0", margin: "10px", width: "14%", height: "420px" }}
     >
       <img
         className="card-img-top"
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: "cover" , height: '40%'}}
         src={image}
         alt="no pudo cargarse la imagen"
       />
@@ -51,8 +51,8 @@ export default function ProductCard({
       >
         Ver Producto
       </a>
-      <div className="card-footer">
-       <small> Empresa:{" "}</small>
+      <div className="card-footer" id={styles.empresa}>
+       {/* <small style={{fontSize: '5px'}}> Empresa:{" "}</small> */}
         <small className="text-muted" id={styles.bold}>
           {business.businessBranchName ? business.businessBranchName.split(" - ")[0] : "No esta asociado a una empresa"}
         </small>

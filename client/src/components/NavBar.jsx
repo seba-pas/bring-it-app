@@ -102,17 +102,17 @@ export default function NavBar() {
             color: "#d2691E",
             fontSize: "18px",
             margin: "3px",
-            marginTop: "35px",
+            marginTop: "33px",
           }}
         >
           
-          <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "white", borderColor: "chocolate", marginTop: '5px', paddingBottom: '10px', paddingBottom: '10px'}}>
-            <FaShoppingBag/>
+          <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "rgba(210, 105, 30, 0.05)", fontSize: '12px', borderColor: "rgba(210, 105, 30, 0.05)", marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px'}}>
+            {/* <FaShoppingBag/> */}
             <span
-              style={{ color: "#D2691E", margin: "5px", fontSize: "18px" }}
+              style={{ color: "#D2691E", margin: "0px", fontSize: "18px" }}
               className="badge"
             >
-              {stateCart.length}
+              {'🛒 '}{stateCart.length}
             </span>
           </button>
 
@@ -149,12 +149,18 @@ export default function NavBar() {
           name="perfil"
           value="perfil"
           onChange={(e) => handleOnChange(e)}
+          style={{
+            marginTop: '33px',
+            marginRight: '15px',
+            fontSize: '18px'
+
+          }}
         >
           <option value="">Mi cuenta</option>
-           <option value="email">Editar mi cuenta</option>  {/* {gState.user.others.dataValues.email} */}
           <option value="misCompras">Mis compras</option>
-            <option value="modificarPassword">Modificar contraseña</option>
           <option value="misViajes">Mis Viajes</option>
+           <option value="email">Editar mi cuenta</option>  {/* {gState.user.others.dataValues.email} */}
+            <option value="modificarPassword">Modificar contraseña</option>
           <option value="desactivarMiCuenta">Desactivar mi cuenta</option>
           <option value="close">Cerrar sesión</option>
 
