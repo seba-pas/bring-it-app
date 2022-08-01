@@ -157,7 +157,7 @@ function RegisterBusiness() {
       setDidMount(false);
       return;
     } else {
-      if (business === "Empresa creada") {
+      if (business === "Empresa y sede creada") {
         swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
         setInput({
           email: "",
@@ -379,14 +379,6 @@ function RegisterBusiness() {
                   placeholder="Ingresa tu número de contacto"
                   onChange={(e) => handleChange(e)}
                 />
-                {/* <div>
-                    <PhoneInput
-                      placeholder="Enter phone number"
-                      value={value}
-                      onChange={setValue}
-                    />
-                    {value}
-                  </div> */}
               </Form.Group>
             
               <div>

@@ -32,7 +32,7 @@ export const FILTER_BY_BRANCHES = 'FILTER_BY_BRANCHES';
 export const FILTER_BY_BRANCHES_PROVINCES = 'FILTER_BY_BRANCHES_PROVINCES';
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const POST_PURCHASE = 'POST_PURCHASE'
-
+export const GET_BY_PURCHASE_EMAIL = 'GET_BY_PURCHASE_EMAIL';
 //Acciones del carrito (cart)
 export const GET_CART = 'GET_CART';
 export const ADD_TO_CART = 'ADD_TO_CART';

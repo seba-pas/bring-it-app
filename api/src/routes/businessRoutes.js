@@ -82,7 +82,7 @@ router.post('/login', async(req,res) => {
     try {
         const businessLogin = await Business.findByPk(req.body.email);
 
-        if (!businessLogin) res.send('Usuario no encontrado');
+        if (!businessLogin) return res.send('Usuario no encontrado');
 
         const hashedPassword = CryptoJS.AES.decrypt(businessLogin.password, process.env.PASS_SEC);
         const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
@@ -90,7 +90,7 @@ router.post('/login', async(req,res) => {
         if(originalPassword !== req.body.password) return res.status(401).send(`Datos incorrectos`);
 
         const accessToken = jwt.sign({
-            id: businessLogin.id,
+            email: businessLogin.email,
             isBusiness: businessLogin.isBusiness
         }, process.env.JWT_SEC, { expiresIn: '1d' });
 

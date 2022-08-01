@@ -16,6 +16,7 @@ const initialState = {
   business2: [],
   allBusiness2: [],
   purchase: [],
+  purchases: [],
   provinces: [],
   putEmail: "",
   putBusiness: "",
@@ -58,6 +59,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         purchase: action.payload
       }
+      case "GET_BY_PURCHASE_EMAIL":
+        return {
+          ...state,
+          purchases: action.payload
+        }
     case "POST_USER":
       return {
         ...state,
@@ -92,12 +98,12 @@ export default function rootReducer(state = initialState, action) {
     case "CLEAN_USERS":
       return {
         ...state,
-        user: {},
+        user: "clean",
       };
     case "CLEAN_BUSINESS":
       return {
         ...state,
-        business: {},
+        business: "clean",
       };
     case "POST_LOGIN":
       return {

@@ -9,7 +9,7 @@ import logo from "./img/logoCUT.png";
 import userProfile from "./img/userPerfilImage.jpg";
 
 
-export default function NavBarusiness() {
+export default function NavBarBusiness() {
     const gState = useSelector((state) => state);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -78,6 +78,7 @@ export default function NavBarusiness() {
 
                 <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)}>
                     <option value="">{input.perfil} </option>
+                    <option value="">Mi cuenta</option>
                     <option value="email">{input.businessInfo.email}</option>
                     <option value="desactivarMiCuenta">Desactivar mi cuenta</option>
                     <option value="close">Cerrar sesión</option>

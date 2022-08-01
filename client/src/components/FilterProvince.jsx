@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
-import { filterByBranchesProvince, getAllProducts, setProduct } from "../actions";
+import {
+  filterByBranchesProvince,
+  getAllProducts,
+  setProduct,
+} from "../actions";
 import { SpinnerCircularFixed } from "spinners-react";
-import NavBarProvince from "./NavBarProvince";
+import NavBar from "./NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function FilterProvince() {
@@ -30,11 +34,10 @@ export default function FilterProvince() {
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(filterByBranchesProvince());
-    return() => {
-        dispatch(setProduct())
-    }
+    return () => {
+      dispatch(setProduct());
+    };
   }, [dispatch]);
-
 
   function handleFilterByBranchesProvinces(e) {
     e.preventDefault();
@@ -51,52 +54,55 @@ export default function FilterProvince() {
   }
 
   return (
-    
-      <div>
-          <NavBarProvince />
-        {PRODUCTS.length > 0 ? (
-          PRODUCTS == "No se encontraron productos asociados" ? (
-            <div>
-              <h1>No se encontraron productos asociados</h1>
-              <button onClick={(e) => handleClick(e)}>Volver</button>
-            </div>
-          ) : (
-            <div>
-              <select
-                value={BRANCHES.businessbranches}
-                onChange={(e) => handleFilterByBranchesProvinces(e)}
-              >
-                <option value="All">Todas</option>
+    <div>
+      <NavBar />
+      {PRODUCTS.length > 0 &&
+      PRODUCTS !== "No se encontraron productos asociados" ? (
+        <div>
+          <select
+            value={BRANCHES.businessbranches}
+            onChange={(e) => handleFilterByBranchesProvinces(e)}
+            style={{
+              color: "white",
+              marginTop: "33px",
+              backgroundColor: "chocolate",
+              border: 'none',
+              fontSize: '18px',
+              fontFamily: "Montserrat",
+              fontWeight: '400'
+              
+            }}
+          >
+            <option value="All">Todas</option>
 
-                {BRANCHES.map((province) => {
-                  return (
-                    <option value={province.province} key={province.province}>
-                      {province.province}
-                    </option>
-                  );
-                })}
-              </select>
-              <div className={styles.contcards} style={{ width: "100%" }}>
-                <ProductCards currentProducts={currentProducts} />
-              </div>
-              <Pagination
-                productsPerPage={productsPerPage}
-                PRODUCTS={PRODUCTS.length}
-                paginado={paginado}
-              />
-            </div>
-          )
-        ) : (
-          <div className={styles.spinner}>
-            <SpinnerCircularFixed
-              size={250}
-              thickness={100}
-              speed={100}
-              color="rgba(210, 105, 30, 1)"
-              secondaryColor="rgba(210, 105, 30, 0.23)"
-            />
+            {BRANCHES.map((province) => {
+              return (
+                <option value={province.province} key={province.province}>
+                  {province.province}
+                </option>
+              );
+            })}
+          </select>
+          <div className={styles.contcards} style={{ width: "100%" }}>
+            <ProductCards currentProducts={currentProducts} />
           </div>
-        )}
-      </div>
+          <Pagination
+            productsPerPage={productsPerPage}
+            PRODUCTS={PRODUCTS.length}
+            paginado={paginado}
+          />
+        </div>
+      ) : (
+        <div className={styles.spinner}>
+          <SpinnerCircularFixed
+            size={250}
+            thickness={100}
+            speed={100}
+            color="rgba(210, 105, 30, 1)"
+            secondaryColor="rgba(210, 105, 30, 0.23)"
+          />
+        </div>
+      )}
+    </div>
   );
 }

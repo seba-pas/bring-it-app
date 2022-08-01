@@ -46,7 +46,7 @@ import {
   POST_BRANCH,
   DELETE_BRANCH,
   EDIT_BRANCH,
-
+  GET_BY_PURCHASE_EMAIL,
 
   //borrado lógico
   ACTIVATE_BUSINESS,
@@ -296,6 +296,8 @@ export const getUsers = () => {
   };
 };
 
+
+
 export const login = (body) => {
   return async function (dispatch) {
     try {
@@ -360,7 +362,7 @@ export function addBusiness(body) {
 
 export function postPurchase(body) {
   return async function (dispatch) {
-    let res = await axios.post(`/api/purchase`, body);
+    let res = await axios.post(`/purchase`, body);
     try {
       return dispatch({
         type: POST_PURCHASE,
@@ -417,6 +419,21 @@ export const addTravel = (body) => {
     }
   };
 };
+
+export const getByPurchaseEmail = (email) => {
+  return async function (dispatch){
+    try {
+      const res = await axios.get(`/purchase/email/${email}`)
+      return dispatch({
+        type: GET_BY_PURCHASE_EMAIL,
+        payload: res.data,
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //get travels
 export const getAllTravel = () => {
   return async function (dispatch) {
@@ -528,7 +545,7 @@ export const desactivateUser = (email) => {
   return async function (dispatch) {
     try {
       const body = { active: false };
-      const res = await axios.put(`/api/user/${email}`, body);
+      const res = await axios.put(`/user/${email}`, body);
       return dispatch({
         type: DESACTIVATE_USER,
         payload: res.data
@@ -544,7 +561,7 @@ export const activateUser = (email) => {
   return async function (dispatch) {
     try {
       const body = { active: true };
-      const res = await axios.put(`/api/user/${email}`, body);
+      const res = await axios.put(`/user/${email}`, body);
       return dispatch({
         type: ACTIVATE_USER,
         payload: res.data
@@ -560,7 +577,7 @@ export const desactivateBusiness = (email) => {
   return async function (dispatch) {
     try {
       const body = { active: false };
-      const res = await axios.put(`/api/business/${email}`, body);
+      const res = await axios.put(`/business/${email}`, body);
       return dispatch({
         type: DESACTIVATE_BUSINESS,
         payload: res.data
@@ -576,7 +593,7 @@ export const activateBusiness = (email) => {
   return async function (dispatch) {
     try {
       const body = { active: true };
-      const res = await axios.put(`/api/business/${email}`, body);
+      const res = await axios.put(`/business/${email}`, body);
       return dispatch({
         type: ACTIVATE_BUSINESS,
         payload: res.data

@@ -101,7 +101,7 @@ export default function NavBarLanding() {
       });
     } else {
       swal(
-        "Ops a ocurrido un error",
+        "La contraseña es incorrecta",
         "Verifica cumplir con los requisitos",
         "error"
       );
@@ -125,19 +125,21 @@ export default function NavBarLanding() {
       setDidMount(false);
       return;
     } else {
-      if (business === "Usuario no encontrado") {
+      if(business === "clean") return;
+      if(business === "Empresa y sede creada") return;
+      else if (business === "Usuario no encontrado") {
         swal(
           "Empresa no encontrada",
           "La empresa a la que intentas entrar no esta registrada",
           "error"
         );
+       
         setInputBusiness({
           email: "",
           password: "",
         });
         dispatch(cleanBusiness());
-
-        return;
+        history.push("/")
       } else if (business === "Datos incorrectos") {
         swal(
           "Datos incorrectos",
@@ -222,7 +224,9 @@ export default function NavBarLanding() {
       setDidMount(false);
       return;
     } else {
-      if (user === "Usuario no encontrado") {
+      if(user === "clean") return;
+      if(user === 'Usuario creado') return;
+      else if (user === "Usuario no encontrado") {
         swal(
           "Usuario no encontrado",
           "El email parece no estar registrado",
@@ -233,6 +237,7 @@ export default function NavBarLanding() {
           password: "",
         });
         dispatch(cleanUsers());
+        history.push("/")
         return;
       } else if (user === "Datos incorrectos") {
         swal(
@@ -280,17 +285,20 @@ export default function NavBarLanding() {
   const handleShow = () => setShow(true);
 
   return (
-    <div className={styles.navbarLanding} style={{ border: "none" }}>
+    <div className={styles.navbarLanding} style={{ border: "none", display: 'flex', justifyContent: 'space-between' }}>
       {/* <div className={styles.imagen}> */}
 
       {/* <NavLink exact to="/"> */}
       <img
         src={image}
         style={{
-          height: "130px",
+          height: "auto",
           width: "auto",
+          objectFit: "cover",
           paddingBottom: "0px",
           marginBottom: "0px",
+          marginRight: '28%',
+          marginTop: "20px"
         }}
         alt="Logo no encontrado"
       />
@@ -298,10 +306,13 @@ export default function NavBarLanding() {
       {/* </div> */}
 
       <div className={styles.SearchBar}></div>
-      <div className={styles.contbotones2}>
+      <div className={styles.contbotones2} style={{marginLeft: '30%'}}>
         <button id={styles.login} onClick={handleShowLogin}>
           LOGIN
         </button>
+        <button onClick={handleShow}>REGISTRARSE</button>
+        </div>
+        <div>
         <Modal show={showLogin} onHide={handleCloseLogin}>
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
@@ -402,9 +413,7 @@ export default function NavBarLanding() {
               Close
             </Button>
           </Modal.Footer>
-        </Modal>
-
-        <button onClick={handleShow}>REGISTRARSE</button>
+        </Modal> 
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

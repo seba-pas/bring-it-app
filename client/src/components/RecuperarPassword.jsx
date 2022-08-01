@@ -2,10 +2,14 @@ import React from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import NavBarLanding from "./NavBarLanding";
 
-function RecuperarPassword() {
+function RecuperarPassword(props) {
+  const handleBack = (event) => {
+    event.preventDefault();
+    props.history.goBack();
+  };
   return (
     <div>
-      <NavBarLanding/>
+      {/* <NavBarLanding/> */}
       <div>
       <Container>
           <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
@@ -60,13 +64,18 @@ function RecuperarPassword() {
                     // onChange={(e) => handleChange(e)}
                   />
                 </Form.Group>
-                <Button
-                  variant="primary"
-                  className="mt-3 mb-5 w-100 mt-3"
-                  type="submit"
+                <Row>
+                <Col
+                  lg={6}
+                  md={6}
+                  sm={12}
+                  className="text-center p-5 m-auto shadow-sm rounded-lg"
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  CONFIRMAR CAMBIO DE PASSWORD
-                </Button>
+                  <Button style={{width:"60%", marginRight:"10px"}} onClick={(e) => handleBack(e)}>Atras</Button>
+                  <Button type="submit">Confirmar compra</Button>
+                </Col>
+              </Row>
               </Form>
             </Col>
           </Row>
