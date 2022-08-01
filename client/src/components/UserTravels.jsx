@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllTravel } from "../actions";
 import styles from "../styles/UserTravels.module.css";
 import ProducTravelCard from "./ProducTravelCard";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { SpinnerCircularFixed } from "spinners-react";
 import DataTable from "react-data-table-component";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
-import moment from 'moment'
+import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 function UserTravels() {
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const [input, setInput] = useState({
     travels: [],
   });
@@ -61,7 +63,11 @@ function UserTravels() {
   }
 
   const columnas = [
-    { name: "Fecha", selector: (row) => formatDate(row.startDate), sortable: true },
+    {
+      name: "Fecha",
+      selector: (row) => formatDate(row.startDate),
+      sortable: true,
+    },
     {
       name: "Provincia",
       selector: (row) => row.travelProvince,
@@ -106,6 +112,22 @@ function UserTravels() {
             title="Listado de viajes"
           />
           <br />
+          <Row>
+            <Col
+              lg={6}
+              md={6}
+              sm={12}
+              className="text-center p-5 m-auto rounded-lg"
+              style={{ display: "flex" }}
+            >
+              <Button
+                onClick={() => history.goBack()}
+                style={{ marginLeft: "45%" }}
+              >
+                ATRAS
+              </Button>
+            </Col>
+          </Row>
         </div>
       ) : (
         <div className={styles.spinner}>
