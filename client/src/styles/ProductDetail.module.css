@@ -5,9 +5,14 @@
   margin-bottom: 50px;
   margin-top: 30px;
 }
+body {
+  background: white;
+}
 .layout {
   display:flex;
   flex-direction: column;
+  margin-top:0;
+
 }
 
 .contBot {
@@ -20,7 +25,7 @@
   margin-left: 20px;
   padding: 0;
   text-align: left;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   transition: box-shadow 0.8s ease-in;
 }
 .imgCon {
@@ -36,17 +41,19 @@
 .imgCon img {
   float: right;
   object-fit: fill;
-  max-height: 60%;
+  max-height: 30%;
   width: auto;
   height: auto;
-  margin: 20px;
+  margin: 25px;
   /* border: solid 1px black; */
 }
 /* #card:hover {
   background-color: #41d4cf69;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 8px 16px 0 rgba(0, 0, 0, 0.35);
 } */
-
+#provincia {
+  font-size: 15px;
+}
 #boton {
   font-family: "Montserrat", sans-serif;
   background-color: chocolate;
@@ -72,9 +79,11 @@
   font-weight: bold;
   border-radius: 5px;
   margin-bottom: 20px;
-  font-size: 15px;
-  height: 40px;
+  font-size: 14px;
+  height: 35px;
+  padding-bottom: 5px;
   width: 100%;
+  margin-left: 0;
 }
 
 #boton:hover {
@@ -91,7 +100,8 @@
 }
 #name {
   /* margin-left: 20px; */
-  font-size: 50px;
+  font-size: 42px;
+
   font-weight: 200;
   text-align: left;
 }
@@ -100,34 +110,35 @@
 }
 #empresa {
   color: rgba(0, 0, 0, 0.55);
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 10px;
+
 }
 
 #categories {
-  font-size: 22px;
+  font-size: 16px;
   color: rgba(0, 0, 0, 0.9);
 }
 #bold {
   font-weight: bold;
-  font-size: 18px;
-  margin-left: 10px;
+  font-size: 15px;
+  margin-left: 8px;
 }
 #description {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  font-size: 22px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
 }
 #price {
   padding-top: 2px;
-  padding-bottom: 10px;
-  font-size: 55px;
+  padding-bottom: 8px;
+  font-size: 45px;
   font-weight: 200;
   /* margin-left: 10px; */
   text-align: left;
 }
 
 .spinner {
+  padding-top: 250px;
   display: flex;
   justify-content: center;
   align-content: center;
