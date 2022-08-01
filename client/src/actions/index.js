@@ -90,7 +90,7 @@ export const getAllProductsDetail = (id) => {
 export const getAllProductsName = (name) => {
   return async function (dispatch) {
     try {
-      const res = await axios(`//product?name=${name}`);
+      const res = await axios(`/product?name=${name}`);
       return dispatch({
         type: GET_ALL_PRODUCTS_NAME,
         payload: res.data,

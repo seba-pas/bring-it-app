@@ -131,7 +131,6 @@ export default function rootReducer(state = initialState, action) {
         return {
           ...state,
           products: action.payload ? action.payload : "No se encontraron productos asociados",
-
         };
       }
 
@@ -188,7 +187,7 @@ export default function rootReducer(state = initialState, action) {
 
       return {
         ...state,
-        products: filterCategory,
+        products: filterCategory.length ? filterCategory: "No se encontraron productos asociados",
       };
 
     case "SET_PRODUCT_DETAIL":
