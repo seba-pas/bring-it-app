@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
-
 import { filterByBranchesProvince, getAllProducts, orderByPrice,setProduct } from "../actions";
-
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "./NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";

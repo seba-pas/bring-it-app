@@ -6,14 +6,14 @@ import {getByPurchaseEmail} from '../actions'
 import { FaSearchLocation } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 
-function HomeUserPurchase() {
+function HomeUserPurchase(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const purchases = useSelector((state) => state.purchases)
   const user = useSelector((state) => state.user)
   const handleBack = (event) => {
     event.preventDefault();
-    history.push("/persona")
+    props.history.goBack();
   };
   
 
