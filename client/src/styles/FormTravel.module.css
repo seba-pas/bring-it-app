@@ -123,7 +123,11 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
+
+
     border: solid 2.5px #8c52ff;
+
+
 
 }
 
@@ -141,7 +145,10 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
+
+
     border: solid 2.5px #8c52ff;
+
 }
 
 
@@ -217,7 +224,11 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
+
+
     border: solid 2.5px #8c52ff;
+
+
 }
 
 .sidebaron li .inputToCity {
@@ -234,7 +245,11 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
+
+
     border: solid 2.5px #8c52ff;
+
+
 }
 
 .sidebaron li .arrivaldateSpan {
@@ -284,14 +299,22 @@
     z-index: 0;
     height: 50px;
     width: 200px;
+
+
     border: solid 2.5px #8c52ff;
+
+
     border-radius: 9px;
     font-size: 1.3rem;
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+
+
     color:black;
+
+
 }
 
 .displaynone {

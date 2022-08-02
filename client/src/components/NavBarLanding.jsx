@@ -323,6 +323,7 @@ useEffect(() => {
           width: "10%",
           objectFit: "fit",
           paddingBottom: "0px",
+
           marginLeft: '2%',
           marginTop: "3px",
           paddingTop:'5px',
