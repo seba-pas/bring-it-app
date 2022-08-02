@@ -11,6 +11,11 @@ import dotenv from "dotenv";
 import axios from "axios";
 import { PersistGate } from "redux-persist/integration/react";
 import {persistor} from '../src/store/index'
+import { ChakraProvider } from '@chakra-ui/react'
+
+
+
+
 
 dotenv.config();
 
@@ -20,7 +25,10 @@ const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 root.render(
+      <ChakraProvider>
   <StrictMode>
+   
+
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
@@ -28,7 +36,9 @@ root.render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
+    
   </StrictMode>
+        </ChakraProvider>
   // document.getElementById("root")
 );
 

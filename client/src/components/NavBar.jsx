@@ -4,14 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
 import logo from "./img/logoCUT.png";
-import { getUsers, getCart, clearCart , desactivateUser, cleanUsers} from "../actions";
+import {
+  getUsers,
+  getCart,
+  clearCart,
+  desactivateUser,
+  cleanUsers,
+} from "../actions";
 import userProfile from "./img/userPerfilImage.jpg";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.css";
 import Button from "react-bootstrap/Button";
-import {FaShoppingBag} from 'react-icons/fa'
+import { FaShoppingBag } from "react-icons/fa";
 import Cart from "./Cart";
 import { getAllProducts } from "../actions";
+import { Avatar, AvatarBadge } from "@chakra-ui/react";
 
 //seba
 export default function NavBar() {
@@ -29,6 +36,8 @@ export default function NavBar() {
     perfil: "",
     user: {},
   });
+
+  const userAvatar = gState.user.others.dataValues;
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -43,21 +52,26 @@ export default function NavBar() {
   }, [gState]);
 
   useEffect(() => {
-
-    if (input.perfil === "email") {history.push("/perfilUser");}
-    if (input.perfil === "misViajes") {history.push("/persona/misviajes"); }
-    if(input.perfil === "modificarPassword") {history.push("/persona/modificarPassword")}
+    if (input.perfil === "email") {
+      history.push("/perfilUser");
+    }
+    if (input.perfil === "misViajes") {
+      history.push("/persona/misviajes");
+    }
+    if (input.perfil === "modificarPassword") {
+      history.push("/persona/modificarPassword");
+    }
     if (input.perfil === "desactivarMiCuenta") {
       dispatch(desactivateUser(input.user.others.dataValues.email));
       dispatch(cleanUsers());
-      history.push('/');
+      history.push("/");
     }
 
-    if(input.perfil === "misCompras") history.push("/persona/homeUserPurchase")
-
+    if (input.perfil === "misCompras")
+      history.push("/persona/homeUserPurchase");
     else if (input.perfil === "close") {
       dispatch(clearCart());
-       history.push("/");
+      history.push("/");
     }
   }, [input.perfil]);
 
@@ -86,12 +100,12 @@ export default function NavBar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.imagen}>
-        <a onClick={() => history.goBack()} style={{cursor:'pointer'}}>
-        <img      
-          src={logo}
-          style={{ width: "auto", height: "100px" }}
-          alt="Logo no encontrado"
-        />
+        <a onClick={() => history.goBack()} style={{ cursor: "pointer" }}>
+          <img
+            src={logo}
+            style={{ width: "auto", height: "100px" }}
+            alt="Logo no encontrado"
+          />
         </a>
       </div>
       <div className={styles.search}>
@@ -107,21 +121,36 @@ export default function NavBar() {
             marginTop: "33px",
           }}
         >
-          
-          <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "rgba(210, 105, 30, 0.05)", fontSize: '12px', borderColor: "rgba(210, 105, 30, 0.05)", marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px'}}>
+          <button
+            id={styles.botonCart}
+            onClick={handleShow}
+            style={{
+              backgroundColor: "rgba(210, 105, 30, 0.05)",
+              fontSize: "12px",
+              borderColor: "rgba(210, 105, 30, 0.05)",
+              marginTop: "0px",
+              paddingBottom: "10px",
+              paddingBottom: "10px",
+            }}
+          >
             {/* <FaShoppingBag/> */}
             <span
               style={{ color: "#D2691E", margin: "0px", fontSize: "18px" }}
               className="badge"
             >
-              {'🛒 '}{stateCart.length}
+              {"🛒 "}
+              {stateCart.length}
             </span>
           </button>
 
-          <Modal show={show} onHide={handleClose} style={{width:"100%"}}>
+          <Modal show={show} onHide={handleClose} style={{ width: "100%" }}>
             <Modal.Header closeButton>
               <Modal.Title>Productos seleccionados</Modal.Title>
-              <span>{stateCart.length > 0 ? stateCart[0].businessbranch.businessBranchName : ""}</span>
+              <span>
+                {stateCart.length > 0
+                  ? stateCart[0].businessbranch.businessBranchName
+                  : ""}
+              </span>
             </Modal.Header>
             <Modal.Body>
               <Cart />
@@ -146,7 +175,7 @@ export default function NavBar() {
           alt="Logo no encontrado"
         /> */}
 
-        <select
+        {/* <select
           className={styles.selectPerfil}
           name="perfil"
           value="perfil"
@@ -162,17 +191,33 @@ export default function NavBar() {
           <option value="">Mi cuenta</option>
           <option value="misCompras">Mis compras</option>
           <option value="misViajes">Mis Viajes</option>
-           <option value="email">Editar mi cuenta</option>  {/* {gState.user.others.dataValues.email} */}
+           <option value="email">Editar mi cuenta</option> 
             <option value="modificarPassword">Modificar contraseña</option>
           <option value="desactivarMiCuenta">Desactivar mi cuenta</option>
           <option value="close">Cerrar sesión</option>
 
 
-        </select> 
+        </select>  */}
+        <div
+          style={{
+            height: "100%",
+            paddingTop: "25px",
+            paddingRight: "75px",
+            cursor: "pointer",
+          }}
+        >
+          <Avatar
+            onClick={() => history.push("/usuarioE")}
+            name={`${userAvatar.name} ${userAvatar.lastname}`}
+            src=""
+          >
+            <AvatarBadge boxSize="1.25em" bg="green.500" />
+          </Avatar>
+        </div>
       </div>
       {/* <div>
         <button onClick={(e) => onClick(e)}>Volver</button>
       </div> */}
-     </div>
+    </div>
   );
 }

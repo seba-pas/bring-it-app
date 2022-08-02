@@ -26,7 +26,7 @@
  /* padding-left: 15px; */
   font-family: "Montserrat", sans-serif;
   background-color: rgba(210, 105, 30, 0.2);
-  color: chocolate;
+  color: #8c52ff;
   border: none;
   font-weight: bold;
   border-radius: 5px;
@@ -42,13 +42,13 @@
 }
 .botonvol:hover{
   transition: border-color 0.2s ease-in, background-color 0.4s ease-in;
-  background-color: chocolate;
+  background-color: #8c52ff;
   color: white;
-  border-color: chocolate;
+  border-color: #8c52ff;
 }
 
 select {
-  background-color: chocolate;
+  background-color: #8c52ff;
   color: #F6F5F5 ;
   border:none;
   font-weight: bold;
@@ -62,7 +62,7 @@ select {
 
 .containerS option {
   font-family: "Montserrat", sans-serif;
-  background-color: chocolate;
+  background-color: #8c52ff;
   color: white;
   font-size: 1rem;
 
@@ -76,18 +76,18 @@ select {
   margin-top: 5%;
   padding-left: 9px;  
 
-  border-color: chocolate;
+  border-color: #8c52ff;
   /* background-color:  rgba(210, 105, 30, 0.08); */
-  color: chocolate;
+  color: #8c52ff;
   margin-right: 25px;
   font-size: 1rem;
   border:none;
  
 }
 .containerS select:hover {
-  border-color:chocolate;
+  border-color:#8c52ff;
   transition: background-color 0.4s ease;
-  background-color: chocolate; /* Green */
+  background-color: #8c52ff; /* Green */
   color: white;
 }
 
@@ -105,6 +105,6 @@ select {
 }
 
 .div option {
-  background-color: chocolate;
+  background-color: #8c52ff;
   color:white;
 }

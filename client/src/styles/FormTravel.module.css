@@ -4,7 +4,7 @@
     top: 25%;
     height: 350px;
     width: 10px;
-    background: chocolate;
+    background: #8c52ff;
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.5s ease;
@@ -22,7 +22,7 @@
     z-index: 99;
     transition: all 0.5s ease;
     /* border-radius: 20px; */
-    border: solid 2px chocolate;
+    border: solid 2px #8c52ff;
 }
 
 .btnoff {
@@ -46,7 +46,7 @@
     font-size: 2rem;
     border: solid 2px transparent;
     background-color: transparent;
-    color: chocolate;
+    color: #8c52ff;
 }
 
 .sidebaron .btnon {
@@ -123,7 +123,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px chocolate;
+    border: solid 4px #8c52ff;
 
 }
 
@@ -141,7 +141,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px chocolate;
+    border: solid 4px #8c52ff;
 }
 
 
@@ -178,9 +178,9 @@
     background-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-bottom-color: chocolate;
-    border-bottom-color: chocolate;
-    border-right-color: chocolate;
+    border-bottom-color: #8c52ff;
+    border-bottom-color: #8c52ff;
+    border-right-color: #8c52ff;
     font-size: 1.3rem;
 }
 
@@ -217,7 +217,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px chocolate;
+    border: solid 4px #8c52ff;
 }
 
 .sidebaron li .inputToCity {
@@ -234,7 +234,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px chocolate;
+    border: solid 4px #8c52ff;
 }
 
 .sidebaron li .arrivaldateSpan {
@@ -270,9 +270,9 @@
     background-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-bottom-color: chocolate;
-    border-bottom-color: chocolate;
-    border-right-color: chocolate;
+    border-bottom-color: #8c52ff;
+    border-bottom-color: #8c52ff;
+    border-right-color: #8c52ff;
     font-size: 1.3rem;
 }
 
@@ -284,14 +284,14 @@
     z-index: 0;
     height: 50px;
     width: 200px;
-    border: solid 2px chocolate;
+    border: solid 2px #8c52ff;
     border-radius: 9px;
     font-size: 1.3rem;
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: chocolate;
+    color: #8c52ff;
 }
 
 .displaynone {
