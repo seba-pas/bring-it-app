@@ -25,6 +25,7 @@ import {
   GET_ALL_BUSINESS,
   FILTER_BY_BUSINESS,
   PUT_USER,
+  GET_ACTIVE_USER,
   PUT_BUSINESS,
   ADD_TRAVEL,
   GET_TRAVELS,
@@ -72,6 +73,7 @@ export const getAllProducts = () => {
     }
   };
 };
+
 
 export const getAllProductsDetail = (id) => {
   return async function (dispatch) {
@@ -325,6 +327,13 @@ export const addUser = (body) => {
     }
   };
 };
+export const getActiveUser=()=>{
+  return {
+    type: GET_ACTIVE_USER
+    
+      }
+
+}
 
 export const editUser = (id, body) => {
   return async function (dispatch) {

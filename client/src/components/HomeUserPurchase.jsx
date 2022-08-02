@@ -11,11 +11,13 @@ function HomeUserPurchase() {
   const history = useHistory();
   const purchases = useSelector((state) => state.purchases)
   const user = useSelector((state) => state.user)
+
   console.log(purchases)
   const handleBack = (event) => {
     event.preventDefault();
     history.push("/filtro");
   };
+
   
 
   useEffect(() => {
@@ -67,7 +69,7 @@ function HomeUserPurchase() {
             <br />
           </Col>
         </Row>
-        <Button onClick={(e) => handleBack(e)}>Atras</Button>
+        <Button onClick={(e) => history.goBack(e)}>Atras</Button>
       </Container>
     </div>
   );
