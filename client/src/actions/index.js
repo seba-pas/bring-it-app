@@ -372,13 +372,14 @@ export function addBusiness(body) {
 export function postPurchase(body) {
   return async function (dispatch) {
     let res = await axios.post(`/purchase`, body);
+    console.log(res)
     try {
       return dispatch({
         type: POST_PURCHASE,
         payload: res.data,
       });
     } catch (error) {
-      console.log(error);
+      console.log("errorFront",`${error.message}`);
     }
   };
 }
@@ -433,6 +434,7 @@ export const getByPurchaseEmail = (email) => {
   return async function (dispatch){
     try {
       const res = await axios.get(`/purchase/email/${email}`)
+      debugger;
       return dispatch({
         type: GET_BY_PURCHASE_EMAIL,
         payload: res.data,

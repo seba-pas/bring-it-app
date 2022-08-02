@@ -24,11 +24,14 @@ function FormPurchase() {
   const [province, setProvince] = useState("All");
   const gState = useSelector((state) => state);
   const [input, setInput] = useState({
-    // arrivalCityId: "",
+    arrivalCityId: "",
     name: "",
     maxDeliveryDate: moment().format("YYYY-MM-DD"),
     userEmail: gState.user.others.dataValues.email,
     items: cart,
+    totalPrice: cart
+    .reduce((acc, item) => acc + item.quantity * item.price, 0)
+    .toFixed(2)
   });
   const handleInputChange = (event) => {
     event.preventDefault();
