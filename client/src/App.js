@@ -20,7 +20,7 @@ import FilterBefore from "./components/FilterBefore";
 import FilterProvince from "./components/FilterProvince";
 import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
-import Usuario from './components/Usuario'
+import Usuario from './components/Usuario.jsx'
 
 
 function App() {
