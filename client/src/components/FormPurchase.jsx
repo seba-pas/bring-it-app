@@ -106,7 +106,7 @@ function FormPurchase() {
     <div>
       {/* <NavBar/> */}
       <Container>
-        <h1 className="shadow-sm mt-5 p-3 text-center rounded" style={{color:"chocolate"}}>
+        <h1 className="shadow-sm mt-5 p-3 text-center rounded" style={{color:"#8c52ff"}}>
           Finalizar Compra
         </h1>
         <Row>

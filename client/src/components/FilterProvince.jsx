@@ -70,7 +70,7 @@ export default function FilterProvince() {
             style={{
               color: "white",
               marginTop: "33px",
-              backgroundColor: "chocolate",
+              backgroundColor: "#8c52ff",
               border: 'none',
               fontSize: '18px',
               fontFamily: "Montserrat",
@@ -92,7 +92,7 @@ export default function FilterProvince() {
           <select onChange={(e) => handleSort(e)} style={{
               color: "white",
               marginTop: "33px",
-              backgroundColor: "chocolate",
+              backgroundColor: "#8c52ff",
               border: 'none',
               fontSize: '18px',
               fontFamily: "Montserrat",
