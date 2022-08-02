@@ -25,6 +25,7 @@ import {
   GET_ALL_BUSINESS,
   FILTER_BY_BUSINESS,
   PUT_USER,
+  GET_ACTIVE_USER,
   PUT_BUSINESS,
   ADD_TRAVEL,
   GET_TRAVELS,
@@ -72,6 +73,7 @@ export const getAllProducts = () => {
     }
   };
 };
+
 
 export const getAllProductsDetail = (id) => {
   return async function (dispatch) {
@@ -325,6 +327,13 @@ export const addUser = (body) => {
     }
   };
 };
+export const getActiveUser=()=>{
+  return {
+    type: GET_ACTIVE_USER
+    
+      }
+
+}
 
 export const editUser = (id, body) => {
   return async function (dispatch) {
@@ -363,13 +372,14 @@ export function addBusiness(body) {
 export function postPurchase(body) {
   return async function (dispatch) {
     let res = await axios.post(`/purchase`, body);
+    console.log(res)
     try {
       return dispatch({
         type: POST_PURCHASE,
         payload: res.data,
       });
     } catch (error) {
-      console.log(error);
+      console.log("errorFront",`${error.message}`);
     }
   };
 }
@@ -424,6 +434,7 @@ export const getByPurchaseEmail = (email) => {
   return async function (dispatch){
     try {
       const res = await axios.get(`/purchase/email/${email}`)
+      debugger;
       return dispatch({
         type: GET_BY_PURCHASE_EMAIL,
         payload: res.data,

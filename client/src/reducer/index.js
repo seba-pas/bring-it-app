@@ -133,6 +133,13 @@ export default function rootReducer(state = initialState, action) {
           products: action.payload ? action.payload : "No se encontraron productos asociados",
         };
       }
+      case 'GET_ACTIVE_USER':
+        let userActive = state.user
+        return {
+          ...state,
+          user: userActive
+          
+        }
 
     case "ORDER_BY_PRICE":
       // if(action.payload === 'All'){

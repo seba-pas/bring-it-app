@@ -10,7 +10,7 @@
 
 .divContainer input {
  border-radius:5px;
-  border-color: #3ab0ff;
+  border-color: #8c52ff;
   border: none;
   padding-top:10px;
   padding-bottom: 10px;
@@ -26,30 +26,30 @@
   margin-left: 6px;
  
   margin-top: 0px;
-  color:rgba(210, 105, 30, 0.35);
+  color:white;
   font-weight: bold;
   text-align: left;
 
 }
 .divContainer input:hover {
-  background-color: rgba(210, 105, 30, 0.150);
-  color: #3ab0ff;
+  background-color: #8c52ff;
+  color: black;
   transition: color 1.0s ease, background-color 1.0s ease;
 }
 
 .divContainer input:focus {
     outline: none;
-    background-color: rgba(210, 105, 30, 0.181);
+    background-color: #8c52ff5d;
 
 }
 .divContainer input:focus::placeholder{
-    color:rgba(210, 105, 30, 0.181);
+    color:#8c52ff;
 
 }
 
 #boton {
-  background-color: white;
-  color: chocolate;
+  background-color: #8c52ff;
+  color: black;
   font-weight: bold;
   border: none;
   border-radius: 50%;
@@ -58,7 +58,7 @@
 }
 
 #boton:hover {
-    color: #3ab0ff;
+    color: white;
   
   transition: color 0.2s ease;
 }

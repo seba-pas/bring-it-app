@@ -21,6 +21,8 @@ import FilterProvince from "./components/FilterProvince";
 import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
+import Usuario from './components/Usuario.jsx'
+
 
 
 function App() {
@@ -42,6 +44,7 @@ function App() {
         <Route exact path="/filtro" component={FilterBefore} />
         <Route exact path="/filtroprov" component={FilterProvince} />
         {/* <Route path='/checkout' component={CheckOut} /> */}
+        <Route exact path='/usuarioE' component={Usuario}/>
         <Route exact path='/compra' component={CheckOut}/>
         <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />

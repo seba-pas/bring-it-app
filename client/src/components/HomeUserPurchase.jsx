@@ -6,15 +6,18 @@ import {getByPurchaseEmail} from '../actions'
 import { FaSearchLocation } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import moment from 'moment'
-function HomeUserPurchase(props) {
+function HomeUserPurchase() {
   const dispatch = useDispatch();
   const history = useHistory();
   const purchases = useSelector((state) => state.purchases)
   const user = useSelector((state) => state.user)
+
+  console.log(purchases)
   const handleBack = (event) => {
     event.preventDefault();
     history.push("/filtro");
   };
+
   
 
   useEffect(() => {
@@ -42,8 +45,6 @@ function HomeUserPurchase(props) {
             style={{ marginRight: "15px", fontSize: "30px" }}
             onClick={(e) => editUsers(e)}
           />
-          
-        
       ),
     },
   ];
@@ -68,7 +69,7 @@ function HomeUserPurchase(props) {
             <br />
           </Col>
         </Row>
-        <Button onClick={(e) => handleBack(e)}>Atras</Button>
+        <Button onClick={(e) => history.goBack(e)}>Atras</Button>
       </Container>
     </div>
   );

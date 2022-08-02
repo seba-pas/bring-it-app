@@ -122,7 +122,7 @@ function HomeBusiness() {
                     </div> */}
                     <div className={styles.inventoryContainer}>
                         {<table>
-                            <thead className={styles.titlleTable} style={{color:'chocolate', fontWeight: '18px'}}>
+                            <thead className={styles.titlleTable} style={{color:'#8c52ff', fontWeight: '18px'}}>
                                 <tr>
                                     <th>Imagen</th>
                                     <th>Producto</th>

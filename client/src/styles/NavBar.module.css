@@ -1,39 +1,43 @@
 .navbar {
-  background-color: white;
+  background-color: black;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%; 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.08);  
-  height: 100px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.25);  
+  height: 130px;
 }
 
 .imagen {
-  height:100%;
-  object-fit: cover;
-  width: auto;
-  margin-right: 25%;  
+  height: auto;
+  width: 10%;
+  object-fit: fit;
+  padding-bottom: 0px;
+  margin-left: 2%;
+  margin-top: 3px;
+  padding-top:5px;
 }
 #botonCart {
   height: 40px;
 }
 
 #botonCart:hover {
-  border-color: #3ab0ff;
+  border-color: black;
   transition: background-color 0.8s ease;
-  background-color: chocolate;
-  color: white;
+  background-color: #8c52ff;
+  color: black;
 }
 
 .search {
   margin-top: 33px;
+  margin-left: 20%;
  
 }
 .selectPerfil {
   margin-left:2%;
 }
 .selectPerfil option {
-  background-color: chocolate;
+  background-color: #8c52ff;
   color: white;
  
 }
@@ -90,16 +94,15 @@
 .selectPerfil {
  font-weight: 400;
  font-family: "Montserrat";
- 
-  border: none;
-  background-color: rgba(210, 105, 30, 0.1);
-  color: chocolate;
+  background-color:black;
+  color: white;
   font-size: 1rem;
+  border-color: #8c52ff;
 }
 
-.señectPerfil select-selected {
+.selectPerfil select-selected {
   transition:color 0.5s, background-color 0.5s,;
-  background-color: chocolate;
+  background-color: #8c52ff;
   color:white;
 }
 
