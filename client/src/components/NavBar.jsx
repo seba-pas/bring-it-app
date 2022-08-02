@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
 
+
 import logo from "./img/logo2.png";
 import { getUsers, getCart, clearCart , desactivateUser, cleanUsers} from "../actions";
+
 
 import userProfile from "./img/userPerfilImage.jpg";
 import Modal from "react-bootstrap/Modal";
@@ -119,6 +121,7 @@ export default function NavBar() {
         >
 
           
+
           <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "black", fontSize: '12px', borderColor: '#8c52ff', marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px', marginLeft:'70px'}}>
 
             {/* <FaShoppingBag/> */}

@@ -26,8 +26,10 @@
  /* padding-left: 15px; */
   font-family: "Montserrat", sans-serif;
 
+
   background-color: #8c52ff;
   color:white;
+
 
   border: none;
   font-weight: bold;
@@ -44,6 +46,7 @@
 }
 .botonvol:hover{
   transition: border-color 0.2s ease-in, background-color 0.4s ease-in;
+
 
   background-color: black;
   color: white;
@@ -90,9 +93,11 @@ select {
 }
 .containerS select:hover {
 
+
   border-color:black;
   transition: background-color 0.4s ease;
   background-color: black; /* Green */
+
 
   color: white;
 }
