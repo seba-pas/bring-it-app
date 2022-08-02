@@ -10,7 +10,7 @@ import {
   editBranch,
 } from "../actions";
 import DataTable from "react-data-table-component";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/PerfilBusiness.module.css";
 import swal from "sweetalert";
 import BranchCard from "./BranchCard";
@@ -21,11 +21,30 @@ function PerfilBusiness(props) {
   const dispatch = useDispatch();
   let id = props.match.params.id;
   let history = useHistory();
-
+ 
   const infoBusiness = gState.businessEditInfo;
   const branchId = gState.businessEditInfo.businessbranches.filter(
     (e) => e.id === parseInt(id)
   );
+
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "bringitImages");
+    setLoading(true);
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/bringitapp/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+    const file = await res.json();
+    console.log(res);
+    setImage(file.secure_url);
+    setLoading(false);
+  };
 
   useEffect(() => {
     dispatch(getAllProvinces());
@@ -39,33 +58,33 @@ function PerfilBusiness(props) {
   const [input, setInput] = useState(
     id
       ? {
-        businessEmail: infoBusiness.email,
-        businessName: infoBusiness.businessName,
-        businessbranches: infoBusiness.businessbranches,
-        cuit: infoBusiness.cuit,
-        email: infoBusiness.email,
-        logo: infoBusiness.logo || "",
-        phone: infoBusiness.phone,
-        taxBracket: infoBusiness.taxBracket,
-        arrayInfo: [],
-        province: branchId[0].province || "",
-        address: branchId[0].address || "",
-        city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
-      }
+          businessEmail: infoBusiness.email,
+          businessName: infoBusiness.businessName,
+          businessbranches: infoBusiness.businessbranches,
+          cuit: infoBusiness.cuit,
+          email: infoBusiness.email,
+          logo: infoBusiness.logo || "",
+          phone: infoBusiness.phone,
+          taxBracket: infoBusiness.taxBracket,
+          arrayInfo: [],
+          province: branchId[0].province || "",
+          address: branchId[0].address || "",
+          city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
+        }
       : {
-        businessEmail: infoBusiness.email,
-        businessName: infoBusiness.businessName,
-        businessbranches: infoBusiness.businessbranches,
-        cuit: infoBusiness.cuit,
-        email: infoBusiness.email,
-        logo: infoBusiness.logo || "",
-        phone: infoBusiness.phone,
-        taxBracket: infoBusiness.taxBracket,
-        arrayInfo: [],
-        province: "",
-        address: "",
-        city: "",
-      }
+          businessEmail: infoBusiness.email,
+          businessName: infoBusiness.businessName,
+          businessbranches: infoBusiness.businessbranches,
+          cuit: infoBusiness.cuit,
+          email: infoBusiness.email,
+          logo: infoBusiness.logo || "",
+          phone: infoBusiness.phone,
+          taxBracket: infoBusiness.taxBracket,
+          arrayInfo: [],
+          province: "",
+          address: "",
+          city: "",
+        }
   );
 
   const [error, setError] = useState({
@@ -183,7 +202,7 @@ function PerfilBusiness(props) {
   };
   const handleBack = (event) => {
     event.preventDefault();
-    history.push("/empresas")
+    history.push("/empresas");
     //props.history.goBack();
   };
   const handlePass = (event) => {
@@ -194,28 +213,28 @@ function PerfilBusiness(props) {
     event.preventDefault();
     id
       ? dispatch(
-        editBranch(id, {
-          businessName: input.businessName,
-          businessEmail: input.businessEmail,
-          cityId: input.city,
-          province: input.province,
-          address: input.address,
-        })
-      )
+          editBranch(id, {
+            businessName: input.businessName,
+            businessEmail: input.businessEmail,
+            cityId: input.city,
+            province: input.province,
+            address: input.address,
+          })
+        )
       : dispatch(
-        postBranch({
-          businessName: input.businessName,
-          businessEmail: input.businessEmail,
-          cityId: input.city,
-          province: input.province,
-          address: input.address,
-        })
-      );
-    history.push("/perfil")
+          postBranch({
+            businessName: input.businessName,
+            businessEmail: input.businessEmail,
+            cityId: input.city,
+            province: input.province,
+            address: input.address,
+          })
+        );
+    history.push("/perfil");
   };
 
   const handleSubmit = (event) => {
-    console.log("si")
+    console.log("si");
     event.preventDefault();
     dispatch(
       editBusiness(input.email, {
@@ -297,8 +316,19 @@ function PerfilBusiness(props) {
                     )}
                   </Form.Group>
                 </Col>
+                {/* <Col> */}
                 <Col>
-                  <Form.Group className="mb-3">
+                  <Form.Group>
+                    <label for="exampleFile">Logo</label>
+                    <Form.Control
+                      id="exampleFile"
+                      name="file"
+                      type="file"
+                      onChange={uploadImage}
+                    />
+                  </Form.Group>
+                </Col>
+                {/* <Form.Group className="mb-3">
                     <Form.Label>Logo:</Form.Label>
                     <Form.Control
                       type="text"
@@ -312,8 +342,8 @@ function PerfilBusiness(props) {
                     ) : (
                       <label> {error.errorlogo} </label>
                     )}
-                  </Form.Group>
-                </Col>
+                  </Form.Group> */}
+                {/* </Col> */}
               </Row>
               <Row>
                 <Col>
@@ -324,7 +354,7 @@ function PerfilBusiness(props) {
                       value={input.province}
                       onChange={(e) => handleInputChange(e)}
                     >
-                      <option value="">{ } </option>
+                      <option value="">{} </option>
                       {gState.provinces?.map((e) => (
                         <option key={e.id} value={e.nombre}>
                           {e.nombre}
@@ -346,22 +376,22 @@ function PerfilBusiness(props) {
                       value={input.city}
                       onChange={(e) => handleInputChange(e)}
                     >
-                      <option value="">{ } </option>
+                      <option value="">{} </option>
 
                       {input.province
                         ? gState.allCities
-                          ?.filter(
-                            (e) =>
-                              e.provinceId ===
-                              gState.provinces?.filter(
-                                (e) => e.nombre === input.province
-                              )[0].id
-                          )
-                          ?.map((e) => (
-                            <option key={e.id} value={e.id}>
-                              {e.nombre}
-                            </option>
-                          ))
+                            ?.filter(
+                              (e) =>
+                                e.provinceId ===
+                                gState.provinces?.filter(
+                                  (e) => e.nombre === input.province
+                                )[0].id
+                            )
+                            ?.map((e) => (
+                              <option key={e.id} value={e.id}>
+                                {e.nombre}
+                              </option>
+                            ))
                         : ""}
                     </Form.Select>
                     {!error.errorcity ? (

@@ -20,12 +20,15 @@ import FilterBefore from "./components/FilterBefore";
 import FilterProvince from "./components/FilterProvince";
 import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
+import PruebaCloudinary from "./components/PruebaCloudinary";
 
 
 function App() {
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
+      <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
+
         <Route exact path="/product/:id" component={ProductDetail} />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/conocemas" component={ConoceMas} />
