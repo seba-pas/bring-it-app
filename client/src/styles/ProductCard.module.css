@@ -1,8 +1,8 @@
 #boton {
   font-family: "Montserrat", sans-serif;
-  background-color: chocolate;
+  background-color: #8c52ff;
   color: white;
-  border: 3px solid chocolate;
+  border: 3px solid #8c52ff;
   font-weight: bold;
   border-radius: 5px;
   font-size: 10px;
@@ -12,9 +12,9 @@
 }
 
 #boton:hover {
-  background-color: #3ab0ff;
+  background-color: black;
   color: white;
-  border: 3px solid #3ab0ff;
+  border: 3px solid black;
 }
 #card {
   text-align: left;

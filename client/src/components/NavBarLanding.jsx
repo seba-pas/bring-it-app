@@ -7,7 +7,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
-import image from "../components/img/logoCUT.png";
+import image from "../components/img/logo2.png";
 import {
   login,
   loginBusiness,
@@ -320,12 +320,14 @@ useEffect(() => {
         src={image}
         style={{
           height: "auto",
-          width: "auto",
-          objectFit: "cover",
+          width: "10%",
+          objectFit: "fit",
           paddingBottom: "0px",
-          marginBottom: "0px",
-          marginRight: "28%",
-          marginTop: "20px",
+
+          marginLeft: '2%',
+          marginTop: "3px",
+          paddingTop:'5px',
+
         }}
         alt="Logo no encontrado"
       />

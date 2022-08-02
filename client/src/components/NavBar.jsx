@@ -3,14 +3,10 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
-import logo from "./img/logoCUT.png";
-import {
-  getUsers,
-  getCart,
-  clearCart,
-  desactivateUser,
-  cleanUsers,
-} from "../actions";
+
+import logo from "./img/logo2.png";
+import { getUsers, getCart, clearCart , desactivateUser, cleanUsers} from "../actions";
+
 import userProfile from "./img/userPerfilImage.jpg";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.css";
@@ -121,18 +117,10 @@ export default function NavBar() {
             marginTop: "33px",
           }}
         >
-          <button
-            id={styles.botonCart}
-            onClick={handleShow}
-            style={{
-              backgroundColor: "rgba(210, 105, 30, 0.05)",
-              fontSize: "12px",
-              borderColor: "rgba(210, 105, 30, 0.05)",
-              marginTop: "0px",
-              paddingBottom: "10px",
-              paddingBottom: "10px",
-            }}
-          >
+
+          
+          <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "black", fontSize: '12px', borderColor: '#8c52ff', marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px', marginLeft:'70px'}}>
+
             {/* <FaShoppingBag/> */}
             <span
               style={{ color: "#D2691E", margin: "0px", fontSize: "18px" }}

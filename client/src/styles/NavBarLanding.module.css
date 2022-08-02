@@ -2,16 +2,16 @@
 .navbarLanding {
     
     height: 130px;
-  
+    background-color: black;
     border-bottom: solid 1px rgba(0, 0, 0, 0.364); 
     padding-bottom: 25px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
     width: 100%;
     
   }
   /* .navbarLanding h1 {
     font-family: 'Mogra', cursive;
-    color: chocolate;
+    color: #8c52ff;
     margin-top: 20px;
     margin-left: 40px;
     
@@ -23,8 +23,8 @@
 .buttonSubmit button{
   font-family: "Montserrat", sans-serif;
     background-color: white;
-    color: chocolate;
-    border: 3px solid chocolate;
+    color: #8c52ff;
+    border: 3px solid #8c52ff;
     font-weight: bold;
     border-radius: 5px;
     font-size: 15px;
@@ -45,9 +45,9 @@
   
   .navbarLanding button {
     font-family: "Montserrat", sans-serif;
-    background-color: chocolate;
+    background-color: #8c52ff;
     color: white;
-    border: 3px solid chocolate;
+    border: 3px solid #8c52ff;
     font-weight: bold;
     border-radius: 5px;
     font-size: 15px;
@@ -58,9 +58,9 @@
   }
   .navbarLanding button:hover {
     transition: border-color 0.2s ease-in, background-color 0.4s ease-in;
-    background-color: #3ab0ff;    
+    background-color:#8c52ff53;    
     color: white;
-    border-color:  #3ab0ff;
+    border-color: #8c52ff53;
     ;
   }
 
@@ -80,8 +80,8 @@
   .buttonModals button{
     font-family: "Montserrat", sans-serif;
     background-color: white;
-    color: chocolate;
-    border: 3px solid chocolate;
+    color: #8c52ff;
+    border: 3px solid #8c52ff;
     font-weight: bold;
     border-radius: 5px;
     font-size: 15px;
