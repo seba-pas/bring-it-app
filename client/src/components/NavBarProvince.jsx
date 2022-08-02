@@ -3,7 +3,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
-import logo from "./img/logoCUT.png";
+import logo from "./img/logo2.png";
 import {
   getUsers,
   getCart,

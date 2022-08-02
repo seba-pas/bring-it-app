@@ -18,8 +18,8 @@
  .btn-primary{
     font-family: "Montserrat", sans-serif;
     color: white;
-    background-color: chocolate ;
-    border-color: chocolate  ;
+    background-color: #8c52ff ;
+    border-color: #8c52ff  ;
     border: 3px solid ;
     font-weight: bold;
     border-radius: 5px;
@@ -30,9 +30,9 @@
 
 .btn-primary:hover {
     transition: background-color 0.2s ease;
-    background-color: #3AB0FF;
+    background-color: black;
     color: white;
-    border: 3px solid #3AB0FF;
+    border: 3px solid black;
     
 }
 

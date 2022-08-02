@@ -146,7 +146,7 @@ export default function HomePersonas() {
       {PRODUCTS.length > 0 ? (
 
         PRODUCTS == "No se encontraron productos asociados" ? (
-          <div style={{color:'chocolate', background:'white', marginTop:'150px'}}>
+          <div style={{color:'#8c52ff', background:'white', marginTop:'150px'}}>
             <h1>No se encontraron productos asociados</h1>
             <button className='btn btn-primary' style={{marginTop: '40px'}} onClick={(e) => handleClick(e)}>Volver</button>
           </div>

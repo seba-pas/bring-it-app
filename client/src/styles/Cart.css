@@ -135,7 +135,7 @@
     text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
     cursor: pointer;
     overflow: hidden;
-    background: chocolate;
+    background: #8c52ff;
    /*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #66aaff), color-stop(100%, #4d9cff));
     background-image: -webkit-linear-gradient(#66aaff, #4d9cff);
     background-image: -moz-linear-gradient(#66aaff, #4d9cff);
