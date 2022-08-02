@@ -21,16 +21,14 @@ import FilterProvince from "./components/FilterProvince";
 import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
-import Usuario from './components/Usuario.jsx'
-
-
+import Usuario from "./components/Usuario.jsx";
 
 function App() {
+
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
-      <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
-
+        <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
         <Route exact path="/product/:id" component={ProductDetail} />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/conocemas" component={ConoceMas} />
@@ -44,14 +42,22 @@ function App() {
         <Route exact path="/filtro" component={FilterBefore} />
         <Route exact path="/filtroprov" component={FilterProvince} />
         {/* <Route path='/checkout' component={CheckOut} /> */}
-        <Route exact path='/usuarioE' component={Usuario}/>
-        <Route exact path='/compra' component={CheckOut}/>
+        <Route exact path="/usuarioE" component={Usuario} />
+        <Route exact path="/compra" component={CheckOut} />
         <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/perfilUser" component={PerfilUser} />
         <Route exact path="/admin" component={HomeAdmin} />
-        <Route exact path="/persona/modificarPassword" component={RecuperarPassword}/>
-        <Route exact path="/persona/homeUserPurchase" component={HomeUserPurchase}/>
+        <Route
+          exact
+          path="/persona/modificarPassword"
+          component={RecuperarPassword}
+        />
+        <Route
+          exact
+          path="/persona/homeUserPurchase"
+          component={HomeUserPurchase}
+        />
         {/* <Route exact path="/testing" component={FormTravel} /> */}
       </Switch>
     </div>

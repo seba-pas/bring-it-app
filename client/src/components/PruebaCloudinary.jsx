@@ -1,5 +1,5 @@
-import React,{useState} from "react";
-import {Container,FormGroup,Input,Label} from 'reactstrap'
+import React, { useState } from "react";
+import { Container, FormGroup, Input, Label } from "reactstrap";
 function PruebaCloudinary() {
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,19 +19,19 @@ function PruebaCloudinary() {
     const file = await res.json();
     console.log(res);
     setImage(file.secure_url);
-    console.log(file.secure_url)
+    console.log(file.secure_url);
     setLoading(false);
   };
   return (
     <div>
       <FormGroup>
         <Label for="exampleFile">Logo</Label>
-        <Input
-          name="file"
-          type="file"
-          onChange={uploadImage}
-        />
-        {loading ? (<h3>Cargando imagenes ....</h3>) : (<img src={image} style={{width:"300px"}}/>)}
+        <Input name="file" type="file" onChange={uploadImage} />
+        {loading ? (
+          <h3>Cargando imagenes ....</h3>
+        ) : (
+          <img src={image} style={{ width: "300px" }} />
+        )}
       </FormGroup>
     </div>
   );

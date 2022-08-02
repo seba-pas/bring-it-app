@@ -434,7 +434,6 @@ export const getByPurchaseEmail = (email) => {
   return async function (dispatch){
     try {
       const res = await axios.get(`/purchase/email/${email}`)
-      debugger;
       return dispatch({
         type: GET_BY_PURCHASE_EMAIL,
         payload: res.data,
