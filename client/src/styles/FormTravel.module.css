@@ -80,7 +80,7 @@
     top: -100px;
     left: 0px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -99,7 +99,7 @@
     top: -60px;
     left: 0px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -123,7 +123,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px #8c52ff;
+    border: solid 2.5px #8c52ff;
 
 }
 
@@ -141,7 +141,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px #8c52ff;
+    border: solid 2.5px #8c52ff;
 }
 
 
@@ -152,7 +152,7 @@
     top: -60px;
     left: 400px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -174,7 +174,7 @@
     height: 50px;
     width: 170px;
     border-radius: 12px;
-    background: white;
+    /* background: white; */
     background-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
@@ -191,7 +191,7 @@
     top: -60px;
     left: 650px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -217,7 +217,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px #8c52ff;
+    border: solid 2.5px #8c52ff;
 }
 
 .sidebaron li .inputToCity {
@@ -234,7 +234,7 @@
     border-radius: 12px;
     background-color: transparent;
     font-size: 1.3rem;
-    border: solid 4px #8c52ff;
+    border: solid 2.5px #8c52ff;
 }
 
 .sidebaron li .arrivaldateSpan {
@@ -244,7 +244,7 @@
     top: -60px;
     left: 1050px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -266,7 +266,7 @@
     height: 50px;
     width: 170px;
     border-radius: 12px;
-    background: white;
+    /* background: white; */
     background-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
@@ -284,14 +284,14 @@
     z-index: 0;
     height: 50px;
     width: 200px;
-    border: solid 2px #8c52ff;
+    border: solid 2.5px #8c52ff;
     border-radius: 9px;
     font-size: 1.3rem;
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #8c52ff;
+    color:black;
 }
 
 .displaynone {
@@ -306,7 +306,7 @@
     top: 40px;
     left: 400px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -325,7 +325,7 @@
     top: 40px;
     left: 1050px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -344,7 +344,7 @@
     top: 40px;
     left: 1050px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -364,7 +364,7 @@
     top: 40px;
     left: 0px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -384,7 +384,7 @@
     top: 40px;
     left: 200px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -404,7 +404,7 @@
     top: 40px;
     left: 650px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;
@@ -424,7 +424,7 @@
     top: 40px;
     left: 850px;
     z-index: 0;
-    background: white;
+    /* background: white; */
     /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); */
     /* padding: 6px 12px; */
     border-radius: 4px;

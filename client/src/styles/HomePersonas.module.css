@@ -25,8 +25,8 @@
  /* text-align: center; */
  /* padding-left: 15px; */
   font-family: "Montserrat", sans-serif;
-  background-color: rgba(210, 105, 30, 0.2);
-  color: #8c52ff;
+  background-color: #8c52ff;
+  color:white;
   border: none;
   font-weight: bold;
   border-radius: 5px;
@@ -42,9 +42,9 @@
 }
 .botonvol:hover{
   transition: border-color 0.2s ease-in, background-color 0.4s ease-in;
-  background-color: #8c52ff;
+  background-color: black;
   color: white;
-  border-color: #8c52ff;
+  border-color: black;
 }
 
 select {
@@ -85,9 +85,9 @@ select {
  
 }
 .containerS select:hover {
-  border-color:#8c52ff;
+  border-color:black;
   transition: background-color 0.4s ease;
-  background-color: #8c52ff; /* Green */
+  background-color: black; /* Green */
   color: white;
 }
 

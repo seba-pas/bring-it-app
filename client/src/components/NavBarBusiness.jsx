@@ -5,7 +5,7 @@ import styles from "../styles/NavBar.module.css"
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBusiness, getCategories, desactivateBusiness, cleanBusiness } from '../actions';
-import logo from "./img/logoCUT.png";
+import logo from "./img/logo2.png";
 import userProfile from "./img/userPerfilImage.jpg";
 
 

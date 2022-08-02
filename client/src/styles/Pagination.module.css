@@ -1,6 +1,6 @@
 .paginado {
   font-family: "Montserrat", sans-serif;
-  background-color: #F6F5F5;
+  /* background-color: #F6F5F5; */
   /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0,0,0,0.5); */
   /* border-radius: 18px; */
   border: none;
@@ -17,7 +17,7 @@
 
 .paginado button {
   color: white;
-  background-color: rgba(210, 105, 30, 0.7);
+  background-color: #8c52ff;
   border-radius: 50%;
   border: none;
   width: 36px;
@@ -32,7 +32,7 @@
 .paginado button:hover {
   font-weight: bold;
   background-color: rgba(210, 105, 30, 0.15);
-  color:  chocolate;
+  color:  #8c52ff;
 }
 
 .containerB {
