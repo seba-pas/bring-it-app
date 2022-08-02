@@ -24,7 +24,10 @@ function UserTravels() {
   useEffect(() => {
     dispatch(getAllTravel());
   }, [dispatch]);
-
+  const handleBack = (event) => {
+    event.preventDefault();
+    history.push("/persona");
+  };
   useEffect(() => {
     setInput((prevInput) => {
       return {
@@ -104,42 +107,44 @@ function UserTravels() {
 
   return (
     <div>
-      {changedCityNames.length > 0 ? (
-        <div>
-          <DataTable
-            columns={columnas}
-            data={changedCityNames}
-            title="Listado de viajes"
-          />
-          <br />
-          <Row>
-            <Col
-              lg={6}
-              md={6}
-              sm={12}
-              className="text-center p-5 m-auto rounded-lg"
-              style={{ display: "flex" }}
-            >
-              <Button
-                onClick={() => history.goBack()}
-                style={{ marginLeft: "45%" }}
+      <Container>
+        <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
+          Mis Viajes
+        </h1>
+        {changedCityNames.length > 0 ? (
+          <div>
+            <DataTable
+              columns={columnas}
+              data={changedCityNames}
+              title="Listado de viajes"
+            />
+            <br />
+            <Row>
+              <Col
+                lg={6}
+                md={6}
+                sm={12}
+                className="text-center p-5 m-auto rounded-lg"
+                style={{ display: "flex" }}
               >
-                ATRAS
-              </Button>
-            </Col>
-          </Row>
-        </div>
-      ) : (
-        <div className={styles.spinner}>
-          <SpinnerCircularFixed
-            size={150}
-            thickness={100}
-            speed={100}
-            color="rgba(65, 212, 207, 1)"
-            secondaryColor="rgba(0, 0, 0, 1)"
-          />
-        </div>
-      )}
+                {/* <Button
+                  onClick={() => history.goBack()}
+                  style={{ marginLeft: "45%" }}
+                >
+                  ATRAS
+                </Button> */}
+              </Col>
+            </Row>
+          </div>
+        ) : (
+
+          <div></div>
+        )}
+        <Button onClick={(e) => handleBack(e)}>Atras</Button>
+      </Container>
+
+
+
     </div>
   );
 }

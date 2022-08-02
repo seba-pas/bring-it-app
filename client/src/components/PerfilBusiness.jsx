@@ -342,6 +342,7 @@ function PerfilBusiness(props) {
                   <Form.Group className="mb-3">
                     <Form.Label>Ciudad:</Form.Label>
                     <Form.Select
+                      disabled={!input.province}
                       name="city"
                       value={input.city}
                       onChange={(e) => handleInputChange(e)}
