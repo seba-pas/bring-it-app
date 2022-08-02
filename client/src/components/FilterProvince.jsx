@@ -5,15 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
-import { filterByBranchesProvince, getAllProducts, orderByPrice,setProduct } from "../actions";
+import {
+  filterByBranchesProvince,
+  getAllProducts,
+  orderByPrice,
+  setProduct,
+} from "../actions";
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "./NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-
 export default function FilterProvince() {
   const dispatch = useDispatch();
-  const PRODUCTS = useSelector((state) => state.products)
+  const PRODUCTS = useSelector((state) => state.products);
   const BRANCHES = useSelector((state) => state.branches);
   const [orden, setOrden] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,19 +35,20 @@ export default function FilterProvince() {
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(filterByBranchesProvince());
-     return () => {
+    return () => {
       dispatch(setProduct());
     };
   }, [dispatch]);
 
-    //funcion para ordenar los precios
-    function handleSort(e) {
-      e.preventDefault();
-      setCurrentPage(1);
-      dispatch(orderByPrice(e.target.value));
-      setOrden(`Ordenado ${e.target.value}`);
-    }
-
+  //funcion para ordenar los precios
+  function handleSort(e) {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(orderByPrice(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+  //funcion para ordenar por
+  const provUnica = [...new Set(BRANCHES.map((e) => e.province))];
   function handleFilterByBranchesProvinces(e) {
     e.preventDefault();
     setOrden(e.target.value);
@@ -61,53 +66,60 @@ export default function FilterProvince() {
   return (
     <div className={styles.div}>
       <NavBar />
-      {PRODUCTS.length > 0 &&
-      PRODUCTS !== "No se encontraron productos asociados" ? (
-        <div>
-          <select
+      {PRODUCTS.length > 0 ? (
+
+      PRODUCTS == "No se encontraron productos asociados" ? (
+        <div style={{color:'#8c52ff', background:'white', marginTop:'150px'}}>
+            <h1>No se encontraron productos asociados</h1>
+            <button className='btn btn-primary' style={{marginTop: '40px'}} onClick={(e) => handleClick(e)}>Volver</button>
+          </div>
+          ) : (
+            <div>
+            <select
             value={BRANCHES.businessbranches}
             onChange={(e) => handleFilterByBranchesProvinces(e)}
             style={{
               color: "white",
               marginTop: "33px",
               backgroundColor: "#8c52ff",
-              border: 'none',
-              fontSize: '18px',
+              border: "none",
+              fontSize: "18px",
               fontFamily: "Montserrat",
-              fontWeight: '400',
-              cursor:'pointer'
-              
+              fontWeight: "400",
+              cursor: "pointer",
             }}
           >
             <option value="All">Todas</option>
 
-            {BRANCHES.map((province) => {
+            {provUnica?.map((e) => {
               return (
-                <option value={province.province} key={province.province}>
-                  {province.province}
+                <option value={e} key={e}>
+                  {e}
                 </option>
               );
             })}
           </select>
-          <select onChange={(e) => handleSort(e)} style={{
+          <select
+            onChange={(e) => handleSort(e)}
+            style={{
               color: "white",
               marginTop: "33px",
               backgroundColor: "#8c52ff",
-              border: 'none',
-              fontSize: '18px',
+              border: "none",
+              fontSize: "18px",
               fontFamily: "Montserrat",
-              fontWeight: '400',
-              margin: '10px',
-              cursor:'pointer'
-              
-            }}>
-                Todos
-                  <option value="Desordenado" hidden selected>
-                    Ordenar por
-                  </option>
-                  <option value="asc">Menor Precio</option>
-                  <option value="desc">Mayor Precio</option>
-                </select>
+              fontWeight: "400",
+              margin: "10px",
+              cursor: "pointer",
+            }}
+          >
+            Todos
+            <option value="Desordenado" hidden selected>
+              Ordenar por
+            </option>
+            <option value="asc">Menor Precio</option>
+            <option value="desc">Mayor Precio</option>
+          </select>
           <div className={styles.contcards} style={{ width: "100%" }}>
             <ProductCards currentProducts={currentProducts} />
           </div>
@@ -117,6 +129,7 @@ export default function FilterProvince() {
             paginado={paginado}
           />
         </div>
+      ) 
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed
