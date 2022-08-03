@@ -462,30 +462,36 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         branchPut: action.payload,
       };
-    //borrado lógico
-    case "DESACTIVATE_USER":
-      return {
-        ...state,
-        activeUser: action.payload,
-        user: {},
-      };
-    case "ACTIVATE_USER":
-      return {
-        ...state,
-        activeUser: action.payload,
-      };
-    case "DESACTIVATE_BUSINESS":
-      return {
-        ...state,
-        activeBusiness: action.payload,
-        business: {},
-      };
-    case "ACTIVATE_BUSINESS":
-      return {
-        ...state,
-        activeBusiness: action.payload,
-      };
-    // fin borrado lógico
+
+      //borrado lógico
+      case "DESACTIVATE_USER":
+        return {
+          ...state,
+          activeUser: action.payload,
+          user: {}
+        }
+        case "ACTIVATE_USER":
+          return {
+            ...state,
+            activeUser: action.payload,
+          }
+          case "DESACTIVATE_BUSINESS":
+            return {
+              ...state,
+              activeBusiness: action.payload,
+              business: {}
+            }
+            case "ACTIVATE_BUSINESS":
+              return {
+                ...state,
+                activeBusiness: action.payload,
+              }
+              // fin borrado lógico
+              case 'GET_EMAIL':
+                return {
+                  ...state,
+                  allEmail: action.payload, 
+                }
     default:
       return {
         ...state,
