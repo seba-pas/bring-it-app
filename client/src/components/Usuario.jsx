@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getActiveUser } from "../actions/index";
+import { cleanUserState, getActiveUser } from "../actions/index";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Usuario.module.css";
@@ -15,7 +15,7 @@ import {desactivateUser, cleanUsers} from '../actions'
 const Usuario = () => {
   const usuario = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const user = usuario.others.dataValues;
+  const user = usuario;
   const history = useHistory();
 
   useEffect(() => {
@@ -32,8 +32,8 @@ const Usuario = () => {
 
 
  function handleCloseSesion(e){
-    e.preventDefault()
-    dispatch(cleanUsers())
+    e.preventDefault()    
+    dispatch(cleanUserState());
     history.push('/')
  }
   return (
