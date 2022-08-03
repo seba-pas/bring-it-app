@@ -27,6 +27,7 @@ export default function NavBarLanding() {
   const [showLogin, setShowLogin] = useState(false);
 
   const user = useSelector((state) => state.user);
+
   const business = useSelector((state) => state.business);
 
   const dispatch = useDispatch();

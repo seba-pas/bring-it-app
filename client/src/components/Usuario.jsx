@@ -14,8 +14,10 @@ import {desactivateUser, cleanUsers, cleanBusiness} from '../actions'
 
 
 const Usuario = () => {
+
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch(); 
+
   const history = useHistory();
   const business = useSelector((state) => state.business)
 
