@@ -27,7 +27,6 @@ export default function NavBarLanding() {
   const [showLogin, setShowLogin] = useState(false);
 
   const user = useSelector((state) => state.user);
-
   const business = useSelector((state) => state.business);
 
   const dispatch = useDispatch();
@@ -326,7 +325,7 @@ export default function NavBarLanding() {
       }}
     >
       {/* <div className={styles.imagen}> */}
-      {console.log(user)}
+      {console.log(user, business)}
 
       {/* <NavLink exact to="/"> */}
       <img
@@ -348,7 +347,7 @@ export default function NavBarLanding() {
 
       <div className={styles.SearchBar}></div>
 
-      {user !== "clean" && user !== 'Usuario no encontrado' && Object.entries(user).length > 0 ? (
+      {typeof user !== 'string' && Object.entries(user).length > 0 ? (
         <div
           style={{
             height: "100%",
@@ -366,7 +365,7 @@ export default function NavBarLanding() {
             <AvatarBadge boxSize="1.25em" bg="green.500" />
           </Avatar>
         </div>
-      ) : business !== "clean" && business !== 'Usuario no encontrado' && Object.entries(business) ? (
+      ) : typeof business !== 'string' && Object.entries(business) ? (
         <div
           style={{
             height: "100%",
