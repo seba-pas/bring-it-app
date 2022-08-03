@@ -18,7 +18,7 @@ function LandingPage1() {
 
   useEffect(() => {
     dispatch(getActiveUser());
-    console.log(user, business);
+    // console.log(user, business);
   }, [dispatch]);
 
   function handleComprar(e) {

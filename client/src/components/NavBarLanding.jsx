@@ -7,7 +7,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
-import image from "../components/img/logo2.png";
+import image from "../components/img/logo2-removebg-preview.png";
 import {
   login,
   loginBusiness,
@@ -365,7 +365,7 @@ export default function NavBarLanding() {
             <AvatarBadge boxSize="1.25em" bg="green.500" />
           </Avatar>
         </div>
-      ) : typeof business !== 'string' && Object.entries(business) ? (
+      ) : typeof business !== 'string' && !business.others ? (
         <div
           style={{
             height: "100%",
