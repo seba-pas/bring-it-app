@@ -1,3 +1,4 @@
+import swal from 'sweetalert'
 export default function ChangeRating(props) {
     return (
       <input
@@ -8,7 +9,7 @@ export default function ChangeRating(props) {
         value={props.rating}
         onChange={(e) => {
           if (e.target.value > 5)
-            return alert("Números del 0 al 5 contando decimales :)");
+            return swal("Por favor solo escriba numeros del 0 al 5", "Se aceptan numeros decimales", "error");
           return props.handleRating(e.target.value);
         }}
       />

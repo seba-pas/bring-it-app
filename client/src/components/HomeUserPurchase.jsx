@@ -9,17 +9,17 @@ import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
-
 import moment from "moment";
 function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(null);
+
   const history = useHistory();
   const purchases = useSelector((state) => state.purchases);
   const user = useSelector((state) => state.user);
   const [avgRating, setAvgRating] = useState(0);
-
+  const [selectedData, setSelectedData] = useState();
   const handleRating = (input) => {
     setAvgRating(input);
   };
@@ -36,10 +36,11 @@ function HomeUserPurchase() {
   console.log("soy changeCity", changeCity);
   const nameCity = changeCity.map((e) => {
     return {
+      idProducts: e.purchaseitems.map((e) => e.productId),
       id: e.id,
       maxDeliveryDate: e.maxDeliveryDate,
       totalPrice: e.totalPrice,
-      cantidad: e.purchaseitems.map((e) => e.quantity),
+      cantidad: e.purchaseitems.reduce((a, e) => e.quantity + a, 0),
       producto: e.purchaseitems.map((e) => `${e.product.name}, `),
       arrivalCityId: gState.allCities.filter(
         (el) => parseInt(el.id) === parseInt(e.arrivalCityId)
@@ -53,15 +54,29 @@ function HomeUserPurchase() {
     dispatch(getAllCities());
   }, [dispatch]);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(null);
+
+  const handleShow = id => {
+    setShow(showId => showId === id ? null : id);
+  };
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }
+  const handleChange = (state) => {
+    setSelectedData(state.selectedRows);
+    console.log(selectedData);
+  };
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
   }
-  // { name: "Fecha de compra" , selector: "last update", sortable: true },
+  const columnasRating = [
+    { name: "Nro de orden", selector: (row) => row.id, sortable: true },
+    {
+      name: "Producto",
+      selector: (row) => row.producto,
+      sortable: true,
+    },
+  ];
   const columnas = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
     {
@@ -76,26 +91,26 @@ function HomeUserPurchase() {
     },
     { name: "Ciudad", selector: (row) => row.arrivalCityId, sortable: true },
     {
-      name: "Cantidad",
+      name: "Cantidad Total",
       selector: (row) => row.cantidad,
       sortable: true,
     },
     { name: "Precio total", selector: (row) => row.totalPrice, sortable: true },
     {
       button: true,
-      cell: () => (
+      cell: (row) => (
         <button style={{ display: "flex", fontSize: "20px" }}>
           <FaSearchLocation
             title="Encontrar viajero"
             style={{ marginRight: "15px", fontSize: "30px" }}
             onClick={(e) => editUsers(e)}
           />
-          <BsFillBookmarkStarFill onClick={handleShow} />
+          <BsFillBookmarkStarFill onClick={() => handleShow(row.id)} />
+
         </button>
       ),
     },
   ];
-
   return (
     <div>
       <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
@@ -113,20 +128,26 @@ function HomeUserPurchase() {
             data={nameCity}
             title="Listado de compras"
           />
+          <hr />
           <br />
         </Col>
       </Row>
       <Button onClick={(e) => history.goBack(e)}>Atras</Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show !== null} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
             Dejanos tu comentario sobre el producto que compraste
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Productos que adquiriste</h4>
+          <DataTable
+            columns={columnasRating}
+            data={nameCity.filter(item => item.id === show)}
+            title="Listado de compras"
+          />
+          <br />
           <Form>
-            <h1>Star Rating</h1>
+            <h1>Indica del 1 al 5 que tan satisfecho esta con su compra</h1>
             <ChangeRating rating={avgRating} handleRating={handleRating} />
             <br />
             <br />
@@ -138,6 +159,7 @@ function HomeUserPurchase() {
               <Form.Label>Deja tu comentario</Form.Label>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
+            <Button style={{ marginLeft: "30%" }}>Enviar comentario</Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
