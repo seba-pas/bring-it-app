@@ -7,6 +7,9 @@ import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
+import ChangeRating from "./ChangeRating";
+import StarRating from "./StarRating";
+
 import moment from "moment";
 function HomeUserPurchase() {
   const dispatch = useDispatch();
@@ -15,6 +18,11 @@ function HomeUserPurchase() {
   const history = useHistory();
   const purchases = useSelector((state) => state.purchases);
   const user = useSelector((state) => state.user);
+  const [avgRating, setAvgRating] = useState(0);
+
+  const handleRating = (input) => {
+    setAvgRating(input);
+  };
   const [input, setInput] = useState({
     city: [],
   });
@@ -116,8 +124,13 @@ function HomeUserPurchase() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <h4>Productos que adquiriste</h4>
           <Form>
-            
+            <h1>Star Rating</h1>
+            <ChangeRating rating={avgRating} handleRating={handleRating} />
+            <br />
+            <br />
+            <StarRating stars={avgRating} />
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
