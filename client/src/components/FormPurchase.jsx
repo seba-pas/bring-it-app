@@ -27,12 +27,13 @@ function FormPurchase() {
     arrivalCityId: "",
     name: "",
     maxDeliveryDate: moment().format("YYYY-MM-DD"),
-    userEmail: gState.user.others.dataValues.email,
+    userEmail: gState.user.email,
     items: cart,
     totalPrice: cart
     .reduce((acc, item) => acc + item.quantity * item.price, 0)
     .toFixed(2)
   });
+  console.log(gState.businessEmail)
   const handleInputChange = (event) => {
     event.preventDefault();
     setInput((prevInput) => {
@@ -42,10 +43,6 @@ function FormPurchase() {
       };
     });
   };
-  /* const handleBack = (event) => {
-    event.preventDefault();
-    event.history.goBack()
-  }; */
   useEffect(() => {
     dispatch(getAllProvinces());
     dispatch(getAllCities());
@@ -90,6 +87,7 @@ function FormPurchase() {
         amount: totalAmount * 100,
         name: input.name, // son 20 dólares
         email: input.userEmail,
+        emailBusiness: gState.businessEmail
       });
 
       elements.getElement(CardElement).clear();
@@ -106,7 +104,7 @@ function FormPurchase() {
     <div>
       {/* <NavBar/> */}
       <Container>
-        <h1 className="shadow-sm mt-5 p-3 text-center rounded" style={{color:"chocolate"}}>
+        <h1 className="shadow-sm mt-5 p-3 text-center rounded" style={{color:"#8c52ff"}}>
           Finalizar Compra
         </h1>
         <Row>
@@ -244,7 +242,7 @@ function FormPurchase() {
                             )[0].id
                         )
                         ?.map((e) => (
-                          <option key={e.id} name={e.nombre} value={e.id}>
+                          <option key={e.id} name={e.nombre} value={e.nombre}>
                             {e.nombre}
                           </option>
                         ))

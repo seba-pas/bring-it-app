@@ -1,10 +1,12 @@
 import React from "react";
-import NavBar from "./NavBar";
+import NavBarLanding from "./NavBarLanding";
 import styles from "../styles/HomePersonas.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
+import swal from "sweetalert";
+
 
 import { SpinnerCircularFixed } from "spinners-react";
 import "bootstrap/dist/css/bootstrap.css";
@@ -139,12 +141,18 @@ export default function HomePersonas() {
     setOrden(`Ordenado ${e.target.value}`);
   }
 
+  function handleLog(e){
+    e.preventDefault();
+    swal("No estas logueado", "Logueate para poder comprar y disfrutar de mas funciones de BI!", "error");
+  }
+
 
   return (
     <div style={{background:'white'}}>
-
-      <NavBar />
-      <FormTravel />
+      {/* {console.log(...new Set(BRANCHES.map((e) => e.province)))} */}
+      
+      <NavBarLanding />
+    
       {PRODUCTS.length > 0 ? (
 
         PRODUCTS == "No se encontraron productos asociados" ? (
@@ -221,7 +229,9 @@ export default function HomePersonas() {
                 </button>
               </div>
               <div className={styles.contcards} style={{ width: "100%" }}>
-                <ProductCards currentProducts={currentProducts} />
+                <button onClick={(e) => handleLog(e)}>
+                <ProductCards  currentProducts={currentProducts} />
+                </button>
               </div>
             </div>
             <Pagination

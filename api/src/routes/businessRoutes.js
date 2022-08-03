@@ -6,6 +6,8 @@ const nodemailer = require('nodemailer')
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
 
+//MENSAJE DE CELE PARA CELE: falta hacer la fc verifyToken al igual q en userRoutes, y ponerla en put y baneo, y en el componente editarBusiness del front
+
 //POST Business (para cargar una nueva empresa, aparte de los datos del modelo tiene q recibir una CityId)
 // http://localhost:3001/api/business
 router.post('/', async (req,res) => {    
@@ -87,7 +89,7 @@ router.post('/login', async(req,res) => {
         const hashedPassword = CryptoJS.AES.decrypt(businessLogin.password, process.env.PASS_SEC);
         const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-        if(originalPassword !== req.body.password) return res.status(401).send(`Datos incorrectos`);
+        if(originalPassword !== req.body.password) return res.status(201).send(`Datos incorrectos`);
 
         const accessToken = jwt.sign({
             email: businessLogin.email,

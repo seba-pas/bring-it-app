@@ -1,7 +1,7 @@
 import { React} from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/NavBar.module.css";
-import logo from "./img/logoCUT.png";
+import logo from "./img/logo2.png";
 import userProfile from "./img/userPerfilImage.jpg";
 
 

@@ -3,7 +3,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
-import logo from "./img/logoCUT.png";
+import logo from "./img/logo2.png";
 import {
   getUsers,
   getCart,
@@ -18,6 +18,7 @@ import Button from "react-bootstrap/Button";
 import { FaShoppingBag } from "react-icons/fa";
 import Cart from "./Cart";
 import { getAllProducts } from "../actions";
+import { Avatar, AvatarBadge } from "@chakra-ui/react";
 
 //seba
 export default function NavBar() {
@@ -27,6 +28,8 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const userAvatar = gState.user;
+
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
@@ -59,7 +62,7 @@ export default function NavBar() {
       history.push("/persona/modificarPassword");
     }
     if (input.perfil === "desactivarMiCuenta") {
-      dispatch(desactivateUser(input.user.others.dataValues.email));
+      dispatch(desactivateUser(input.user.email));
       dispatch(cleanUsers());
       history.push("/");
     }
@@ -156,7 +159,7 @@ export default function NavBar() {
           alt="Logo no encontrado"
         /> */}
 
-        <select
+        {/* <select
           className={styles.selectPerfil}
           name="perfil"
           value="perfil"
@@ -170,12 +173,28 @@ export default function NavBar() {
           <option value="">Mi cuenta</option>
           <option value="misCompras">Mis compras</option>
           <option value="misViajes">Mis Viajes</option>
-          <option value="email">Editar mi cuenta</option>{" "}
-          {/* {gState.user.others.dataValues.email} */}
+          <option value="email">Editar mi cuenta</option>
+          
           <option value="modificarPassword">Modificar contraseña</option>
           <option value="desactivarMiCuenta">Desactivar mi cuenta</option>
           <option value="close">Cerrar sesión</option>
-        </select>
+        </select> */}
+        <div
+          style={{
+            height: "100%",
+            paddingTop: "25px",
+            paddingRight: "75px",
+            cursor: "pointer",
+          }}
+        >
+          <Avatar
+            onClick={() => history.push("/usuarioE")}
+            name={`${userAvatar.name} ${userAvatar.lastname}`}
+            src=""
+          >
+            <AvatarBadge boxSize="1.25em" bg="green.500" />
+          </Avatar>
+        </div>
       </div>
     </div>
   );

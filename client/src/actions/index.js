@@ -17,7 +17,9 @@ import {
   FILTER_BY_CATEGORY,
   SET_PRODUCT_DETAIL,
   CLEAN_USERS,
+  CLEAN_USER_STATE,
   CLEAN_BUSINESS,
+  CLEAN_BUSINESS_STATE,  
   FILTER_BY_PROVINCE_CITY,
   GET_ALL_CITIES,
   GET_USERS,
@@ -26,6 +28,9 @@ import {
   GET_ALL_BUSINESS,
   FILTER_BY_BUSINESS,
   PUT_USER,
+  CLEAN_PUT_USER,
+  GET_USER_BY_EMAIL,
+  GET_ACTIVE_USER,
   PUT_BUSINESS,
   ADD_TRAVEL,
   GET_TRAVELS,
@@ -73,6 +78,7 @@ export const getAllProducts = () => {
     }
   };
 };
+
 
 export const getAllProductsDetail = (id) => {
   return async function (dispatch) {
@@ -274,6 +280,21 @@ export const filterByProvinceCity = (payload) => {
 };
 
 //TERMINA ACTION PRODUCT
+
+//LIMPIAR ESTADOS AL CERRAR SESION
+export const cleanUserState = () => {
+  return {
+    type: CLEAN_USER_STATE
+  }
+}
+
+export const cleanBusinessState = () => {
+  return {
+    type: CLEAN_BUSINESS_STATE
+  }
+}
+
+
 export const cleanUsers = () => {
   return { type: CLEAN_USERS };
 };
@@ -317,6 +338,7 @@ export const addUser = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/user`, body);
+        console.log("res", res);
       return dispatch({
         type: POST_USER,
         payload: res.data,
@@ -326,13 +348,22 @@ export const addUser = (body) => {
     }
   };
 };
+export const getActiveUser=()=>{
+  return {
+    type: GET_ACTIVE_USER
+    
+      }
 
-export const editUser = (id, body) => {
+}
+
+export const editUser = (id, body, token) => {
   return async function (dispatch) {
     try {
 
-      const res = await axios.put(`/user/${id}`, body);
-
+      const res = await axios.put(`/user/${id}`, body, { 
+        headers: {authorization: `Bearer ${token}`}
+        });
+      console.log(`soy res.data ${res.data}`);
       return dispatch({
         type: PUT_USER,
         payload: res.data,
@@ -342,6 +373,24 @@ export const editUser = (id, body) => {
     }
   };
 };
+
+export const cleanPutUser = () => {
+  return { type: CLEAN_PUT_USER };
+};
+
+export const getUserByEmail = (email) => {
+  return async function (dispatch){
+    try {
+      const res = await axios.get(`/user/${email}`)      
+      return dispatch({
+        type: GET_USER_BY_EMAIL,
+        payload: res.data,
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 //COMIENZA ACTION BUSINESS
 
@@ -364,7 +413,6 @@ export function addBusiness(body) {
 export function postPurchase(body) {
   return async function (dispatch) {
     let res = await axios.post(`/purchase`, body);
-    console.log(res)
     try {
       return dispatch({
         type: POST_PURCHASE,
@@ -380,6 +428,7 @@ export const loginBusiness = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/business/login`, body);
+      console.log(`${res.data}`);
       return dispatch({
         type: POST_LOGINBUSINESS,
         payload: [res.data, body.email],
@@ -426,7 +475,6 @@ export const getByPurchaseEmail = (email) => {
   return async function (dispatch){
     try {
       const res = await axios.get(`/purchase/email/${email}`)
-      debugger;
       return dispatch({
         type: GET_BY_PURCHASE_EMAIL,
         payload: res.data,

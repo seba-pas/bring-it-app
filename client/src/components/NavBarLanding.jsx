@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
@@ -7,23 +7,29 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
-import image from "../components/img/logoCUT.png";
+import image from "../components/img/logo2.png";
 import {
   login,
   loginBusiness,
   cleanUsers,
   cleanBusiness,
   activateUser,
-  activateBusiness
+  activateBusiness,
+  getActiveUser,
 } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
+import { Avatar, AvatarBadge } from "@chakra-ui/react";
+
 //seba
 export default function NavBarLanding() {
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+
   const user = useSelector((state) => state.user);
+
   const business = useSelector((state) => state.business);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -37,6 +43,23 @@ export default function NavBarLanding() {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    dispatch(getActiveUser());
+    // const activeUser =
+    //   user == "clean"
+    //     ? "clean"
+    //     : Object.hasOwn(user, "others")
+    //     ? user.others.dataValues
+    //     : "clean";
+    // const activeBusiness =
+    //   business == "clean" || business == "Usuario no encontrado"
+    //     ? "clean"
+    //     : Object.hasOwn(business, "others")
+    //     ? business.others.dataValues
+    //     : "clean";
+  }, [dispatch]);
+
   const validateBusiness = (inputBusiness) => {
     const errors = {};
 
@@ -95,6 +118,7 @@ export default function NavBarLanding() {
       inputBusiness.password.length <= 16
     ) {
       dispatch(loginBusiness(inputBusiness));
+
       setInputBusiness({
         email: "",
         password: "",
@@ -125,21 +149,21 @@ export default function NavBarLanding() {
       setDidMount(false);
       return;
     } else {
-      if(business === "clean") return;
-      if(business === "Empresa y sede creada") return;
+      if (business === "clean") return;
+      if (business === "Empresa y sede creada") return;
       else if (business === "Usuario no encontrado") {
         swal(
           "Empresa no encontrada",
           "La empresa a la que intentas entrar no esta registrada",
           "error"
         );
-       
+
         setInputBusiness({
           email: "",
           password: "",
         });
         dispatch(cleanBusiness());
-        history.push("/")
+        history.push("/");
       } else if (business === "Datos incorrectos") {
         swal(
           "Datos incorrectos",
@@ -152,21 +176,26 @@ export default function NavBarLanding() {
         });
         dispatch(cleanBusiness());
         return;
-      } else if (!business.others.dataValues.active) {
-        swal("Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?", {
-          buttons: ["No", "Si"],
-        }).then(value => {
+      } else if (!business.active) {
+        swal(
+          "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
+          {
+            buttons: ["No", "Si"],
+          }
+        ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateBusiness(business.others.dataValues.email));
-        setInput({
-          email: "",
-          password: "",
+            dispatch(activateBusiness(business.email));
+            setInput({
+              email: "",
+              password: "",
+            });
+            history.push("/empresas");
+          } else {
+            history.push("/");
+          }
         });
-        history.push("/empresas");
-          } else { history.push("/");}
-        })
-      }else if (business.others.dataValues.active) {
+      } else if (business.active) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInputBusiness({
           email: "",
@@ -224,8 +253,8 @@ export default function NavBarLanding() {
       setDidMount(false);
       return;
     } else {
-      if(user === "clean") return;
-      if(user === 'Usuario creado') return;
+      if (user === "clean") return;
+      if (user === "Usuario creado") return;
       else if (user === "Usuario no encontrado") {
         swal(
           "Usuario no encontrado",
@@ -237,7 +266,7 @@ export default function NavBarLanding() {
           password: "",
         });
         dispatch(cleanUsers());
-        history.push("/")
+        history.push("/");
         return;
       } else if (user === "Datos incorrectos") {
         swal(
@@ -251,23 +280,26 @@ export default function NavBarLanding() {
         });
         dispatch(cleanUsers());
         return;
-      } else if (!user.others.dataValues.active) {
-        swal("Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?", {
-          buttons: ["No", "Si"],
-        }).then(value => {
+      } else if (!user.active) {
+        swal(
+          "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
+          {
+            buttons: ["No", "Si"],
+          }
+        ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateUser(user.others.dataValues.email));
-        setInput({
-          email: "",
-          password: "",
-        });
-        history.push("/filtro");
+            dispatch(activateUser(user.email));
+            setInput({
+              email: "",
+              password: "",
+            });
+            history.push("/filtro");
           } else {
             history.push("/");
           }
-        })
-      } else if (user.others.dataValues.active) {
+        });
+      } else if (user.active) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",
@@ -285,20 +317,29 @@ export default function NavBarLanding() {
   const handleShow = () => setShow(true);
 
   return (
-    <div className={styles.navbarLanding} style={{ border: "none", display: 'flex', justifyContent: 'space-between' }}>
+    <div
+      className={styles.navbarLanding}
+      style={{
+        border: "none",
+        display: "flex",
+        justifyContent: "space-between",
+      }}
+    >
       {/* <div className={styles.imagen}> */}
+      {console.log(user)}
 
       {/* <NavLink exact to="/"> */}
       <img
         src={image}
         style={{
           height: "auto",
-          width: "auto",
-          objectFit: "cover",
+          width: "10%",
+          objectFit: "fit",
           paddingBottom: "0px",
-          marginBottom: "0px",
-          marginRight: '28%',
-          marginTop: "20px"
+
+          marginLeft: "2%",
+          marginTop: "3px",
+          paddingTop: "5px",
         }}
         alt="Logo no encontrado"
       />
@@ -306,13 +347,53 @@ export default function NavBarLanding() {
       {/* </div> */}
 
       <div className={styles.SearchBar}></div>
-      <div className={styles.contbotones2} style={{marginLeft: '30%'}}>
-        <button id={styles.login} onClick={handleShowLogin}>
-          LOGIN
-        </button>
-        <button onClick={handleShow}>REGISTRARSE</button>
+
+      {user !== "clean" && user !== 'Usuario no encontrado' && Object.entries(user).length > 0 ? (
+        <div
+          style={{
+            height: "100%",
+            paddingTop: "33px",
+            cursor: "pointer",
+            marginRight: "0px",
+            marginLeft: "45%",
+          }}
+        >
+          <Avatar
+            onClick={() => history.push("/usuarioE")}
+            name={`${user?.name} ${user?.lastname}`}
+            src=""
+          >
+            <AvatarBadge boxSize="1.25em" bg="green.500" />
+          </Avatar>
         </div>
-        <div>
+      ) : business !== "clean" && business !== 'Usuario no encontrado' && Object.entries(business) ? (
+        <div
+          style={{
+            height: "100%",
+            paddingTop: "33px",
+            cursor: "pointer",
+            marginRight: "0px",
+            marginLeft: "45%",
+          }}
+        >
+          <Avatar
+            onClick={() => history.push("/usuarioE")}
+            name={`${business.businessName}`}
+            src=""
+          >
+            <AvatarBadge boxSize="1.25em" bg="green.500" />
+          </Avatar>
+        </div>
+      ) : (
+        <div className={styles.contbotones2} style={{ marginLeft: "30%" }}>
+          <button id={styles.login} onClick={handleShowLogin}>
+            LOGIN
+          </button>
+          <button onClick={handleShow}>REGISTRARSE</button>
+        </div>
+      )}
+
+      <div>
         <Modal show={showLogin} onHide={handleCloseLogin}>
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
@@ -395,7 +476,7 @@ export default function NavBarLanding() {
                       {errors.password && <p>{errors.password}</p>}
                     </Form.Group>
                   </Row>
-                  
+
                   <Button
                     variant="info"
                     type="submit"
@@ -413,7 +494,7 @@ export default function NavBarLanding() {
               Close
             </Button>
           </Modal.Footer>
-        </Modal> 
+        </Modal>
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

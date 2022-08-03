@@ -4,8 +4,8 @@ import styles from "../styles/NavBar.module.css"
 
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBusiness, getCategories, desactivateBusiness, cleanBusiness } from '../actions';
-import logo from "./img/logoCUT.png";
+import { getAllBusiness, getCategories, desactivateBusiness, cleanBusiness, cleanBusinessState } from '../actions';
+import logo from "./img/logo2.png";
 import userProfile from "./img/userPerfilImage.jpg";
 
 
@@ -41,10 +41,13 @@ export default function NavBarBusiness() {
         if (input.perfil === "email") {
             history.push("/perfil");
         } else if (input.perfil === "desactivarMiCuenta") {
-            dispatch(desactivateBusiness(gState.business.others.dataValues.email));
+            dispatch(desactivateBusiness(gState.business.email));
             dispatch(cleanBusiness());
             history.push('/');
-        } else if (input.perfil === "close") { history.push("/"); }
+        } else if (input.perfil === "close") { 
+            dispatch(cleanBusinessState());
+            history.push("/"); 
+        }
     }, [input.perfil]);
 
 
