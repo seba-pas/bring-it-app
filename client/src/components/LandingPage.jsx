@@ -56,6 +56,9 @@ function LandingPage1() {
               <Link to={"/conocemas"}>
                 <Button id={style.boton}>CONOCE MAS</Button>
               </Link>
+              <Link to={"/vidriera"}>
+                <Button id={style.boton}>VER PRODUCTOS</Button>
+              </Link>
             </div>
           </div>
           <div className={style.photos} style={{ height: "70vh" }}>
