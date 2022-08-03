@@ -57,6 +57,7 @@ export default function rootReducer(state = initialState, action) {
         productsDetail: action.payload,
       };
     case "POST_PURCHASE":
+      
       return{
         ...state,
         purchase: action.payload
@@ -378,6 +379,7 @@ export default function rootReducer(state = initialState, action) {
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
       );
+
       return itemInCart
         ? {
 

@@ -22,13 +22,16 @@ import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from './components/Usuario.jsx'
-
+// import EntrarSala from "./components/EntrarSala";
 
 
 function App() {
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
+
+        {/* <Route exact path="/pbsChat" component={EntrarSala}/> */}
+        
       <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
 
         <Route exact path="/product/:id" component={ProductDetail} />
