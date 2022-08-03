@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  GET_EMAIL,
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_DETAIL,
   POST_USER,
@@ -653,4 +654,19 @@ export const activateBusiness = (email) => {
     }
   }
 }
+
+// all email
+export const getAllEmail=()=>{
+  return async function (dispatch){
+    try {
+      const res=await axios.get('/api/business/email')
+      return dispatch({
+        type: GET_EMAIL,
+        payload: res.data
+      })
+    } catch (error) {
+    console.log(error);
+    }
+  }
+};
 

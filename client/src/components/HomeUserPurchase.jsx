@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import { getByPurchaseEmail, getAllCities } from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
-import {BsFillBookmarkStarFill} from 'react-icons/bs'
+import Modal from "react-bootstrap/Modal";
+import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
-
+  const [show, setShow] = useState(false);
   const history = useHistory();
   const purchases = useSelector((state) => state.purchases);
   const user = useSelector((state) => state.user);
@@ -44,7 +45,8 @@ function HomeUserPurchase() {
     dispatch(getAllCities());
   }, [dispatch]);
 
-
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }
@@ -74,40 +76,63 @@ function HomeUserPurchase() {
     {
       button: true,
       cell: () => (
-        <button style={{display:"flex", fontSize:"20px"}}>
-        <FaSearchLocation
-          title="Encontrar viajero"
-          style={{ marginRight: "15px", fontSize: "30px" }}
-          onClick={(e) => editUsers(e)}
-        />
-        <BsFillBookmarkStarFill onClick={(e) => editUsers(e)}/>
+        <button style={{ display: "flex", fontSize: "20px" }}>
+          <FaSearchLocation
+            title="Encontrar viajero"
+            style={{ marginRight: "15px", fontSize: "30px" }}
+            onClick={(e) => editUsers(e)}
+          />
+          <BsFillBookmarkStarFill onClick={handleShow} />
         </button>
       ),
     },
   ];
+
   return (
     <div>
-      
-        <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-          Registros de compras
-        </h1>
-        <Row>
-          <Col
-            lg={12}
-            md={12}
-            sm={12}
-            className="text-center p-5 m-auto shadow-sm rounded-lg"
-          >
-            <DataTable
-              columns={columnas}
-              data={nameCity}
-              title="Listado de compras"
-            />
-            <br />
-          </Col>
-        </Row>
-        <Button onClick={(e) => history.goBack(e)}>Atras</Button>
-      
+      <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
+        Registros de compras
+      </h1>
+      <Row>
+        <Col
+          lg={12}
+          md={12}
+          sm={12}
+          className="text-center p-5 m-auto shadow-sm rounded-lg"
+        >
+          <DataTable
+            columns={columnas}
+            data={nameCity}
+            title="Listado de compras"
+          />
+          <br />
+        </Col>
+      </Row>
+      <Button onClick={(e) => history.goBack(e)}>Atras</Button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Dejanos tu comentario sobre el producto que compraste
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Deja tu comentario</Form.Label>
+              <Form.Control as="textarea" rows={3} />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
