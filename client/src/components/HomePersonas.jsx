@@ -32,7 +32,7 @@ export default function HomePersonas() {
   const cart = useSelector((state) => state.cart);
   const CATEGORY = useSelector((state) => state.categories);
   const CITIES = useSelector((state) => state.business2);
-  const PROVINCES = useSelector((state) => state.uniqueProvinces);
+  const PROVINCES = useSelector((state) => state.branches);
   const stateCart = useSelector((state) => state.cart);
   const gState = useSelector((state) => state);
   const BRANCHES = useSelector((state) => state.branches);
@@ -113,6 +113,7 @@ export default function HomePersonas() {
   }
 
   //funcion para filtrar por empresas
+  const provUnica = [...new Set(BRANCHES.map((e) => e.province))]
   function handleFilterByBusiness(e) {
     e.preventDefault();
     setBusinnes(e.target.value);
@@ -138,9 +139,11 @@ export default function HomePersonas() {
     setOrden(`Ordenado ${e.target.value}`);
   }
 
+
   return (
     <div style={{background:'white'}}>
-      {console.log(BRANCHES, PRODUCTS)}
+      {/* {console.log(...new Set(BRANCHES.map((e) => e.province)))} */}
+      
       <NavBar />
       <FormTravel />
       {PRODUCTS.length > 0 ? (
@@ -203,10 +206,10 @@ export default function HomePersonas() {
                 >
                   <option value="All">Todas</option>
 
-                  {BRANCHES.map((province) => {
+                  {provUnica?.map((e) => {
                     return (
-                      <option value={province.province} key={business.province}>
-                        {province.province}
+                      <option value={e} key={e}>
+                        {e}
                       </option>
                     );
                   })}

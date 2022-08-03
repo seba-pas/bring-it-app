@@ -242,8 +242,6 @@ export default function rootReducer(state = initialState, action) {
         branches: action.payload,
       };
     case "FILTER_BY_BRANCHES":
-      const allBranches = state.allProducts;
-
       const filterBranches =
         action.payload === "All"
           ? allBranches
