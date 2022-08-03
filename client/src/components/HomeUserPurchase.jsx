@@ -43,6 +43,7 @@ function HomeUserPurchase() {
     dispatch(getAllCities());
   }, [dispatch]);
 
+
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }

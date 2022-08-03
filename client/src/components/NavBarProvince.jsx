@@ -28,7 +28,7 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const history = useHistory();
-  const userAvatar = gState.user.others.dataValues;
+  const userAvatar = gState.user;
 
   useEffect(() => {
     dispatch(getUsers());
@@ -62,7 +62,7 @@ export default function NavBar() {
       history.push("/persona/modificarPassword");
     }
     if (input.perfil === "desactivarMiCuenta") {
-      dispatch(desactivateUser(input.user.others.dataValues.email));
+      dispatch(desactivateUser(input.user.email));
       dispatch(cleanUsers());
       history.push("/");
     }

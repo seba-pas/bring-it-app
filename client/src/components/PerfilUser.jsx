@@ -4,23 +4,47 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/PerfilBusiness.module.css";
 
-import { editUser } from "../actions";
+import { editUser, cleanPutUser, getUserByEmail } from "../actions";
 
 function PerfilUser(props) {
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const emailState = gState.email;
-  const infoUser = gState.user;
+  const infoUser = gState.user;  
+  const tokenUser = gState.userToken;
 
   const [input, setInput] = useState({
-    email: infoUser.others.dataValues.email,
-    password: infoUser.others.dataValues.password,
-    name: infoUser.others.dataValues.name,
-    lastname: infoUser.others.dataValues.lastname,
-    phone: infoUser.others.dataValues.phone,
+    email: infoUser.email,
+    password: infoUser.password,
+    name: infoUser.name,
+    lastname: infoUser.lastname,
+    phone: infoUser.phone,
     arrayInfo: [],
   });
+
+
+
+// NUEVO CELE Y AGUSES PARA MANEJAR LA RTA DE LA RUTA EDITAR (SI HIZO EL CAMBIO, EN POS DE LA AUTORIZACION)
+  const putUser = gState.putUser; //xq se llama asi?
+
+const [didMount, setDidMount] = useState(true);
+useEffect(() => {
+  if (didMount) {
+    setDidMount(false);
+    dispatch(cleanPutUser());
+    return;
+  } else {
+    if(putUser === "clean"){
+      return;
+    }
+    else if (putUser === "1 Usuarios modificados") {
+      swal("Buen trabajo!", "El usuario fue editado con éxito!", "success");      
+      dispatch(getUserByEmail(infoUser.email));
+      dispatch(cleanPutUser());
+    }
+  }
+}, [putUser]);
 
   useEffect(() => {}, [
     input.email,
@@ -46,6 +70,11 @@ function PerfilUser(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (infoUser.email === input.email && infoUser.password === input.password && infoUser.name === input.name
+    && infoUser.lastname === input.lastname && infoUser.phone === input.phone){
+      swal("No se ha realizado ninguna modificación");
+      return;
+    }
     dispatch(
       editUser(input.email, {
         password: input.password,
@@ -54,9 +83,10 @@ function PerfilUser(props) {
         phone: input.phone,
 
         arrayInfo: [],
-      })
-    );
-    swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
+      },
+      tokenUser //envio de 3er parametro para enviar los headers en la accion
+      )
+    );     
   };
   return (
     <div className={styles.PerfilBusiness}>

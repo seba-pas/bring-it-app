@@ -27,7 +27,7 @@ export default function NavBarLanding() {
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const user = useSelector((state) => state.user);
-  const activeUser = user !== 'clean'? user.others.dataValues : 'clean';
+  const activeUser = user !== 'clean'? user : 'clean';
   
   const business = useSelector((state) => state.business);
   const dispatch = useDispatch();
@@ -164,7 +164,7 @@ useEffect(() => {
         });
         dispatch(cleanBusiness());
         return;
-      } else if (!business.others.dataValues.active) {
+      } else if (!business.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -173,7 +173,7 @@ useEffect(() => {
         ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateBusiness(business.others.dataValues.email));
+            dispatch(activateBusiness(business.email));
             setInput({
               email: "",
               password: "",
@@ -183,7 +183,7 @@ useEffect(() => {
             history.push("/");
           }
         });
-      } else if (business.others.dataValues.active) {
+      } else if (business.active) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInputBusiness({
           email: "",
@@ -268,7 +268,7 @@ useEffect(() => {
         });
         dispatch(cleanUsers());
         return;
-      } else if (!user.others.dataValues.active) {
+      } else if (!user.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -277,7 +277,7 @@ useEffect(() => {
         ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateUser(user.others.dataValues.email));
+            dispatch(activateUser(user.email));
             setInput({
               email: "",
               password: "",
@@ -287,7 +287,7 @@ useEffect(() => {
             history.push("/");
           }
         });
-      } else if (user.others.dataValues.active) {
+      } else if (user.active) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",
