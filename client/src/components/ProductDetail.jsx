@@ -19,7 +19,6 @@ export const ProductDetail = () => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.productsDetail);
   const cart = useSelector((state) => state.cart);
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -40,26 +39,34 @@ export const ProductDetail = () => {
   // }
   function handleClickAddToCart(e) {
     e.preventDefault();
-    if (cart.length>0){
-      if (cart[0].businessbranchId !== product.businessbranchId){
+    if (cart.length > 0) {
+      if (cart[0].businessbranchId !== product.businessbranchId) {
         swal(
           "Este producto pertenece a otra empresa",
           "Podés agregarlo como favorito para comprarlo en tu proximo carrito!",
           "error"
         );
-      }else{
-        dispatch(addToCart(product));
-        swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
-      }      
-    }else{
+      } else {
+        console.log(product.stock, 'soy product stock')
+        console.log(cart[0].quantity);
+        if(product.stock > cart[0].quantity){
+          dispatch(addToCart(product));
+          swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+          return;
+        }else{
+          swal("No tenemos la cantidad solicitada", "Nuestro stock es menor a la cantidad que deseas", "error")
+        }
+
+        
+      }
+    } else {
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
-    }    
+    }
   }
-  
 
   return (
-    <div style={{marginBottom: '0px', background: "white"}}>
+    <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
 
       {Object.entries(product).length > 0 ? (
@@ -107,7 +114,16 @@ export const ProductDetail = () => {
 
               <p className="card-text" id={styles.stock}>
                 {" "}
-                <span id={styles.bold} style={{textAlign: 'left', marginLeft: '0', marginTop: '10px'}}>Disponibles: </span>
+                <span
+                  id={styles.bold}
+                  style={{
+                    textAlign: "left",
+                    marginLeft: "0",
+                    marginTop: "10px",
+                  }}
+                >
+                  Disponibles:{" "}
+                </span>
                 {product.stock}
               </p>
               <div className="card-footer">
@@ -120,13 +136,13 @@ export const ProductDetail = () => {
                     COMPRAR
                   </a>
                 </div> */}
-                <a
+                <button
                   className="btn btn-primary"
                   onClick={(e) => handleClickAddToCart(e)}
                   id={styles.boton2}
                 >
                   AGREGAR AL CARRITO
-                </a>
+                </button>
                 <a
                   className="btn btn-primary"
                   id={styles.boton2}

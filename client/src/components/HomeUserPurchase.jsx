@@ -4,6 +4,7 @@ import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import { getByPurchaseEmail, getAllCities } from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
+import {BsFillBookmarkStarFill} from 'react-icons/bs'
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 function HomeUserPurchase() {
@@ -39,7 +40,7 @@ function HomeUserPurchase() {
 
   console.log("nameCity :>> ", nameCity);
   useEffect(() => {
-    dispatch(getByPurchaseEmail(user.others.dataValues.email));
+    dispatch(getByPurchaseEmail(user.email));
     dispatch(getAllCities());
   }, [dispatch]);
 
@@ -73,11 +74,14 @@ function HomeUserPurchase() {
     {
       button: true,
       cell: () => (
+        <button style={{display:"flex", fontSize:"20px"}}>
         <FaSearchLocation
           title="Encontrar viajero"
           style={{ marginRight: "15px", fontSize: "30px" }}
           onClick={(e) => editUsers(e)}
         />
+        <BsFillBookmarkStarFill onClick={(e) => editUsers(e)}/>
+        </button>
       ),
     },
   ];
