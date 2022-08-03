@@ -49,7 +49,7 @@ export default function NavBar() {
   }, [gState]);
 
   useEffect(() => {
-<
+
     if (input.perfil === "email") {
       history.push("/perfilUser");
     }
