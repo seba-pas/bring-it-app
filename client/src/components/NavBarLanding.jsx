@@ -15,21 +15,21 @@ import {
   cleanBusiness,
   activateUser,
   activateBusiness,
-  getActiveUser
+  getActiveUser,
 } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 
-
 //seba
 export default function NavBarLanding() {
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+
   const user = useSelector((state) => state.user);
-  const activeUser = user !== 'clean'? user.others.dataValues : 'clean';
-  
+
   const business = useSelector((state) => state.business);
+  console.log(Object.hasOwn(user, "others"));
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -44,10 +44,21 @@ export default function NavBarLanding() {
     password: "",
   });
 
-useEffect(() => {
-  dispatch(getActiveUser())
- }, [dispatch])
- 
+  useEffect(() => {
+    dispatch(getActiveUser());
+    const activeUser =
+      user == "clean"
+        ? "clean"
+        : Object.hasOwn(user, "others")
+        ? user.others.dataValues
+        : "clean";
+    const activeBusiness =
+      business == "clean" || business == "Usuario no encontrado"
+        ? "clean"
+        : Object.hasOwn(business, "others")
+        ? business.others.dataValues
+        : "clean";
+  }, [dispatch, activeUser, activeBusiness]);
 
   const validateBusiness = (inputBusiness) => {
     const errors = {};
@@ -107,6 +118,7 @@ useEffect(() => {
       inputBusiness.password.length <= 16
     ) {
       dispatch(loginBusiness(inputBusiness));
+
       setInputBusiness({
         email: "",
         password: "",
@@ -314,6 +326,7 @@ useEffect(() => {
       }}
     >
       {/* <div className={styles.imagen}> */}
+      {console.log(activeBusiness)}
 
       {/* <NavLink exact to="/"> */}
       <img
@@ -324,10 +337,9 @@ useEffect(() => {
           objectFit: "fit",
           paddingBottom: "0px",
 
-          marginLeft: '2%',
+          marginLeft: "2%",
           marginTop: "3px",
-          paddingTop:'5px',
-
+          paddingTop: "5px",
         }}
         alt="Logo no encontrado"
       />
@@ -336,19 +348,37 @@ useEffect(() => {
 
       <div className={styles.SearchBar}></div>
 
-      {activeUser !== 'clean' && Object.entries(activeUser).length > 0 ? (
+      {activeUser !== "clean" && Object.entries(activeUser).length > 0 ? (
         <div
           style={{
             height: "100%",
-            paddingTop: "33px",           
+            paddingTop: "33px",
             cursor: "pointer",
-            marginRight: '0px',
-          marginLeft: '45%'
+            marginRight: "0px",
+            marginLeft: "45%",
           }}
         >
           <Avatar
             onClick={() => history.push("/usuarioE")}
             name={`${activeUser.name} ${activeUser.lastname}`}
+            src=""
+          >
+            <AvatarBadge boxSize="1.25em" bg="green.500" />
+          </Avatar>
+        </div>
+      ) : activeBusiness !== "clean" && Object.entries(activeBusiness) ? (
+        <div
+          style={{
+            height: "100%",
+            paddingTop: "33px",
+            cursor: "pointer",
+            marginRight: "0px",
+            marginLeft: "45%",
+          }}
+        >
+          <Avatar
+            onClick={() => history.push("/usuarioE")}
+            name={`${activeBusiness.businessName}`}
             src=""
           >
             <AvatarBadge boxSize="1.25em" bg="green.500" />
