@@ -27,7 +27,7 @@ function FormPurchase() {
     arrivalCityId: "",
     name: "",
     maxDeliveryDate: moment().format("YYYY-MM-DD"),
-    userEmail: gState.user.others.dataValues.email,
+    userEmail: gState.user.email,
     items: cart,
     totalPrice: cart
     .reduce((acc, item) => acc + item.quantity * item.price, 0)

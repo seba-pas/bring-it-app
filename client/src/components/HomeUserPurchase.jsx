@@ -21,7 +21,7 @@ function HomeUserPurchase() {
   
 
   useEffect(() => {
-    dispatch(getByPurchaseEmail(user.others.dataValues.email))
+    dispatch(getByPurchaseEmail(user.email))
   },[dispatch])
   function editUsers() {
     alert("PROXIMAMENTE!!!");
