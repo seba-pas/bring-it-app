@@ -659,7 +659,7 @@ export const activateBusiness = (email) => {
 export const getAllEmail=()=>{
   return async function (dispatch){
     try {
-      const res=await axios.get('/api/business/email')
+      const res=await axios.get('/business/email')
       return dispatch({
         type: GET_EMAIL,
         payload: res.data
