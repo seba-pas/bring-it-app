@@ -30,7 +30,7 @@ function UserTravels() {
       return {
         ...prevInput,
         travels: gState.allTravels.filter(
-          (e) => e.userEmail === gState.user.others.dataValues.email
+          (e) => e.userEmail === gState.user.email
         ),
         // editTravels: input.travels.length > 0 ? input.travels.map(e => e.travelCityId = gState.allCities.filter(el => parseInt(el.id) === parseInt(e.travelCityId))[0].nombre) : [],
       };

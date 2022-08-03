@@ -3,10 +3,12 @@ const initialState = {
   productsDetail: {},
   allProducts: [],
   user: {},
+  userToken: "",
   productId: {},
   product: {},
   changeProduct: {},
   business: {},
+  businessToken: "",
   businessEmail: "",
   deleteProduct: "",
   categories: [],
@@ -18,7 +20,7 @@ const initialState = {
   purchase: [],
   purchases: [],
   provinces: [],
-  putEmail: "",
+  putUser: "",
   putBusiness: "",
   businessEditInfo: {},
   userEditInfo: {},
@@ -105,22 +107,63 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         business: "clean",
       };
-    case "POST_LOGIN":
+    case "CLEAN_USER_STATE":
       return {
         ...state,
-        user: action.payload,
+        user: "clean",
+        userToken: "clean"
       };
+      case "CLEAN_BUSINESS_STATE":
+        return {
+          ...state,
+          business: "clean",
+          businessToken: "clean",
+          businessEmail: "clean"
+        };
+    case "POST_LOGIN":
+      if( typeof action.payload === "string"){
+        return {
+          ...state,
+          user: action.payload
+        }
+      }  
+      else{
+        return {
+          ...state,
+          user: action.payload.others.dataValues,
+          userToken: action.payload.accessToken,
+        };
+      }
     case "PUT_USER":
       return {
         ...state,
-        putEmail: action.payload,
+        putUser: action.payload,
       };
-    case "POST_LOGINBUSINESS":
+    case "CLEAN_PUT_USER":
       return {
         ...state,
-        business: action.payload[0],
-        businessEmail: action.payload[1],
-      };
+        putUser: "clean",
+      };  
+    case "GET_USER_BY_EMAIL":
+      return {
+        ...state,
+        user: action.payload
+      };    
+    case "POST_LOGINBUSINESS":
+      if( typeof action.payload[0] === "string"){
+        return {
+          ...state,
+          business: action.payload[0],
+        };
+      }else{
+        return {
+          ...state,
+          business: action.payload[0].others.dataValues,
+          businessEmail: action.payload[1],
+          businessToken: action.payload[0].accessToken
+        };
+      }
+
     case "GET_ALL_PRODUCTS_NAME":
       if (action.payload.length === 0) {
         return {
@@ -242,8 +285,6 @@ export default function rootReducer(state = initialState, action) {
         branches: action.payload,
       };
     case "FILTER_BY_BRANCHES":
-      const allBranches = state.allProducts;
-
       const filterBranches =
         action.payload === "All"
           ? allBranches

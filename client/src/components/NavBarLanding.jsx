@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
@@ -27,9 +27,8 @@ export default function NavBarLanding() {
   const [showLogin, setShowLogin] = useState(false);
 
   const user = useSelector((state) => state.user);
-
   const business = useSelector((state) => state.business);
-  console.log(Object.hasOwn(user, "others"));
+
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -46,19 +45,19 @@ export default function NavBarLanding() {
 
   useEffect(() => {
     dispatch(getActiveUser());
-    const activeUser =
-      user == "clean"
-        ? "clean"
-        : Object.hasOwn(user, "others")
-        ? user.others.dataValues
-        : "clean";
-    const activeBusiness =
-      business == "clean" || business == "Usuario no encontrado"
-        ? "clean"
-        : Object.hasOwn(business, "others")
-        ? business.others.dataValues
-        : "clean";
-  }, [dispatch, activeUser, activeBusiness]);
+    // const activeUser =
+    //   user == "clean"
+    //     ? "clean"
+    //     : Object.hasOwn(user, "others")
+    //     ? user.others.dataValues
+    //     : "clean";
+    // const activeBusiness =
+    //   business == "clean" || business == "Usuario no encontrado"
+    //     ? "clean"
+    //     : Object.hasOwn(business, "others")
+    //     ? business.others.dataValues
+    //     : "clean";
+  }, [dispatch]);
 
   const validateBusiness = (inputBusiness) => {
     const errors = {};
@@ -176,7 +175,7 @@ export default function NavBarLanding() {
         });
         dispatch(cleanBusiness());
         return;
-      } else if (!business.others.dataValues.active) {
+      } else if (!business.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -185,7 +184,7 @@ export default function NavBarLanding() {
         ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateBusiness(business.others.dataValues.email));
+            dispatch(activateBusiness(business.email));
             setInput({
               email: "",
               password: "",
@@ -195,7 +194,7 @@ export default function NavBarLanding() {
             history.push("/");
           }
         });
-      } else if (business.others.dataValues.active) {
+      } else if (business.active) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInputBusiness({
           email: "",
@@ -280,7 +279,7 @@ export default function NavBarLanding() {
         });
         dispatch(cleanUsers());
         return;
-      } else if (!user.others.dataValues.active) {
+      } else if (!user.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -289,7 +288,7 @@ export default function NavBarLanding() {
         ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateUser(user.others.dataValues.email));
+            dispatch(activateUser(user.email));
             setInput({
               email: "",
               password: "",
@@ -299,7 +298,7 @@ export default function NavBarLanding() {
             history.push("/");
           }
         });
-      } else if (user.others.dataValues.active) {
+      } else if (user.active) {
         swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
         setInput({
           email: "",
@@ -326,7 +325,7 @@ export default function NavBarLanding() {
       }}
     >
       {/* <div className={styles.imagen}> */}
-      {console.log(activeBusiness)}
+      {console.log(user)}
 
       {/* <NavLink exact to="/"> */}
       <img
@@ -348,7 +347,7 @@ export default function NavBarLanding() {
 
       <div className={styles.SearchBar}></div>
 
-      {activeUser !== "clean" && Object.entries(activeUser).length > 0 ? (
+      {user !== "clean" && user !== 'Usuario no encontrado' && Object.entries(user).length > 0 ? (
         <div
           style={{
             height: "100%",
@@ -360,13 +359,13 @@ export default function NavBarLanding() {
         >
           <Avatar
             onClick={() => history.push("/usuarioE")}
-            name={`${activeUser.name} ${activeUser.lastname}`}
+            name={`${user?.name} ${user?.lastname}`}
             src=""
           >
             <AvatarBadge boxSize="1.25em" bg="green.500" />
           </Avatar>
         </div>
-      ) : activeBusiness !== "clean" && Object.entries(activeBusiness) ? (
+      ) : business !== "clean" && business !== 'Usuario no encontrado' && Object.entries(business) ? (
         <div
           style={{
             height: "100%",
@@ -378,7 +377,7 @@ export default function NavBarLanding() {
         >
           <Avatar
             onClick={() => history.push("/usuarioE")}
-            name={`${activeBusiness.businessName}`}
+            name={`${business.businessName}`}
             src=""
           >
             <AvatarBadge boxSize="1.25em" bg="green.500" />

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getActiveUser } from "../actions/index";
+import { cleanUserState, getActiveUser } from "../actions/index";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Usuario.module.css";
@@ -14,12 +14,11 @@ import {desactivateUser, cleanUsers, cleanBusiness} from '../actions'
 
 
 const Usuario = () => {
-  const usuario = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const user = usuario !== 'clean' && Object.entries(usuario).length > 0 ? usuario.others.dataValues : 'clean'
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch(); 
   const history = useHistory();
   const business = useSelector((state) => state.business)
-  const activeBusiness =  business !== 'clean' && Object.entries(business).length > 0 ? business.others.dataValues : 'clean'
+
 
   useEffect(() => {
     dispatch(getActiveUser());
@@ -41,14 +40,14 @@ const Usuario = () => {
 
 
  function handleCloseSesion(e){
-    e.preventDefault()
-    dispatch(cleanUsers())
+    e.preventDefault()    
+    dispatch(cleanUserState());
     history.push('/')
  }
   return (
     
     <div style={{height: '70vh', background: 'white', marginTop: '30vh'}}>
-        {console.log(user)}
+        {console.log(user, business)}
       {user !== 'clean' && Object.entries(user).length > 0 ? (
         <div>
           <div>
@@ -102,17 +101,17 @@ const Usuario = () => {
             </button>
           </div>
         </div>
-      ) : activeBusiness !== 'clean' && Object.entries(activeBusiness).length > 0 ?(
+      ) : business !== 'clean'&& business !== 'Usuario no encontrado' && Object.entries(business).length > 0 ?(
         <div>
           <div>
-            <Avatar name={`${activeBusiness.businessName}`} src="">
+            <Avatar name={`${business.businessName}`} src="">
               <AvatarBadge boxSize="1.25em" bg="green.500" />
             </Avatar>
           </div>
           <div >
-            <h1> {`Hola ${activeBusiness.businessName} !`}</h1>
-            <h1>Mi Email: {activeBusiness.email}</h1>          
-            <h1>Mi Número de Teléfono: {activeBusiness.phone}</h1>
+            <h1> {`Hola ${business.businessName} !`}</h1>
+            <h1>Mi Email: {business.email}</h1>          
+            <h1>Mi Número de Teléfono: {business.phone}</h1>
           </div>
 
           <div className={styles.contBotones}>         

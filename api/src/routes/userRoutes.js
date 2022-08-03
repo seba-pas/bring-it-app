@@ -6,36 +6,56 @@ const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
 const router = Router();
 
-//Put desactivacion de cuenta 
-// router.put('/desactivacion/:email', async (req, res)=>{
-// try {
-//   const {email} = req.params ;
-//   const modification = {active: false}
-//   const q = await User.update(modification, {
-//     where: { email: email },
-//   });
-//   res.status(201).send(`${q} usuario desactivado`);
-// } catch (error) {
-//   res.send(`error:${e.message}`)
-// }});
 
+//autenticacion con JWT
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.authorization; //esto trae: "Bearer 'accesToken'" del front
+  console.log(`Soy authHeader: ${authHeader}`);
+  if (authHeader){
+    const token = authHeader.split(" ")[1]; //saca Bearer y se queda con el accesToken solamente
 
-//PUT baneo usuario  
-router.put('/baneo/:email'), async (req, res)=>{
-  const email=req.params.id;
-  console.log(email)
-  await User.update({deleted},{
-          where: {
-              email,
-          }
-      })
-  
-  res.status(200).send('Se bloqueo el usuario correctamente');
-}
+    jwt.verify(token, process.env.JWT_SEC, (error,userLogin) => {
+      if(error){
+        return res.status(403).json(`Token no válido`);
+      }
+
+      req.userLogin = userLogin; //chequear si se tienen q llamar asi
+      next();
+    })
+  } else{
+    res.status(401).json(`No está autenticado`);
+  }
+};
+
+//PUT / baneo de User
+// http://localhost:3001/user/baneo/:email
+router.put("/baneo/:email", verifyToken, async (req, res) => {
+  const email=req.params.email; 
+  //console.log(`email ${email} de la ruta put`)
+  //Agrego verificacion de token, userLogin viene de la fc verifyToken
+  //si el usuario es admin entra, xq el admin puede banear, nadie mas puede.
+  //console.log(`req.userLogin.isAdmin de la ruta put baneo ${req.userLogin.isAdmin}`);
+  if(req.userLogin.isAdmin){ 
+
+    try {
+      await User.update({deleted: true},{
+        where: {
+            email,
+        }
+    })
+    res.status(200).send('Se bloqueo el usuario correctamente');
+    } catch (e) {
+      res.send("error:" + e.message);
+    }      
+    
+  } else{
+    res.status(403).json(`No tiene permiso para bloquear esta cuenta`);
+  }   
+});
 
 
 //POST / CREATE User
-// http://localhost:3001/api/user
+// http://localhost:3001/user
 router.post("/", async (req, res) => {
     try {
       const newUser = await User.findOrCreate({
@@ -82,22 +102,35 @@ router.post("/", async (req, res) => {
 });
 
 // PUT / UPDATE USER
-// http://localhost:3001/api/user/:email
-router.put("/:email", async (req, res) => {
-    const { email } = req.params;
-    const modification = req.body; //json con atributos a modificar y nuevos valores
-  try {
-    const q = await User.update(modification, {
-      where: { email: email },
-    });
-    res.status(201).send(`${q} Usuarios modificadas`);
-  } catch (e) {
-    res.send("error:" + e.message);
-  }
+// http://localhost:3001/user/:email
+//AGREGO EL MIDDLEWARE verifyToken para verificar q el q modifica su cuenta es el usuario en cuestion o el admin
+router.put("/:email", verifyToken, async (req, res) => {
+  const { email } = req.params;
+  const modification = req.body; //json con atributos a modificar y nuevos valores    
+  console.log(`estoy en update user ${email} antes del if, req.headers.authorization: ${req.headers.authorization}`);
+  //Agrego verificacion de token, userLogin viene de la fc verifyToken
+  // (if el usuario loggeado es el mismo usuario cuyos datos se quieren modificar, o es admin)
+  if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){  
+    console.log(`soy req.userLogin: ${req.userLogin}`);
+    console.log(`soy req.userLogin.isAdmin: ${req.userLogin.isAdmin}`);  
+    console.log(`estoy en update user ${email}`);
+    try {
+      const q = await User.update(modification, {
+        where: { email: email },
+      });
+      res.status(201).send(`${q} Usuarios modificados`);
+    } catch (e) {
+      res.send("error:" + e.message);
+    }      
+    
+  } else{
+    res.status(403).json(`No tiene permiso para modificar esta cuenta`);
+  }   
 });
 
+
 //GET / GET ALL USERS
-// http://localhost:3001/api/user
+// http://localhost:3001/user
 router.get("/", async (req, res) => {
   try {
     const dbUsers = await getUsers();
@@ -108,7 +141,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET / GET user detail by id
-// http://localhost:3001/api/user
+// http://localhost:3001/user
 router.get("/:email", async (req, res) => {
   try {
     const { email } = req.params;
@@ -120,20 +153,22 @@ router.get("/:email", async (req, res) => {
 });
 
 //POST / LOG IN para ingreso de usuario
-// http://localhost:3001/api/user/login
+// http://localhost:3001/user/login
 router.post("/login", async (req, res) => {
   try {
     const userLogin = await User.findByPk(req.body.email);
 
-    if (!userLogin) return res.send("Usuario no encontrado");
+    if (!userLogin) return res.status(201).send("Usuario no encontrado");
 
     const hashedPassword = CryptoJS.AES.decrypt(userLogin.password, process.env.PASS_SEC);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-    if(originalPassword !== req.body.password) return res.status(401).send(`Datos incorrectos`);
+    if(originalPassword !== req.body.password) return res.status(201).send(`Datos incorrectos`);
 
     const accessToken = jwt.sign({
-      email: userLogin.email
+      email: userLogin.email,
+      isBusiness: userLogin.isBusiness,
+      isAdmin: userLogin.isAdmin
     }, process.env.JWT_SEC, { expiresIn: '1d' });
 
     const { password, ...others } = userLogin;
