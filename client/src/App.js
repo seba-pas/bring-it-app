@@ -22,6 +22,7 @@ import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from './components/Usuario.jsx'
+import Vidriera from './components/Vidriera'
 // import EntrarSala from "./components/EntrarSala";
 
 
@@ -55,6 +56,8 @@ function App() {
         <Route exact path="/admin" component={HomeAdmin} />
         <Route exact path="/persona/modificarPassword" component={RecuperarPassword}/>
         <Route exact path="/persona/homeUserPurchase" component={HomeUserPurchase}/>
+        <Route exact path="/persona/homeUserPurchase" component={HomeUserPurchase}/>
+        <Route exact path="/vidriera" component={Vidriera}/>
         {/* <Route exact path="/testing" component={FormTravel} /> */}
       </Switch>
     </div>
