@@ -142,8 +142,7 @@ export default function HomePersonas() {
 
   return (
     <div style={{background:'white'}}>
-      {/* {console.log(...new Set(BRANCHES.map((e) => e.province)))} */}
-      
+
       <NavBar />
       <FormTravel />
       {PRODUCTS.length > 0 ? (
