@@ -33,7 +33,7 @@ async function getAllProducts() {
         //         include: [{ model: Business }]
         //     }]
         // });
-        const foundProductsComplete = await Product.findAll();
+        const foundProductsComplete = await Product.findAll( {include: [{model: Businessbranch}, {model: Category}] });
         const filtrado = foundProductsComplete.filter(e => (e.active))
         return filtrado;
         // return (foundProductsComplete) 

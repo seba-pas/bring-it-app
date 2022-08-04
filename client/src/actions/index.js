@@ -60,7 +60,9 @@ import {
   DESACTIVATE_BUSINESS,
   DESACTIVATE_USER,
   DELETE_BUSINESS,
-  DELETE_USER
+  DELETE_USER,
+  ACTIVATE_BRANCH,
+  ACTIVATE_PRODUCT
 
 } from "./actionsTypes";
 
@@ -163,7 +165,20 @@ export const desactivateProduct = (id) => {
     }
   };
 };
-
+export const activateProduct = (id) => {
+  return async function (dispatch) {
+    try {
+      const body = {active:true};
+      const res = await axios.put(`/product/${id}`, body);
+      return dispatch({
+        type: ACTIVATE_PRODUCT,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 //COMIENZA ORDENAMIENTO DE PRODUCTS
 
 export const orderByPrice = (payload) => {
@@ -364,7 +379,6 @@ export const editUser = (id, body, token) => {
       const res = await axios.put(`/user/${id}`, body, { 
         headers: {authorization: `Bearer ${token}`}
         });
-      console.log(`soy res.data ${res.data}`);
       return dispatch({
         type: PUT_USER,
         payload: res.data,
@@ -429,7 +443,6 @@ export const loginBusiness = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/business/login`, body);
-      console.log(`${res.data}`);
       return dispatch({
         type: POST_LOGINBUSINESS,
         payload: [res.data, body.email],
@@ -592,6 +605,22 @@ export const deleteBranch = (id) => {
   };
 };
 
+//Activar branch
+export const activateBranch = (id) => {
+  return async function (dispatch) {
+    try {
+      const body = {active:true};
+      const res = await axios.put(`/businessbranch/${id}`, body);
+      return dispatch({
+        type: ACTIVATE_BRANCH,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 
 // desactivar cuenta usuario 
 export const desactivateUser = (email) => {
@@ -629,8 +658,7 @@ export const activateUser = (email) => {
 export const desactivateBusiness = (email) => {
   return async function (dispatch) {
     try {
-      const body = {active: false};
-      const res = await axios.put(`/business/${email}`, body);
+      const res = await axios.put(`/business/desactivate/${email}`);
       return dispatch({
         type: DESACTIVATE_BUSINESS,
         payload: res.data
@@ -645,8 +673,7 @@ export const desactivateBusiness = (email) => {
 export const activateBusiness = (email) => {
   return async function (dispatch) {
     try {
-      const body = { active: true };
-      const res = await axios.put(`/business/${email}`, body);
+      const res = await axios.put(`/business/activate/${email}`);
       return dispatch({
         type: ACTIVATE_BUSINESS,
         payload: res.data
@@ -658,10 +685,12 @@ export const activateBusiness = (email) => {
 }
 
 // banear cuenta usuario 
-export const deleteUser = (email) => {
+export const deleteUser = (email, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/user/baneo/${email}`);
+      const res = await axios.put(`/user/baneo/${email}`, { 
+        headers: {authorization: `Bearer ${token}`}
+        });
       return dispatch({
         type: DELETE_USER,
         payload: res.data
@@ -672,10 +701,12 @@ export const deleteUser = (email) => {
   }}
 
   // banear cuenta empresa 
-export const deleteBusiness = (email) => {
+export const deleteBusiness = (email, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/business/baneo/${email}`);
+      const res = await axios.put(`/business/baneo/${email}`, { 
+        headers: {authorization: `Bearer ${token}`}
+        });
       return dispatch({
         type: DELETE_BUSINESS,
         payload: res.data

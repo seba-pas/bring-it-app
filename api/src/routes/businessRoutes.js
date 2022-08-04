@@ -97,19 +97,54 @@ router.put('/:email', async(req,res) => {
         const q = await Business.update(modification, {
             where: {email: email}
         });
-        console.log(modification);
-        if (modification.active=="false") {
+        res.status(201).send(`${q} Empresas modificadas`)
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
+})
+
+//DESACTIVACIÓN DE BUSINESS, BRANCHES Y PRODUCTOS
+// http://localhost:3001/api/business/desactivate/:email
+router.put('/desactivate/:email', async(req,res) => {
+    try{
+        const {email} = req.params;
+        const q = await Business.update({active:false}, { //desactivacion business
+            where: {email: email}
+        });
+        await Businessbranch.update({active: false}, { //desactivacion businessbranch
+                where: {businessEmail: email}
+            });
             const businessBranches = await Businessbranch.findAll({where: {businessEmail:email}})
             if (businessBranches) {
-              await Product.update({
-                active: false
-            },{where:{ 
+              await Product.update({active: false} ,{where:{ //desactivacion producto
                 [Op.or]: businessBranches.map(b => {
                     return {businessbranchId: b.id}
                 })
-            }})   
-            }
-        };
+            }})}
+        res.status(201).send(`${q} Empresas modificadas`)
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
+})
+
+//ACTIVACIÓN DE BUSINESS, BRANCHES Y PRODUCTOS
+// http://localhost:3001/business/activate/:email
+router.put('/activate/:email', async(req,res) => {
+    try{
+        const {email} = req.params;
+        const q = await Business.update({active:true}, { //desactivacion business
+            where: {email: email}
+        });
+        await Businessbranch.update({active:true}, { //desactivacion businessbranch
+                where: {businessEmail: email}
+            });
+            const businessBranches = await Businessbranch.findAll({where: {businessEmail:email}})
+            if (businessBranches) {
+              await Product.update({active:true} ,{where:{ //desactivacion producto
+                [Op.or]: businessBranches.map(b => {
+                    return {businessbranchId: b.id}
+                })
+            }})}
         res.status(201).send(`${q} Empresas modificadas`)
     } catch (e) {
        res.send('error:'+ e.message)

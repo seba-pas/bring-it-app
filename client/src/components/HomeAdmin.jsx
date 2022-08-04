@@ -20,14 +20,18 @@ export default function HomeAdmin() {
   const BUSINESS = useSelector((state) => state.business2);
   const allTravels = useSelector((state) => state.allTravels)
   const [orden, setOrden] = useState("");
-
+  const token = useSelector((state => state.userToken))
+  console.log(token);
   // console.log(purchases)
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
   }
-  function banearUsers() {
-    dispatch(deleteUser());
-  }
+
+  function banearUsers(email) {
+    let token = token; // ARREGLAR PQ NO ANDA
+    dispatch(deleteUser(email, token))
+  };
+
   function banearBusiness() {
     dispatch(deleteBusiness());
   }
@@ -123,12 +127,12 @@ export default function HomeAdmin() {
     /* { name: "Acciones", selector: "acciones", sortable: true }, */
     {
       button: true,
-      cell: () => (
+      cell: (row) => (
         <button>
           <FaPencilAlt style={{ marginRight: "15px", fontSize: "20px" }} onClick={(e) => editUsers(e)}/>
           <FaTrashAlt
             style={{ fontSize: "20px" }}
-            onClick={(e) => deleteUsers(e)}
+            onClick={() => banearUsers(row.email)}
           />
         </button>
       ),

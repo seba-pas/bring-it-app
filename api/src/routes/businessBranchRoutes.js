@@ -28,9 +28,16 @@ router.put('/:id', async(req,res) => {
         const q = await Businessbranch.update(modification, {
             where: {id: id}
         });
-        if (modification.active=="false") { //ver si llega como string o no
+        if (modification.active==false) { //ver si llega como string o no
             await Product.update({
                 active: false
+            },{where:{
+                businessbranchId: id
+            }})
+        }
+        if (modification.active==true) { //ver si llega como string o no
+            await Product.update({
+                active: true
             },{where:{
                 businessbranchId: id
             }})
