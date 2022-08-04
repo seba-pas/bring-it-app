@@ -49,12 +49,17 @@ function App() {
         {/* AUTORIZACIÓN PARA USER */}
 
         {
-          user.active ?
+          !user.isBusiness ?
           <Route path="/filtro" component={FilterBefore} /> : 
           <Redirect to="/" />
         }
         {
-          user.active ? 
+          !user ?
+          <Route path="/vidriera" component={Vidriera} /> : 
+          <Redirect to="/persona" />
+        }
+        {
+          !user.isBusiness ? 
           <Route path="/persona" component={HomePersonas} /> :
           <Redirect to="/" />
         }
