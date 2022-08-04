@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/HomePersonas.module.css";
 import { SpinnerCircularFixed } from "spinners-react";
-import { getUsers, getAllBusiness,getAllProducts,getAllTravel,getByPurchaseEmail} from "../actions";
+import { getUsers, getAllBusiness,getAllProducts,getAllTravel,getByPurchaseEmail, deleteBusiness, deleteUser} from "../actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBarAdmin from "./NavBarAdmin";
 import DataTable from "react-data-table-component";
@@ -25,11 +25,11 @@ export default function HomeAdmin() {
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
   }
-  function deleteUsers() {
-    alert("PROXIMAMENTE!!!");
+  function banearUsers() {
+    dispatch(deleteUser());
   }
-  function deleteBusiness() {
-    alert("PROXIMAMENTE!!!");
+  function banearBusiness() {
+    dispatch(deleteBusiness());
   }
 
   function editUsers() {

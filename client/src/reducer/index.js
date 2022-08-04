@@ -34,11 +34,12 @@ const initialState = {
   cart: [],
   cart2: [],
   branchAdded: "",
-  brancDeleted: "",
+  branchDeleted: "",
   branchPut: "",
   activeUser: "",
   activeBusiness: "",
-
+  deletedBusiness: "",
+  deletedUser: "",
   allEmail: []
   
 
@@ -94,10 +95,10 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         changeProduct: action.payload,
       };
-    case "DELETE_PRODUCT":
+    case "DESACTIVATE_PRODUCT":
       return {
         ...state,
-        deleteProduct: action.payload,
+        desactivateProduct: action.payload,
       };
     case "CLEAN_USERS":
       return {
@@ -262,7 +263,7 @@ export default function rootReducer(state = initialState, action) {
         )[0],
         uniqueProvinces: uniqueProvince,
         branchAdded: "",
-        brancDeleted: "",
+        branchDeleted: "",
         branchPut: "",
       };
     case "FILTER_BY_BUSINESS":
@@ -458,7 +459,7 @@ export default function rootReducer(state = initialState, action) {
     case "DELETE_BRANCH":
       return {
         ...state,
-        brancDeleted: action.payload,
+        branchDeleted: action.payload,
       };
     case "EDIT_BRANCH":
       return {
@@ -471,7 +472,7 @@ export default function rootReducer(state = initialState, action) {
         return {
           ...state,
           activeUser: action.payload,
-          user: {}
+          user: "clean"
         }
         case "ACTIVATE_USER":
           return {
@@ -482,13 +483,23 @@ export default function rootReducer(state = initialState, action) {
             return {
               ...state,
               activeBusiness: action.payload,
-              business: {}
+              business: "clean"
             }
             case "ACTIVATE_BUSINESS":
               return {
                 ...state,
                 activeBusiness: action.payload,
               }
+              case "DELETE_BUSINESS":
+                return {
+                  ...state,
+                  deletedBusiness: action.payload,
+                }
+                case "DELETE_USER":
+                  return {
+                    ...state,
+                    deletedUser: action.payload,
+                  }
               // fin borrado lógico
               case 'GET_EMAIL':
                 return {

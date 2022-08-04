@@ -1,10 +1,12 @@
 const { Router } = require ("express");
 const {  getBusiness, getAllEmail } = require ('../controllers/businessControllers');
-const {Business, Businessbranch, City} = require('./../db');
+const {Business, Businessbranch, City, Product} = require('./../db');
 const router = Router();
 const nodemailer = require('nodemailer')
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
+
+const {Op} = require('sequelize');
 
 //MENSAJE DE CELE PARA CELE: falta hacer la fc verifyToken al igual q en userRoutes, y ponerla en put y baneo, y en el componente editarBusiness del front
 
@@ -62,8 +64,31 @@ router.post('/', async (req,res) => {
     }
 });
 
+//PUT / baneo de Business
+// http://localhost:3001/business/baneo/:email
+// router.put("/baneo/:email", verifyToken, async (req, res) => {
+//     const email=req.params.email; 
+//     //console.log(`email ${email} de la ruta put`)
+//     //Agrego verificacion de token, userLogin viene de la fc verifyToken
+//     //si el usuario es admin entra, xq el admin puede banear, nadie mas puede.
+//     //console.log(`req.userLogin.isAdmin de la ruta put baneo ${req.userLogin.isAdmin}`);
+//     if(req.userLogin.isAdmin){ 
+//       try {
+//         await Business.update({deleted: true},{
+//           where: {
+//               email,
+//           }
+//       })
+//       res.status(200).send('Se bloqueo la empresa correctamente');
+//       } catch (e) {
+//         res.send("error:" + e.message);
+//       }     
+//     } else{
+//       res.status(403).json(`No tiene permiso para bloquear esta cuenta empresa`);
+//     }   
+//   });
 
-//UPDATE BUSINESS
+//UPDATE BUSINESS (TAMBIEN DESACTIVACION Y ACTIVACION DE BUSINESS)
 // http://localhost:3001/api/business/:email
 router.put('/:email', async(req,res) => {
     try{
@@ -72,6 +97,19 @@ router.put('/:email', async(req,res) => {
         const q = await Business.update(modification, {
             where: {email: email}
         });
+        console.log(modification);
+        if (modification.active=="false") {
+            const businessBranches = await Businessbranch.findAll({where: {businessEmail:email}})
+            if (businessBranches) {
+              await Product.update({
+                active: false
+            },{where:{ 
+                [Op.or]: businessBranches.map(b => {
+                    return {businessbranchId: b.id}
+                })
+            }})   
+            }
+        };
         res.status(201).send(`${q} Empresas modificadas`)
     } catch (e) {
        res.send('error:'+ e.message)

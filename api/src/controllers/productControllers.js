@@ -27,14 +27,14 @@ function getProducts(name) {
 //Funcion interna, es llamada por getProducts cuando no viene query name
 async function getAllProducts() {
     try {
-        const foundProductsComplete = await Product.findAll({
-            include: [{ model: Category }, {
-                model: Businessbranch,
-                include: [{ model: Business }]
-            }]
-        });
-        const filtrado = foundProductsComplete.filter(e => (e.businessbranch.business.active))
-
+        // const foundProductsComplete = await Product.findAll({
+        //     include: [{ model: Category }, {
+        //         model: Businessbranch,
+        //         include: [{ model: Business }]
+        //     }]
+        // });
+        const foundProductsComplete = await Product.findAll();
+        const filtrado = foundProductsComplete.filter(e => (e.active))
         return filtrado;
         // return (foundProductsComplete) 
     } catch (error) {

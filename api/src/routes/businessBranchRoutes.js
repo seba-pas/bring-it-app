@@ -28,6 +28,13 @@ router.put('/:id', async(req,res) => {
         const q = await Businessbranch.update(modification, {
             where: {id: id}
         });
+        if (modification.active=="false") { //ver si llega como string o no
+            await Product.update({
+                active: false
+            },{where:{
+                businessbranchId: id
+            }})
+        }
         res.status(201).send(`${q} Sede modificada`)
     } catch (e) {
        res.send('error:'+ e.message)
