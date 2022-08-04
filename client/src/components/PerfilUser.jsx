@@ -84,7 +84,7 @@ useEffect(() => {
 
         arrayInfo: [],
       },
-      tokenUser //envio de 3er parametro para enviar los headers en la accion
+      tokenUser //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
     );     
   };

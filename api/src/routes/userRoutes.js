@@ -5,27 +5,7 @@ const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
 const router = Router();
-
-
-//autenticacion con JWT
-const verifyToken = (req, res, next) => {
-  const authHeader = req.headers.authorization; //esto trae: "Bearer 'accesToken'" del front
-  console.log(`Soy authHeader: ${authHeader}`);
-  if (authHeader){
-    const token = authHeader.split(" ")[1]; //saca Bearer y se queda con el accesToken solamente
-
-    jwt.verify(token, process.env.JWT_SEC, (error,userLogin) => {
-      if(error){
-        return res.status(403).json(`Token no válido`);
-      }
-
-      req.userLogin = userLogin; //chequear si se tienen q llamar asi
-      next();
-    })
-  } else{
-    res.status(401).json(`No está autenticado`);
-  }
-};
+const { verifyToken } = require ("../middlewares/verifyToken");
 
 //PUT / baneo de User (SOLO LO PUEDE HACER ADMIN)
 // http://localhost:3001/user/baneo/:email
@@ -48,7 +28,7 @@ router.put("/baneo/:email", verifyToken, async (req, res) => {
     }      
     
   } else{
-    res.status(403).json(`No tiene permiso para bloquear esta cuenta`);
+    res.status(403).json(`No tiene permiso para bloquear esta cuenta usuario`);
   }   
 });
 
@@ -139,7 +119,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET / GET user detail by id
+// GET / GET user detail by email
 // http://localhost:3001/user
 router.get("/:email", async (req, res) => {
   try {
@@ -168,7 +148,7 @@ router.post("/login", async (req, res) => {
       email: userLogin.email,
       isBusiness: userLogin.isBusiness,
       isAdmin: userLogin.isAdmin
-    }, process.env.JWT_SEC, { expiresIn: '1d' });
+    }, process.env.JWT_SEC, { expiresIn: '30m' });
 
     const { password, ...others } = userLogin;
 

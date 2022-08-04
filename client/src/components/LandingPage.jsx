@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getActiveUser } from "../actions";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
+import '../styles/Swal.module.css'
 
 function LandingPage1() {
   const user = useSelector((state) => state.user);
@@ -43,7 +44,7 @@ function LandingPage1() {
       <div>
         <div className={style.divContainer}>
           <div className={style.info}>
-            <h1>Compra con Bring It de manera simple, fácil y segura</h1>
+            <h1  style={{fontSize: "40px", marginBottom: '20px'}}>Compra con Bring It de manera simple, fácil y segura</h1>
             <span>
               Consigue productos de tus tiendas de todo el pais y entregados por
               viajeros a tu ciudad.

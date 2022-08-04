@@ -2,12 +2,16 @@ const { Router } = require ("express");
 const {Business, Businessbranch, City, Product} = require('../db');
 const { Op } = require('sequelize');
 const router = Router();
+const { verifyToken } = require ("../middlewares/verifyToken");
 
 //Este archivo no tiene su Controllers, toda la logica esta aca
 
 //POST new BusinessBranch
-// http://localhost:3001/api/businessbranch
-router.post('/', async (req,res) => {
+// http://localhost:3001/businessbranch
+router.post('/', verifyToken, async (req,res) => {
+  //Agrego verificacion de token, userLogin viene de la fc verifyToken
+  // (if el business q quiere agregar una branch es el business al q se le agrega la branch o es admin)  
+  if(req.userLogin.email === req.body.businessEmail || req.userLogin.isAdmin){ 
     try {
         const { businessName, businessEmail, cityId, province, address } = req.body;
         const cityName = (await City.findByPk(cityId)).nombre;
@@ -17,12 +21,18 @@ router.post('/', async (req,res) => {
     } catch (error) {
         return res.status(404).send(`error: ` + error);
     }
+  }else{
+    res.status(403).json(`No tiene permiso para agregar sede a esta empresa`);
+  }
 })
 
 //UPDATE BusinessBranch
-// http://localhost:3001/api/businessbranch/:id
-router.put('/:id', async(req,res) => {
-    try{
+// http://localhost:3001/businessbranch/:id
+router.put('/:id', verifyToken, async(req,res) => {
+    //Agrego verificacion de token, userLogin viene de la fc verifyToken
+    // (if el business q quiere agregar una branch es el business al q se le agrega la branch o es admin)  
+    if(req.userLogin.email === req.body.businessEmail || req.userLogin.isAdmin){ 
+        try{
         const {id} = req.params;
         const modification = req.body; //json con atributos a modificar y nuevos valores
         const q = await Businessbranch.update(modification, {
@@ -46,6 +56,10 @@ router.put('/:id', async(req,res) => {
     } catch (e) {
        res.send('error:'+ e.message)
    }
+    }
+    }else{
+    res.status(403).json(`No tiene permiso para modificar esta sede`);
+  }
 })
 
 //GET BusinessBranch con opcion query name

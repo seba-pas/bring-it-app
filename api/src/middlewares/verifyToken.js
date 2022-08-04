@@ -1,6 +1,30 @@
 const jwt = require('jsonwebtoken');
 
 
+
+//autenticacion con JWT - esta es la q se esta usando
+const verifyToken = (req, res, next) => {
+	const authHeader = req.headers.authorization; //esto trae: "Bearer 'accesToken'" del front
+	//console.log(`Soy authHeader: ${authHeader}`);
+	if (authHeader){
+	  const token = authHeader.split(" ")[1]; //saca Bearer y se queda con el accesToken solamente
+  
+	  jwt.verify(token, process.env.JWT_SEC, (error,userLogin) => {
+		if(error){
+		  return res.status(403).json(`Token no válido`);
+		}
+  
+		req.userLogin = userLogin; 
+		next();
+	  })
+	} else{
+	  res.status(401).json(`No está autenticado`);
+	}
+  };
+
+
+
+//verificaciones de backup
 // VERIFY IF USER IS AUTHENTICATED
 const verifyTokenUser = (req, res, next) => {
 	const authHeader = req.headers.token;
@@ -88,4 +112,4 @@ const verifyTokenAndBusiness = (req, res, next) => {
 
 
 
-module.exports = { verifyTokenUser, verifyTokenBusiness, verifyTokenAndAuthorization, verifyTokenAndAdmin, verifyTokenAndBusiness }
+module.exports = { verifyToken, verifyTokenUser, verifyTokenBusiness, verifyTokenAndAuthorization, verifyTokenAndAdmin, verifyTokenAndBusiness }

@@ -4,7 +4,7 @@ const { addCategory, getCategory } = require ('../controllers/categoryController
 const router = Router();
 
 //POST Category (ruta interna nuestra, ahora se carga a mano, luego se va a precargar con un json de categorias)
-// http://localhost:3001/api/category
+// http://localhost:3001/category
 router.post('/', async (req,res) => {
     try {
         console.log('en try del post category');
@@ -16,7 +16,7 @@ router.post('/', async (req,res) => {
 });
 
 //GET Category
-// http://localhost:3001/api/category
+// http://localhost:3001/category
 router.get('/', (req,res) => {    
     try {
         return getCategory().then(category => 
