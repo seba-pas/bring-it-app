@@ -45,6 +45,7 @@ function App() {
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
         <Route exact path="/vidriera" component={Vidriera} />
+        <Route exact path='/usuarioE' component={Usuario} />
 
         {/* AUTORIZACIÓN PARA USER */}
 
@@ -94,11 +95,11 @@ function App() {
           <Route exact path='/compra' component={CheckOut} /> :
           <Redirect to="/" />
         }
-        {
+        {/* {
           !user.isBusiness ?
-          <Route exact path='/usuarioE' component={Usuario} /> :
+           :
           <Redirect to="/" />
-        }
+        } */}
         {
           !user.isBusiness ?
           <Route exact path="/perfilUser" component={PerfilUser} /> :
