@@ -347,7 +347,7 @@ export default function NavBarLanding() {
 
       <div className={styles.SearchBar}></div>
 
-      {typeof user !== 'string' && Object.entries(user).length > 0 ? (
+      {user && typeof user !== 'string' && Object.entries(user).length > 1 ? (
         <div
           style={{
             height: "100%",

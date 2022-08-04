@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
@@ -100,11 +100,13 @@ export default function NavBar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.imagen}>
+        <Link to ='/'>
         <img
           src={logo}
           style={{ width: "auto", height: "100px" }}
           alt="Logo no encontrado"
         />
+        </Link>
       </div>
       <div className={styles.search}></div>
       <ul className="navbar-right">
