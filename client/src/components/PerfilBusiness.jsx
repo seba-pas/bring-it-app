@@ -21,7 +21,7 @@ function PerfilBusiness(props) {
   const dispatch = useDispatch();
   let id = props.match.params.id;
   let history = useHistory();
- 
+
   const infoBusiness = gState.businessEditInfo;
   const branchId = gState.businessEditInfo.businessbranches.filter(
     (e) => e.id === parseInt(id)
@@ -61,33 +61,33 @@ function PerfilBusiness(props) {
   const [input, setInput] = useState(
     id
       ? {
-          businessEmail: infoBusiness.email,
-          businessName: infoBusiness.businessName,
-          businessbranches: infoBusiness.businessbranches,
-          cuit: infoBusiness.cuit,
-          email: infoBusiness.email,
-          logo: infoBusiness.logo || "",
-          phone: infoBusiness.phone,
-          taxBracket: infoBusiness.taxBracket,
-          arrayInfo: [],
-          province: branchId[0].province || "",
-          address: branchId[0].address || "",
-          city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
-        }
+        businessEmail: infoBusiness.email,
+        businessName: infoBusiness.businessName,
+        businessbranches: infoBusiness.businessbranches,
+        cuit: infoBusiness.cuit,
+        email: infoBusiness.email,
+        logo: infoBusiness.logo || "",
+        phone: infoBusiness.phone,
+        taxBracket: infoBusiness.taxBracket,
+        arrayInfo: [],
+        province: branchId[0].province || "",
+        address: branchId[0].address || "",
+        city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
+      }
       : {
-          businessEmail: infoBusiness.email,
-          businessName: infoBusiness.businessName,
-          businessbranches: infoBusiness.businessbranches,
-          cuit: infoBusiness.cuit,
-          email: infoBusiness.email,
-          logo: infoBusiness.logo || "",
-          phone: infoBusiness.phone,
-          taxBracket: infoBusiness.taxBracket,
-          arrayInfo: [],
-          province: "",
-          address: "",
-          city: "",
-        }
+        businessEmail: infoBusiness.email,
+        businessName: infoBusiness.businessName,
+        businessbranches: infoBusiness.businessbranches,
+        cuit: infoBusiness.cuit,
+        email: infoBusiness.email,
+        logo: infoBusiness.logo || "",
+        phone: infoBusiness.phone,
+        taxBracket: infoBusiness.taxBracket,
+        arrayInfo: [],
+        province: "",
+        address: "",
+        city: "",
+      }
   );
 
   const [error, setError] = useState({
@@ -216,6 +216,7 @@ function PerfilBusiness(props) {
     event.preventDefault();
     id
       ? dispatch(
+
           editBranch(id, {
             businessName: input.businessName,
             businessEmail: input.businessEmail,
@@ -237,6 +238,7 @@ function PerfilBusiness(props) {
           tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
           )
         );
+
     history.push("/perfil");
   };
 
@@ -363,7 +365,7 @@ function PerfilBusiness(props) {
                       value={input.province}
                       onChange={(e) => handleInputChange(e)}
                     >
-                      <option value="">{} </option>
+                      <option value="">{ } </option>
                       {gState.provinces?.map((e) => (
                         <option key={e.id} value={e.nombre}>
                           {e.nombre}
@@ -381,26 +383,27 @@ function PerfilBusiness(props) {
                   <Form.Group className="mb-3">
                     <Form.Label>Ciudad:</Form.Label>
                     <Form.Select
+                      disabled={!input.province}
                       name="city"
                       value={input.city}
                       onChange={(e) => handleInputChange(e)}
                     >
-                      <option value="">{} </option>
+                      <option value="">{ } </option>
 
                       {input.province
                         ? gState.allCities
-                            ?.filter(
-                              (e) =>
-                                e.provinceId ===
-                                gState.provinces?.filter(
-                                  (e) => e.nombre === input.province
-                                )[0].id
-                            )
-                            ?.map((e) => (
-                              <option key={e.id} value={e.id}>
-                                {e.nombre}
-                              </option>
-                            ))
+                          ?.filter(
+                            (e) =>
+                              e.provinceId ===
+                              gState.provinces?.filter(
+                                (e) => e.nombre === input.province
+                              )[0].id
+                          )
+                          ?.map((e) => (
+                            <option key={e.id} value={e.id}>
+                              {e.nombre}
+                            </option>
+                          ))
                         : ""}
                     </Form.Select>
                     {!error.errorcity ? (
