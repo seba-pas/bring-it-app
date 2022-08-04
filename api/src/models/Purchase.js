@@ -20,11 +20,15 @@ module.exports = (sequelize) => {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },     
+      province: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
     },
     {
         timestamps: true,
         createdAt: false,
-        updatedAt: "Last update"
+        updatedAt: "lastUpdate"
     }
   );
 };

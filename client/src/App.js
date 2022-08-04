@@ -1,6 +1,8 @@
 import "./App.css";
+import decode from 'jwt-decode'
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useSelector } from 'react-redux'
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
 import ProductManager from "./components/ProductManager.jsx";
 import HomeBusiness from "./components/HomeBusiness.jsx";
@@ -22,36 +24,122 @@ import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from './components/Usuario.jsx'
+import Unauthorized from './components/Errores/401/Unauthorized';
+import Vidriera from './components/Vidriera'
 
 
 
 function App() {
+
+  const user = useSelector((state) => state.user)
+  console.log(user)
+  const business = useSelector((state) => state.business)
+
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
-      <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
-
-        <Route exact path="/product/:id" component={ProductDetail} />
+        <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
+        <Route path="/unauthorized" component={Unauthorized} />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/conocemas" component={ConoceMas} />
-        <Route exact path="/persona/misviajes" component={UserTravels} />
-        <Route exact path="/persona" component={HomePersonas} />
-        <Route exact path="/empresas" component={HomeBusiness} />
-        <Route path="/productmanager/:id" component={ProductManager} />
-        <Route exact path="/productmanager" component={ProductManager} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
-        <Route exact path="/filtro" component={FilterBefore} />
-        <Route exact path="/filtroprov" component={FilterProvince} />
-        {/* <Route path='/checkout' component={CheckOut} /> */}
-        <Route exact path='/usuarioE' component={Usuario}/>
-        <Route exact path='/compra' component={CheckOut}/>
-        <Route path="/perfil/:id" component={PerfilBusiness} />
-        <Route exact path="/perfil" component={PerfilBusiness} />
-        <Route exact path="/perfilUser" component={PerfilUser} />
-        <Route exact path="/admin" component={HomeAdmin} />
-        <Route exact path="/persona/modificarPassword" component={RecuperarPassword}/>
-        <Route exact path="/persona/homeUserPurchase" component={HomeUserPurchase}/>
+        <Route exact path="/vidriera" component={Vidriera} />
+        <Route exact path='/usuarioE' component={Usuario} />
+
+        {/* AUTORIZACIÓN PARA USER */}
+
+        {
+          user.active ?
+          <Route path="/filtro" component={FilterBefore} /> : 
+          <Redirect to="/" />
+        }
+        {
+          user.active ? 
+          <Route path="/persona" component={HomePersonas} /> :
+          <Redirect to="/" />
+        }
+        {
+          !user.isBusiness ?
+          <Route path="/compra" component={CheckOut} /> :
+          <Redirect to="/" />
+        }
+        {/*<Route exact path="/persona/modificarPassword" component={RecuperarPassword}/>*/}
+        {
+          !user.isBusiness ? 
+          <Route exact path="/persona/modificarPassword" component={RecuperarPassword} /> :
+          <Redirect to="/" />
+        }
+        {
+          !user.isBusiness ? 
+          <Route exact path="/persona/homeUserPurchase" component={HomeUserPurchase} /> :
+          <Redirect to="/" />
+        }
+        {
+          !user.isBusiness ?
+          <Route exact path="/persona/misviajes" component={UserTravels} /> :
+          <Redirect to="/" />
+        }
+        {
+          !user.isBusiness ?
+          <Route exact path="/product/:id" component={ProductDetail} /> :
+          <Redirect to="/" />
+        }
+        {
+          !user.isBusiness ?
+          <Route exact path="/filtroprov" component={FilterProvince} /> :
+          <Redirect to="/" />
+        }
+        {
+          !user.isBusiness ?
+          <Route exact path='/compra' component={CheckOut} /> :
+          <Redirect to="/" />
+        }
+        {/* {
+          !user.isBusiness ?
+           :
+          <Redirect to="/" />
+        } */}
+        {
+          !user.isBusiness ?
+          <Route exact path="/perfilUser" component={PerfilUser} /> :
+          <Redirect to="/" />
+        }
+        {
+          (!user.isBusiness && user.isAdmin) ?
+          <Route exact path="/admin" component={HomeAdmin} /> : 
+          <Redirect to="/" />
+        }
+
+        {/* RUTAS PARA EMPRESAS */}
+
+        {
+          (business.isBusiness && !user) ?
+          <Route exact path="/empresas" component={HomeBusiness} /> :
+          <Redirect to="/" />
+        }
+        {
+          (business.isBusiness && !user) ?
+          <Route path="/productmanager/:id" component={ProductManager} /> :
+          <Redirect to="/" />
+        }
+        {
+          (business.isBusiness && !user) ?
+          <Route exact path="/productmanager" component={ProductManager} /> :
+          <Redirect to="/" />
+        }
+        {
+          (business.isBusiness && !user) ?
+          <Route path="/perfil/:id" component={PerfilBusiness} /> :
+          <Redirect to="/" />
+        }
+        {
+          (business.isBusiness && !user) ?
+          <Route exact path="/perfil" component={PerfilBusiness} /> :
+          <Redirect to="/" />
+        }
+
+        
         {/* <Route exact path="/testing" component={FormTravel} /> */}
       </Switch>
     </div>

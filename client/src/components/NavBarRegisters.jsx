@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
-import image from "../components/img/logo2.png";
+import image from "../components/img/logo2-removebg-preview.png";
 import swal from "sweetalert";
 import Form from "react-bootstrap/Form";
 
