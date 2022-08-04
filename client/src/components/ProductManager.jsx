@@ -12,6 +12,7 @@ function ProductManager(props) {
     const history = useHistory();
     let id = props.match.params.id;
 
+    const tokenBusiness = gState.businessToken;
 
     useEffect(() => {
         dispatch(getCategories());
@@ -140,10 +141,12 @@ function ProductManager(props) {
                 stock: input.stock,
                 description: input.description,
                 categoryId: [...input.categoryId],
-                // businessEmail: gState.businessEmail,
+                businessEmail: gState.businessEmail,
                 businessbranchId: parseInt(input.branch),
-            }))
-            swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
+            },
+            tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+            ))
+            swal("Buen trabajo!", "Editado satisfactoriamente!", "success"); 
         } else {
 
             dispatch(addProduct({
@@ -154,11 +157,13 @@ function ProductManager(props) {
                 stock: input.stock,
                 description: input.description,
                 categoryId: [...input.categoryId],
-                // businessEmail: gState.businessEmail,
+                businessEmail: gState.businessEmail,
                 businessbranchId: parseInt(input.branch),
-            }))
+            },
+            tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+            ))
 
-            swal("Buen trabajo!", "Producto agregado satisfactoriamente!", "success");
+            swal("Buen trabajo!", "Producto agregado satisfactoriamente!", "success"); 
             setInput((prevInput) => {
                 return {
                     ...prevInput,

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  GET_EMAIL,
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_DETAIL,
   POST_USER,
@@ -119,10 +120,12 @@ export const setProduct = () => {
   };
 };
 
-export const addProduct = (body) => {
+export const addProduct = (body, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/product`, body);
+      const res = await axios.post(`/product`, body,
+      { headers: {authorization: `Bearer ${token}`} }
+      );
       return dispatch({
         type: POST_PRODUCT,
         payload: res.data,
@@ -133,11 +136,13 @@ export const addProduct = (body) => {
   };
 };
 
-export const editProduct = (id, body) => {
+export const editProduct = (id, body, token) => {
   return async function (dispatch) {
     try {
 
-      const res = await axios.put(`/product/${id}`, body);
+      const res = await axios.put(`/product/${id}`, body,
+      { headers: {authorization: `Bearer ${token}`} }
+      );
 
       return dispatch({
         type: PUT_PRODUCT,
@@ -438,10 +443,12 @@ export const loginBusiness = (body) => {
   };
 };
 
-export const editBusiness = (id, body) => {
+export const editBusiness = (id, body, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/business/${id}`, body);
+      const res = await axios.put(`/business/${id}`, body, { 
+        headers: {authorization: `Bearer ${token}`}
+        });
       return dispatch({
         type: PUT_BUSINESS,
         payload: res.data,
@@ -539,12 +546,13 @@ export function getCart() {
 
 // agregar sede
 
-export function postBranch(body) {
+export function postBranch(body, token) {
   return async function (dispatch) {
     try {
       const res = await axios.post(
         `/businessbranch`,
-        body
+        body,
+        { headers: {authorization: `Bearer ${token}`} }
       );
       return dispatch({
         type: POST_BRANCH,
@@ -557,12 +565,13 @@ export function postBranch(body) {
 }
 
 //edit branch
-export function editBranch(id, body) {
+export function editBranch(id, body, token) {
   return async function (dispatch) {
     try {
       const res = await axios.put(
         `/businessbranch/${id}`,
-        body
+        body,
+        {headers: {authorization: `Bearer ${token}`}}
       );
       return dispatch({
         type: EDIT_BRANCH,
@@ -653,4 +662,19 @@ export const activateBusiness = (email) => {
     }
   }
 }
+
+// all email
+export const getAllEmail=()=>{
+  return async function (dispatch){
+    try {
+      const res=await axios.get('/business/email')
+      return dispatch({
+        type: GET_EMAIL,
+        payload: res.data
+      })
+    } catch (error) {
+    console.log(error);
+    }
+  }
+};
 

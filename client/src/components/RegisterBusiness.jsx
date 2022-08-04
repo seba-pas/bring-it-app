@@ -22,11 +22,21 @@ function RegisterBusiness() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
-  const PROVINCES = useSelector((state) => state.provinces);
+  let PROVINCES = useSelector((state) => state.provinces);
+  PROVINCES = PROVINCES.sort((a, b) => {
+    if(a.nombre > b.nombre) return  1;
+    if(b.nombre > a.nombre) return -1;
+    return 0;
+  })
   const gState = useSelector((state) => state);
   const [value, setValue] = useState();
 
-  const CITIES = useSelector((state) => state.cities);
+  let CITIES = useSelector((state) => state.allCities);
+  CITIES = CITIES.sort((a, b) => {
+    if(a.nombre > b.nombre) return 1;
+    if(b.nombre > a.nombre) return -1;
+    return 0;
+  })
 
   const [input, setInput] = useState({
     email: "",
@@ -317,7 +327,7 @@ function RegisterBusiness() {
                   onChange={(e) => handleInputChange(e)}
                 >
                   <option value="">{} </option>
-                  {gState.provinces?.map((e) => (
+                  {PROVINCES?.map((e) => (
                     <option key={e.id} value={e.nombre}>
                       {e.nombre}
                     </option>
@@ -338,7 +348,7 @@ function RegisterBusiness() {
                   {
                     // gState.cities?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
                     input.province
-                      ? gState.allCities
+                      ? CITIES
                           ?.filter(
                             (e) =>
                               e.provinceId ===

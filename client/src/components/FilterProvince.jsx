@@ -19,6 +19,14 @@ export default function FilterProvince() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products);
   const BRANCHES = useSelector((state) => state.branches);
+
+  let provOrder = BRANCHES.map((e) => e.province);
+  provOrder = provOrder.sort((a, b) => {
+    if(a > b) return  1;
+    if(b > a) return -1;
+    return 0;
+  })
+
   const [orden, setOrden] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(8);
@@ -48,7 +56,7 @@ export default function FilterProvince() {
     setOrden(`Ordenado ${e.target.value}`);
   }
   //funcion para ordenar por
-  const provUnica = [...new Set(BRANCHES.map((e) => e.province))];
+  const provUnica = [...new Set(provOrder)];
   function handleFilterByBranchesProvinces(e) {
     e.preventDefault();
     setOrden(e.target.value);

@@ -1,20 +1,28 @@
 const { Console } = require("console");
 const { Router } = require("express");
 const { getProductById, getProducts } = require('../controllers/productControllers');
+const { verifyToken } = require("../middlewares/verifyToken");
 const { Product } = require('./../db');
 const router = Router();
 
 //POST new Product
-// http://localhost:3001/api/product
-router.post('/', async (req, res) => {
-    try {
-        const categoryId = req.body.categoryId;
-        const newProduct = await Product.create({ ...req.body });
-        await newProduct.addCategory(categoryId);
-        res.status(201).send("producto agregado")
-    } catch (error) {
-        return res.status(404).send(`error: ` + error);
-    }
+// http://localhost:3001/product
+router.post('/', verifyToken, async (req, res) => {
+    //Agrego verificacion de token, userLogin viene de la fc verifyToken
+    // (if la empresa loggeada es la misma empresa que quiere agregar un producto)
+    const businessEmail = req.body.businessEmail;    
+    if(req.userLogin.email === businessEmail){
+        try {
+            const categoryId = req.body.categoryId;
+            const newProduct = await Product.create({ ...req.body });
+            await newProduct.addCategory(categoryId);
+            res.status(201).send("producto agregado")
+        } catch (error) {
+            return res.status(404).send(`error: ` + error);
+        }
+    }else{
+        res.status(403).json(`No tiene permiso para agregar productos a la sede de esta empresa ${businessEmail}`);
+      } 
 })
 
 //GET Product detail (id por params)
@@ -48,19 +56,26 @@ router.get('/', async (req, res) => {
 
 //UPDATE PRODUCT 
 // http://localhost:3001/api/product/:id
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
+    //Agrego verificacion de token, userLogin viene de la fc verifyToken
+    // (if la empresa loggeada es la misma empresa que quiere editar un producto)
+    const businessEmail = req.body.businessEmail;
+    if(req.userLogin.email === businessEmail){    
     try {
-        const { id } = req.params;
-        const modification = req.body; //json con atributos a modificar y nuevos valores
-        const q = await Product.update(modification, {
-            where: { id: id }
-        });
-        const foundProduct = await Product.findByPk(id);
-        await foundProduct.setCategories(modification.categoryId);
-        res.status(201).send(`${q} Productos modificados`)
-    } catch (e) {
-        res.send('error:' + e.message)
-    }
+            const { id } = req.params;
+            const modification = req.body; //json con atributos a modificar y nuevos valores
+            const q = await Product.update(modification, {
+                where: { id: id }
+            });
+            const foundProduct = await Product.findByPk(id);
+            await foundProduct.setCategories(modification.categoryId);
+            res.status(201).send(`${q} Productos modificados`)
+        } catch (e) {
+            res.send('error:' + e.message)
+        }
+    }else{
+    res.status(403).json(`No tiene permiso para editar productos de la sede de esta empresa ${businessEmail}`);
+  } 
 })
 
 //DELETE PRODUCT // A PROBAR SI FUNCIONA

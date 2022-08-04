@@ -7,7 +7,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
-import image from "../components/img/logo2.png";
+import image from "../components/img/logo2-removebg-preview.png";
 import {
   login,
   loginBusiness,
@@ -20,14 +20,15 @@ import {
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
-
+import jwt_decode from "jwt-decode";
 //seba
 export default function NavBarLanding() {
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
-  const user = useSelector((state) => state.user);
+  const [usuario, setUsuario] = useState({});
 
+  const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
 
   const dispatch = useDispatch();
@@ -43,6 +44,24 @@ export default function NavBarLanding() {
     email: "",
     password: "",
   });
+
+  function handleCallbackResponse(response) {
+    var userObject = jwt_decode(response.credential);
+    console.log(userObject);
+    setUsuario(userObject);
+  }
+
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "641652149872-h0qtl62b27hp6d03dtbk7ecn7si2mepq.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large ",
+    });
+  }, []);
 
   useEffect(() => {
     dispatch(getActiveUser());
@@ -325,10 +344,6 @@ export default function NavBarLanding() {
         justifyContent: "space-between",
       }}
     >
-      {/* <div className={styles.imagen}> */}
-      {console.log(user)}
-
-      {/* <NavLink exact to="/"> */}
       <img
         src={image}
         style={{
@@ -343,12 +358,10 @@ export default function NavBarLanding() {
         }}
         alt="Logo no encontrado"
       />
-      {/* </NavLink> */}
-      {/* </div> */}
 
       <div className={styles.SearchBar}></div>
 
-      {user !== "clean" && user !== 'Usuario no encontrado' && Object.entries(user).length > 0 ? (
+      {user && typeof user !== "string" && Object.entries(user).length > 1 ? (
         <div
           style={{
             height: "100%",
@@ -366,7 +379,7 @@ export default function NavBarLanding() {
             <AvatarBadge boxSize="1.25em" bg="green.500" />
           </Avatar>
         </div>
-      ) : business !== "clean" && business !== 'Usuario no encontrado' && Object.entries(business) ? (
+      ) : business && typeof business !== "string" && !business.others ? (
         <div
           style={{
             height: "100%",
@@ -378,18 +391,25 @@ export default function NavBarLanding() {
         >
           <Avatar
             onClick={() => history.push("/usuarioE")}
-            name={`${business.businessName}`}
+            name={`${business?.businessName}`}
             src=""
           >
             <AvatarBadge boxSize="1.25em" bg="green.500" />
           </Avatar>
         </div>
       ) : (
-        <div className={styles.contbotones2} style={{ marginLeft: "30%" }}>
+        <div className={styles.contbotones2} style={{ marginLeft: "55%" }}>
           <button id={styles.login} onClick={handleShowLogin}>
             LOGIN
           </button>
           <button onClick={handleShow}>REGISTRARSE</button>
+
+          {/* <div id="signInDiv"></div>
+          {
+            usuario && <div>
+              <img src={usuario.picture} alt='' style={{borderRadius: '50%'}}/><h3>{usuario.name}</h3>
+            </div>
+          } */}
         </div>
       )}
 
@@ -398,6 +418,7 @@ export default function NavBarLanding() {
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
           </Modal.Header>
+
           <Modal.Body>
             <Tabs
               id="controlled-tab-example"
@@ -460,6 +481,7 @@ export default function NavBarLanding() {
                       />
                       {errors.email && <p>{errors.email}</p>}
                     </Form.Group>
+                    F{" "}
                   </Row>
                   <Row>
                     <Form.Group className="mb-3">

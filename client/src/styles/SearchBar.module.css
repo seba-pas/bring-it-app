@@ -43,7 +43,7 @@
 
 }
 .divContainer input:focus::placeholder{
-    color:#8c52ff;
+    color:black;
 
 }
 
@@ -54,10 +54,12 @@
   border: none;
   border-radius: 50%;
   font-size: 20px;
-  padding-top: 0px;
+  /* padding-top: 0px; */
+  width: 40px;
 }
 
 #boton:hover {
+  background-color: black;
     color: white;
   
   transition: color 0.2s ease;
