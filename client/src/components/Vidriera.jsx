@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
 import swal from "sweetalert";
-
+import { useHistory } from "react-router-dom";
 
 import { SpinnerCircularFixed } from "spinners-react";
 import "bootstrap/dist/css/bootstrap.css";
@@ -29,15 +29,37 @@ import FormTravel from "./FormTravel";
 
 export default function HomePersonas() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const PRODUCTS = useSelector((state) => state.products);
-  const BUSINESS = useSelector((state) => state.business2);
   const cart = useSelector((state) => state.cart);
-  const CATEGORY = useSelector((state) => state.categories);
-  const CITIES = useSelector((state) => state.business2);
-  const PROVINCES = useSelector((state) => state.branches);
-  const stateCart = useSelector((state) => state.cart);
+
+  let CATEGORY = useSelector((state) => state.categories);
+
+  CATEGORY = CATEGORY.sort((a, b) => {
+    if(a.name > b.name) return  1;
+    if(b.name > a.name) return -1;
+    return 0;
+  })
+  
   const gState = useSelector((state) => state);
-  const BRANCHES = useSelector((state) => state.branches);
+
+  let BRANCHES = useSelector((state) => state.branches);
+
+  let businessOrder = BRANCHES.map((e) => e.businessBranchName);
+  businessOrder = businessOrder.sort((a, b) => {
+    if(a > b) return  1;
+    if(b > a) return -1;
+    return 0;
+  })
+
+  let provOrder = BRANCHES.map((e) => e.province);
+  provOrder = provOrder.sort((a, b) => {
+    if(a > b) return  1;
+    if(b > a) return -1;
+    return 0;
+  })
+
+  
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -86,7 +108,8 @@ export default function HomePersonas() {
     dispatch(getAllBranches());
   }, [dispatch]);
 
-  if (BRANCHES === "No se encontraron sedes en la bd") dispatch(getAllBranches());
+  if (BRANCHES === "No se encontraron sedes en la bd")
+    dispatch(getAllBranches());
   //funcion para volver a cargar los productos
   function handleClick(e) {
     e.preventDefault();
@@ -115,7 +138,9 @@ export default function HomePersonas() {
   }
 
   //funcion para filtrar por empresas
-  const provUnica = [...new Set(BRANCHES.map((e) => e.province))]
+
+  const provUnica = [...new Set(provOrder)]
+
   function handleFilterByBusiness(e) {
     e.preventDefault();
     setBusinnes(e.target.value);
@@ -141,24 +166,43 @@ export default function HomePersonas() {
     setOrden(`Ordenado ${e.target.value}`);
   }
 
-  function handleLog(e){
+  function handleLog(e) {
     e.preventDefault();
-    swal("No estas logueado", "Logueate para poder comprar y disfrutar de mas funciones de BI!", "error");
+    swal(
+      "No estas logueado",
+      "Logueate para poder comprar y disfrutar de mas funciones de BI!",
+      "error"
+    );
   }
 
+  function goBack(e) {
+    e.preventDefault();
+    history.goBack("/");
+  }
 
   return (
-    <div style={{background:'white'}}>
+    <div style={{ background: "white" }}>
       {/* {console.log(...new Set(BRANCHES.map((e) => e.province)))} */}
-      
-      <NavBarLanding />
-    
-      {PRODUCTS.length > 0 ? (
 
+      <NavBarLanding />
+
+      {PRODUCTS.length > 0 ? (
         PRODUCTS == "No se encontraron productos asociados" ? (
-          <div style={{color:'#8c52ff', background:'white', marginTop:'150px'}}>
+          <div
+            style={{
+              color: "#8c52ff",
+              background: "white",
+              marginTop: "150px",
+            }}
+          >
             <h1>No se encontraron productos asociados</h1>
-            <button className='btn btn-primary' style={{marginTop: '40px'}} onClick={(e) => handleClick(e)}>Volver</button>
+            <button
+              className="btn btn-primary"
+              style={{ marginTop: "40px" }}
+              onClick={(e) => handleClick(e)}
+            >
+              Volver
+            </button>
           </div>
         ) : (
           <div>
@@ -197,12 +241,13 @@ export default function HomePersonas() {
                   <option hidden selected>
                     Empresa
                   </option>
-                  {BRANCHES?.map((BRANCHES) => {
+                  {businessOrder?.map((BRANCHES) => {
                     return (
 
-                      <option value={BRANCHES.businessBranchName} key={BRANCHES.id}>
+                      <option value={BRANCHES} key={BRANCHES}>
 
-                        {BRANCHES.businessBranchName}
+                        {BRANCHES}
+
                       </option>
                     );
                   })}
@@ -213,7 +258,7 @@ export default function HomePersonas() {
                 >
                   <option value="All">Todas</option>
 
-                  {provUnica?.map((e) => {
+                  {provOrder?.map((e) => {
                     return (
                       <option value={e} key={e}>
                         {e}
@@ -227,10 +272,13 @@ export default function HomePersonas() {
                 >
                   Limpiar Filtros
                 </button>
+                <button className={styles.botonvol} onClick={(e) => goBack(e)}>
+                  Volver
+                </button>
               </div>
               <div className={styles.contcards} style={{ width: "100%" }}>
                 <button onClick={(e) => handleLog(e)}>
-                <ProductCards  currentProducts={currentProducts} />
+                  <ProductCards currentProducts={currentProducts} />
                 </button>
               </div>
             </div>

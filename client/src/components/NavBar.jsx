@@ -115,7 +115,7 @@ export default function NavBar() {
         <li
           style={{
             listStyle: "none",
-            color: "#d2691E",
+            color: "#8c52ff",
             fontSize: "18px",
             margin: "3px",
             marginTop: "33px",
@@ -124,11 +124,11 @@ export default function NavBar() {
 
           
 
-          <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "black", fontSize: '12px', borderColor: '#8c52ff', marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px', marginLeft:'70px'}}>
+          <button id={styles.botonCart} onClick={handleShow} /*style={{  fontSize: '12px', borderColor: '#8c52ff', marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px', marginLeft:'70px'}}*/>
 
             {/* <FaShoppingBag/> */}
             <span
-              style={{ color: "#D2691E", margin: "0px", fontSize: "18px" }}
+              style={{ color: "white", margin: "0px", fontSize: "18px" }}
               className="badge"
             >
               {"🛒 "}

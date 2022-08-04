@@ -38,7 +38,6 @@ const initialState = {
   branchPut: "",
   activeUser: "",
   activeBusiness: "",
-
   allEmail: []
   
 

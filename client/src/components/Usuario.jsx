@@ -35,12 +35,14 @@ const Usuario = () => {
   function handleCloseSessionBusiness(e) {
     e.preventDefault();
     dispatch(cleanBusiness());
+    swal("Tu sesion ha sido cerrada con éxito", "Gracias por usar Bring it!", "success");
     history.push("/");
   }
 
   function handleCloseSesion(e) {
     e.preventDefault();
     dispatch(cleanUserState());
+    swal("Tu sesion ha sido cerrada con éxito", "Gracias por usar Bring it!", "success");
     history.push("/");
   }
 

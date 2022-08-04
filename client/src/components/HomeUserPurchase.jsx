@@ -6,6 +6,7 @@ import { getByPurchaseEmail, getAllCities } from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
+
 import { useHistory } from "react-router-dom";
 import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
@@ -22,18 +23,31 @@ function HomeUserPurchase() {
   const [selectedData, setSelectedData] = useState();
   const handleRating = (input) => {
     setAvgRating(input);
+
   };
   const [input, setInput] = useState({
     city: [],
   });
-  // console.log(gState);
+  
+
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+/*   const handleInputChange = (event) => {
+    event.preventDefault();
+    setInput((prevInput) => {
+      return {
+        ...prevInput,
+        [event.target.name]: event.target.value,
+      };
+    });
+  }; */
+ 
   const handleBack = (event) => {
     event.preventDefault();
     history.push("/filtro");
   };
-  console.log("purchases", purchases);
   const changeCity = purchases;
-  console.log("soy changeCity", changeCity);
   const nameCity = changeCity.map((e) => {
     return {
       idProducts: e.purchaseitems.map((e) => e.productId),
@@ -48,23 +62,22 @@ function HomeUserPurchase() {
     };
   });
 
-  console.log("nameCity :>> ", nameCity);
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
     dispatch(getAllCities());
   }, [dispatch]);
 
   const handleClose = () => setShow(null);
+  const handleShow = (id) => {
+    setShow((showId) => (showId === id ? null : id));
 
-  const handleShow = id => {
-    setShow(showId => showId === id ? null : id);
   };
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
-    console.log(selectedData);
+
   };
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
@@ -142,24 +155,35 @@ function HomeUserPurchase() {
         <Modal.Body>
           <DataTable
             columns={columnasRating}
-            data={nameCity.filter(item => item.id === show)}
+
+            data={nameCity.filter((item) => item.id === show)}
             title="Listado de compras"
           />
           <br />
-          <Form>
-            <h1>Indica del 1 al 5 que tan satisfecho esta con su compra</h1>
-            <ChangeRating rating={avgRating} handleRating={handleRating} />
+          <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Label style={{ paddingBottom: "15px" }}>
+              Indica del 1 al 5 que tan satisfecho esta con su compra
+            </Form.Label>
+            <ChangeRating
+              rating={avgRating}
+              handleRating={handleRating}
+            />
             <br />
             <br />
             <StarRating stars={avgRating} />
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
+            <Form.Group className="mb-3">
               <Form.Label>Deja tu comentario</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="comentario"
+                required
+                onChange={(e) => handleInputChange(e)}
+              />
             </Form.Group>
-            <Button style={{ marginLeft: "30%" }}>Enviar comentario</Button>
+            <Button className="mt-3 mb-5 w-100 mt-3" type="submit">
+              Enviar comentario
+            </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>

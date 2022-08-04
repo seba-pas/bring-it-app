@@ -27,6 +27,9 @@ function PerfilBusiness(props) {
     (e) => e.id === parseInt(id)
   );
 
+
+  const tokenBusiness = gState.businessToken;
+
   const uploadImage = async (e) => {
     const files = e.target.files;
     const data = new FormData();
@@ -213,23 +216,29 @@ function PerfilBusiness(props) {
     event.preventDefault();
     id
       ? dispatch(
-        editBranch(id, {
-          businessName: input.businessName,
-          businessEmail: input.businessEmail,
-          cityId: input.city,
-          province: input.province,
-          address: input.address,
-        })
-      )
+
+          editBranch(id, {
+            businessName: input.businessName,
+            businessEmail: input.businessEmail,
+            cityId: input.city,
+            province: input.province,
+            address: input.address,
+          },
+          tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+          )
+        )
       : dispatch(
-        postBranch({
-          businessName: input.businessName,
-          businessEmail: input.businessEmail,
-          cityId: input.city,
-          province: input.province,
-          address: input.address,
-        })
-      );
+          postBranch({
+            businessName: input.businessName,
+            businessEmail: input.businessEmail,
+            cityId: input.city,
+            province: input.province,
+            address: input.address,
+          },
+          tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+          )
+        );
+
     history.push("/perfil");
   };
 
@@ -244,9 +253,11 @@ function PerfilBusiness(props) {
         taxBracket: input.taxBracket,
         logo: input.logo,
         // phone: input.phone,
-      })
+      },
+      tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+      )
     );
-    swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
+    swal("Buen trabajo!", "Editado satisfactoriamente!", "success"); 
   };
   return (
     <div>
