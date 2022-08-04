@@ -25,6 +25,7 @@ import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from './components/Usuario.jsx'
 import Unauthorized from './components/Errores/401/Unauthorized';
+import Vidriera from './components/Vidriera'
 
 
 
@@ -43,6 +44,7 @@ function App() {
         <Route exact path="/conocemas" component={ConoceMas} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
+        <Route exact path="/vidriera" component={Vidriera} />
 
         {/* AUTORIZACIÓN PARA USER */}
 
