@@ -43,6 +43,20 @@ async function getBusinessByName (name){
 
 }
 
+// Funcion del GET / GET BUSINESS BY EMAIL
+async function getBusinessByEmail (email){
+    try {
+        const businessByEmail = await Business.findByPk (email, {
+            include: {model: Businessbranch}
+        });      
+        return businessByEmail;  
+    }catch(e){
+        return "No se encontró la empresa solicitada";
+    }
+}
+
+
 module.exports = {
-    getBusiness
+    getBusiness,
+    getBusinessByEmail
 };
