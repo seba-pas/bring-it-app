@@ -13,7 +13,7 @@ router.put("/:id", async (req, res) => {
     await Purchase.update(
       {
         totalPrice,
-        waitingTime,
+        maxDeliveryDate,
         arrivalCityId,
       },
       {
@@ -96,6 +96,7 @@ router.post("/", async (req, res) => {
       maxDeliveryDate,
       arrivalCityId, //pasar a id
       userEmail,
+      province,
       items,
     } = req.body;
 
@@ -103,6 +104,7 @@ router.post("/", async (req, res) => {
       totalPrice,
       maxDeliveryDate,
       arrivalCityId,
+      province,
       userEmail,
     });
     //AGREGADO DE ITEMS A PURCHASEITEMS
@@ -112,10 +114,19 @@ router.post("/", async (req, res) => {
         productId: i.id,
         quantity: i.quantity,
       });
+     const oldStock =  (await Product.findByPk(i.id)).stock;
+     console.log(oldStock);
+     await Product.update({
+      stock: (oldStock - i.quantity)
+     }, {
+      where: {
+        id: i.id
+      }
+     })
     });
-    res
-      .status(200)
-      .send(createdPurchase ? createdPurchase : "No se hizo la compra");
+
+
+    res.status(200).send(createdPurchase ? createdPurchase : "No se hizo la compra");
   } catch (error) {
     res.status(400).send(error.message);
   }
