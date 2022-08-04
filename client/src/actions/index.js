@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  GET_EMAIL,
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_DETAIL,
   POST_USER,
@@ -412,7 +413,6 @@ export function addBusiness(body) {
 export function postPurchase(body) {
   return async function (dispatch) {
     let res = await axios.post(`/purchase`, body);
-    console.log(res)
     try {
       return dispatch({
         type: POST_PURCHASE,
@@ -475,7 +475,6 @@ export const getByPurchaseEmail = (email) => {
   return async function (dispatch){
     try {
       const res = await axios.get(`/purchase/email/${email}`)
-      debugger;
       return dispatch({
         type: GET_BY_PURCHASE_EMAIL,
         payload: res.data,
@@ -655,4 +654,19 @@ export const activateBusiness = (email) => {
     }
   }
 }
+
+// all email
+export const getAllEmail=()=>{
+  return async function (dispatch){
+    try {
+      const res=await axios.get('/business/email')
+      return dispatch({
+        type: GET_EMAIL,
+        payload: res.data
+      })
+    } catch (error) {
+    console.log(error);
+    }
+  }
+};
 

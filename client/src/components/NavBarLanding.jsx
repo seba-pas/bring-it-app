@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
@@ -7,7 +7,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
-import image from "../components/img/logo2.png";
+import image from "../components/img/logo2-removebg-preview.png";
 import {
   login,
   loginBusiness,
@@ -15,21 +15,24 @@ import {
   cleanBusiness,
   activateUser,
   activateBusiness,
-  getActiveUser
+  getActiveUser,
 } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
-
-
+import jwt_decode from 'jwt-decode'
 //seba
 export default function NavBarLanding() {
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const user = useSelector((state) => state.user);
-  const activeUser = user !== 'clean'? user : 'clean';
+
+  const [usuario, setUsuario] = useState({})
+
   
+
+  const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -44,10 +47,41 @@ export default function NavBarLanding() {
     password: "",
   });
 
-useEffect(() => {
-  dispatch(getActiveUser())
- }, [dispatch])
- 
+  function handleCallbackResponse(response) {   
+    var userObject = jwt_decode(response.credential);     
+    console.log(userObject)
+    setUsuario(userObject)
+
+
+  }
+
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "641652149872-h0qtl62b27hp6d03dtbk7ecn7si2mepq.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large ",
+    });
+  }, []);
+
+  useEffect(() => {
+    dispatch(getActiveUser());
+    // const activeUser =
+    //   user == "clean"
+    //     ? "clean"
+    //     : Object.hasOwn(user, "others")
+    //     ? user.others.dataValues
+    //     : "clean";
+    // const activeBusiness =
+    //   business == "clean" || business == "Usuario no encontrado"
+    //     ? "clean"
+    //     : Object.hasOwn(business, "others")
+    //     ? business.others.dataValues
+    //     : "clean";
+  }, [dispatch]);
 
   const validateBusiness = (inputBusiness) => {
     const errors = {};
@@ -107,6 +141,7 @@ useEffect(() => {
       inputBusiness.password.length <= 16
     ) {
       dispatch(loginBusiness(inputBusiness));
+
       setInputBusiness({
         email: "",
         password: "",
@@ -314,6 +349,7 @@ useEffect(() => {
       }}
     >
       {/* <div className={styles.imagen}> */}
+      {console.log(user, business)}
 
       {/* <NavLink exact to="/"> */}
       <img
@@ -324,10 +360,9 @@ useEffect(() => {
           objectFit: "fit",
           paddingBottom: "0px",
 
-          marginLeft: '2%',
+          marginLeft: "2%",
           marginTop: "3px",
-          paddingTop:'5px',
-
+          paddingTop: "5px",
         }}
         alt="Logo no encontrado"
       />
@@ -336,19 +371,37 @@ useEffect(() => {
 
       <div className={styles.SearchBar}></div>
 
-      {activeUser !== 'clean' && Object.entries(activeUser).length > 0 ? (
+      {user && typeof user !== "string" && Object.entries(user).length > 1 ? (
         <div
           style={{
             height: "100%",
-            paddingTop: "33px",           
+            paddingTop: "33px",
             cursor: "pointer",
-            marginRight: '0px',
-          marginLeft: '45%'
+            marginRight: "0px",
+            marginLeft: "45%",
           }}
         >
           <Avatar
             onClick={() => history.push("/usuarioE")}
-            name={`${activeUser.name} ${activeUser.lastname}`}
+            name={`${user?.name} ${user?.lastname}`}
+            src=""
+          >
+            <AvatarBadge boxSize="1.25em" bg="green.500" />
+          </Avatar>
+        </div>
+      ) : business && typeof business !== "string" && !business.others ? (
+        <div
+          style={{
+            height: "100%",
+            paddingTop: "33px",
+            cursor: "pointer",
+            marginRight: "0px",
+            marginLeft: "45%",
+          }}
+        >
+          <Avatar
+            onClick={() => history.push("/usuarioE")}
+            name={`${business?.businessName}`}
             src=""
           >
             <AvatarBadge boxSize="1.25em" bg="green.500" />
@@ -360,6 +413,15 @@ useEffect(() => {
             LOGIN
           </button>
           <button onClick={handleShow}>REGISTRARSE</button>
+
+
+          {/* <div id="signInDiv"></div>
+          {
+            usuario && <div>
+              <img src={usuario.picture} alt='' style={{borderRadius: '50%'}}/><h3>{usuario.name}</h3>
+            </div>
+          } */}
+
         </div>
       )}
 
@@ -368,6 +430,7 @@ useEffect(() => {
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
           </Modal.Header>
+
           <Modal.Body>
             <Tabs
               id="controlled-tab-example"
@@ -463,7 +526,16 @@ useEffect(() => {
             <Button variant="danger" onClick={handleCloseLogin}>
               Close
             </Button>
+            
+
+     
+
+            
+
+            
           </Modal.Footer>
+          
+
         </Modal>
 
         <Modal show={show} onHide={handleClose}>

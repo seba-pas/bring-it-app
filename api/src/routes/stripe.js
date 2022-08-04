@@ -22,7 +22,7 @@ const stripe = new Stripe('sk_test_51LPy6xFKxxhhwn5aTDrHK0XOqnU4aa8DjaPvLu6YLW0r
 // Ahora creamos la ruta a la que vamos a recibir los datos del post en el 
 // frontend
 router.post('/payment', async (req, res) => {
-	const { id, amount, email, name } = req.body;
+	const { id, amount, email, name, emailBusiness} = req.body;
 	console.log("id: ", id, "amount: ", amount, "email: ", email, "name: ", name)
 	try {
 		const payment = await stripe.paymentIntents.create({
@@ -56,7 +56,16 @@ router.post('/payment', async (req, res) => {
             `
         })
 
-
+        await transporter.sendMail({
+            from: "Bring It App <bringit662@gmail.com>",
+            to: emailBusiness,
+            subject: "Compraron un producto de tu empresa",
+            html: `<h3>¡Acaban de hacer una compra, el usuario ${email}!</h3>
+            <p>Tu compra se ha completado satisfactoriamente
+            muchas gracias por elegir Bring It App.
+            </p>
+            `
+        })
 
 
 
