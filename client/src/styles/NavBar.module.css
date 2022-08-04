@@ -1,5 +1,5 @@
 .navbar {
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.877);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -17,15 +17,31 @@
   margin-top: 3px;
   padding-top:5px;
 }
-#botonCart {
-  height: 40px;
+
+#botonCart{
+  background-color:rgb(31, 31, 31);
+  /* color: rgba(0, 0, 0, 0.877); */
+  font-size: 12px;
+  border-color: #8c52ff;
+  margin-top: 0px;
+  padding-bottom: 10px;
+  padding-bottom: 10px;
+  margin-left: 70px;
 }
 
+
+
+/* #botonCart {
+  height: 40px;
+  background-color:rgba(0, 0, 0, 0.877);
+  
+} */
+
 #botonCart:hover {
-  border-color: black;
+  border-color: rgba(0, 0, 0, 0.877);
   transition: background-color 0.8s ease;
   background-color: #8c52ff;
-  color: black;
+  color: rgba(0, 0, 0, 0.877);
 }
 
 .search {

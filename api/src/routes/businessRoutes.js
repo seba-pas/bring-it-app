@@ -1,15 +1,15 @@
 const { Router } = require ("express");
-const {  getBusiness, getAllEmail } = require ('../controllers/businessControllers');
+const {  getBusiness, getBusinessByEmail,getAllEmail } = require ('../controllers/businessControllers');
+
 const {Business, Businessbranch, City} = require('./../db');
 const router = Router();
 const nodemailer = require('nodemailer')
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
-
-//MENSAJE DE CELE PARA CELE: falta hacer la fc verifyToken al igual q en userRoutes, y ponerla en put y baneo, y en el componente editarBusiness del front
+const { verifyToken } = require ("../middlewares/verifyToken");
 
 //POST Business (para cargar una nueva empresa, aparte de los datos del modelo tiene q recibir una CityId)
-// http://localhost:3001/api/business
+// http://localhost:3001/business
 router.post('/', async (req,res) => {    
     try {
         const newBusiness = await Business.findOrCreate({
@@ -64,8 +64,10 @@ router.post('/', async (req,res) => {
 
 
 //UPDATE BUSINESS
-// http://localhost:3001/api/business/:email
-router.put('/:email', async(req,res) => {
+// http://localhost:3001/business/:email
+//AGREGO EL MIDDLEWARE verifyToken para verificar q el q modifica su cuenta es la empresa en cuestion o el admin
+router.put('/:email', verifyToken, async(req,res) => {
+    if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){  
     try{
         const {email} = req.params;
         const modification = req.body; //json con atributos a modificar y nuevos valores
@@ -76,10 +78,55 @@ router.put('/:email', async(req,res) => {
     } catch (e) {
        res.send('error:'+ e.message)
    }
+   } else{    
+    res.status(403).json(`No tiene permiso para modificar esta cuenta`);
+   }
 })
 
-//POST para ingreso de usuario
-// http://localhost:3001/api/business/login
+
+
+
+//PUT / baneo de Business
+// http://localhost:3001/business/baneo/:email
+router.put("/baneo/:email", verifyToken, async (req, res) => {
+    const email=req.params.email; 
+    //console.log(`email ${email} de la ruta put`)
+    //Agrego verificacion de token, userLogin viene de la fc verifyToken
+    //si el usuario es admin entra, xq el admin puede banear, nadie mas puede.
+    //console.log(`req.userLogin.isAdmin de la ruta put baneo ${req.userLogin.isAdmin}`);
+    if(req.userLogin.isAdmin){ 
+  
+      try {
+        await Business.update({deleted: true},{
+          where: {
+              email,
+          }
+      })
+      res.status(200).send('Se bloqueo la empresa correctamente');
+      } catch (e) {
+        res.send("error:" + e.message);
+      }      
+      
+    } else{
+      res.status(403).json(`No tiene permiso para bloquear esta cuenta empresa`);
+    }   
+  });
+
+// GET / GET business detail by email
+// http://localhost:3001/business
+router.get("/:email", async (req, res) => {
+    try {
+      const { email } = req.params;
+      const dbBusinessByEmail = await getBusinessByEmail(email);
+      res.status(201).send(dbBusinessByEmail);
+    } catch (e) {
+      res.send("error:" + e.message);
+    }
+  });
+
+
+//POST / LOG IN  para ingreso de business
+// http://localhost:3001/business/login
 router.post('/login', async(req,res) => {
     try {
         const businessLogin = await Business.findByPk(req.body.email);
@@ -94,7 +141,7 @@ router.post('/login', async(req,res) => {
         const accessToken = jwt.sign({
             email: businessLogin.email,
             isBusiness: businessLogin.isBusiness
-        }, process.env.JWT_SEC, { expiresIn: '1d' });
+        }, process.env.JWT_SEC, { expiresIn: '30m' });
 
         const { password, ...others } = businessLogin;
 

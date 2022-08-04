@@ -6,6 +6,7 @@ import { getByPurchaseEmail, getAllCities } from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
+
 import { useHistory } from "react-router-dom";
 import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
@@ -112,6 +113,7 @@ function HomeUserPurchase() {
             onClick={(e) => editUsers(e)}
           />
           <BsFillBookmarkStarFill onClick={() => handleShow(row.id)} />
+
         </button>
       ),
     },

@@ -32,13 +32,15 @@ const initialState = {
   provinceBranches: [],
   //Carrito (cart)
   cart: [],
-  cart2: [], // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
-
+  cart2: [],
   branchAdded: "",
   brancDeleted: "",
   branchPut: "",
   activeUser: "",
   activeBusiness: "",
+  allEmail: []
+  
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -462,6 +464,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         branchPut: action.payload,
       };
+
       //borrado lógico
       case "DESACTIVATE_USER":
         return {
