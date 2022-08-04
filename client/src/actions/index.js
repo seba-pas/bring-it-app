@@ -460,12 +460,14 @@ export const editBusiness = (id, body, token) => {
 };
 
 //post travel
-export const addTravel = (body) => {
+export const addTravel = (body, token) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(
         `/travel`,
-        body
+        body, { 
+          headers: {authorization: `Bearer ${token}`}
+          }
       );
       return dispatch({
         type: ADD_TRAVEL,
