@@ -20,15 +20,13 @@ import {
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
-import jwt_decode from 'jwt-decode'
+import jwt_decode from "jwt-decode";
 //seba
 export default function NavBarLanding() {
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
-  const [usuario, setUsuario] = useState({})
-
-  
+  const [usuario, setUsuario] = useState({});
 
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
@@ -47,12 +45,10 @@ export default function NavBarLanding() {
     password: "",
   });
 
-  function handleCallbackResponse(response) {   
-    var userObject = jwt_decode(response.credential);     
-    console.log(userObject)
-    setUsuario(userObject)
-
-
+  function handleCallbackResponse(response) {
+    var userObject = jwt_decode(response.credential);
+    console.log(userObject);
+    setUsuario(userObject);
   }
 
   useEffect(() => {
@@ -348,10 +344,6 @@ export default function NavBarLanding() {
         justifyContent: "space-between",
       }}
     >
-      {/* <div className={styles.imagen}> */}
-      {console.log(user, business)}
-
-      {/* <NavLink exact to="/"> */}
       <img
         src={image}
         style={{
@@ -366,8 +358,6 @@ export default function NavBarLanding() {
         }}
         alt="Logo no encontrado"
       />
-      {/* </NavLink> */}
-      {/* </div> */}
 
       <div className={styles.SearchBar}></div>
 
@@ -408,12 +398,11 @@ export default function NavBarLanding() {
           </Avatar>
         </div>
       ) : (
-        <div className={styles.contbotones2} style={{ marginLeft: "30%" }}>
+        <div className={styles.contbotones2} style={{ marginLeft: "55%" }}>
           <button id={styles.login} onClick={handleShowLogin}>
             LOGIN
           </button>
           <button onClick={handleShow}>REGISTRARSE</button>
-
 
           {/* <div id="signInDiv"></div>
           {
@@ -421,7 +410,6 @@ export default function NavBarLanding() {
               <img src={usuario.picture} alt='' style={{borderRadius: '50%'}}/><h3>{usuario.name}</h3>
             </div>
           } */}
-
         </div>
       )}
 
@@ -493,6 +481,7 @@ export default function NavBarLanding() {
                       />
                       {errors.email && <p>{errors.email}</p>}
                     </Form.Group>
+                    F{" "}
                   </Row>
                   <Row>
                     <Form.Group className="mb-3">
@@ -526,16 +515,7 @@ export default function NavBarLanding() {
             <Button variant="danger" onClick={handleCloseLogin}>
               Close
             </Button>
-            
-
-     
-
-            
-
-            
           </Modal.Footer>
-          
-
         </Modal>
 
         <Modal show={show} onHide={handleClose}>
