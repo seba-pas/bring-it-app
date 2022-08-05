@@ -74,7 +74,7 @@ export default function FilterProvince() {
   return (
     <div className={styles.div}>
       <NavBar />
-      {PRODUCTS.length > 0 ? (
+      {PRODUCTS && Object.entries(PRODUCTS).length > 0 && typeof PRODUCTS !== 'string' ? (
 
       PRODUCTS == "No se encontraron productos asociados" ? (
         <div style={{color:'#8c52ff', background:'white', marginTop:'150px'}}>
