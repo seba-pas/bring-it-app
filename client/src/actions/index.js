@@ -157,11 +157,12 @@ export const editProduct = (id, body, token) => {
     }
   };
 };
-export const desactivateProduct = (id) => {
+export const desactivateProduct = (id, token, businessEmail) => {
   return async function (dispatch) {
     try {
-      const body = { active: false };
-      const res = await axios.put(`/product/${id}`, body);
+      const body = { active: false , businessEmail: businessEmail};
+      const res = await axios.put(`/product/${id}`, body,
+      { headers: { authorization: `Bearer ${token}` }} );
       return dispatch({
         type: DESACTIVATE_PRODUCT,
         payload: res.data,
@@ -171,11 +172,12 @@ export const desactivateProduct = (id) => {
     }
   };
 };
-export const activateProduct = (id) => {
+export const activateProduct = (id, token, businessEmail) => {
   return async function (dispatch) {
     try {
-      const body = { active: true };
-      const res = await axios.put(`/product/${id}`, body);
+      const body = { active: true ,businessEmail: businessEmail };
+      const res = await axios.put(`/product/${id}`, body,
+      { headers: { authorization: `Bearer ${token}` }});
       return dispatch({
         type: ACTIVATE_PRODUCT,
         payload: res.data,
