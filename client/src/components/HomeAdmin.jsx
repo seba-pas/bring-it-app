@@ -285,13 +285,8 @@ export default function HomeAdmin() {
         </>
       ) : (
         <div className={styles.spinner}>
-          <SpinnerCircularFixed
-            size={150}
-            thickness={100}
-            speed={100}
-            color="rgba(65, 212, 207, 1)"
-            secondaryColor="rgba(0, 0, 0, 1)"
-          />
+              <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
+
         </div>
       )}
     </div>

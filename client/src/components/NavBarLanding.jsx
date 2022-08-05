@@ -65,6 +65,7 @@ export default function NavBarLanding() {
 
   useEffect(() => {
     dispatch(getActiveUser());
+
   }, [dispatch]);
   
   // if(Object.entries(user)?.length > 0){
