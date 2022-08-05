@@ -19,6 +19,9 @@ function LandingPage1() {
 
   useEffect(() => {
     dispatch(getActiveUser());
+    if(!user){
+      user = 'clean'
+    }
     // console.log(user, business);
   }, [dispatch]);
 
