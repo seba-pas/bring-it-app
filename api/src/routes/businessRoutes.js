@@ -224,6 +224,34 @@ router.get('/', (req,res) => {
     }
 });
 
+router.put("/recover/password/:email", async (req, res) => { 
+    const { passwordOne } = req.body;
+    const { passwordTwo } = req.body;
+    const { email } = req.params;
+  
+    const encPass = CryptoJS.AES.encrypt(passwordTwo, process.env.PASS_SEC);
+  
+    const business = await Business.findOne({ where: { email } })
+    const hashed = CryptoJS.AES.decrypt(business.password, process.env.PASS_SEC);
+    const decPass = hashed.toString(CryptoJS.enc.Utf8);
+  
+    if(passwordOne === decPass) {
+      try {
+        await Business.update(encPass, {
+          where: {
+            email
+          }
+        })
+        res.json("Listo papurro")
+      } catch(err) {
+        console.log(err)
+      }    
+    } else {
+      console.log("NOT FOUND")
+    }
+  
+  
+  });
 
 
 module.exports = router;
