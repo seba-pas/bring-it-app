@@ -104,7 +104,7 @@ function UserTravels() {
 
   return (
     <div>
-      {changedCityNames.length > 0 ? (
+      {changedCityNames?.length > 0 ? (
         <div>
           <DataTable
             columns={columnas}
@@ -120,19 +120,16 @@ function UserTravels() {
               className="text-center p-5 m-auto rounded-lg"
               style={{ display: "flex" }}
             >
-              <Button
-                onClick={() => history.goBack()}
-                style={{ marginLeft: "45%" }}
-              >
-                ATRAS
-              </Button>
             </Col>
           </Row>
         </div>
       ) : (
-        <div className={styles.spinner}>
+        <div style={{background:'white', fontSize:'20px', height:'200px'}}>
           <br />
           <Row>
+            <div style={{marginTop:'50px'}}>
+            <h1 >No se encontraron viajes asociados</h1>
+            </div>
             <Col
               lg={6}
               md={6}
@@ -140,12 +137,6 @@ function UserTravels() {
               className="text-center p-5 m-auto rounded-lg"
               style={{ display: "flex" }}
             >
-              <Button
-                onClick={() => history.goBack()}
-                style={{ marginLeft: "45%" }}
-              >
-                ATRAS
-              </Button>
             </Col>
           </Row>
         </div>
