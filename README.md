@@ -1,4 +1,4 @@
-# bring-it-app
+# Bring it! APP
 
 
 BIENVENIDOS AL REPO DE BRING-IT-APP
