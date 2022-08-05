@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  POST_REVIEW,
   GET_EMAIL,
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_DETAIL,
@@ -561,7 +562,20 @@ export function getCart() {
 }
 
 // agregar sede
-
+export function postReview(body){
+  return async function(dispatch){
+    try {
+      const res = await axios.post(`/review`, body)
+      debugger;
+      return dispatch({
+        type: POST_REVIEW,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 export function postBranch(body, token) {
   return async function (dispatch) {
     try {

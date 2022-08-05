@@ -40,8 +40,8 @@ const initialState = {
   activeBusiness: "",
   deletedBusiness: "",
   deletedUser: "",
-  allEmail: []
-  
+  allEmail: [],
+  review:""
 
 };
 
@@ -451,6 +451,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allTravels: action.payload,
       };
+    case "POST_REVIEW":
+      return {
+        ...state,
+        review: action.payload
+      }
     case "POST_BRANCH":
       return {
         ...state,
