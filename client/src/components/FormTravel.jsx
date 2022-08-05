@@ -15,6 +15,7 @@ function FormTravel() {
     const history = useHistory()
 
     const emailState = gState.user.email;
+    const tokenUser = gState.userToken;
 
 
 
@@ -118,7 +119,8 @@ function FormTravel() {
                     travelCityId: input.originCity,
                     arrivalCityId: input.arrivalCity,
 
-                }
+                },
+                tokenUser
             )
         )
 
