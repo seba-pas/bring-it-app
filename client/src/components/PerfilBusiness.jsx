@@ -21,12 +21,12 @@ import Tabs from "react-bootstrap/Tabs";
 import RecuperarPasswordBusiness from "./RecuperarPasswordBusiness";
 
 function PerfilBusiness(props) {
+
   const [key, setKey] = useState("home");
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
-  let id = props.match.params.id;
-  let history = useHistory();
-
+  const id = props.match.params.id;
+  const history = useHistory();
   const infoBusiness = gState.businessEditInfo;
   const branchId = gState.businessEditInfo.businessbranches.filter(
     (e) => e.id === parseInt(id)
@@ -252,19 +252,18 @@ function PerfilBusiness(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
-      editBusiness(
-        input.email,
-        {
-          businessName: input.businessName,
-          cuit: input.cuit,
-          taxBracket: input.taxBracket,
-          logo: input.logo,
-          // phone: input.phone,
-        },
+      editBusiness(input.email, {
+        businessName: input.businessName,
+        cuit: input.cuit,
+        taxBracket: input.taxBracket,
+        logo: input.logo,
+        phone: input.phone,
+      },
+
         tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
     );
-    debugger;
+
     swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
   };
 
@@ -274,6 +273,7 @@ function PerfilBusiness(props) {
         <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
           Editar de empresa
         </h1>
+
         <Tabs
           id="controlled-tab-example"
           activeKey={key}
@@ -360,17 +360,18 @@ function PerfilBusiness(props) {
                     {/* <Form.Group className="mb-3">
                     <Form.Label>Logo:</Form.Label>
                     <Form.Control
-                    type="text"
-                    name="logo"
-                    value={input.logo}
-                      placeholder="Logo"
+                      type="text"
+                      name="address"
+                      value={input.address}
+                      placeholder="Dirección"
                       onChange={handleInputChange}
                     />
-                    {!error.errorlogo ? (
+                    {!error.erroraddress ? (
                       <label> </label>
                     ) : (
-                      <label> {error.errorlogo} </label>
+                      <label> {error.erroraddress} </label>
                     )}
+
                   </Form.Group> */}
                     {/* </Col> */}
                   </Row>
@@ -522,6 +523,7 @@ function PerfilBusiness(props) {
                               {e.nombre}
                             </option>
                           ))
+
                       : ""}
                   </Form.Select>
                   {!error.errorcity ? (

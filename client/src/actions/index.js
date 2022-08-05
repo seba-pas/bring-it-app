@@ -143,7 +143,7 @@ export const addProduct = (body, token) => {
 export const editProduct = (id, body, token) => {
   return async function (dispatch) {
     try {
-
+      console.log("este es el body", body)
       const res = await axios.put(`/product/${id}`, body,
         { headers: { authorization: `Bearer ${token}` } }
       );
