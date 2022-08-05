@@ -20,7 +20,7 @@ async function loadDB (){
           name: u.name,
           lastname: u.lastname,
           birthDate: u.birthDate,
-          // age: u.age,
+          isAdmin: u.isAdmin,
           phone: u.phone
         }
       })

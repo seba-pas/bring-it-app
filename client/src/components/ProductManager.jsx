@@ -159,7 +159,7 @@ function ProductManager(props) {
                 stock: input.stock,
                 description: input.description,
                 categoryId: [...input.categoryId],
-                businessEmail: gState.businessEmail,
+                businessEmail: gState.businessEmail, //hardcodeo para check
                 businessbranchId: parseInt(input.branch),
             },
                 tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)

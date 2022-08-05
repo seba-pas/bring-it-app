@@ -115,6 +115,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         user: "clean",
         userToken: "clean",
+        activeUser: "clean"
       };
     case "CLEAN_BUSINESS_STATE":
       return {
@@ -122,6 +123,7 @@ export default function rootReducer(state = initialState, action) {
         business: "clean",
         businessToken: "clean",
         businessEmail: "clean",
+        activeBusiness: "clean"
       };
     case "POST_LOGIN":
       if (typeof action.payload === "string") {
@@ -472,6 +474,7 @@ export default function rootReducer(state = initialState, action) {
         branchPut: action.payload,
       };
 
+
     //borrado lógico
     case "DESACTIVATE_USER":
       return {
@@ -516,6 +519,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         images: action.payload.secure_url//[action.payload, ...state.images]
       };
+
     default:
       return {
         ...state,

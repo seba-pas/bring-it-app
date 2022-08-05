@@ -13,6 +13,8 @@ export default function NavBarBusiness() {
     const gState = useSelector((state) => state);
     const dispatch = useDispatch();
     const history = useHistory();
+    const token = gState.businessToken;
+    console.log(token);
 
     useEffect(() => {
         dispatch(getAllBusiness());
@@ -41,8 +43,8 @@ export default function NavBarBusiness() {
         if (input.perfil === "email") {
             history.push("/perfil");
         } else if (input.perfil === "desactivarMiCuenta") {
-            dispatch(desactivateBusiness(gState.business.email));
-            dispatch(cleanBusiness());
+            dispatch(desactivateBusiness(gState.business.email, token));
+            dispatch(cleanBusinessState()); //no se esta limpiando el estado
             history.push('/');
         } else if (input.perfil === "close") { 
             dispatch(cleanBusinessState());

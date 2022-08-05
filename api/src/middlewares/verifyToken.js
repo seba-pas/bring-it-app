@@ -5,15 +5,13 @@ const jwt = require('jsonwebtoken');
 //autenticacion con JWT - esta es la q se esta usando
 const verifyToken = (req, res, next) => {
 	const authHeader = req.headers.authorization; //esto trae: "Bearer 'accesToken'" del front
-	//console.log(`Soy authHeader: ${authHeader}`);
+	// console.log(`Soy authHeader: ${authHeader}`);
 	if (authHeader){
 	  const token = authHeader.split(" ")[1]; //saca Bearer y se queda con el accesToken solamente
-  
 	  jwt.verify(token, process.env.JWT_SEC, (error,userLogin) => {
 		if(error){
 		  return res.status(403).json(`Token no válido`);
 		}
-  
 		req.userLogin = userLogin; 
 		next();
 	  })

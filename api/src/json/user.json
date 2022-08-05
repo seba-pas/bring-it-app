@@ -5,7 +5,8 @@
     "lastname": "Eciolaza",
     "birthDate": "1995-12-10",
     "age": "26",
-    "phone": "1234567890"
+    "phone": "1234567890",
+    "isAdmin":false
 },
 { 
     "email": "tomas@gmail.com",
@@ -14,7 +15,8 @@
     "lastname": "Gelvez",
     "birthDate": "2000-12-10",
     "age": "26",
-    "phone": "1234567890"
+    "phone": "1234567890",
+    "isAdmin":false
 },
 { 
     "email": "celeste@gmail.com",
@@ -23,7 +25,8 @@
     "lastname": "Cancio",
     "birthDate": "1993-05-10",
     "age": "26",
-    "phone": "1234567890"
+    "phone": "1234567890",
+    "isAdmin":true
 },
 { 
     "email": "agustin@gmail.com",
@@ -32,6 +35,7 @@
     "lastname": "Farias",
     "birthDate": "1998-03-10",
     "age": "26",
-    "phone": "1234567890"
+    "phone": "1234567890",
+    "isAdmin":false
 }
 ]
