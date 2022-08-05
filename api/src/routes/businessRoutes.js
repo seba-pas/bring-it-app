@@ -98,7 +98,8 @@ router.put('/:email', verifyToken, async(req,res) => {
 
 //DESACTIVACIÓN DE BUSINESS, BRANCHES Y PRODUCTOS
 // http://localhost:3001/api/business/desactivate/:email
-router.put('/desactivate/:email', async(req,res) => {
+router.put('/desactivate/:email',verifyToken,async(req,res) => {
+    if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){ 
     try{
         const {email} = req.params;
         const q = await Business.update({active:false}, { //desactivacion business
@@ -115,14 +116,17 @@ router.put('/desactivate/:email', async(req,res) => {
                 })
             }})}
         res.status(201).send(`${q} Empresas modificadas`)
-    } catch (e) {
-       res.send('error:'+ e.message)
+    } catch (e) { res.send('error:'+ e.message) }
+} else{    
+    res.status(403).json(`No tiene permiso para modificar esta cuenta`);
    }
 })
 
 //ACTIVACIÓN DE BUSINESS, BRANCHES Y PRODUCTOS
 // http://localhost:3001/business/activate/:email
-router.put('/activate/:email', async(req,res) => {
+router.put('/activate/:email', verifyToken,async(req,res) => {
+  
+    if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){ 
     try{
         const {email} = req.params;
         const q = await Business.update({active:true}, { //desactivacion business
@@ -142,6 +146,9 @@ router.put('/activate/:email', async(req,res) => {
     } catch (e) {
        res.send('error:'+ e.message)
    }
+} else{    
+    res.status(403).json(`No tiene permiso para modificar esta cuenta`);
+   }
 })
 
 
@@ -150,27 +157,30 @@ router.put('/activate/:email', async(req,res) => {
 // http://localhost:3001/business/baneo/:email
 router.put("/baneo/:email", verifyToken, async (req, res) => {
     const email=req.params.email; 
-    //console.log(`email ${email} de la ruta put`)
     //Agrego verificacion de token, userLogin viene de la fc verifyToken
     //si el usuario es admin entra, xq el admin puede banear, nadie mas puede.
-    //console.log(`req.userLogin.isAdmin de la ruta put baneo ${req.userLogin.isAdmin}`);
     if(req.userLogin.isAdmin){ 
-  
       try {
-        await Business.update({deleted: true},{
+        await Business.update({deleted: true, active:false},{ //eliminacion y desactivacion de business
           where: {
-              email,
-          }
-      })
+              email: email,
+          }})
+        await Businessbranch.update({active: false}, { //desactivacion businessbranch
+                where: {businessEmail: email}
+            });
+            const businessBranches = await Businessbranch.findAll({where: {businessEmail:email}})
+            if (businessBranches) {
+              await Product.update({active: false} ,{where:{ //desactivacion producto
+                [Op.or]: businessBranches.map(b => {
+                    return {businessbranchId: b.id}
+                })
+            }})}
       res.status(200).send('Se bloqueo la empresa correctamente');
       } catch (e) {
         res.send("error:" + e.message);
-      }      
-      
-    } else{
+      }} else{
       res.status(403).json(`No tiene permiso para bloquear esta cuenta empresa`);
-    }   
-  });
+    }});
 
 // GET / GET business detail by email
 // http://localhost:3001/business
@@ -190,14 +200,11 @@ router.get("/:email", async (req, res) => {
 router.post('/login', async(req,res) => {
     try {
         const businessLogin = await Business.findByPk(req.body.email);
-
-        if (!businessLogin) return res.send('Usuario no encontrado');
-
+        if (!businessLogin) return res.send('Usuario no encontrado'); 
         const hashedPassword = CryptoJS.AES.decrypt(businessLogin.password, process.env.PASS_SEC);
         const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-
         if(originalPassword !== req.body.password) return res.status(201).send(`Datos incorrectos`);
-
+        if (businessLogin.deleted) return res.status(201).send('Empresa bloqueada');
         const accessToken = jwt.sign({
             email: businessLogin.email,
             isBusiness: businessLogin.isBusiness

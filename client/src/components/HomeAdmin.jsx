@@ -11,6 +11,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import moment from 'moment'
 import { FaSearchLocation } from "react-icons/fa";
+import swal from "sweetalert";
 
 export default function HomeAdmin() {
   const dispatch = useDispatch();
@@ -20,20 +21,23 @@ export default function HomeAdmin() {
   const BUSINESS = useSelector((state) => state.business2);
   const allTravels = useSelector((state) => state.allTravels)
   const [orden, setOrden] = useState("");
-  const token = useSelector((state => state.userToken))
-  console.log(token);
-  // console.log(purchases)
+  const userToken = useSelector((state => state.userToken));
+
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
   }
 
-  function banearUsers(email) {
-    let token = token; // ARREGLAR PQ NO ANDA
-    dispatch(deleteUser(email, token))
+  function banearUsers(e, email) {
+    e.preventDefault();
+    dispatch(deleteUser(email, userToken));
+    swal("El usuario ha sido bloqueado con éxito", "Gracias por usar Bring it!", "success");
+    
   };
 
-  function banearBusiness() {
-    dispatch(deleteBusiness());
+  function banearBusiness(e, email) {
+    e.preventDefault();
+    dispatch(deleteBusiness(email, userToken));
+    swal("La empresa ha sido bloqueada con éxito", "Gracias por usar Bring it!", "success");
   }
 
   function editUsers() {
@@ -132,7 +136,7 @@ export default function HomeAdmin() {
           <FaPencilAlt style={{ marginRight: "15px", fontSize: "20px" }} onClick={(e) => editUsers(e)}/>
           <FaTrashAlt
             style={{ fontSize: "20px" }}
-            onClick={() => banearUsers(row.email)}
+            onClick={(e) => banearUsers(e, row.email)}
           />
         </button>
       ),
@@ -147,12 +151,12 @@ export default function HomeAdmin() {
     { name: "Categoria tributaria", selector: row => row.taxBracket, sortable: true },
     {
       button: true,
-      cell: () => (
+      cell: (row) => (
         <button>
           <FaPencilAlt style={{ marginRight: "15px", fontSize: "20px" }} onClick={(e) => editBusiness(e)}/>
           <FaTrashAlt
             style={{ fontSize: "20px" }}
-            onClick={(e) => deleteBusiness(e)}
+            onClick={(e) => banearBusiness(e, row.email)}
           />
         </button>
       ),

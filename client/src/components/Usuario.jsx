@@ -15,6 +15,7 @@ const Usuario = () => {
   const history = useHistory();
   const business = useSelector((state) => state.business);
   const email = useSelector((state) => state.allEmail);
+  const userToken = useSelector((state) => state.userToken);
   const isBusiness =  email.find((e) => e.email == user.email) ? true : false 
 
 
@@ -25,8 +26,8 @@ const Usuario = () => {
 
   function handleDesactivate(e) {
     e.preventDefault();
-    dispatch(desactivateUser(user.email));
-    dispatch(cleanUsers());
+    dispatch(desactivateUser(user.email, userToken));
+    dispatch(cleanUserState());
     history.push("/");
   }
 

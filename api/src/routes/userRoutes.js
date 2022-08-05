@@ -19,15 +19,13 @@ router.put("/baneo/:email", verifyToken, async (req, res) => {
     try {
       await User.update({deleted: true},{
         where: {
-            email,
+            email:email,
         }
     })
     res.status(200).send('Se bloqueo el usuario correctamente');
     } catch (e) {
       res.send("error:" + e.message);
-    }      
-    
-  } else{
+    } } else{
     res.status(403).json(`No tiene permiso para bloquear esta cuenta usuario`);
   }   
 });
@@ -90,7 +88,6 @@ router.put("/:email", verifyToken, async (req, res) => {
   //Agrego verificacion de token, userLogin viene de la fc verifyToken
   // (if el usuario loggeado es el mismo usuario cuyos datos se quieren modificar, o es admin)
   if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){  
-    console.log(`soy req.userLogin: ${req.userLogin}`);
     console.log(`soy req.userLogin.isAdmin: ${req.userLogin.isAdmin}`);  
     console.log(`estoy en update user ${email}`);
     try {
@@ -136,14 +133,11 @@ router.get("/:email", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const userLogin = await User.findByPk(req.body.email);
-
     if (!userLogin) return res.status(201).send("Usuario no encontrado");
-
     const hashedPassword = CryptoJS.AES.decrypt(userLogin.password, process.env.PASS_SEC);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-
     if(originalPassword !== req.body.password) return res.status(201).send(`Datos incorrectos`);
-
+    if (userLogin.deleted) return res.status(201).send('Usuario bloqueado');
     const accessToken = jwt.sign({
       email: userLogin.email,
       isBusiness: userLogin.isBusiness,
