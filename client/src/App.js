@@ -10,7 +10,7 @@ import RegisterUser from "./components/RegisterUser.jsx";
 import RegisterBusiness from "./components/RegisterBusiness.jsx";
 import { ProductDetail } from "./components/ProductDetail";
 import PerfilBusiness from "./components/PerfilBusiness";
-// import FormPurchase from "./components/FormPurchase";
+// import FormPurchase from "./components/FormPurchase"";
 import HomeAdmin from "./components/HomeAdmin";
 import PerfilUser from "./components/PerfilUser";
 import UserTravels from "./components/UserTravels";
