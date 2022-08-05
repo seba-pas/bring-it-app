@@ -18,19 +18,16 @@ import BranchCard from "./BranchCard";
 import { useHistory } from "react-router-dom";
 
 function PerfilBusiness(props) {
+
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
-  let id = props.match.params.id;
-  let history = useHistory();
-
+  const id = props.match.params.id;
+  const history = useHistory();
   const infoBusiness = gState.businessEditInfo;
   const branchId = gState.businessEditInfo.businessbranches.filter(
     (e) => e.id === parseInt(id)
   );
-
-
   const tokenBusiness = gState.businessToken;
-
 
   useEffect(() => {
     dispatch(getAllProvinces());
@@ -238,7 +235,6 @@ function PerfilBusiness(props) {
     setLoading(true);
     dispatch(saveImage(data))
     console.log("si");
-
   };
 
   useEffect(() => {
@@ -256,12 +252,12 @@ function PerfilBusiness(props) {
         cuit: input.cuit,
         taxBracket: input.taxBracket,
         logo: input.logo,
-        // phone: input.phone,
+        phone: input.phone,
       },
         tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
     );
-    debugger;
+
     swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
   };
 
@@ -274,7 +270,7 @@ function PerfilBusiness(props) {
         </h1>
         <Row>
           <Col
-            lg={12}
+            lg={10}
             md={12}
             sm={12}
             className="text-center p-5 m-auto shadow-sm rounded-lg"
@@ -298,22 +294,18 @@ function PerfilBusiness(props) {
                     )}
                   </Form.Group>
                 </Col>
-                <Col lg={6} md={6} sm={12}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="address"
-                      value={input.address}
-                      placeholder="Dirección"
-                      onChange={handleInputChange}
-                    />
-                    {!error.erroraddress ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.erroraddress} </label>
-                    )}
-                  </Form.Group>
+                <Col>
+                  <Button
+                    // type="submit"
+                    disabled={
+                      error.errorbusinessName ||
+                      error.errorcuit ||
+                      error.errortaxBracket
+                    }
+                    onClick={(e) => handleSubmit(e)}
+                  >
+                    Editar Empresa
+                  </Button>
                 </Col>
               </Row>
               <Row>
@@ -334,7 +326,55 @@ function PerfilBusiness(props) {
                     )}
                   </Form.Group>
                 </Col>
-                {/* <Col> */}
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>TaxBracket:</Form.Label>
+                    <Form.Select
+                      name="taxBracket"
+                      value={input.taxBracket}
+                      onChange={(e) => handleInputChange(e)}
+                    >
+                      <option value="">{input.taxBracket} </option>
+                      <option value="Categoría tributaria 1">
+                        Categoría tributaria 1
+                      </option>
+                      <option value="Categoría tributaria 2">
+                        Categoría tributaria 2
+                      </option>
+                      <option value="Categoría tributaria 3">
+                        Categoría tributaria 3
+                      </option>
+                    </Form.Select>
+                    {!error.errortaxBracket ? (
+                      <label> </label>
+                    ) : (
+                      <label> {error.errortaxBracket} </label>
+                    )}
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col lg={6} md={6} sm={12}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>telefono</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="phone"
+                      value={input.phone}
+                      placeholder="Telefono"
+                      onChange={handleInputChange}
+                    />
+                    {!error.errorphone ? (
+                      <label> </label>
+                    ) : (
+                      <label> {error.erroraddress} </label>
+                    )}
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
                 <Col>
                   <Form.Group>
                     <label for="exampleFile">Logo</label>
@@ -347,24 +387,48 @@ function PerfilBusiness(props) {
                     />
                   </Form.Group>
                 </Col>
-                {/* <Form.Group className="mb-3">
-                    <Form.Label>Logo:</Form.Label>
-                    <Form.Control
-                    type="text"
-                    name="logo"
-                    value={input.logo}
-                      placeholder="Logo"
-                      onChange={handleInputChange}
-                    />
-                    {!error.errorlogo ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.errorlogo} </label>
-                    )}
-                  </Form.Group> */}
-                {/* </Col> */}
               </Row>
               <Row>
+              </Row>
+              <h4 className="shadow-sm text-success mt-5 p-3 text-center rounded">
+                Administración de sedes
+              </h4>
+              <Row>
+              </Row>
+              <Row>
+                <Col lg={6} md={6} sm={12}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="address"
+                      value={input.address}
+                      placeholder="Dirección"
+                      onChange={handleInputChange}
+                    />
+                    {!error.erroraddress ? (
+                      <label> </label>
+                    ) : (
+                      <label> {error.erroraddress} </label>
+                    )}
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Button
+                    disabled={
+                      error.erroraddress ||
+                      error.errorcity ||
+                      error.errorprovince ||
+                      error.errorbusinessName
+                    }
+                    onClick={(e) => handleBranch(e)}
+                  >
+                    +
+                  </Button>
+                </Col>
+              </Row>
+              <Row>
+
                 <Col>
                   <Form.Group className="mb-3">
                     <Form.Label>Provincia: </Form.Label>
@@ -387,6 +451,10 @@ function PerfilBusiness(props) {
                     )}
                   </Form.Group>
                 </Col>
+
+              </Row>
+              <Row>
+
                 <Col lg={4} md={4} sm={12}>
                   <Form.Group className="mb-3">
                     <Form.Label>Ciudad:</Form.Label>
@@ -421,103 +489,50 @@ function PerfilBusiness(props) {
                     )}
                   </Form.Group>
                 </Col>
-
                 <Col>
-                  <Form.Group className="mb-3">
-                    <Form.Label>TaxBracket:</Form.Label>
-                    <Form.Select
-                      name="taxBracket"
-                      value={input.taxBracket}
-                      onChange={(e) => handleInputChange(e)}
-                    >
-                      <option value="">{input.taxBracket} </option>
-                      <option value="Categoría tributaria 1">
-                        Categoría tributaria 1
-                      </option>
-                      <option value="Categoría tributaria 2">
-                        Categoría tributaria 2
-                      </option>
-                      <option value="Categoría tributaria 3">
-                        Categoría tributaria 3
-                      </option>
-                    </Form.Select>
-                    {!error.errortaxBracket ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.errortaxBracket} </label>
-                    )}
-                  </Form.Group>
+                  <div className={styles.branchContainer}>
+                    {
+                      <table>
+                        <thead className={styles.titlleTableNonSt}>
+                          <tr>
+                            <th>Nombre</th>
+                            {/* <th>Ciudad</th> */}
+                            <th>Provincia</th>
+                            <th>Dirección</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {input.businessbranches?.map((c) => {
+                            return (
+                              <BranchCard
+                                key={c.id}
+                                id={c.id}
+                                name={c.businessBranchName}
+                                city={c.cityId}
+                                province={c.province}
+                                address={c.address}
+                              />
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    }
+                  </div>
                 </Col>
+
               </Row>
             </Form>
           </Col>
-        </Row>
-        <h4 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-          Administración de sedes
-        </h4>
-        <Row>
-          <Col>
-            <div className={styles.branchContainer}>
-              {
-                <table>
-                  <thead className={styles.titlleTableNonSt}>
-                    <tr>
-                      <th>Nombre</th>
-                      {/* <th>Ciudad</th> */}
-                      <th>Provincia</th>
-                      <th>Dirección</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {input.businessbranches?.map((c) => {
-                      return (
-                        <BranchCard
-                          key={c.id}
-                          id={c.id}
-                          name={c.businessBranchName}
-                          city={c.cityId}
-                          province={c.province}
-                          address={c.address}
-                        />
-                      );
-                    })}
-                  </tbody>
-                </table>
-              }
-            </div>
-          </Col>
+
+
         </Row>
         <Row style={{ marginTop: "30px", marginBottom: "30px" }}>
-          <Col>
-            <Button
-              // type="submit"
-              disabled={
-                error.errorbusinessName ||
-                error.errorcuit ||
-                error.errortaxBracket
-              }
-              onClick={(e) => handleSubmit(e)}
-            >
-              Editar Empresa
-            </Button>
-          </Col>
+
           <Col>
             <Button onClick={(e) => handlePass(e)}>Cambiar Contraseña</Button>
           </Col>
-          <Col>
-            <Button
-              disabled={
-                error.erroraddress ||
-                error.errorcity ||
-                error.errorprovince ||
-                error.errorbusinessName
-              }
-              onClick={(e) => handleBranch(e)}
-            >
-              +
-            </Button>
-          </Col>
+
           <Col>
             <Button onClick={(e) => handleBack(e)}>Volver</Button>
           </Col>

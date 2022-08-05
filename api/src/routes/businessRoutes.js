@@ -1,19 +1,19 @@
-const { Router } = require ("express");
-const {Business, Businessbranch, City, Product} = require('./../db');
-const {  getBusiness, getBusinessByEmail,getAllEmail } = require ('../controllers/businessControllers');
+const { Router } = require("express");
+const { Business, Businessbranch, City, Product } = require('./../db');
+const { getBusiness, getBusinessByEmail, getAllEmail } = require('../controllers/businessControllers');
 const router = Router();
 const nodemailer = require('nodemailer')
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
-const {Op} = require('sequelize');
-const { verifyToken } = require ("../middlewares/verifyToken");
+const { Op } = require('sequelize');
+const { verifyToken } = require("../middlewares/verifyToken");
 
 
 
 //get all emails
-router.get('/email',async (req,res) => {
+router.get('/email', async (req, res) => {
     try {
-        const allEmail= await getAllEmail();
+        const allEmail = await getAllEmail();
         res.status(200).send(allEmail);
     } catch (error) {
         res.status(400).send(error.message);
@@ -22,35 +22,35 @@ router.get('/email',async (req,res) => {
 
 //POST Business (para cargar una nueva empresa, aparte de los datos del modelo tiene q recibir una CityId)
 // http://localhost:3001/business
-router.post('/', async (req,res) => {    
+router.post('/', async (req, res) => {
     try {
         const newBusiness = await Business.findOrCreate({
             where: {
                 email: req.body.email,
                 password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString(),
                 businessName: req.body.businessName,
-                cuit: req.body.cuit,                
+                cuit: req.body.cuit,
                 taxBracket: req.body.taxBracket,
                 logo: req.body.logo,
                 phone: req.body.phone
             }
-        });   
+        });
 
         //Agregado de primera sede obligatoria
         const businessEmail = req.body.email;
         const { businessName, cityId, province, address } = req.body;
         const cityName = (await City.findByPk(cityId)).nombre;
         const businessBranchName = `${businessName} - sede ${cityName}`;
-        const newBusinessBranch = await Businessbranch.create({businessBranchName, businessEmail, cityId, province, address});               
-  
+        const newBusinessBranch = await Businessbranch.create({ businessBranchName, businessEmail, cityId, province, address });
+
         // nodemailer
         let transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
             secure: true,
             auth: {
-            user: 'bringit662@gmail.com',
-            pass: 'owtgyxnzmbchbhjj'
+                user: 'bringit662@gmail.com',
+                pass: 'owtgyxnzmbchbhjj'
             }
         });
 
@@ -66,11 +66,11 @@ router.post('/', async (req,res) => {
             `
         })
 
-        res.send(newBusiness[1] ? "Empresa y sede creada" : "La empresa ya existe"); 
+        res.send(newBusiness[1] ? "Empresa y sede creada" : "La empresa ya existe");
 
 
     } catch (error) {
-        return res.send('error:'+ error.message);
+        return res.send('error:' + error.message);
     }
 });
 
@@ -78,70 +78,76 @@ router.post('/', async (req,res) => {
 //UPDATE BUSINESS
 // http://localhost:3001/business/:email
 //AGREGO EL MIDDLEWARE verifyToken para verificar q el q modifica su cuenta es la empresa en cuestion o el admin
-router.put('/:email', verifyToken, async(req,res) => {
-    if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){  
-      try{
-          const {email} = req.params;
-          const modification = req.body; //json con atributos a modificar y nuevos valores
-          const q = await Business.update(modification, {
-              where: {email: email}
-          });
-          res.status(201).send(`${q} Empresas modificadas`)
-      } catch (e) {
-         res.send('error:'+ e.message)
-     }
-   } else{    
-    res.status(403).json(`No tiene permiso para modificar esta cuenta`);
-   }
+router.put('/:email', verifyToken, async (req, res) => {
+    if (req.userLogin.email === req.params.email || req.userLogin.isAdmin) {
+        try {
+            const { email } = req.params;
+            const modification = req.body; //json con atributos a modificar y nuevos valores
+            const q = await Business.update(modification, {
+                where: { email: email }
+            });
+            res.status(201).send(`${q} Empresas modificadas`)
+        } catch (e) {
+            res.send('error:' + e.message)
+        }
+    } else {
+        res.status(403).json(`No tiene permiso para modificar esta cuenta`);
+    }
 })
 
 
 //DESACTIVACIÓN DE BUSINESS, BRANCHES Y PRODUCTOS
 // http://localhost:3001/api/business/desactivate/:email
-router.put('/desactivate/:email', async(req,res) => {
-    try{
-        const {email} = req.params;
-        const q = await Business.update({active:false}, { //desactivacion business
-            where: {email: email}
+router.put('/desactivate/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+        const q = await Business.update({ active: false }, { //desactivacion business
+            where: { email: email }
         });
-        await Businessbranch.update({active: false}, { //desactivacion businessbranch
-                where: {businessEmail: email}
-            });
-            const businessBranches = await Businessbranch.findAll({where: {businessEmail:email}})
-            if (businessBranches) {
-              await Product.update({active: false} ,{where:{ //desactivacion producto
-                [Op.or]: businessBranches.map(b => {
-                    return {businessbranchId: b.id}
-                })
-            }})}
+        await Businessbranch.update({ active: false }, { //desactivacion businessbranch
+            where: { businessEmail: email }
+        });
+        const businessBranches = await Businessbranch.findAll({ where: { businessEmail: email } })
+        if (businessBranches) {
+            await Product.update({ active: false }, {
+                where: { //desactivacion producto
+                    [Op.or]: businessBranches.map(b => {
+                        return { businessbranchId: b.id }
+                    })
+                }
+            })
+        }
         res.status(201).send(`${q} Empresas modificadas`)
     } catch (e) {
-       res.send('error:'+ e.message)
-   }
+        res.send('error:' + e.message)
+    }
 })
 
 //ACTIVACIÓN DE BUSINESS, BRANCHES Y PRODUCTOS
 // http://localhost:3001/business/activate/:email
-router.put('/activate/:email', async(req,res) => {
-    try{
-        const {email} = req.params;
-        const q = await Business.update({active:true}, { //desactivacion business
-            where: {email: email}
+router.put('/activate/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+        const q = await Business.update({ active: true }, { //desactivacion business
+            where: { email: email }
         });
-        await Businessbranch.update({active:true}, { //desactivacion businessbranch
-                where: {businessEmail: email}
-            });
-            const businessBranches = await Businessbranch.findAll({where: {businessEmail:email}})
-            if (businessBranches) {
-              await Product.update({active:true} ,{where:{ //desactivacion producto
-                [Op.or]: businessBranches.map(b => {
-                    return {businessbranchId: b.id}
-                })
-            }})}
+        await Businessbranch.update({ active: true }, { //desactivacion businessbranch
+            where: { businessEmail: email }
+        });
+        const businessBranches = await Businessbranch.findAll({ where: { businessEmail: email } })
+        if (businessBranches) {
+            await Product.update({ active: true }, {
+                where: { //desactivacion producto
+                    [Op.or]: businessBranches.map(b => {
+                        return { businessbranchId: b.id }
+                    })
+                }
+            })
+        }
         res.status(201).send(`${q} Empresas modificadas`)
     } catch (e) {
-       res.send('error:'+ e.message)
-   }
+        res.send('error:' + e.message)
+    }
 })
 
 
@@ -149,45 +155,45 @@ router.put('/activate/:email', async(req,res) => {
 //PUT / baneo de Business
 // http://localhost:3001/business/baneo/:email
 router.put("/baneo/:email", verifyToken, async (req, res) => {
-    const email=req.params.email; 
+    const email = req.params.email;
     //console.log(`email ${email} de la ruta put`)
     //Agrego verificacion de token, userLogin viene de la fc verifyToken
     //si el usuario es admin entra, xq el admin puede banear, nadie mas puede.
     //console.log(`req.userLogin.isAdmin de la ruta put baneo ${req.userLogin.isAdmin}`);
-    if(req.userLogin.isAdmin){ 
-  
-      try {
-        await Business.update({deleted: true},{
-          where: {
-              email,
-          }
-      })
-      res.status(200).send('Se bloqueo la empresa correctamente');
-      } catch (e) {
-        res.send("error:" + e.message);
-      }      
-      
-    } else{
-      res.status(403).json(`No tiene permiso para bloquear esta cuenta empresa`);
-    }   
-  });
+    if (req.userLogin.isAdmin) {
+
+        try {
+            await Business.update({ deleted: true }, {
+                where: {
+                    email,
+                }
+            })
+            res.status(200).send('Se bloqueo la empresa correctamente');
+        } catch (e) {
+            res.send("error:" + e.message);
+        }
+
+    } else {
+        res.status(403).json(`No tiene permiso para bloquear esta cuenta empresa`);
+    }
+});
 
 // GET / GET business detail by email
 // http://localhost:3001/business
 router.get("/:email", async (req, res) => {
     try {
-      const { email } = req.params;
-      const dbBusinessByEmail = await getBusinessByEmail(email);
-      res.status(201).send(dbBusinessByEmail);
+        const { email } = req.params;
+        const dbBusinessByEmail = await getBusinessByEmail(email);
+        res.status(201).send(dbBusinessByEmail);
     } catch (e) {
-      res.send("error:" + e.message);
+        res.send("error:" + e.message);
     }
-  });
+});
 
 
 //POST / LOG IN  para ingreso de business
 // http://localhost:3001/business/login
-router.post('/login', async(req,res) => {
+router.post('/login', async (req, res) => {
     try {
         const businessLogin = await Business.findByPk(req.body.email);
 
@@ -196,16 +202,16 @@ router.post('/login', async(req,res) => {
         const hashedPassword = CryptoJS.AES.decrypt(businessLogin.password, process.env.PASS_SEC);
         const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-        if(originalPassword !== req.body.password) return res.status(201).send(`Datos incorrectos`);
+        if (originalPassword !== req.body.password) return res.status(201).send(`Datos incorrectos`);
 
         const accessToken = jwt.sign({
             email: businessLogin.email,
             isBusiness: businessLogin.isBusiness
-        }, process.env.JWT_SEC, { expiresIn: '30m' });
+        }, process.env.JWT_SEC, { expiresIn: '1h' });
 
         const { password, ...others } = businessLogin;
 
-        res.status(200).json({others, accessToken});
+        res.status(200).json({ others, accessToken });
     } catch (error) {
         res.status(404).send(`error:${error.message}`)
     }
@@ -214,10 +220,10 @@ router.post('/login', async(req,res) => {
 
 //GET Business para traer todas las empresas con opcion a query name
 // http://localhost:3001/api/business
-router.get('/', (req,res) => {
-    const {name} = req.query;
+router.get('/', (req, res) => {
+    const { name } = req.query;
     try {
-        return getBusiness(name).then(business => 
+        return getBusiness(name).then(business =>
             typeof business === "object" ? res.json(business) : res.status(404).json(business));
     } catch (error) {
         return res.send(error);
