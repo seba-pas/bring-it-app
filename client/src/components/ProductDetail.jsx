@@ -39,6 +39,10 @@ export const ProductDetail = () => {
   // }
   function handleClickAddToCart(e) {
     e.preventDefault();
+    if(product.stock <= 0 ){
+      swal('Por el momento no tenemos mas stock', "Acabamos de comunicarle a la empresa", "error")
+      return;
+    }
     if (cart.length > 0) {
       if (cart[0].businessbranchId !== product.businessbranchId) {
         swal(
@@ -47,9 +51,8 @@ export const ProductDetail = () => {
           "error"
         );
       } else {
-        console.log(product.stock, 'soy product stock')
-        console.log(cart[0].quantity);
-        if(product.stock > cart[0].quantity){
+        
+       if(product.stock > cart[0].quantity){
           dispatch(addToCart(product));
           swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
           return;

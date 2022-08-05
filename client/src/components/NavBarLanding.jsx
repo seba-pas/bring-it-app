@@ -137,7 +137,6 @@ export default function NavBarLanding() {
       inputBusiness.password.length <= 16
     ) {
       dispatch(loginBusiness(inputBusiness));
-
       setInputBusiness({
         email: "",
         password: "",
@@ -481,7 +480,6 @@ export default function NavBarLanding() {
                       />
                       {errors.email && <p>{errors.email}</p>}
                     </Form.Group>
-                    F{" "}
                   </Row>
                   <Row>
                     <Form.Group className="mb-3">

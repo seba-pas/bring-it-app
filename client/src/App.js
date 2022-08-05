@@ -1,7 +1,6 @@
 import "./App.css";
 import React from "react";
-import { useSelector } from 'react-redux'
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
 import ProductManager from "./components/ProductManager.jsx";
 import HomeBusiness from "./components/HomeBusiness.jsx";
@@ -22,13 +21,10 @@ import FilterProvince from "./components/FilterProvince";
 import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
-import Usuario from './components/Usuario.jsx'
-import Unauthorized from './components/Errores/401/Unauthorized';
-import Vidriera from './components/Vidriera'
-
-
+import Usuario from "./components/Usuario.jsx";
 
 function App() {
+
   
   const user = useSelector((state) => state.user)
   const business = useSelector((state) => state.business)
@@ -37,11 +33,17 @@ function App() {
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
         <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
-        <Route path="/unauthorized" component={Unauthorized} />
+        <Route exact path="/product/:id" component={ProductDetail} />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/conocemas" component={ConoceMas} />
+        <Route exact path="/persona/misviajes" component={UserTravels} />
+        <Route exact path="/persona" component={HomePersonas} />
+        <Route exact path="/empresas" component={HomeBusiness} />
+        <Route path="/productmanager/:id" component={ProductManager} />
+        <Route exact path="/productmanager" component={ProductManager} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
+
         <Route exact path="/vidriera" component={Vidriera} />
         <Route exact path='/usuarioE' component={Usuario} />
         <Route path="/filtro" render={() => (
@@ -70,8 +72,6 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />
-
-
 
         {/* <Route exact path="/testing" component={FormTravel} /> */}
       </Switch>

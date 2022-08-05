@@ -57,11 +57,16 @@ async function getBusinessByEmail (email){
 
 //GET  a todos ls emails de business
 async function getAllEmail(){
-    const allEmail= await Business.findAll({
-        attributes: ['email']
-    })
-    return allEmail;
-
+    try {
+        const allEmail= await Business.findAll({
+            attributes: ['email']
+        })
+        console.log(allEmail);
+        return allEmail;
+        
+    } catch (error) {
+        console.log(error)
+    }
 }
 module.exports = {
     getBusiness,
