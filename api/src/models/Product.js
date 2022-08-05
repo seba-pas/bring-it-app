@@ -37,6 +37,16 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false
       },
+      deleted: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: false
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true
+      },
       //businessId y categoryId no van definidas aca, se vinculan en las tablas intermedias: products_categories y products_business
     },
     {

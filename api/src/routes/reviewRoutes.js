@@ -4,7 +4,7 @@ const {Review} = require('./../db')
 const router = Router();
 
 //POST new Review
-// http://localhost:3001/api/review
+// http://localhost:3001/review
 router.post('/', async (req, res) => {
     try {
         const newReview = Review.create({...req.body})
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 })
 
 //GET Review by id de producto(por params)
-// http://localhost:3001/api/review/:idProduct
+// http://localhost:3001/review/:idProduct
 router.get('/:idProduct', async (req, res) => {
     try {
         const {idProduct} = req.params;
@@ -31,7 +31,7 @@ router.get('/:idProduct', async (req, res) => {
 })
 
 //GET Review todos
-// http://localhost:3001/api/review
+// http://localhost:3001/review
 router.get('/', async (req, res) => {
     try {
         const foundReviews = await Review.findAll();

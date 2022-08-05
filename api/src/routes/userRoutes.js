@@ -7,7 +7,7 @@ const CryptoJS = require('crypto-js');
 const router = Router();
 const { verifyToken } = require ("../middlewares/verifyToken");
 
-//PUT / baneo de User
+//PUT / baneo de User (SOLO LO PUEDE HACER ADMIN)
 // http://localhost:3001/user/baneo/:email
 router.put("/baneo/:email", verifyToken, async (req, res) => {
   const email=req.params.email; 
@@ -16,7 +16,6 @@ router.put("/baneo/:email", verifyToken, async (req, res) => {
   //si el usuario es admin entra, xq el admin puede banear, nadie mas puede.
   //console.log(`req.userLogin.isAdmin de la ruta put baneo ${req.userLogin.isAdmin}`);
   if(req.userLogin.isAdmin){ 
-
     try {
       await User.update({deleted: true},{
         where: {
@@ -81,7 +80,7 @@ router.post("/", async (req, res) => {
   // }
 });
 
-// PUT / UPDATE USER
+// PUT / UPDATE USER (TAMBIEN DESACTIVACION Y ACTIVACION DE USER)
 // http://localhost:3001/user/:email
 //AGREGO EL MIDDLEWARE verifyToken para verificar q el q modifica su cuenta es el usuario en cuestion o el admin
 router.put("/:email", verifyToken, async (req, res) => {

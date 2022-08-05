@@ -15,6 +15,7 @@ function FormTravel() {
     const history = useHistory()
 
     const emailState = gState.user.email;
+    const tokenUser = gState.userToken;
 
 
 
@@ -118,7 +119,8 @@ function FormTravel() {
                     travelCityId: input.originCity,
                     arrivalCityId: input.arrivalCity,
 
-                }
+                },
+                tokenUser
             )
         )
 
@@ -144,7 +146,7 @@ function FormTravel() {
                         }
                     </select>
                     {!error.errororiginProvince ? <label> </label> : <label className={`${input.sidebar ? styles.errororiginProvince : styles.displaynone}`}>          {error.errororiginProvince}             </label>}
-                    <select className={`${input.sidebar ? styles.inputFromCity : styles.displaynone}`} name="originCity" value={input.originCity} onChange={(e) => handleInputChange(e)}>
+                    <select disabled={!input.originProvince} className={`${input.sidebar ? styles.inputFromCity : styles.displaynone}`} name="originCity" value={input.originCity} onChange={(e) => handleInputChange(e)}>
                         <option value="">{"Ciudad"} </option>
                         {
                             input.originProvince ? gState.allCities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.originProvince)[0].id)?.map(e => <option key={e.id} value={e.id}>{e.nombre}</option>) : ""
@@ -169,7 +171,7 @@ function FormTravel() {
                         }
                     </select>
                     {!error.errorarrivalProvince ? <label> </label> : <label className={`${input.sidebar ? styles.errorarrivalProvince : styles.displaynone}`}>          {error.errorarrivalProvince}             </label>}
-                    <select className={`${input.sidebar ? styles.inputToCity : styles.displaynone}`} name="arrivalCity" value={input.arrivalCity} onChange={(e) => handleInputChange(e)}>
+                    <select disabled={!input.arrivalProvince} className={`${input.sidebar ? styles.inputToCity : styles.displaynone}`} name="arrivalCity" value={input.arrivalCity} onChange={(e) => handleInputChange(e)}>
                         <option value="">{"Ciudad"} </option>
                         {
                             input.arrivalProvince ? gState.allCities?.filter(e => e.provinceId === gState.provinces?.filter(e => e.nombre === input.arrivalProvince)[0].id)?.map(e => <option key={e.id} value={e.id}>{e.nombre}</option>) : ""

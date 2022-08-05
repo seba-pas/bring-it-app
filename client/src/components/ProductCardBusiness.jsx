@@ -3,7 +3,7 @@ import styles from "../styles/ProductCardBusiness.module.css"
 import { IoCreateOutline, IoCloseCircleOutline } from "react-icons/io5"
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { deleteProduct, getAllProducts } from '../actions';
+import {getAllProducts , desactivateProduct} from '../actions';
 
 
 
@@ -13,7 +13,7 @@ function ProductCardBusiness({ id, image, productName, amount, description }) {
 
     async function handleClick(event) {
         event.preventDefault();
-        dispatch(deleteProduct(id));
+        dispatch(desactivateProduct(id));
 
     }
     return (

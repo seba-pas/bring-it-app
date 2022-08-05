@@ -1,6 +1,7 @@
 import "../styles/StarRating.css";
 
 export default function StarRating({ stars }) {
+
   // Star maximum
   const maxStars = 5;
 
@@ -22,3 +23,4 @@ export default function StarRating({ stars }) {
     </div>
   );
 }
+
