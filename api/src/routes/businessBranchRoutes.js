@@ -33,14 +33,29 @@ router.put('/:id', verifyToken, async(req,res) => {
     // (if el business q quiere agregar una branch es el business al q se le agrega la branch o es admin)  
     if(req.userLogin.email === req.body.businessEmail || req.userLogin.isAdmin){ 
         try{
-            const {id} = req.params;
-            const modification = req.body; //json con atributos a modificar y nuevos valores
-            const q = await Businessbranch.update(modification, {
-                where: {id: id}
-            });
-            res.status(201).send(`${q} Sede modificada`)
-        } catch (e) {
-        res.send('error:'+ e.message)
+        const {id} = req.params;
+        const modification = req.body; //json con atributos a modificar y nuevos valores
+        const q = await Businessbranch.update(modification, {
+            where: {id: id}
+        });
+        if (modification.active==false) { //ver si llega como string o no
+            await Product.update({
+                active: false
+            },{where:{
+                businessbranchId: id
+            }})
+        }
+        if (modification.active==true) { //ver si llega como string o no
+            await Product.update({
+                active: true
+            },{where:{
+                businessbranchId: id
+            }})
+        }
+        res.status(201).send(`${q} Sede modificada`)
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
     }
     }else{
     res.status(403).json(`No tiene permiso para modificar esta sede`);

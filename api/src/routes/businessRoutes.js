@@ -1,12 +1,13 @@
 const { Router } = require ("express");
+const {Business, Businessbranch, City, Product} = require('./../db');
 const {  getBusiness, getBusinessByEmail,getAllEmail } = require ('../controllers/businessControllers');
-
-const {Business, Businessbranch, City} = require('./../db');
 const router = Router();
 const nodemailer = require('nodemailer')
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
+const {Op} = require('sequelize');
 const { verifyToken } = require ("../middlewares/verifyToken");
+
 
 //POST Business (para cargar una nueva empresa, aparte de los datos del modelo tiene q recibir una CityId)
 // http://localhost:3001/business
@@ -68,21 +69,69 @@ router.post('/', async (req,res) => {
 //AGREGO EL MIDDLEWARE verifyToken para verificar q el q modifica su cuenta es la empresa en cuestion o el admin
 router.put('/:email', verifyToken, async(req,res) => {
     if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){  
-    try{
-        const {email} = req.params;
-        const modification = req.body; //json con atributos a modificar y nuevos valores
-        const q = await Business.update(modification, {
-            where: {email: email}
-        });
-        res.status(201).send(`${q} Empresas modificadas`)
-    } catch (e) {
-       res.send('error:'+ e.message)
-   }
+      try{
+          const {email} = req.params;
+          const modification = req.body; //json con atributos a modificar y nuevos valores
+          const q = await Business.update(modification, {
+              where: {email: email}
+          });
+          res.status(201).send(`${q} Empresas modificadas`)
+      } catch (e) {
+         res.send('error:'+ e.message)
+     }
    } else{    
     res.status(403).json(`No tiene permiso para modificar esta cuenta`);
    }
 })
 
+
+//DESACTIVACIÓN DE BUSINESS, BRANCHES Y PRODUCTOS
+// http://localhost:3001/api/business/desactivate/:email
+router.put('/desactivate/:email', async(req,res) => {
+    try{
+        const {email} = req.params;
+        const q = await Business.update({active:false}, { //desactivacion business
+            where: {email: email}
+        });
+        await Businessbranch.update({active: false}, { //desactivacion businessbranch
+                where: {businessEmail: email}
+            });
+            const businessBranches = await Businessbranch.findAll({where: {businessEmail:email}})
+            if (businessBranches) {
+              await Product.update({active: false} ,{where:{ //desactivacion producto
+                [Op.or]: businessBranches.map(b => {
+                    return {businessbranchId: b.id}
+                })
+            }})}
+        res.status(201).send(`${q} Empresas modificadas`)
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
+})
+
+//ACTIVACIÓN DE BUSINESS, BRANCHES Y PRODUCTOS
+// http://localhost:3001/business/activate/:email
+router.put('/activate/:email', async(req,res) => {
+    try{
+        const {email} = req.params;
+        const q = await Business.update({active:true}, { //desactivacion business
+            where: {email: email}
+        });
+        await Businessbranch.update({active:true}, { //desactivacion businessbranch
+                where: {businessEmail: email}
+            });
+            const businessBranches = await Businessbranch.findAll({where: {businessEmail:email}})
+            if (businessBranches) {
+              await Product.update({active:true} ,{where:{ //desactivacion producto
+                [Op.or]: businessBranches.map(b => {
+                    return {businessbranchId: b.id}
+                })
+            }})}
+        res.status(201).send(`${q} Empresas modificadas`)
+    } catch (e) {
+       res.send('error:'+ e.message)
+   }
+})
 
 
 

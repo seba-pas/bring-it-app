@@ -43,9 +43,7 @@ router.get('/:id', (req, res) => {
 //GET Products con opcion query name
 // http://localhost:3001/api/product
 router.get('/', async (req, res) => {
-    console.log("postproducts")
     const { name } = req.query;
-    // console.log(`search: ${name}`);
     try {
         return getProducts(name).then(products =>
             res.send(products));
