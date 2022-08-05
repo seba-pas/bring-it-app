@@ -167,10 +167,3 @@ useEffect(() => {
 }
 
 export default PerfilUser;
-
-// email: "",
-//     password: "",
-//     confirmPassword: "",
-//     name: "",
-//     lastname: "",
-//     birthDate: "",
