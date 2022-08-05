@@ -67,3 +67,4 @@ module.exports = {
     getBusiness,
     getAllEmail,
     getBusinessByEmail
+}
