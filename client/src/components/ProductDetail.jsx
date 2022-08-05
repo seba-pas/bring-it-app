@@ -39,8 +39,12 @@ export const ProductDetail = () => {
   // }
   function handleClickAddToCart(e) {
     e.preventDefault();
-    if(product.stock <= 0 ){
-      swal('Por el momento no tenemos mas stock', "Acabamos de comunicarle a la empresa", "error")
+    if (product.stock <= 0) {
+      swal(
+        "Por el momento no tenemos mas stock",
+        "Acabamos de comunicarle a la empresa",
+        "error"
+      );
       return;
     }
     if (cart.length > 0) {
@@ -51,16 +55,21 @@ export const ProductDetail = () => {
           "error"
         );
       } else {
-        
-       if(product.stock > cart[0].quantity){
+        if (product.stock > cart.map((e) => e.quantity)) {
           dispatch(addToCart(product));
-          swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+          swal(
+            "Buen trabajo!",
+            "El producto fue agregado con exito!",
+            "success"
+          );
           return;
-        }else{
-          swal("No tenemos la cantidad solicitada", "Nuestro stock es menor a la cantidad que deseas", "error")
+        } else {
+          swal(
+            "No tenemos la cantidad solicitada",
+            "Nuestro stock es menor a la cantidad que deseas",
+            "error"
+          );
         }
-
-        
       }
     } else {
       dispatch(addToCart(product));
