@@ -8,6 +8,17 @@ const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
 const { verifyToken } = require ("../middlewares/verifyToken");
 
+
+//get all emails
+router.get('/email',async (req,res) => {
+    try {
+        const allEmail= await getAllEmail();
+        res.status(200).send(allEmail);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
+
 //POST Business (para cargar una nueva empresa, aparte de los datos del modelo tiene q recibir una CityId)
 // http://localhost:3001/business
 router.post('/', async (req,res) => {    
@@ -156,7 +167,6 @@ router.post('/login', async(req,res) => {
 // http://localhost:3001/api/business
 router.get('/', (req,res) => {
     const {name} = req.query;
-    console.log(`search: ${name}`);
     try {
         return getBusiness(name).then(business => 
             typeof business === "object" ? res.json(business) : res.status(404).json(business));
@@ -165,14 +175,6 @@ router.get('/', (req,res) => {
     }
 });
 
-//get all emails
-router.get('/email',async (req,res) => {
-    try {
-        const allEmail= await getAllEmail();
-        res.status(200).send(allEmail);
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-});
+
 
 module.exports = router;

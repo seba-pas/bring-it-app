@@ -664,10 +664,10 @@ export const activateBusiness = (email) => {
 }
 
 // all email
-export const getAllEmail=()=>{
+export const getAllEmail= () =>{
   return async function (dispatch){
     try {
-      const res=await axios.get('/business/email')
+      const res = await axios.get('/business/email')
       return dispatch({
         type: GET_EMAIL,
         payload: res.data

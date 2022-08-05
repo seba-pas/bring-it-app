@@ -1,24 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { cleanUserState, getActiveUser, getAllEmail } from "../actions/index";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Usuario.module.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { SpinnerCircularFixed } from "spinners-react";
-import { desactivateUser, cleanUsers, cleanBusiness } from "../actions";
+import { desactivateUser, cleanUsers, cleanBusiness ,cleanUserState, getActiveUser, getAllEmail} from "../actions";
 import swal from "sweetalert";
 
 const Usuario = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
   const history = useHistory();
   const business = useSelector((state) => state.business);
   const email = useSelector((state) => state.allEmail);
-  const isBusiness = email.find((e) => e.email == user.email) ? true : false;
+  const isBusiness =  email.find((e) => e.email == user.email) ? true : false 
 
   useEffect(() => {
     dispatch(getActiveUser());
@@ -150,9 +147,6 @@ const Usuario = () => {
             >
               Cerrar Sesion
             </button>
-            {console.log(
-              email.find((e) => e.email == user.email) ? true : false
-            )}
             {isBusiness ? (
               <button
                 className="btn btn-primary"

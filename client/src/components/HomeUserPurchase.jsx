@@ -20,15 +20,18 @@ function HomeUserPurchase() {
   const user = useSelector((state) => state.user);
   const [avgRating, setAvgRating] = useState(0);
   const [selectedData, setSelectedData] = useState();
+  const [input, setInput] = useState({
+    comentario: "",
+    rating: "",
+  });
   const handleRating = (input) => {
     setAvgRating(input);
-    console.log(input)
   };
 
   function handleSubmit(e) {
     e.preventDefault();
   }
-/*   const handleInputChange = (event) => {
+  const handleInputChange = (event) => {
     event.preventDefault();
     setInput((prevInput) => {
       return {
@@ -36,8 +39,8 @@ function HomeUserPurchase() {
         [event.target.name]: event.target.value,
       };
     });
-  }; */
-  
+  };
+
   const handleBack = (event) => {
     event.preventDefault();
     history.push("/filtro");
@@ -45,9 +48,9 @@ function HomeUserPurchase() {
   const changeCity = purchases;
   const nameCity = changeCity.map((e) => {
     return {
-      idProducts: e.purchaseitems.map((e) => e.productId),
       id: e.id,
       maxDeliveryDate: e.maxDeliveryDate,
+      lastUpdate: e.lastUpdate,
       totalPrice: e.totalPrice,
       cantidad: e.purchaseitems.reduce((a, e) => e.quantity + a, 0),
       producto: e.purchaseitems.map((e) => `${e.product.name}, `),
@@ -79,6 +82,12 @@ function HomeUserPurchase() {
   const columnasRating = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
     {
+      name: "Fecha de compra",
+      selector: (row) => formatDate(row.lastUpdate),
+      sortable: true,
+    },
+
+    {
       name: "Producto",
       selector: (row) => row.producto,
       sortable: true,
@@ -86,6 +95,12 @@ function HomeUserPurchase() {
   ];
   const columnas = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
+    {
+      name: "Fecha de compra",
+      selector: (row) => formatDate(row.lastUpdate),
+      sortable: true,
+    },
+
     {
       name: "Producto",
       selector: (row) => row.producto,
@@ -113,7 +128,6 @@ function HomeUserPurchase() {
             onClick={(e) => editUsers(e)}
           />
           <BsFillBookmarkStarFill onClick={() => handleShow(row.id)} />
-
         </button>
       ),
     },
@@ -157,10 +171,7 @@ function HomeUserPurchase() {
             <Form.Label style={{ paddingBottom: "15px" }}>
               Indica del 1 al 5 que tan satisfecho esta con su compra
             </Form.Label>
-            <ChangeRating
-              rating={avgRating}
-              handleRating={handleRating}
-            />
+            <ChangeRating rating={avgRating} handleRating={handleRating} />
             <br />
             <br />
             <StarRating stars={avgRating} />
@@ -169,6 +180,7 @@ function HomeUserPurchase() {
               <Form.Control
                 as="textarea"
                 rows={3}
+                value={input.comentario}
                 name="comentario"
                 required
                 onChange={(e) => handleInputChange(e)}

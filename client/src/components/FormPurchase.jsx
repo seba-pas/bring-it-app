@@ -31,7 +31,8 @@ function FormPurchase() {
     items: cart,
     totalPrice: cart
     .reduce((acc, item) => acc + item.quantity * item.price, 0)
-    .toFixed(2)
+    .toFixed(2),
+    province: ""
   });
   console.log(gState.businessEmail)
   const handleInputChange = (event) => {
@@ -242,7 +243,7 @@ function FormPurchase() {
                             )[0].id
                         )
                         ?.map((e) => (
-                          <option key={e.id} name={e.nombre} value={e.nombre}>
+                          <option key={e.id} name={e.nombre} value={e.id}>
                             {e.nombre}
                           </option>
                         ))
