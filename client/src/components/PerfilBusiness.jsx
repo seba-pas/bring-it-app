@@ -8,6 +8,7 @@ import {
   getAllCities,
   postBranch,
   editBranch,
+  saveImage,
 } from "../actions";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,24 +31,6 @@ function PerfilBusiness(props) {
 
   const tokenBusiness = gState.businessToken;
 
-  const uploadImage = async (e) => {
-    const files = e.target.files;
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "bringitImages");
-    setLoading(true);
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/bringitapp/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-    const file = await res.json();
-    console.log(res);
-    setImage(file.secure_url);
-    setLoading(false);
-  };
 
   useEffect(() => {
     dispatch(getAllProvinces());
@@ -66,7 +49,7 @@ function PerfilBusiness(props) {
         businessbranches: infoBusiness.businessbranches,
         cuit: infoBusiness.cuit,
         email: infoBusiness.email,
-        logo: infoBusiness.logo || "",
+        logo: "",
         phone: infoBusiness.phone,
         taxBracket: infoBusiness.taxBracket,
         arrayInfo: [],
@@ -80,7 +63,7 @@ function PerfilBusiness(props) {
         businessbranches: infoBusiness.businessbranches,
         cuit: infoBusiness.cuit,
         email: infoBusiness.email,
-        logo: infoBusiness.logo || "",
+        logo: "",
         phone: infoBusiness.phone,
         taxBracket: infoBusiness.taxBracket,
         arrayInfo: [],
@@ -89,7 +72,7 @@ function PerfilBusiness(props) {
         city: "",
       }
   );
-
+  //console.log("input", input)
   const [error, setError] = useState({
     errorbusinessName: "",
     errorbusinessBranches: "",
@@ -115,6 +98,8 @@ function PerfilBusiness(props) {
     input.city,
   ]);
 
+
+
   useEffect(() => {
     setInput((prevInput) => {
       return {
@@ -124,7 +109,7 @@ function PerfilBusiness(props) {
         businessbranches: gState.businessEditInfo.businessbranches,
         cuit: gState.businessEditInfo.cuit,
         email: gState.businessEditInfo.email,
-        logo: gState.businessEditInfo.logo || "",
+        logo: "",
         phone: gState.businessEditInfo.phone,
         taxBracket: gState.businessEditInfo.taxBracket,
       };
@@ -217,48 +202,70 @@ function PerfilBusiness(props) {
     id
       ? dispatch(
 
-          editBranch(id, {
-            businessName: input.businessName,
-            businessEmail: input.businessEmail,
-            cityId: input.city,
-            province: input.province,
-            address: input.address,
-          },
+        editBranch(id, {
+          businessName: input.businessName,
+          businessEmail: input.businessEmail,
+          cityId: input.city,
+          province: input.province,
+          address: input.address,
+        },
           tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
-          )
         )
+      )
       : dispatch(
-          postBranch({
-            businessName: input.businessName,
-            businessEmail: input.businessEmail,
-            cityId: input.city,
-            province: input.province,
-            address: input.address,
-          },
+        postBranch({
+          businessName: input.businessName,
+          businessEmail: input.businessEmail,
+          cityId: input.city,
+          province: input.province,
+          address: input.address,
+        },
           tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
-          )
-        );
+        )
+      );
 
     history.push("/perfil");
   };
 
-  const handleSubmit = (event) => {
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "Bringit");
+    setLoading(true);
+    dispatch(saveImage(data))
     console.log("si");
+
+  };
+
+  useEffect(() => {
+    setInput({
+      ...input, logo: gState.images
+    })
+  }, [gState.images])
+
+  const handleSubmit = (event) => {
+
     event.preventDefault();
     dispatch(
       editBusiness(input.email, {
         businessName: input.businessName,
         cuit: input.cuit,
-        logo: input.logo,
         taxBracket: input.taxBracket,
         logo: input.logo,
         // phone: input.phone,
       },
-      tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+        tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
     );
-    swal("Buen trabajo!", "Editado satisfactoriamente!", "success"); 
+    debugger;
+    swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
   };
+
+
   return (
     <div>
       <Container>
@@ -332,9 +339,10 @@ function PerfilBusiness(props) {
                   <Form.Group>
                     <label for="exampleFile">Logo</label>
                     <Form.Control
-                      id="exampleFile"
-                      name="file"
+                      // id="exampleFile"
+                      name="logo"
                       type="file"
+                      // value={input.logo}
                       onChange={uploadImage}
                     />
                   </Form.Group>
@@ -342,9 +350,9 @@ function PerfilBusiness(props) {
                 {/* <Form.Group className="mb-3">
                     <Form.Label>Logo:</Form.Label>
                     <Form.Control
-                      type="text"
-                      name="logo"
-                      value={input.logo}
+                    type="text"
+                    name="logo"
+                    value={input.logo}
                       placeholder="Logo"
                       onChange={handleInputChange}
                     />
