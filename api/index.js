@@ -33,7 +33,6 @@ conn.sync({ force: false }).then(() => {
     await apiProvince();
     await apiCity();
     await loadDB();
-
     console.log("BRING IT ON! Listening..."); // eslint-disable-line no-console
   });
 });

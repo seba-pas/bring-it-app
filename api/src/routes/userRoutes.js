@@ -7,7 +7,7 @@ const CryptoJS = require('crypto-js');
 const router = Router();
 const { verifyToken } = require ("../middlewares/verifyToken");
 
-//PUT / baneo de User
+//PUT / baneo de User (SOLO LO PUEDE HACER ADMIN)
 // http://localhost:3001/user/baneo/:email
 router.put("/baneo/:email", verifyToken, async (req, res) => {
   const email=req.params.email; 
@@ -16,7 +16,6 @@ router.put("/baneo/:email", verifyToken, async (req, res) => {
   //si el usuario es admin entra, xq el admin puede banear, nadie mas puede.
   //console.log(`req.userLogin.isAdmin de la ruta put baneo ${req.userLogin.isAdmin}`);
   if(req.userLogin.isAdmin){ 
-
     try {
       await User.update({deleted: true},{
         where: {
@@ -81,7 +80,7 @@ router.post("/", async (req, res) => {
   // }
 });
 
-// PUT / UPDATE USER
+// PUT / UPDATE USER (TAMBIEN DESACTIVACION Y ACTIVACION DE USER)
 // http://localhost:3001/user/:email
 //AGREGO EL MIDDLEWARE verifyToken para verificar q el q modifica su cuenta es el usuario en cuestion o el admin
 router.put("/:email", verifyToken, async (req, res) => {
@@ -158,5 +157,38 @@ router.post("/login", async (req, res) => {
     res.status(404).send(`error:${error.message}`);
   }
 });
+
+
+
+// Ruta para cambiar la contraseña del usuario
+
+// router.put("/recover/password/:email", async (req, res) => { 
+//   const { passwordOne } = req.body;
+//   const { passwordTwo } = req.body;
+//   const { email } = req.params;
+
+//   const encPass = CryptoJS.AES.encrypt(passwordTwo, process.env.PASS_SEC);
+
+//   const user = await User.findOne({ where: { email } })
+//   const hashed = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);
+//   const decPass = hashed.toString(CryptoJS.enc.Utf8);
+
+//   if(passwordOne === decPass) {
+//     try {
+//       await User.update(encPass, {
+//         where: {
+//           email
+//         }
+//       })
+//       res.json("Listo papurro")
+//     } catch(err) {
+//       console.log(err)
+//     }    
+//   } else {
+//     console.log("NOT FOUND")
+//   }
+
+
+// });
 
 module.exports = router;

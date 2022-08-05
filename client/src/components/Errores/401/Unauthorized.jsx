@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
+import './Unauthorized.css'
 
 function Unauthorized() {
 
@@ -7,14 +8,13 @@ function Unauthorized() {
 
 	const handleVolver = (e) => {
 		e.preventDefault();
-		history.push("/filtro")
+		history.push("/")
 	}
 
 	return (
 		<div className="container-un">
-			<h1 className='title-un'>NO PODÉS ACCEDER ACÁ GATÍN</h1>
-			<h3 className='subtitle-un'>Pegá la vuelta nomá</h3>
-			<button className='un-btn' onClick={handleVolver}>VOLVER</button>
+			<h1 className='title-un'>USUARIO NO AUTORIZADO</h1>
+			<button className='un-btn' onClick={handleVolver}>VOLVER A LANDING</button>
 		</div>
 	)
 }

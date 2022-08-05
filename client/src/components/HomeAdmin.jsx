@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/HomePersonas.module.css";
 import { SpinnerCircularFixed } from "spinners-react";
-import { getUsers, getAllBusiness,getAllProducts,getAllTravel,getByPurchaseEmail} from "../actions";
+import { getUsers, getAllBusiness,getAllProducts,getAllTravel,getByPurchaseEmail, deleteBusiness, deleteUser} from "../actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBarAdmin from "./NavBarAdmin";
 import DataTable from "react-data-table-component";
@@ -20,16 +20,20 @@ export default function HomeAdmin() {
   const BUSINESS = useSelector((state) => state.business2);
   const allTravels = useSelector((state) => state.allTravels)
   const [orden, setOrden] = useState("");
-
+  const token = useSelector((state => state.userToken))
+  console.log(token);
   // console.log(purchases)
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
   }
-  function deleteUsers() {
-    alert("PROXIMAMENTE!!!");
-  }
-  function deleteBusiness() {
-    alert("PROXIMAMENTE!!!");
+
+  function banearUsers(email) {
+    let token = token; // ARREGLAR PQ NO ANDA
+    dispatch(deleteUser(email, token))
+  };
+
+  function banearBusiness() {
+    dispatch(deleteBusiness());
   }
 
   function editUsers() {
@@ -123,12 +127,12 @@ export default function HomeAdmin() {
     /* { name: "Acciones", selector: "acciones", sortable: true }, */
     {
       button: true,
-      cell: () => (
+      cell: (row) => (
         <button>
           <FaPencilAlt style={{ marginRight: "15px", fontSize: "20px" }} onClick={(e) => editUsers(e)}/>
           <FaTrashAlt
             style={{ fontSize: "20px" }}
-            onClick={(e) => deleteUsers(e)}
+            onClick={() => banearUsers(row.email)}
           />
         </button>
       ),

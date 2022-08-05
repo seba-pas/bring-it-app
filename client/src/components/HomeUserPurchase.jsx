@@ -15,6 +15,7 @@ function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
   const [show, setShow] = useState(null);
+
   const history = useHistory();
   const purchases = useSelector((state) => state.purchases);
   const user = useSelector((state) => state.user);
@@ -26,7 +27,12 @@ function HomeUserPurchase() {
   });
   const handleRating = (input) => {
     setAvgRating(input);
+
   };
+  const [input, setInput] = useState({
+    city: [],
+  });
+  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -40,6 +46,7 @@ function HomeUserPurchase() {
       };
     });
   };
+
 
   const handleBack = (event) => {
     event.preventDefault();
@@ -66,15 +73,16 @@ function HomeUserPurchase() {
   }, [dispatch]);
 
   const handleClose = () => setShow(null);
-
   const handleShow = (id) => {
     setShow((showId) => (showId === id ? null : id));
+
   };
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
+
   };
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
@@ -163,6 +171,7 @@ function HomeUserPurchase() {
         <Modal.Body>
           <DataTable
             columns={columnasRating}
+
             data={nameCity.filter((item) => item.id === show)}
             title="Listado de compras"
           />

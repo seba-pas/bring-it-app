@@ -4,6 +4,7 @@ const { Travel , Purchase , Purchaseitem, Product , Businessbranch } = require('
 const { getTravel } = require('../controllers/travelControllers')
 const router = Router();
 const {Op} = require('sequelize');
+const { verifyToken } = require ("../middlewares/verifyToken");
 
 //GET trae todos los travel
 router.get('/', async (req, res) => {
@@ -17,31 +18,35 @@ router.get('/', async (req, res) => {
 })
 
 //POST / CREATE Travel
-// http://localhost:3001/api/travel
-router.post('/', async (req, res) => {
+// http://localhost:3001/travel
+router.post('/', verifyToken, async (req, res) => {
     const { userEmail, travelProvince, travelCityId, arrivalProvince, arrivalCityId, startDate, arrivalDate } = req.body;
-    if (!userEmail || !travelProvince || !travelCityId || !arrivalProvince || !arrivalCityId || !startDate || !arrivalDate) {
-        res.status(404).send('Faltan datos para crear el viaje')
-    } else {
-        try {
-            const newTravel = await Travel.create({
-                userEmail,
-                travelProvince,
-                travelCityId,
-                arrivalProvince,
-                arrivalCityId,
-                startDate,
-                arrivalDate
-            })
-            res.status(201).send('Viaje creado')
-        } catch (e) {
-            res.send('error:' + e.message)
+    if(req.userLogin.email === userEmail || req.userLogin.isAdmin){  
+        if (!userEmail || !travelProvince || !travelCityId || !arrivalProvince || !arrivalCityId || !startDate || !arrivalDate) {
+            res.status(404).send('Faltan datos para crear el viaje')
+        } else {
+            try {
+                const newTravel = await Travel.create({
+                    userEmail,
+                    travelProvince,
+                    travelCityId,
+                    arrivalProvince,
+                    arrivalCityId,
+                    startDate,
+                    arrivalDate
+                })
+                res.status(201).send('Viaje creado')
+            } catch (e) {
+                res.send('error:' + e.message)
+            }
         }
-    }
+    } else{
+        res.status(403).json(`No tiene permiso para agregarle un viaje al usuario ${userEmail}`);
+      } 
 })
 
 //PUT / UPDATE TRAVEL
-// http://localhost:3001/api/travel/:id
+// http://localhost:3001/travel/:id
 router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params;
