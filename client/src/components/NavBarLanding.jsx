@@ -65,6 +65,9 @@ export default function NavBarLanding() {
 
   useEffect(() => {
     dispatch(getActiveUser());
+    if(!user){
+      user = 'clean'
+    }
     // const activeUser =
     //   user == "clean"
     //     ? "clean"
