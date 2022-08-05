@@ -29,10 +29,7 @@ function HomeUserPurchase() {
     setAvgRating(input);
 
   };
-  const [input, setInput] = useState({
-    city: [],
-  });
-  
+
 
   function handleSubmit(e) {
     e.preventDefault();
