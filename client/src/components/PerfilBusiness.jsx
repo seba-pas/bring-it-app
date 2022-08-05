@@ -8,6 +8,7 @@ import {
   getAllCities,
   postBranch,
   editBranch,
+  saveImage,
 } from "../actions";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,39 +16,23 @@ import styles from "../styles/PerfilBusiness.module.css";
 import swal from "sweetalert";
 import BranchCard from "./BranchCard";
 import { useHistory } from "react-router-dom";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import RecuperarPasswordBusiness from "./RecuperarPasswordBusiness";
 
 function PerfilBusiness(props) {
+
+  const [key, setKey] = useState("home");
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
-  let id = props.match.params.id;
-  let history = useHistory();
-
+  const id = props.match.params.id;
+  const history = useHistory();
   const infoBusiness = gState.businessEditInfo;
   const branchId = gState.businessEditInfo.businessbranches.filter(
     (e) => e.id === parseInt(id)
   );
 
-
   const tokenBusiness = gState.businessToken;
-
-  const uploadImage = async (e) => {
-    const files = e.target.files;
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "bringitImages");
-    setLoading(true);
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/bringitapp/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-    const file = await res.json();
-    console.log(res);
-    setImage(file.secure_url);
-    setLoading(false);
-  };
 
   useEffect(() => {
     dispatch(getAllProvinces());
@@ -61,35 +46,35 @@ function PerfilBusiness(props) {
   const [input, setInput] = useState(
     id
       ? {
-        businessEmail: infoBusiness.email,
-        businessName: infoBusiness.businessName,
-        businessbranches: infoBusiness.businessbranches,
-        cuit: infoBusiness.cuit,
-        email: infoBusiness.email,
-        logo: infoBusiness.logo || "",
-        phone: infoBusiness.phone,
-        taxBracket: infoBusiness.taxBracket,
-        arrayInfo: [],
-        province: branchId[0].province || "",
-        address: branchId[0].address || "",
-        city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
-      }
+          businessEmail: infoBusiness.email,
+          businessName: infoBusiness.businessName,
+          businessbranches: infoBusiness.businessbranches,
+          cuit: infoBusiness.cuit,
+          email: infoBusiness.email,
+          logo: "",
+          phone: infoBusiness.phone,
+          taxBracket: infoBusiness.taxBracket,
+          arrayInfo: [],
+          province: branchId[0].province || "",
+          address: branchId[0].address || "",
+          city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
+        }
       : {
-        businessEmail: infoBusiness.email,
-        businessName: infoBusiness.businessName,
-        businessbranches: infoBusiness.businessbranches,
-        cuit: infoBusiness.cuit,
-        email: infoBusiness.email,
-        logo: infoBusiness.logo || "",
-        phone: infoBusiness.phone,
-        taxBracket: infoBusiness.taxBracket,
-        arrayInfo: [],
-        province: "",
-        address: "",
-        city: "",
-      }
+          businessEmail: infoBusiness.email,
+          businessName: infoBusiness.businessName,
+          businessbranches: infoBusiness.businessbranches,
+          cuit: infoBusiness.cuit,
+          email: infoBusiness.email,
+          logo: "",
+          phone: infoBusiness.phone,
+          taxBracket: infoBusiness.taxBracket,
+          arrayInfo: [],
+          province: "",
+          address: "",
+          city: "",
+        }
   );
-
+  //console.log("input", input)
   const [error, setError] = useState({
     errorbusinessName: "",
     errorbusinessBranches: "",
@@ -124,7 +109,7 @@ function PerfilBusiness(props) {
         businessbranches: gState.businessEditInfo.businessbranches,
         cuit: gState.businessEditInfo.cuit,
         email: gState.businessEditInfo.email,
-        logo: gState.businessEditInfo.logo || "",
+        logo: "",
         phone: gState.businessEditInfo.phone,
         taxBracket: gState.businessEditInfo.taxBracket,
       };
@@ -216,84 +201,164 @@ function PerfilBusiness(props) {
     event.preventDefault();
     id
       ? dispatch(
-
-          editBranch(id, {
-            businessName: input.businessName,
-            businessEmail: input.businessEmail,
-            cityId: input.city,
-            province: input.province,
-            address: input.address,
-          },
-          tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+          editBranch(
+            id,
+            {
+              businessName: input.businessName,
+              businessEmail: input.businessEmail,
+              cityId: input.city,
+              province: input.province,
+              address: input.address,
+            },
+            tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
           )
         )
       : dispatch(
-          postBranch({
-            businessName: input.businessName,
-            businessEmail: input.businessEmail,
-            cityId: input.city,
-            province: input.province,
-            address: input.address,
-          },
-          tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+          postBranch(
+            {
+              businessName: input.businessName,
+              businessEmail: input.businessEmail,
+              cityId: input.city,
+              province: input.province,
+              address: input.address,
+            },
+            tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
           )
         );
 
     history.push("/perfil");
   };
 
-  const handleSubmit = (event) => {
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "Bringit");
+    setLoading(true);
+    dispatch(saveImage(data));
     console.log("si");
+  };
+
+  useEffect(() => {
+    setInput({
+      ...input,
+      logo: gState.images,
+    });
+  }, [gState.images]);
+
+  const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
       editBusiness(input.email, {
         businessName: input.businessName,
         cuit: input.cuit,
-        logo: input.logo,
         taxBracket: input.taxBracket,
         logo: input.logo,
-        // phone: input.phone,
+        phone: input.phone,
       },
-      tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+
+        tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
     );
-    swal("Buen trabajo!", "Editado satisfactoriamente!", "success"); 
+
+    swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
   };
+
   return (
     <div>
       <Container>
         <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
           Editar de empresa
         </h1>
-        <Row>
-          <Col
-            lg={12}
-            md={12}
-            sm={12}
-            className="text-center p-5 m-auto shadow-sm rounded-lg"
-          >
-            <Form onSubmit={handleSubmit}>
-              <Row>
-                <Col lg={6} md={6} sm={12}>
-                  <Form.Group htmlFor="businessName" className="mb-3">
-                    <Form.Label>Empresa: </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="businessName"
-                      value={input.businessName}
-                      placeholder="Nombre"
-                      onChange={handleInputChange}
-                    />
-                    {!error.errorbusinessName ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.errorbusinessName} </label>
-                    )}
-                  </Form.Group>
-                </Col>
-                <Col lg={6} md={6} sm={12}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Address</Form.Label>
+
+        <Tabs
+          id="controlled-tab-example"
+          activeKey={key}
+          onSelect={(k) => setKey(k)}
+          /* className="mb-3" */
+          justify
+        >
+          <Tab eventKey="home" title="Editar empresa">
+            <Row>
+              <Col
+                lg={12}
+                md={12}
+                sm={12}
+                className="text-center p-5 m-auto shadow-sm rounded-lg"
+              >
+                <Form onSubmit={handleSubmit}>
+                  <Row>
+                    <Col lg={6} md={6} sm={12}>
+                      <Form.Group htmlFor="businessName" className="mb-3">
+                        <Form.Label>Empresa: </Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="businessName"
+                          value={input.businessName}
+                          placeholder="Nombre"
+                          onChange={handleInputChange}
+                        />
+                        {!error.errorbusinessName ? (
+                          <label> </label>
+                        ) : (
+                          <label> {error.errorbusinessName} </label>
+                        )}
+                      </Form.Group>
+                    </Col>
+                    <Col lg={6} md={6} sm={12}>
+                      <Form.Group className="mb-3">
+                        <Form.Label>Teléfono</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="phone"
+                          value={input.phone}
+                          placeholder="Telefono"
+                          onChange={handleInputChange}
+                        />
+                        {!error.erroraddress ? (
+                          <label> </label>
+                        ) : (
+                          <label> {error.erroraddress} </label>
+                        )}
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg={6} md={6} sm={12}>
+                      <Form.Group className="mb-3">
+                        <Form.Label>Cuit: </Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="cuit"
+                          value={input.cuit}
+                          placeholder="Cuit"
+                          onChange={handleInputChange}
+                        />
+                        {!error.errorcuit ? (
+                          <label> </label>
+                        ) : (
+                          <label> {error.errorcuit} </label>
+                        )}
+                      </Form.Group>
+                    </Col>
+                    {/* <Col> */}
+                    <Col>
+                      <Form.Group>
+                        <label for="exampleFile">Logo</label>
+                        <Form.Control
+                          // id="exampleFile"
+                          name="logo"
+                          type="file"
+                          // value={input.logo}
+                          onChange={uploadImage}
+                        />
+                      </Form.Group>
+                    </Col>
+                    {/* <Form.Group className="mb-3">
+                    <Form.Label>Logo:</Form.Label>
                     <Form.Control
                       type="text"
                       name="address"
@@ -306,92 +371,146 @@ function PerfilBusiness(props) {
                     ) : (
                       <label> {error.erroraddress} </label>
                     )}
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col lg={6} md={6} sm={12}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Cuit: </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="cuit"
-                      value={input.cuit}
-                      placeholder="Cuit"
-                      onChange={handleInputChange}
-                    />
-                    {!error.errorcuit ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.errorcuit} </label>
-                    )}
-                  </Form.Group>
-                </Col>
-                {/* <Col> */}
-                <Col>
-                  <Form.Group>
-                    <label for="exampleFile">Logo</label>
-                    <Form.Control
-                      id="exampleFile"
-                      name="file"
-                      type="file"
-                      onChange={uploadImage}
-                    />
-                  </Form.Group>
-                </Col>
-                {/* <Form.Group className="mb-3">
-                    <Form.Label>Logo:</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="logo"
-                      value={input.logo}
-                      placeholder="Logo"
-                      onChange={handleInputChange}
-                    />
-                    {!error.errorlogo ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.errorlogo} </label>
-                    )}
-                  </Form.Group> */}
-                {/* </Col> */}
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Provincia: </Form.Label>
-                    <Form.Select
-                      name="province"
-                      value={input.province}
-                      onChange={(e) => handleInputChange(e)}
-                    >
-                      <option value="">{ } </option>
-                      {gState.provinces?.map((e) => (
-                        <option key={e.id} value={e.nombre}>
-                          {e.nombre}
-                        </option>
-                      ))}
-                    </Form.Select>
-                    {!error.errorprovince ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.errorprovince} </label>
-                    )}
-                  </Form.Group>
-                </Col>
-                <Col lg={4} md={4} sm={12}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Ciudad:</Form.Label>
-                    <Form.Select
-                      disabled={!input.province}
-                      name="city"
-                      value={input.city}
-                      onChange={(e) => handleInputChange(e)}
-                    >
-                      <option value="">{ } </option>
 
-                      {input.province
-                        ? gState.allCities
+                  </Form.Group> */}
+                    {/* </Col> */}
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Form.Group className="mb-3">
+                        <Form.Label>TaxBracket:</Form.Label>
+                        <Form.Select
+                          name="taxBracket"
+                          value={input.taxBracket}
+                          onChange={(e) => handleInputChange(e)}
+                        >
+                          <option value="">{input.taxBracket} </option>
+                          <option value="Categoría tributaria 1">
+                            Categoría tributaria 1
+                          </option>
+                          <option value="Categoría tributaria 2">
+                            Categoría tributaria 2
+                          </option>
+                          <option value="Categoría tributaria 3">
+                            Categoría tributaria 3
+                          </option>
+                        </Form.Select>
+                        {!error.errortaxBracket ? (
+                          <label> </label>
+                        ) : (
+                          <label> {error.errortaxBracket} </label>
+                        )}
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Button
+                        // type="submit"
+                        disabled={
+                          error.errorbusinessName ||
+                          error.errorcuit ||
+                          error.errortaxBracket
+                        }
+                        onClick={(e) => handleSubmit(e)}
+                      >
+                        Editar Empresa
+                      </Button>
+                    </Col>
+                  </Row>
+                </Form>
+              </Col>
+            </Row>
+          </Tab>
+          <Tab eventKey="profile" title="Administracion de sedes">
+            <Row>
+              <Col lg={6} md={6} sm={12}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="address"
+                    value={input.address}
+                    placeholder="Dirección"
+                    onChange={handleInputChange}
+                  />
+                  {!error.erroraddress ? (
+                    <label> </label>
+                  ) : (
+                    <label> {error.erroraddress} </label>
+                  )}
+                </Form.Group>
+              </Col>
+              <Col>
+                <div className={styles.branchContainer}>
+                  {
+                    <table>
+                      <thead className={styles.titlleTableNonSt}>
+                        <tr>
+                          <th>Nombre</th>
+                          {/* <th>Ciudad</th> */}
+                          <th>Provincia</th>
+                          <th>Dirección</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {input.businessbranches?.map((c) => {
+                          return (
+                            <BranchCard
+                              key={c.id}
+                              id={c.id}
+                              name={c.businessBranchName}
+                              city={c.cityId}
+                              province={c.province}
+                              address={c.address}
+                            />
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  }
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={6} md={6} sm={12}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Provincia: </Form.Label>
+                  <Form.Select
+                    name="province"
+                    value={input.province}
+                    onChange={(e) => handleInputChange(e)}
+                  >
+                    <option value="">{} </option>
+                    {gState.provinces?.map((e) => (
+                      <option key={e.id} value={e.nombre}>
+                        {e.nombre}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {!error.errorprovince ? (
+                    <label> </label>
+                  ) : (
+                    <label> {error.errorprovince} </label>
+                  )}
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={6} md={6} sm={12}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Ciudad:</Form.Label>
+                  <Form.Select
+                    disabled={!input.province}
+                    name="city"
+                    value={input.city}
+                    onChange={(e) => handleInputChange(e)}
+                  >
+                    <option value="">{} </option>
+
+                    {input.province
+                      ? gState.allCities
                           ?.filter(
                             (e) =>
                               e.provinceId ===
@@ -404,112 +523,42 @@ function PerfilBusiness(props) {
                               {e.nombre}
                             </option>
                           ))
-                        : ""}
-                    </Form.Select>
-                    {!error.errorcity ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.errorcity} </label>
-                    )}
-                  </Form.Group>
-                </Col>
 
-                <Col>
-                  <Form.Group className="mb-3">
-                    <Form.Label>TaxBracket:</Form.Label>
-                    <Form.Select
-                      name="taxBracket"
-                      value={input.taxBracket}
-                      onChange={(e) => handleInputChange(e)}
-                    >
-                      <option value="">{input.taxBracket} </option>
-                      <option value="Categoría tributaria 1">
-                        Categoría tributaria 1
-                      </option>
-                      <option value="Categoría tributaria 2">
-                        Categoría tributaria 2
-                      </option>
-                      <option value="Categoría tributaria 3">
-                        Categoría tributaria 3
-                      </option>
-                    </Form.Select>
-                    {!error.errortaxBracket ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.errortaxBracket} </label>
-                    )}
-                  </Form.Group>
-                </Col>
-              </Row>
-            </Form>
-          </Col>
-        </Row>
-        <h4 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-          Administración de sedes
-        </h4>
-        <Row>
-          <Col>
-            <div className={styles.branchContainer}>
-              {
-                <table>
-                  <thead className={styles.titlleTableNonSt}>
-                    <tr>
-                      <th>Nombre</th>
-                      {/* <th>Ciudad</th> */}
-                      <th>Provincia</th>
-                      <th>Dirección</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {input.businessbranches?.map((c) => {
-                      return (
-                        <BranchCard
-                          key={c.id}
-                          id={c.id}
-                          name={c.businessBranchName}
-                          city={c.cityId}
-                          province={c.province}
-                          address={c.address}
-                        />
-                      );
-                    })}
-                  </tbody>
-                </table>
-              }
-            </div>
-          </Col>
-        </Row>
+                      : ""}
+                  </Form.Select>
+                  {!error.errorcity ? (
+                    <label> </label>
+                  ) : (
+                    <label> {error.errorcity} </label>
+                  )}
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Button
+                  disabled={
+                    error.erroraddress ||
+                    error.errorcity ||
+                    error.errorprovince ||
+                    error.errorbusinessName
+                  }
+                  onClick={(e) => handleBranch(e)}
+                >
+                  +
+                </Button>
+              </Col>
+            </Row>
+          </Tab>
+          <Tab eventKey="profile1" title="Modificar contraseña">
+            <RecuperarPasswordBusiness />
+            {/* <Col>
+              <Button onClick={(e) => handlePass(e)}>Cambiar Contraseña</Button>
+            </Col> */}
+          </Tab>
+        </Tabs>
+
         <Row style={{ marginTop: "30px", marginBottom: "30px" }}>
-          <Col>
-            <Button
-              // type="submit"
-              disabled={
-                error.errorbusinessName ||
-                error.errorcuit ||
-                error.errortaxBracket
-              }
-              onClick={(e) => handleSubmit(e)}
-            >
-              Editar Empresa
-            </Button>
-          </Col>
-          <Col>
-            <Button onClick={(e) => handlePass(e)}>Cambiar Contraseña</Button>
-          </Col>
-          <Col>
-            <Button
-              disabled={
-                error.erroraddress ||
-                error.errorcity ||
-                error.errorprovince ||
-                error.errorbusinessName
-              }
-              onClick={(e) => handleBranch(e)}
-            >
-              +
-            </Button>
-          </Col>
           <Col>
             <Button onClick={(e) => handleBack(e)}>Volver</Button>
           </Col>

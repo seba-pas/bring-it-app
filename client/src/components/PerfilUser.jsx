@@ -11,7 +11,7 @@ function PerfilUser(props) {
   const dispatch = useDispatch();
 
   const emailState = gState.email;
-  const infoUser = gState.user;  
+  const infoUser = gState.user;
   const tokenUser = gState.userToken;
 
   const [input, setInput] = useState({
@@ -23,28 +23,35 @@ function PerfilUser(props) {
     arrayInfo: [],
   });
 
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "Bringit");
+    setLoading(true);
+    dispatch(saveImage(data));
+    console.log("si");
+  };
 
-
-// NUEVO CELE Y AGUSES PARA MANEJAR LA RTA DE LA RUTA EDITAR (SI HIZO EL CAMBIO, EN POS DE LA AUTORIZACION)
+  // NUEVO CELE Y AGUSES PARA MANEJAR LA RTA DE LA RUTA EDITAR (SI HIZO EL CAMBIO, EN POS DE LA AUTORIZACION)
   const putUser = gState.putUser; //xq se llama asi?
 
-const [didMount, setDidMount] = useState(true);
-useEffect(() => {
-  if (didMount) {
-    setDidMount(false);
-    dispatch(cleanPutUser());
-    return;
-  } else {
-    if(putUser === "clean"){
-      return;
-    }
-    else if (putUser === "1 Usuarios modificados") {
-      swal("Buen trabajo!", "El usuario fue editado con éxito!", "success");      
-      dispatch(getUserByEmail(infoUser.email));
+  const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
       dispatch(cleanPutUser());
+      return;
+    } else {
+      if (putUser === "clean") {
+        return;
+      } else if (putUser === "1 Usuarios modificados") {
+        swal("Buen trabajo!", "El usuario fue editado con éxito!", "success");
+        dispatch(getUserByEmail(infoUser.email));
+        dispatch(cleanPutUser());
+      }
     }
-  }
-}, [putUser]);
+  }, [putUser]);
 
   useEffect(() => {}, [
     input.email,
@@ -70,23 +77,30 @@ useEffect(() => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (infoUser.email === input.email && infoUser.password === input.password && infoUser.name === input.name
-    && infoUser.lastname === input.lastname && infoUser.phone === input.phone){
+    if (
+      infoUser.email === input.email &&
+      infoUser.password === input.password &&
+      infoUser.name === input.name &&
+      infoUser.lastname === input.lastname &&
+      infoUser.phone === input.phone
+    ) {
       swal("No se ha realizado ninguna modificación");
       return;
     }
     dispatch(
-      editUser(input.email, {
-        password: input.password,
-        name: input.name,
-        lastname: input.lastname,
-        phone: input.phone,
+      editUser(
+        input.email,
+        {
+          password: input.password,
+          name: input.name,
+          lastname: input.lastname,
+          phone: input.phone,
 
-        arrayInfo: [],
-      },
-      tokenUser //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+          arrayInfo: [],
+        },
+        tokenUser //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
-    );     
+    );
   };
   return (
     <div className={styles.PerfilBusiness}>
@@ -167,10 +181,3 @@ useEffect(() => {
 }
 
 export default PerfilUser;
-
-// email: "",
-//     password: "",
-//     confirmPassword: "",
-//     name: "",
-//     lastname: "",
-//     birthDate: "",

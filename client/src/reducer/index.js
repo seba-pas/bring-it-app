@@ -41,8 +41,8 @@ const initialState = {
   deletedBusiness: "",
   deletedUser: "",
   allEmail: [],
-  review:""
-
+  review: "",
+  images: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -199,23 +199,23 @@ export default function rootReducer(state = initialState, action) {
       let sortedPrice =
         action.payload === "asc"
           ? state.products.sort(function (a, b) {
-              if (a.price > b.price) {
-                return 1;
-              }
-              if (b.price > a.price) {
-                return -1;
-              }
-              return 0;
-            })
+            if (a.price > b.price) {
+              return 1;
+            }
+            if (b.price > a.price) {
+              return -1;
+            }
+            return 0;
+          })
           : state.products.sort(function (a, b) {
-              if (a.price > b.price) {
-                return -1;
-              }
-              if (b.price > a.price) {
-                return 1;
-              }
-              return 0;
-            });
+            if (a.price > b.price) {
+              return -1;
+            }
+            if (b.price > a.price) {
+              return 1;
+            }
+            return 0;
+          });
       return {
         ...state,
         products: sortedPrice,
@@ -235,10 +235,10 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allProducts
           : allProducts.filter(
-              (e) =>
-                e.categories &&
-                e.categories.map((e) => e.name).includes(action.payload)
-            );
+            (e) =>
+              e.categories &&
+              e.categories.map((e) => e.name).includes(action.payload)
+          );
 
       return {
         ...state,
@@ -275,8 +275,8 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allBusiness
           : allBusiness.filter(
-              (e) => e.businessbranch.businessBranchName === action.payload
-            );
+            (e) => e.businessbranch.businessBranchName === action.payload
+          );
 
       return {
         ...state,
@@ -295,8 +295,8 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allBranches
           : allBranches.filter(
-              (e) => e.businessbranch.businessBranchName === action.payload
-            );
+            (e) => e.businessbranch.businessBranchName === action.payload
+          );
       return {
         ...state,
         products: filterBranches.length
@@ -310,8 +310,8 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allProvBranches
           : allProvBranches.filter(
-              (e) => e.businessbranch.province === action.payload
-            );
+            (e) => e.businessbranch.province === action.payload
+          );
       return {
         ...state,
         products: filterBranchesProvince.length
@@ -337,8 +337,8 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allProvinces
           : allProvinces.filter(
-              (e) => e.businessbranch.province === action.payload
-            );
+            (e) => e.businessbranch.province === action.payload
+          );
       return {
         ...state,
         products: filterProvinces.length
@@ -392,39 +392,39 @@ export default function rootReducer(state = initialState, action) {
       /* 
         itemIncart.stock > itemIncart.quantity ? itemInCart : alert('No tenemos tanto stock')
       */
-     /* cart.filter((e) => e.id === product.id)[0].stock <
-        cart.filter((e) => e.id === product.id)[0].quantity; */
+      /* cart.filter((e) => e.id === product.id)[0].stock <
+         cart.filter((e) => e.id === product.id)[0].quantity; */
       // itemInCart = state.cart.filter((e) => console.log(e))
       return itemInCart
         ? {
-            ...state,
-            cart: state.cart.map((item) =>
-              item.id === productoCantidad.id
-                ? { ...item, quantity: item.quantity + 1 }
-                : item
-            ),
-          }
+          ...state,
+          cart: state.cart.map((item) =>
+            item.id === productoCantidad.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
+        }
         : {
-            ...state,
-            cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
-          };
+          ...state,
+          cart: [...state.cart, { ...productoCantidad, quantity: 1 }],
+        };
 
     //Disminuye en 1 la cantidad de un producto ya existente en el carrito. Si es 0, deberia eliminarlo del arreglo cart (recibe id)
     case "REMOVE_ONE_FROM_CART":
       let itemToDelete = state.cart.find((item) => item.id === action.payload);
       return itemToDelete.quantity > 1
         ? {
-            ...state,
-            cart: state.cart.map((item) =>
-              item.id === action.payload
-                ? { ...item, quantity: item.quantity - 1 }
-                : item
-            ),
-          }
+          ...state,
+          cart: state.cart.map((item) =>
+            item.id === action.payload
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          ),
+        }
         : {
-            ...state,
-            cart: state.cart.filter((item) => item.id !== action.payload),
-          };
+          ...state,
+          cart: state.cart.filter((item) => item.id !== action.payload),
+        };
     //Elimina el producto del arreglo cart (recibe id)
     case "REMOVE_ALL_FROM_CART":
       return {
@@ -474,43 +474,52 @@ export default function rootReducer(state = initialState, action) {
         branchPut: action.payload,
       };
 
-      //borrado lógico
-      case "DESACTIVATE_USER":
-        return {
-          ...state,
-          activeUser: action.payload
-        }
-        case "ACTIVATE_USER":
-          return {
-            ...state,
-            activeUser: action.payload,
-          }
-          case "DESACTIVATE_BUSINESS":
-            return {
-              ...state,
-              activeBusiness: action.payload,
-            }
-            case "ACTIVATE_BUSINESS":
-              return {
-                ...state,
-                activeBusiness: action.payload,
-              }
-              case "DELETE_BUSINESS":
-                return {
-                  ...state,
-                  deletedBusiness: action.payload,
-                }
-                case "DELETE_USER":
-                  return {
-                    ...state,
-                    deletedUser: action.payload,
-                  }
-              // fin borrado lógico
-              case 'GET_EMAIL':
-                return {
-                  ...state,
-                  allEmail: action.payload, 
-                }
+
+    //borrado lógico
+    case "DESACTIVATE_USER":
+      return {
+        ...state,
+        activeUser: action.payload,
+        user: "clean"
+      }
+    case "ACTIVATE_USER":
+      return {
+        ...state,
+        activeUser: action.payload,
+      }
+    case "DESACTIVATE_BUSINESS":
+      return {
+        ...state,
+        activeBusiness: action.payload,
+        business: "clean"
+      }
+    case "ACTIVATE_BUSINESS":
+      return {
+        ...state,
+        activeBusiness: action.payload,
+      }
+    case "DELETE_BUSINESS":
+      return {
+        ...state,
+        deletedBusiness: action.payload,
+      }
+    case "DELETE_USER":
+      return {
+        ...state,
+        deletedUser: action.payload,
+      }
+    // fin borrado lógico
+    case 'GET_EMAIL':
+      return {
+        ...state,
+        allEmail: action.payload,
+      }
+    case "SAVE_IMAGE":
+      return {
+        ...state,
+        images: action.payload.secure_url//[action.payload, ...state.images]
+      };
+
     default:
       return {
         ...state,

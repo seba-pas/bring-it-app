@@ -8,7 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 
 import { useHistory } from "react-router-dom";
-import ChangeRating from "./ChangeRating";
+// import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
 import moment from "moment";
 function HomeUserPurchase() {
@@ -34,6 +34,7 @@ function HomeUserPurchase() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(input));
+    swal("Muchas gracias por tu feedback", "Esperemos que sigas eligiendo Bring it", "success")
   }
   const handleInputChange = (event) => {
     event.preventDefault();

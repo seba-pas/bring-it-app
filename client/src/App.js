@@ -23,6 +23,7 @@ import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from "./components/Usuario.jsx";
+import RecuperarPasswordBusiness from "./components/RecuperarPasswordBusiness";
 
 function App() {
 
@@ -65,6 +66,8 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />
+        <Route exact path="/modificarPasswordBusiness" component={RecuperarPasswordBusiness} />
+
 
         {/* <Route exact path="/testing" component={FormTravel} /> */}
       </Switch>

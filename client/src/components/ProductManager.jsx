@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { addProduct, editProduct, getCategories } from '../actions';
+import { addProduct, editProduct, getCategories, saveImage } from '../actions';
 import styles from "../styles/ProductManager.module.css"
 import swal from "sweetalert";
 import { IoCloseCircleOutline } from 'react-icons/io5';
@@ -122,6 +122,24 @@ function ProductManager(props) {
 
     }
 
+    const [image, setImage] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const uploadImage = async (e) => {
+        const files = e.target.files;
+        const data = new FormData();
+        data.append("file", files[0]);
+        data.append("upload_preset", "Bringit");
+        setLoading(true);
+        dispatch(saveImage(data))
+        console.log("si");
+    };
+
+    useEffect(() => {
+        setInput({
+            ...input, image: gState.images
+        })
+    }, [gState.images])
 
 
     const handleBack = (event) => {
@@ -144,9 +162,9 @@ function ProductManager(props) {
                 businessEmail: gState.businessEmail, //hardcodeo para check
                 businessbranchId: parseInt(input.branch),
             },
-            tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+                tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
             ))
-            swal("Buen trabajo!", "Editado satisfactoriamente!", "success"); 
+            swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
         } else {
 
             dispatch(addProduct({
@@ -160,10 +178,10 @@ function ProductManager(props) {
                 businessEmail: gState.businessEmail,
                 businessbranchId: parseInt(input.branch),
             },
-            tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+                tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
             ))
 
-            swal("Buen trabajo!", "Producto agregado satisfactoriamente!", "success"); 
+            swal("Buen trabajo!", "Producto agregado satisfactoriamente!", "success");
             setInput((prevInput) => {
                 return {
                     ...prevInput,
@@ -247,19 +265,22 @@ function ProductManager(props) {
                     {!error.errorStock ? <label> </label> : <label>          {error.errorStock}             </label>}
 
                 </div>
+
                 <div className={styles.imageContainer}>
                     <label htmlFor='image'>Imagen:</label>
-                    <textarea
+                    <input
 
-                        type="text"
+                        type="file"
                         name="image"
-                        value={input.image}
+                        // value={input.image}
                         placeholder="Imagen"
-                        onChange={handleInputChange}
+                        onChange={uploadImage}
                     />
 
 
                 </div>
+
+
                 <div className={styles.descriptionContainer}>
                     <label htmlFor='description'>Descripción:</label>
                     <textarea
