@@ -79,7 +79,6 @@ router.delete('/:id', async (req, res) => {
 router.get('/purchase/:idPurchase', async (req, res) => {
     try {
         const {idPurchase} = req.params;
-        console.log(idPurchase);
         let purchase = await Purchase.findByPk(idPurchase, {
             include: [{model: Purchaseitem}]
         });
@@ -101,12 +100,22 @@ router.get('/purchase/:idPurchase', async (req, res) => {
                 }
             }
         })
-
         res.status(200).send(matchTravels.length ? matchTravels : "No existen coincidencias");
     } catch (error) {
         res.status(404).send(error.message);
     }
+})
 
+router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
+    try {
+        const {idPurchase, travelId} = req.params;
+        const updated = await Purchase.update({travelId}, {
+            where: {id: idPurchase}
+        });
+        res.status(201).send("Matcheado con éxito")
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
 })
 
 

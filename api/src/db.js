@@ -74,7 +74,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-const { Product, Category, Business, City, Province, Purchase, Confirmed, User, Travel, Purchaseitem, Review, Cart, Favorite, Businessbranch } = sequelize.models;
+const { Product, Category, Business, City, Province, Purchase, User, Travel, Purchaseitem, Review, Cart, Favorite, Businessbranch } = sequelize.models;
 
 
 // Aca vendrian las relaciones
@@ -84,10 +84,6 @@ Category.belongsToMany(Product, {through: "product_category"});
 Province.hasMany(City);
 City.belongsTo(Province);
 
-
-// Esta relación nos hace ruido pero no nos cierra ninguna otra alternativa mejor
-Purchase.hasOne(Confirmed);
-Confirmed.belongsTo(Purchase);
 
 City.hasOne(Purchase, {as: 'arrivalCityId', foreignKey: 'arrivalCityId'});
 
@@ -99,8 +95,8 @@ User.hasMany(Travel);
 Travel.belongsTo(User);
 
 //Descomentar cuando este el modelo Travel creado e importado
-Travel.hasMany(Confirmed);
-Confirmed.belongsTo(Travel);
+Travel.hasMany(Purchase);
+Purchase.belongsTo(Travel);
 
 //nueva relación Travel - City
 City.hasOne(Travel, {as: 'travelCity', foreignKey: 'travelCityId'});
