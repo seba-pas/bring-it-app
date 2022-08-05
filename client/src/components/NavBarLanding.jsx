@@ -65,20 +65,12 @@ export default function NavBarLanding() {
 
   useEffect(() => {
     dispatch(getActiveUser());
-    // const activeUser =
-    //   user == "clean"
-    //     ? "clean"
-    //     : Object.hasOwn(user, "others")
-    //     ? user.others.dataValues
-    //     : "clean";
-    // const activeBusiness =
-    //   business == "clean" || business == "Usuario no encontrado"
-    //     ? "clean"
-    //     : Object.hasOwn(business, "others")
-    //     ? business.others.dataValues
-    //     : "clean";
   }, [dispatch]);
-
+  
+  // if(Object.entries(user)?.length > 0){
+  //   user = 'clean'
+  // }
+  console.log(user)
   const validateBusiness = (inputBusiness) => {
     const errors = {};
 
@@ -378,7 +370,7 @@ export default function NavBarLanding() {
             <AvatarBadge boxSize="1.25em" bg="green.500" />
           </Avatar>
         </div>
-      ) : business && typeof business !== "string" && !business.others ? (
+      ) : business && typeof business !== "string" && Object.entries(business).length > 1 ? (
         <div
           style={{
             height: "100%",
