@@ -1,18 +1,13 @@
 import {React,useEffect,useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Usuario.module.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { SpinnerCircularFixed } from "spinners-react";
-import {
-  desactivateUser,
-  cleanUsers,
-  cleanBusiness,
-  cleanUserState,
-  getActiveUser,
-  getAllEmail,
-} from "../actions";
+
+import { desactivateUser, cleanUsers, cleanBusiness, cleanUserState, getActiveUser, getAllEmail } from "../actions";
 import swal from "sweetalert";
 import UserTravels from "./UserTravels";
 import HomeUserPurchase from './HomeUserPurchase.jsx';
@@ -27,7 +22,9 @@ const Usuario = () => {
   const history = useHistory();
   const business = useSelector((state) => state.business);
   const email = useSelector((state) => state.allEmail);
-  const isBusiness = email.find((e) => e.email == user.email) ? true : false;
+
+  // const isBusiness = email.find((e) => e.email == user.email) ? true : false
+
 
   useEffect(() => {
     dispatch(getActiveUser());

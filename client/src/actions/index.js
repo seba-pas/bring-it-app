@@ -20,7 +20,7 @@ import {
   CLEAN_USERS,
   CLEAN_USER_STATE,
   CLEAN_BUSINESS,
-  CLEAN_BUSINESS_STATE,  
+  CLEAN_BUSINESS_STATE,
   FILTER_BY_PROVINCE_CITY,
   GET_ALL_CITIES,
   GET_USERS,
@@ -49,7 +49,7 @@ import {
   CLEAR_CART,
   GET_CART,
 
-  //acciones sedes
+  //acciones sites
   POST_BRANCH,
   DELETE_BRANCH,
   EDIT_BRANCH,
@@ -63,7 +63,8 @@ import {
   DELETE_BUSINESS,
   DELETE_USER,
   ACTIVATE_BRANCH,
-  ACTIVATE_PRODUCT
+  ACTIVATE_PRODUCT,
+  SAVE_IMAGE
 
 } from "./actionsTypes";
 
@@ -127,7 +128,7 @@ export const addProduct = (body, token) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/product`, body,
-      { headers: {authorization: `Bearer ${token}`} }
+        { headers: { authorization: `Bearer ${token}` } }
       );
       return dispatch({
         type: POST_PRODUCT,
@@ -144,7 +145,7 @@ export const editProduct = (id, body, token) => {
     try {
 
       const res = await axios.put(`/product/${id}`, body,
-      { headers: {authorization: `Bearer ${token}`} }
+        { headers: { authorization: `Bearer ${token}` } }
       );
 
       return dispatch({
@@ -159,7 +160,7 @@ export const editProduct = (id, body, token) => {
 export const desactivateProduct = (id) => {
   return async function (dispatch) {
     try {
-      const body = {active: false};
+      const body = { active: false };
       const res = await axios.put(`/product/${id}`, body);
       return dispatch({
         type: DESACTIVATE_PRODUCT,
@@ -173,7 +174,7 @@ export const desactivateProduct = (id) => {
 export const activateProduct = (id) => {
   return async function (dispatch) {
     try {
-      const body = {active:true};
+      const body = { active: true };
       const res = await axios.put(`/product/${id}`, body);
       return dispatch({
         type: ACTIVATE_PRODUCT,
@@ -359,7 +360,7 @@ export const addUser = (body) => {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/user`, body);
-        console.log("res", res);
+      console.log("res", res);
       return dispatch({
         type: POST_USER,
         payload: res.data,
@@ -369,11 +370,11 @@ export const addUser = (body) => {
     }
   };
 };
-export const getActiveUser=()=>{
+export const getActiveUser = () => {
   return {
     type: GET_ACTIVE_USER
-    
-      }
+
+  }
 
 }
 
@@ -381,9 +382,9 @@ export const editUser = (id, body, token) => {
   return async function (dispatch) {
     try {
 
-      const res = await axios.put(`/user/${id}`, body, { 
-        headers: {authorization: `Bearer ${token}`}
-        });
+      const res = await axios.put(`/user/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` }
+      });
       return dispatch({
         type: PUT_USER,
         payload: res.data,
@@ -399,9 +400,9 @@ export const cleanPutUser = () => {
 };
 
 export const getUserByEmail = (email) => {
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
-      const res = await axios.get(`/user/${email}`)      
+      const res = await axios.get(`/user/${email}`)
       return dispatch({
         type: GET_USER_BY_EMAIL,
         payload: res.data,
@@ -439,7 +440,7 @@ export function postPurchase(body) {
         payload: res.data,
       });
     } catch (error) {
-      console.log("errorFront",`${error.message}`);
+      console.log("errorFront", `${error.message}`);
     }
   };
 }
@@ -459,11 +460,12 @@ export const loginBusiness = (body) => {
 };
 
 export const editBusiness = (id, body, token) => {
+  console.log("el body de edit business", body)
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/business/${id}`, body, { 
-        headers: {authorization: `Bearer ${token}`}
-        });
+      const res = await axios.put(`/business/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` }
+      });
       return dispatch({
         type: PUT_BUSINESS,
         payload: res.data,
@@ -480,9 +482,9 @@ export const addTravel = (body, token) => {
     try {
       const res = await axios.post(
         `/travel`,
-        body, { 
-          headers: {authorization: `Bearer ${token}`}
-          }
+        body, {
+        headers: { authorization: `Bearer ${token}` }
+      }
       );
       return dispatch({
         type: ADD_TRAVEL,
@@ -495,7 +497,7 @@ export const addTravel = (body, token) => {
 };
 
 export const getByPurchaseEmail = (email) => {
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
       const res = await axios.get(`/purchase/email/${email}`)
       return dispatch({
@@ -562,8 +564,8 @@ export function getCart() {
 }
 
 // agregar sede
-export function postReview(body){
-  return async function(dispatch){
+export function postReview(body) {
+  return async function (dispatch) {
     try {
       const res = await axios.post(`/review`, body)
       debugger;
@@ -582,7 +584,7 @@ export function postBranch(body, token) {
       const res = await axios.post(
         `/businessbranch`,
         body,
-        { headers: {authorization: `Bearer ${token}`} }
+        { headers: { authorization: `Bearer ${token}` } }
       );
       return dispatch({
         type: POST_BRANCH,
@@ -601,7 +603,7 @@ export function editBranch(id, body, token) {
       const res = await axios.put(
         `/businessbranch/${id}`,
         body,
-        {headers: {authorization: `Bearer ${token}`}}
+        { headers: { authorization: `Bearer ${token}` } }
       );
       return dispatch({
         type: EDIT_BRANCH,
@@ -617,7 +619,7 @@ export function editBranch(id, body, token) {
 export const deleteBranch = (id) => {
   return async function (dispatch) {
     try {
-      const body = {active: false};
+      const body = { active: false };
       const res = await axios.put(`/businessbranch/${id}`, body);
       return dispatch({
         type: DELETE_BRANCH,
@@ -633,7 +635,7 @@ export const deleteBranch = (id) => {
 export const activateBranch = (id) => {
   return async function (dispatch) {
     try {
-      const body = {active:true};
+      const body = { active: true };
       const res = await axios.put(`/businessbranch/${id}`, body);
       return dispatch({
         type: ACTIVATE_BRANCH,
@@ -650,7 +652,7 @@ export const activateBranch = (id) => {
 export const desactivateUser = (email) => {
   return async function (dispatch) {
     try {
-      const body = {active: false};
+      const body = { active: false };
       const res = await axios.put(`/user/${email}`, body);
       return dispatch({
         type: DESACTIVATE_USER,
@@ -712,9 +714,9 @@ export const activateBusiness = (email) => {
 export const deleteUser = (email, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/user/baneo/${email}`, { 
-        headers: {authorization: `Bearer ${token}`}
-        });
+      const res = await axios.put(`/user/baneo/${email}`, {
+        headers: { authorization: `Bearer ${token}` }
+      });
       return dispatch({
         type: DELETE_USER,
         payload: res.data
@@ -722,15 +724,16 @@ export const deleteUser = (email, token) => {
     } catch (error) {
       console.log(error.message);
     }
-  }}
+  }
+}
 
-  // banear cuenta empresa 
+// banear cuenta empresa 
 export const deleteBusiness = (email, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/business/baneo/${email}`, { 
-        headers: {authorization: `Bearer ${token}`}
-        });
+      const res = await axios.put(`/business/baneo/${email}`, {
+        headers: { authorization: `Bearer ${token}` }
+      });
       return dispatch({
         type: DELETE_BUSINESS,
         payload: res.data
@@ -738,11 +741,12 @@ export const deleteBusiness = (email, token) => {
     } catch (error) {
       console.log(error.message);
     }
-  }}
+  }
+}
 
 // all email
-export const getAllEmail= () =>{
-  return async function (dispatch){
+export const getAllEmail = () => {
+  return async function (dispatch) {
     try {
       const res = await axios.get('/business/email')
       return dispatch({
@@ -750,8 +754,24 @@ export const getAllEmail= () =>{
         payload: res.data
       })
     } catch (error) {
-    console.log(error);
+      console.log(error);
     }
   }
 };
 
+//SAVE IMAGE
+
+export const saveImage = (urlImage) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post("https://api.cloudinary.com/v1_1/bringitapp/upload", urlImage)
+
+      return dispatch({
+        type: SAVE_IMAGE,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

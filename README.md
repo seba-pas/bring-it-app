@@ -16,17 +16,13 @@ Back-Route: https://bringit-arg.herokuapp.com/
 PASOS PARA CREADO DE BRANCH 
 ---------------------------
 
-//CREADO
- git branch nombreDeLaBranch
+CREADO = git branch nombreDeLaBranch
 
-//PARARSE EN LA BRANCH
- git checkout nombreDeLaBranch
+PARARSE EN LA BRANCH = git checkout nombreDeLaBranch
 
-//VER EN QUE BRANCH ESTAMOS PARADOS
-git branch
+VER EN QUE BRANCH ESTAMOS PARADOS = git branch
 
-//PARA BORRAR UNA BRANCH
- git branch -d nombredelabranch
+//PARA BORRAR UNA BRANCH = git branch -d nombredelabranch
 
 
 
