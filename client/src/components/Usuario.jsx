@@ -18,7 +18,7 @@ const Usuario = () => {
   const history = useHistory();
   const business = useSelector((state) => state.business);
   const email = useSelector((state) => state.allEmail);
-  const isBusiness = email.find((e) => e.email == user.email) ? true : false;
+  // const isBusiness = email.find((e) => e.email == user.email) ? true : false;
 
   useEffect(() => {
     dispatch(getActiveUser());
@@ -150,10 +150,10 @@ const Usuario = () => {
             >
               Cerrar Sesion
             </button>
-            {console.log(
+            {/*{console.log(
               email.find((e) => e.email == user.email) ? true : false
-            )}
-            {isBusiness ? (
+            )}*/}
+            {/*{isBusiness ? (
               <button
                 className="btn btn-primary"
                 onClick={() => history.push("/empresas")}
@@ -167,7 +167,7 @@ const Usuario = () => {
               >
                 Registrarme como Empresa
               </button>
-            )}
+            )}*/}
             <button
               className="btn btn-primary"
               onClick={(e) => handleDesactivate(e)}
