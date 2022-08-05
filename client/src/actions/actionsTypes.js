@@ -63,3 +63,5 @@ export const ACTIVATE_PRODUCT = "ACTIVATE_PRODUCT";
 export const ACTIVATE_BRANCH = "ACTIVATE_BRANCH";
 // email
 export const GET_EMAIL = "GET_EMAIL";
+//REVIEW
+export const POST_REVIEW = "POST_REVIEW";

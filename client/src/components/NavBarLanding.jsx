@@ -51,7 +51,7 @@ export default function NavBarLanding() {
     setUsuario(userObject);
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     google.accounts.id.initialize({
       client_id:
         "641652149872-h0qtl62b27hp6d03dtbk7ecn7si2mepq.apps.googleusercontent.com",
@@ -61,7 +61,7 @@ export default function NavBarLanding() {
       theme: "outline",
       size: "large ",
     });
-  }, []);
+  }, []); */
 
   useEffect(() => {
     dispatch(getActiveUser());
