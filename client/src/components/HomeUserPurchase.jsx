@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getByPurchaseEmail, getAllCities } from "../actions";
+import { getByPurchaseEmail, getAllCities, postReview } from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
@@ -15,27 +15,29 @@ function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
   const [show, setShow] = useState(null);
-
   const history = useHistory();
   const purchases = useSelector((state) => state.purchases);
   const user = useSelector((state) => state.user);
   const [avgRating, setAvgRating] = useState(0);
   const [selectedData, setSelectedData] = useState();
+
   const [input, setInput] = useState({
-    comentario: "",
+    comment: "",
     rating: "",
+    userEmail: user.email,
+    /* productId: purchases[0] */
   });
+
   const handleRating = (input) => {
     setAvgRating(input);
-
   };
-
-
   function handleSubmit(e) {
     e.preventDefault();
+    dispatch(postReview(input));
   }
   const handleInputChange = (event) => {
     event.preventDefault();
+
     setInput((prevInput) => {
       return {
         ...prevInput,
@@ -43,8 +45,9 @@ function HomeUserPurchase() {
       };
     });
   };
-
-
+  useEffect(() => {
+    handleRating(input.rating);
+  }, [input.rating]);
   const handleBack = (event) => {
     event.preventDefault();
     history.push("/filtro");
@@ -52,6 +55,7 @@ function HomeUserPurchase() {
   const changeCity = purchases;
   const nameCity = changeCity.map((e) => {
     return {
+      productId: e.purchaseitems.map((e) => e.productId),
       id: e.id,
       maxDeliveryDate: e.maxDeliveryDate,
       lastUpdate: e.lastUpdate,
@@ -72,14 +76,12 @@ function HomeUserPurchase() {
   const handleClose = () => setShow(null);
   const handleShow = (id) => {
     setShow((showId) => (showId === id ? null : id));
-
   };
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
-
   };
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
@@ -168,7 +170,6 @@ function HomeUserPurchase() {
         <Modal.Body>
           <DataTable
             columns={columnasRating}
-
             data={nameCity.filter((item) => item.id === show)}
             title="Listado de compras"
           />
@@ -177,7 +178,17 @@ function HomeUserPurchase() {
             <Form.Label style={{ paddingBottom: "15px" }}>
               Indica del 1 al 5 que tan satisfecho esta con su compra
             </Form.Label>
-            <ChangeRating rating={avgRating} handleRating={handleRating} />
+            <input
+              type="number"
+              step="0.1"
+              min="0"
+              max="5"
+              name="rating"
+              rating={avgRating}
+              value={input.rating}
+              handleRating={handleRating}
+              onChange={(e) => handleInputChange(e)}
+            />
             <br />
             <br />
             <StarRating stars={avgRating} />
@@ -186,8 +197,8 @@ function HomeUserPurchase() {
               <Form.Control
                 as="textarea"
                 rows={3}
-                value={input.comentario}
-                name="comentario"
+                value={input.comment}
+                name="comment"
                 required
                 onChange={(e) => handleInputChange(e)}
               />

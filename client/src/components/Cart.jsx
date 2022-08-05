@@ -44,7 +44,7 @@ export default function Cart() {
       );
       return;
     } else {
-      history.push("/compra");
+      history.push("/persona/compra");
     }
   }
   return (

@@ -57,7 +57,7 @@ router.put('/:id', verifyToken, async(req,res) => {
        res.send('error:'+ e.message)
    }
     }
-    }else{
+    else{
     res.status(403).json(`No tiene permiso para modificar esta sede`);
   }
 })
