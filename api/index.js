@@ -31,7 +31,7 @@ const serverChat = http.createServer(server);
 
 const io = new Server(serverChat, {
   cors: {
-    origin: "http://localhost:3000",
+    // origin: "http://localhost:3000",
   },
 });
 
