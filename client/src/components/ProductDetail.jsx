@@ -13,7 +13,7 @@ import NavBar from "../components/NavBar";
 import swal from "sweetalert";
 import styles from "../styles/ProductDetail.module.css";
 import "bootstrap/dist/css/bootstrap.css";
-
+import AddFavourites from "./AddFavourites";
 export const ProductDetail = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -39,8 +39,12 @@ export const ProductDetail = () => {
   // }
   function handleClickAddToCart(e) {
     e.preventDefault();
-    if(product.stock <= 0 ){
-      swal('Por el momento no tenemos mas stock', "Acabamos de comunicarle a la empresa", "error")
+    if (product.stock <= 0) {
+      swal(
+        "Por el momento no tenemos mas stock",
+        "Acabamos de comunicarle a la empresa",
+        "error"
+      );
       return;
     }
     if (cart.length > 0) {
@@ -51,16 +55,21 @@ export const ProductDetail = () => {
           "error"
         );
       } else {
-        
-       if(product.stock > cart[0].quantity){
+        if (product.stock > cart.map((e) => e.quantity)) {
           dispatch(addToCart(product));
-          swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+          swal(
+            "Buen trabajo!",
+            "El producto fue agregado con exito!",
+            "success"
+          );
           return;
-        }else{
-          swal("No tenemos la cantidad solicitada", "Nuestro stock es menor a la cantidad que deseas", "error")
+        } else {
+          swal(
+            "No tenemos la cantidad solicitada",
+            "Nuestro stock es menor a la cantidad que deseas",
+            "error"
+          );
         }
-
-        
       }
     } else {
       dispatch(addToCart(product));
@@ -72,6 +81,7 @@ export const ProductDetail = () => {
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
 
+      <AddFavourites/>
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
           <div className={styles.imgCon}>
@@ -159,13 +169,8 @@ export const ProductDetail = () => {
         </div>
       ) : (
         <div className={styles.spinner}>
-          <SpinnerCircularFixed
-            size={250}
-            thickness={100}
-            speed={100}
-            color="rgba(210, 105, 30, 1)"
-            secondaryColor="rgba(210, 105, 30, 0.23)"
-          />
+              <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
+
         </div>
       )}
     </div>

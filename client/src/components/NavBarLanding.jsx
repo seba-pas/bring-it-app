@@ -29,8 +29,9 @@ export default function NavBarLanding() {
   const [usuario, setUsuario] = useState({});
 
   const user = useSelector((state) => state.user);
+  const userToken = useSelector((state) => state.userToken);
   const business = useSelector((state) => state.business);
-
+  const businessToken = useSelector((state) => state.businessToken);
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -65,6 +66,7 @@ export default function NavBarLanding() {
 
   useEffect(() => {
     dispatch(getActiveUser());
+
   }, [dispatch]);
   
   // if(Object.entries(user)?.length > 0){
@@ -186,7 +188,13 @@ export default function NavBarLanding() {
         });
         dispatch(cleanBusiness());
         return;
-      } else if (!business.active) {
+      } else if(business === "Empresa bloqueada") {
+        swal(
+          "Su cuenta ha sido bloqueda por el administrador",
+          "Para mas información comuniquese con bringit662@gmail.com", 
+          "error"
+        );
+        } else if (!business.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -195,7 +203,7 @@ export default function NavBarLanding() {
         ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateBusiness(business.email));
+            dispatch(activateBusiness(business.email, businessToken ));
             setInput({
               email: "",
               password: "",
@@ -290,7 +298,13 @@ export default function NavBarLanding() {
         });
         dispatch(cleanUsers());
         return;
-      } else if (!user.active) {
+       } else if(user === "Usuario bloqueado") {
+        swal(
+          "Su cuenta ha sido bloqueda por el administrador",
+          "Para mas información comuniquese con bringit662@gmail.com", 
+          "error"
+        );
+        } else if (!user.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -299,7 +313,7 @@ export default function NavBarLanding() {
         ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateUser(user.email));
+            dispatch(activateUser(user.email, userToken));
             setInput({
               email: "",
               password: "",

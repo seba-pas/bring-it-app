@@ -23,6 +23,13 @@ import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from "./components/Usuario.jsx";
+import RecuperarPasswordBusiness from "./components/RecuperarPasswordBusiness";
+
+import TableMatchTravels from './components/TableMatchTravels.jsx'
+
+
+import Favourites from "./components/Favourites";
+
 
 function App() {
 
@@ -51,6 +58,7 @@ function App() {
         <Route exact path="/persona/misviajes" component={UserTravels} />
         <Route exact path="/product/:id" component={ProductDetail} />
         <Route exact path="/filtroprov" component={FilterProvince} />
+        <Route exact path="/persona/favoritos" component={Favourites} />
         <Route exact path='/persona/compra' render={() => (
           user !== "clean" ? <CheckOut /> : <Redirect to="/" />
         )} />
@@ -65,6 +73,10 @@ function App() {
         <Route exact path="/productmanager" component={ProductManager} />
         <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />
+        <Route exact path="/modificarPasswordBusiness" component={RecuperarPasswordBusiness} />
+
+        <Route exact path="/persona/matchTravelsPurchases" component={TableMatchTravels}/>
+
 
         {/* <Route exact path="/testing" component={FormTravel} /> */}
       </Switch>

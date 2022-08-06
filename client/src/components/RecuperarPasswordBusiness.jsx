@@ -1,35 +1,12 @@
-import React, { useState } from "react";
-import {useDispatch, useSelector} from 'react-redux';
+import React from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import NavBarLanding from "./NavBarLanding";
-import { changePassword} from '../actions/index';
-function RecuperarPassword(props) {
-  const email= useSelector(state=>state.user.email);
-  const [input,setInput]=useState({
-    passwordV:'',
-    passwordN:''
-  })
-  const dispatch= useDispatch();
 
+function RecuperarPasswordBusiness(props) {
   const handleBack = (event) => {
     event.preventDefault();
     props.history.goBack();
   };
-
-  function handleSubmit(e){
-    e.preventDefault();
-    dispatch(changePassword(email, input));
-
-
-  };
-  function handleChange(e){
-    setInput({
-      ...input,
-      [e.target.name]:e.target.value
-    })
-  }
-
-
   return (
     <div>
       {/* <NavBarLanding/> */}
@@ -48,14 +25,15 @@ function RecuperarPassword(props) {
                 // className={style.forms}
               >
                 <Form.Group className="mb-3">
-                  <Form.Label>Contraseña actual</Form.Label>
+                  <Form.Label>Contraseña anterior</Form.Label>
                   <Form.Control
                     placeholder="Ingresa tu contraseña antigua"
                     type="password"
-                    value={input.passwordV}
-                    name="passwordV"
+                    /* value={input.email} */
+                    /* name="email"
+                    id="email" */
                     required
-                    onChange={(e) => handleChange(e)}
+                    // onChange={(e) => handleChange(e)}
                   />
                 </Form.Group>
                  <Form.Group className="mb-3">
@@ -63,8 +41,9 @@ function RecuperarPassword(props) {
                   <Form.Control
                     placeholder="Ingresa tu contraseña nueva"
                     type="password"
-                    // value={input.passwordN}
-                    // name="passwordN"
+                    /* value={input.email} */
+                    /* name="email"
+                    id="email" */
                     required
                     // onChange={(e) => handleChange(e)}
                   />
@@ -75,10 +54,11 @@ function RecuperarPassword(props) {
                   <Form.Control
                     placeholder="Ingresa tu contraseña nueva"
                     type="password"
-                    value={input.passwordN}
-                    name="passwordN"
+                    /* value={input.email} */
+                    /* name="email"
+                    id="email" */
                     required
-                    onChange={(e) => handleChange(e)}
+                    // onChange={(e) => handleChange(e)}
                   />
                 </Form.Group>
                 <Row>
@@ -90,7 +70,7 @@ function RecuperarPassword(props) {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Button style={{width:"60%", marginRight:"10px"}} onClick={(e) => handleBack(e)}>Atras</Button>
-                  <Button type="submit">Confirmar</Button>
+                  <Button type="submit">Confirmar compra</Button>
                 </Col>
               </Row>
               </Form>
@@ -105,4 +85,4 @@ function RecuperarPassword(props) {
   );
 }
 
-export default RecuperarPassword;
+export default RecuperarPasswordBusiness;

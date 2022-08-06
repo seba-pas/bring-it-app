@@ -10,7 +10,7 @@ import {
 import "bootstrap/dist/css/bootstrap.css";
 import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
-
+import { BsFillTrashFill } from "react-icons/bs";
 export default function Cart() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -88,11 +88,12 @@ export default function Cart() {
                   <td><div style={{marginLeft:"10px"}}>${productGroup.price * productGroup.quantity}</div></td>
                   <td>
                     <div>
-                      <img
+                      <BsFillTrashFill onClick={() => handleRemoveOne(productGroup.id)}/>
+{/*                       <img
                         src="https://i.imgur.com/h1ldGRr.png"
                         alt="X"
                         onClick={() => handleRemoveOne(productGroup.id)}
-                      />
+                      /> */}
                     </div>
                   </td>
                 </tr>

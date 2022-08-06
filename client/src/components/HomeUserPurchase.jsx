@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getByPurchaseEmail, getAllCities, postReview } from "../actions";
+import { getByPurchaseEmail, getAllCities, postReview, getMatch } from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 
 import { useHistory } from "react-router-dom";
-import ChangeRating from "./ChangeRating";
+// import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
 import moment from "moment";
 function HomeUserPurchase() {
@@ -34,6 +34,7 @@ function HomeUserPurchase() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(input));
+    swal("Muchas gracias por tu feedback", "Esperemos que sigas eligiendo Bring it", "success")
   }
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -59,6 +60,7 @@ function HomeUserPurchase() {
       id: e.id,
       maxDeliveryDate: e.maxDeliveryDate,
       lastUpdate: e.lastUpdate,
+      province: e.province,
       totalPrice: e.totalPrice,
       cantidad: e.purchaseitems.reduce((a, e) => e.quantity + a, 0),
       producto: e.purchaseitems.map((e) => `${e.product.name}, `),
@@ -67,7 +69,7 @@ function HomeUserPurchase() {
       )[0].nombre,
     };
   });
-
+  console.log(nameCity)
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
     dispatch(getAllCities());
@@ -77,8 +79,9 @@ function HomeUserPurchase() {
   const handleShow = (id) => {
     setShow((showId) => (showId === id ? null : id));
   };
-  function editUsers() {
-    alert("PROXIMAMENTE!!!");
+  const searchMatch = (idPurchase) => {
+    dispatch(getMatch(idPurchase))
+    history.push("/persona/matchTravelsPurchases")
   }
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
@@ -118,6 +121,7 @@ function HomeUserPurchase() {
       selector: (row) => formatDate(row.maxDeliveryDate),
       sortable: true,
     },
+    { name: "Provincia", selector: (row) => row.province, sortable: true },
     { name: "Ciudad", selector: (row) => row.arrivalCityId, sortable: true },
     {
       name: "Cantidad Total",
@@ -132,7 +136,7 @@ function HomeUserPurchase() {
           <FaSearchLocation
             title="Encontrar viajero"
             style={{ marginRight: "15px", fontSize: "30px" }}
-            onClick={(e) => editUsers(e)}
+            onClick={() => searchMatch(row.id)}
           />
           <BsFillBookmarkStarFill onClick={() => handleShow(row.id)} />
         </button>
@@ -141,9 +145,6 @@ function HomeUserPurchase() {
   ];
   return (
     <div>
-      <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-        Registros de compras
-      </h1>
       <Row>
         <Col
           lg={12}
@@ -168,11 +169,14 @@ function HomeUserPurchase() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DataTable
+          <select name="" id="">
+          {/* {console.log(nameCity.map((item) => item.map ))} */}
+          </select>
+          {/* <DataTable
             columns={columnasRating}
             data={nameCity.filter((item) => item.id === show)}
             title="Listado de compras"
-          />
+          /> */}
           <br />
           <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Label style={{ paddingBottom: "15px" }}>

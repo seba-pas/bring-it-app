@@ -49,7 +49,6 @@ export default function HomePersonas() {
     if(b > a) return -1;
     return 0;
   })
-  console.log(BRANCHES)
 
 
   let provOrder = BRANCHES.map((e) => e.province);
@@ -254,13 +253,8 @@ export default function HomePersonas() {
         )
       ) : (
         <div className={styles.spinner}>
-          <SpinnerCircularFixed
-            size={250}
-            thickness={100}
-            speed={100}
-            color="rgba(210, 105, 30, 1)"
-            secondaryColor="rgba(210, 105, 30, 0.23)"
-          />
+               <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
+
         </div>
       )}
     </div>

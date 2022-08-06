@@ -102,7 +102,7 @@ router.get('/', async (req,res) => {
     }
 });
 
-//DELETE Businessbranch
+//DELETE Businessbranch (BACK UP, Pero no se usa para nada)
 // http://localhost:3001/api/businessbranch/:id
 router.delete('/:id', async(req,res) => {
     try{
