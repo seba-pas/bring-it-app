@@ -1,4 +1,4 @@
-import {React,useEffect,useState} from "react";
+import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
@@ -6,12 +6,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Usuario.module.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { SpinnerCircularFixed } from "spinners-react";
-
-import { desactivateUser, cleanUsers, cleanBusiness, cleanUserState, getActiveUser, getAllEmail } from "../actions";
+import PerfilUser from "./PerfilUser.jsx";
+import {
+  desactivateUser,
+  cleanUsers,
+  cleanBusiness,
+  cleanUserState,
+  getActiveUser,
+  getAllEmail,
+} from "../actions";
 import swal from "sweetalert";
 import UserTravels from "./UserTravels";
-import HomeUserPurchase from './HomeUserPurchase.jsx';
-import RecuperarPassword from './RecuperarPassword.jsx';
+import HomeUserPurchase from "./HomeUserPurchase.jsx";
+import RecuperarPassword from "./RecuperarPassword.jsx";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
@@ -24,7 +31,6 @@ const Usuario = () => {
   const email = useSelector((state) => state.allEmail);
   const userToken = useSelector((state) => state.userToken);
   const isBusiness =  email.find((e) => e.email == user.email) ? true : false 
-
 
 
   useEffect(() => {
@@ -148,10 +154,7 @@ const Usuario = () => {
               justify
             >
               <Tab eventKey="home" title="Datos generales">
-                <h1> {`Hola ${user.name} ${user.lastname} !`}</h1>
-                <h1>Mi Email: {user.email}</h1>
-                <h1>Mi Fecha De Nacimiento: {user.birthDate}</h1>
-                <h1>Mi Número de Teléfono: {user.phone}</h1>
+                <PerfilUser />
               </Tab>
               <Tab eventKey="profile1" title="Mis compras">
                 <HomeUserPurchase />
@@ -203,18 +206,18 @@ const Usuario = () => {
                 Registrarme como Empresa
               </button>
             )}*/}
-            <button
-              className="btn btn-primary"
-              onClick={(e) => handleDesactivate(e)}
-            >
-              Desactivar Cuenta
-            </button>
+            
           </div>
         </div>
       ) : (
         <div className={styles.spinner}>
-               <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
-
+          <SpinnerCircularFixed
+            size={250}
+            thickness={90}
+            speed={111}
+            color="rgba(140, 82, 255, 1)"
+            secondaryColor="rgba(74, 57, 172, 0.3)"
+          />
         </div>
       )}
     </div>
