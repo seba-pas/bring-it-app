@@ -47,6 +47,10 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case "RESET_INITIAL_STATE":
+      return {
+        ...initialState
+      }
     case "GET_ALL_PRODUCTS":
       return {
         ...state,

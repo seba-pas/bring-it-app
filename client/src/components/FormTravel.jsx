@@ -124,7 +124,7 @@ function FormTravel() {
             )
         )
 
-        swal("Que tengas un excelente viaje!", "viaje agregado satisfactoriamente!", "success");
+        swal("Que tengas un excelente viaje!", "viaje agregado satisfactoriamente!", "info");
 
 
     }

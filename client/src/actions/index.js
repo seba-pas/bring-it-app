@@ -64,7 +64,8 @@ import {
   DELETE_USER,
   ACTIVATE_BRANCH,
   ACTIVATE_PRODUCT,
-  SAVE_IMAGE
+  SAVE_IMAGE,
+  RESET_INITIAL_STATE
 
 } from "./actionsTypes";
 
@@ -117,6 +118,13 @@ export const setDetail = () => {
     type: SET_PRODUCT_DETAIL,
   };
 };
+
+
+export const resetInitialState = () => {
+  return {
+    type: RESET_INITIAL_STATE
+  }
+}
 
 export const setProduct = () => {
   return {

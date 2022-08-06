@@ -40,7 +40,7 @@ export default function Cart() {
       swal(
         "No tienes productos en tu carrito",
         "Por favor primero agrega un producto!",
-        "error"
+        "warning"
       );
       return;
     } else {
