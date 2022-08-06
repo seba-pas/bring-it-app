@@ -12,7 +12,7 @@ function Chat() {
 
     const user = useSelector((state) => state.user.email);
     //
-    const destino = "alejandro@gmail.com"
+    const destino = "agustina@gmail.com"
     useEffect(() => {
         const receiveMessage = (message) => {
             setMessages([message, ...messages]);
