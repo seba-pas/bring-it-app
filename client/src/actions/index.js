@@ -237,7 +237,7 @@ export const filterByCategory = (payload) => {
 
 export const getAllProvinces = () => {
   return async function (dispatch) {
-    const res = await axios("/province");
+    const res = await axios("/province");   
     return dispatch({
       type: GET_ALL_PROVINCES,
       payload: res.data,
