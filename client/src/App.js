@@ -24,7 +24,12 @@ import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from "./components/Usuario.jsx";
 import RecuperarPasswordBusiness from "./components/RecuperarPasswordBusiness";
+
+import TableMatchTravels from './components/TableMatchTravels.jsx'
+
+
 import Favourites from "./components/Favourites";
+
 
 function App() {
 
@@ -69,6 +74,8 @@ function App() {
         <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/modificarPasswordBusiness" component={RecuperarPasswordBusiness} />
+
+        <Route exact path="/persona/matchTravelsPurchases" component={TableMatchTravels}/>
 
 
         {/* <Route exact path="/testing" component={FormTravel} /> */}

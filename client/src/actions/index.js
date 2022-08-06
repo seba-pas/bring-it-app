@@ -65,8 +65,13 @@ import {
   ACTIVATE_BRANCH,
   ACTIVATE_PRODUCT,
   SAVE_IMAGE,
+
+  GET_MATCH,
+  PUT_MATCH,
+
   GET_FAVOURITES,
   POST_FAVOURITES,
+
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -160,9 +165,10 @@ export const editProduct = (id, body, token) => {
 export const desactivateProduct = (id, token, businessEmail) => {
   return async function (dispatch) {
     try {
-      const body = { active: false , businessEmail: businessEmail};
-      const res = await axios.put(`/product/${id}`, body,
-      { headers: { authorization: `Bearer ${token}` }} );
+      const body = { active: false, businessEmail: businessEmail };
+      const res = await axios.put(`/product/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: DESACTIVATE_PRODUCT,
         payload: res.data,
@@ -175,9 +181,10 @@ export const desactivateProduct = (id, token, businessEmail) => {
 export const activateProduct = (id, token, businessEmail) => {
   return async function (dispatch) {
     try {
-      const body = { active: true ,businessEmail: businessEmail };
-      const res = await axios.put(`/product/${id}`, body,
-      { headers: { authorization: `Bearer ${token}` }});
+      const body = { active: true, businessEmail: businessEmail };
+      const res = await axios.put(`/product/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: ACTIVATE_PRODUCT,
         payload: res.data,
@@ -768,6 +775,36 @@ export const getAllEmail = () => {
   };
 };
 
+export const putMatch = (idPurchase, idTravel) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(`/travel/purchase/${idPurchase}/${idTravel}`);
+      debugger;
+      return dispatch({
+        type: PUT_MATCH,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getMatch = (idPurchase) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(`/travel/purchase/${idPurchase}`);
+      return dispatch({
+        type: GET_MATCH,
+        payload: [res.data,idPurchase],
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 //SAVE IMAGE
 
 export const saveImage = (urlImage) => {
@@ -787,6 +824,7 @@ export const saveImage = (urlImage) => {
     }
   };
 };
+
 
 //FAVORITOS
 export const getFavourites = () => {
