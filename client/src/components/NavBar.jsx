@@ -26,6 +26,7 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   useEffect(() => {
+   
     dispatch(getUsers());
   }, [dispatch]);
   const [opening, setOpening] = useState(false);
@@ -35,6 +36,7 @@ export default function NavBar() {
   });
 
   const userAvatar = gState.user;
+  console.log(gState.user)
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -99,6 +101,7 @@ export default function NavBar() {
 
   return (
     <div className={styles.navbar}>
+       
       <div className={styles.imagen}>
         <a onClick={() => history.goBack()} style={{ cursor: "pointer" }}>
           <img
@@ -202,6 +205,7 @@ export default function NavBar() {
             cursor: "pointer",
           }}
         >
+         
           <Avatar
             onClick={() => history.push("/usuarioE")}
             name={`${userAvatar.name} ${userAvatar.lastname}`}

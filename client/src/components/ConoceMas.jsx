@@ -6,14 +6,14 @@ import NavBarLanding from "./NavBarLanding.jsx";
 import style from "../styles/LandingPage.module.css";
 import Footer from "./Footer.jsx";
 
-import Paso1 from "./img/paso1.jpg";
-import Paso2 from "./img/paso2.jpg";
-import Paso3 from "./img/paso3.jpg";
-import Paso4 from "./img/paso4.jpg";
-import Paso5 from "./img/paso5.jpg";
-import Paso6 from "./img/paso6.jpg";
-import Paso7 from "./img/paso7.jpg";
-import Paso8 from "./img/paso8.jpg";
+// import Paso1 from "./img/paso1.jpg";
+// import Paso2 from "./img/paso2.jpg";
+// import Paso3 from "./img/paso3.jpg";
+// import Paso4 from "./img/paso4.jpg";
+// import Paso5 from "./img/paso5.jpg";
+// import Paso6 from "./img/paso6.jpg";
+// import Paso7 from "./img/paso7.jpg";
+// import Paso8 from "./img/paso8.jpg";
 
 export default function ConoceMas() {
   const [key, setKey] = useState("home");
@@ -21,7 +21,7 @@ export default function ConoceMas() {
     <div style={{ backgroundColor: "white" }}>
       <NavBarLanding />
       <div className={style.comoFunciona} style={{ marginTop: "60px" }}>
-        <h1 style={{ marginBottom: "40px" }}>¿Cómo funciona Bring It?</h1>
+        <h1 style={{ marginBottom: "40px", fontSize: '40px' }}>¿Cómo funciona Bring It?</h1>
         <div className={style.tabs}>
           <Tabs
             id="controlled-tab-example"
@@ -160,7 +160,7 @@ export default function ConoceMas() {
                     </div>
                   </div>
 
-                  <img src={Paso6} className={style.imgPaso1} alt="" />
+                  {/* <img src={Paso6} className={style.imgPaso1} alt="" /> */}
                 </div>
                 <div className={style.pasoPorPasos}>
                   <div className={style.pasoPorInfo}>

@@ -67,11 +67,15 @@ import {
   ACTIVATE_PRODUCT,
   SAVE_IMAGE,
 
+  RESET_INITIAL_STATE,
+
+
   GET_MATCH,
   PUT_MATCH,
 
   GET_FAVOURITES,
   POST_FAVOURITES,
+
 
 } from "./actionsTypes";
 
@@ -123,6 +127,13 @@ export const setDetail = () => {
     type: SET_PRODUCT_DETAIL,
   };
 };
+
+
+export const resetInitialState = () => {
+  return {
+    type: RESET_INITIAL_STATE
+  }
+}
 
 export const setProduct = () => {
   return {

@@ -34,7 +34,7 @@ function LandingPage1() {
       swal(
         "Estas logueado como empresa",
         "Por favor logueate como usuario para comprar",
-        "error"
+        "warning"
       );
     } else {
       history.push("/filtro");

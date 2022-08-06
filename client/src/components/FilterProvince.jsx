@@ -20,7 +20,7 @@ export default function FilterProvince() {
   const PRODUCTS = useSelector((state) => state.products);
   const BRANCHES = useSelector((state) => state.branches);
 
-  let provOrder = BRANCHES.map((e) => e.province);
+  let provOrder = BRANCHES?.map((e) => e.province);
   provOrder = provOrder.sort((a, b) => {
     if(a > b) return  1;
     if(b > a) return -1;

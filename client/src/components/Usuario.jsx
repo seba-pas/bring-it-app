@@ -6,15 +6,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Usuario.module.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { SpinnerCircularFixed } from "spinners-react";
-import PerfilUser from "./PerfilUser.jsx";
-import {
-  desactivateUser,
-  cleanUsers,
-  cleanBusiness,
-  cleanUserState,
-  getActiveUser,
-  getAllEmail,
-} from "../actions";
+
+
+import { desactivateUser, cleanUsers, cleanBusiness, cleanUserState, getActiveUser, getAllEmail, resetInitialState } from "../actions";
+
 import swal from "sweetalert";
 import UserTravels from "./UserTravels";
 import HomeUserPurchase from "./HomeUserPurchase.jsx";
@@ -41,14 +36,16 @@ const Usuario = () => {
 
   function handleDesactivate(e) {
     e.preventDefault();
-    dispatch(desactivateUser(user.email, userToken));
-    dispatch(cleanUserState());
+
+    dispatch(desactivateUser(user.email));
+    dispatch(resetInitialState());
+
     history.push("/");
   }
 
   function handleCloseSessionBusiness(e) {
     e.preventDefault();
-    dispatch(cleanBusiness());
+    dispatch(resetInitialState());
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
@@ -59,7 +56,7 @@ const Usuario = () => {
 
   function handleCloseSesion(e) {
     e.preventDefault();
-    dispatch(cleanUserState());
+    dispatch(resetInitialState());
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",

@@ -68,6 +68,10 @@ export const POST_REVIEW = "POST_REVIEW";
 
 // save images
 
+// RESET STATE
+export const RESET_INITIAL_STATE = 'RESET_INITIAL_STATE'
+
+
 export const PASS_CHANGE = "PASS_CHANGE";
 
 
