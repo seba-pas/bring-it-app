@@ -24,13 +24,18 @@ import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from "./components/Usuario.jsx";
 import RecuperarPasswordBusiness from "./components/RecuperarPasswordBusiness";
+
+import TableMatchTravels from './components/TableMatchTravels.jsx'
+
+
 import Favourites from "./components/Favourites";
+
 
 function App() {
 
   
-  const user = useSelector((state) => state.user)
-  const business = useSelector((state) => state.business)
+  const user = useSelector((state) => state.user);
+  const business = useSelector((state) => state.business);
 
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
@@ -69,6 +74,8 @@ function App() {
         <Route path="/perfil/:id" component={PerfilBusiness} />
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/modificarPasswordBusiness" component={RecuperarPasswordBusiness} />
+
+        <Route exact path="/persona/matchTravelsPurchases" component={TableMatchTravels}/>
 
 
         {/* <Route exact path="/testing" component={FormTravel} /> */}
