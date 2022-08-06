@@ -27,7 +27,7 @@ const { loadDB } = require('./src/json/jsonControllers')
 
 
 // // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   server.listen(process.env.PORT || 3001, async () => {
     await apiProvince();
     await apiCity();

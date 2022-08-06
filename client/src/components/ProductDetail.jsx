@@ -55,7 +55,7 @@ export const ProductDetail = () => {
           "error"
         );
       } else {
-        if (product.stock > cart.map((e) => e.quantity)) {
+        if (product.stock >= cart[0].quantity) {
           dispatch(addToCart(product));
           swal(
             "Buen trabajo!",
@@ -76,7 +76,7 @@ export const ProductDetail = () => {
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
     }
   }
-
+console.log(`product stock`,product.stock, `cart`, cart)
   return (
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
