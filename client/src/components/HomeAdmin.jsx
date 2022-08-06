@@ -32,7 +32,8 @@ export default function HomeAdmin() {
   const BUSINESS = useSelector((state) => state.business2);
   const allTravels = useSelector((state) => state.allTravels);
   const [orden, setOrden] = useState("");
-  const userToken = useSelector((state => state.userToken));
+  const userToken = useSelector((state) => state.userToken);
+  const [q, setQ] = useState("");
 
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
@@ -41,14 +42,21 @@ export default function HomeAdmin() {
   function banearUsers(e, email) {
     e.preventDefault();
     dispatch(deleteUser(email, userToken));
-    swal("El usuario ha sido bloqueado con éxito", "Gracias por usar Bring it!", "success");
-    
-  };
+    swal(
+      "El usuario ha sido bloqueado con éxito",
+      "Gracias por usar Bring it!",
+      "success"
+    );
+  }
 
   function banearBusiness(e, email) {
     e.preventDefault();
     dispatch(deleteBusiness(email, userToken));
-    swal("La empresa ha sido bloqueada con éxito", "Gracias por usar Bring it!", "success");
+    swal(
+      "La empresa ha sido bloqueada con éxito",
+      "Gracias por usar Bring it!",
+      "success"
+    );
   }
 
   function editUsers() {
@@ -65,6 +73,55 @@ export default function HomeAdmin() {
     dispatch(getAllTravel());
     dispatch(getByPurchaseEmail(USERS.email));
   }, [dispatch]);
+
+  function searchProduct(rows) {
+    return rows.filter((row) => row.name.toLowerCase().indexOf(q) > -1 ||
+    row.price.toString().toLowerCase().indexOf(q) > -1 ||
+    row.weight.toString().toLowerCase().indexOf(q) > -1 ||
+    row.stock.toString().toLowerCase().indexOf(q) > -1 ||
+    row.description.toLowerCase().indexOf(q) > -1 ||
+    row.businessbranch.businessBranchName.toLowerCase().indexOf(q) > -1
+    );
+  };
+
+  function searchUsers(rows) {
+    return rows.filter((row) => row.name.toLowerCase().indexOf(q) > -1 ||
+    row.email.toLowerCase().indexOf(q) > -1 ||
+    row.lastname.toLowerCase().indexOf(q) > -1 ||
+    row.birthDate.toLowerCase().indexOf(q) > -1
+    );
+  };
+  
+  function searchBusiness(rows) {
+    return rows.filter((row) => 
+    row.email.toLowerCase().indexOf(q) > -1 ||
+    row.businessName.toLowerCase().indexOf(q) > -1 ||
+    row.cuit.toLowerCase().indexOf(q) > -1 ||
+    row.phone.toLowerCase().indexOf(q) > -1 ||
+    row.taxBracket.toLowerCase().indexOf(q) > - 1
+    );
+  };
+
+  function searchTravels(rows) {
+    return rows.filter((row) => 
+    row.travelProvince.toLowerCase().indexOf(q) > -1 ||
+    row.arrivalProvince.toLowerCase().indexOf(q) > -1 ||
+    row.startDate.toLowerCase().indexOf(q) > -1 ||
+    row.arrivalDate.toLowerCase().indexOf(q) > -1 ||
+    row.userEmail.toLowerCase().indexOf(q) > - 1
+    );
+  };
+
+  function searchPurchases(rows) {
+    return rows.filter((row) => 
+    row.id.toLowerCase().indexOf(q) > -1 ||
+    row.purchaseitems.toLowerCase().indexOf(q) > -1 ||
+    row.maxDeliveryDate.toLowerCase().indexOf(q) > -1 ||
+    row.name.toLowerCase().indexOf(q) > -1 ||
+    row.quantity.toLowerCase().indexOf(q) > - 1 ||
+    row.totalPrice.toLowerCase().indexOf(q) > - 1
+    );
+  };
 
   const columnasPurchases = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
@@ -87,7 +144,7 @@ export default function HomeAdmin() {
     {
       button: true,
       cell: () => (
-        <button style={{display:"flex"}}>
+        <button style={{ display: "flex" }}>
           <FaPencilAlt
             style={{ marginRight: "15px", fontSize: "20px" }}
             onClick={(e) => editBusiness(e)}
@@ -121,7 +178,7 @@ export default function HomeAdmin() {
     {
       button: true,
       cell: () => (
-        <button style={{display:"flex"}}>
+        <button style={{ display: "flex" }}>
           <FaPencilAlt
             style={{ marginRight: "15px", fontSize: "20px" }}
             onClick={(e) => editUsers(e)}
@@ -155,7 +212,7 @@ export default function HomeAdmin() {
     {
       button: true,
       cell: () => (
-        <button style={{display:"flex"}}>
+        <button style={{ display: "flex" }}>
           <FaPencilAlt
             style={{ marginRight: "15px", fontSize: "20px" }}
             onClick={(e) => editUsers(e)}
@@ -182,7 +239,7 @@ export default function HomeAdmin() {
     {
       button: true,
       cell: (row) => (
-        <button style={{display:"flex"}}>
+        <button style={{ display: "flex" }}>
           <FaPencilAlt
             style={{ marginRight: "15px", fontSize: "20px" }}
             onClick={(e) => editUsers(e)}
@@ -213,7 +270,7 @@ export default function HomeAdmin() {
     {
       button: true,
       cell: (row) => (
-        <button style={{display:"flex"}}>
+        <button style={{ display: "flex" }}>
           <FaPencilAlt
             style={{ marginRight: "15px", fontSize: "20px" }}
             onClick={(e) => editBusiness(e)}
@@ -231,8 +288,14 @@ export default function HomeAdmin() {
     <div>
       <NavBarAdmin />
       {USERS.length > 0 ? (
-        < >
-          <div style={{marginTop:"40px",marginRight:"30px",marginLeft:"30px"}}>
+        <>
+          <div
+            style={{
+              marginTop: "40px",
+              marginRight: "30px",
+              marginLeft: "30px",
+            }}
+          >
             <Tabs
               id="controlled-tab-example"
               activeKey={key}
@@ -241,39 +304,79 @@ export default function HomeAdmin() {
               justify
             >
               <Tab eventKey="home" title="Listado de usuarios">
+                <div>
+                  <input
+                    type="text"
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                    style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                  />
+                </div>
                 <DataTable
                   columns={columnas}
-                  data={USERS}
+                  data={searchUsers(USERS)}
                   title="Listado de usuarios"
                 />
                 <br />
               </Tab>
               <Tab eventKey="profile" title="Listado de empresas">
+              <div>
+                  <input
+                    type="text"
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                    style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                  />
+                </div>
                 <DataTable
                   columns={columnsBusiness}
-                  data={BUSINESS}
+                  data={searchBusiness(BUSINESS)}
                   title="Listado de empresas"
                 />
               </Tab>
               <Tab eventKey="profile2" title="Listado de productos">
+                <div>
+                  <input
+                    type="text"
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                    style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                  />
+                </div>
                 <DataTable
                   columns={columnasProducts}
-                  data={products}
+                  data={searchProduct(products)}
                   title="Listado de productos"
                 />
               </Tab>
               <Tab eventKey="profile3" title="Listado de viajes">
+              <div>
+                  <input
+                    type="text"
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                   style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                  />
+                </div>
                 <DataTable
                   columns={columnasTravels}
-                  data={allTravels}
+                  data={searchTravels(allTravels)}
                   title="Listado de viajeros"
                   style={{ marginBottom: "30px" }}
                 />
               </Tab>
               <Tab eventKey="profile4" title="Listado de compras">
+              <div>
+                  <input
+                    type="text"
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                    style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                  />
+                </div>
                 <DataTable
                   columns={columnasPurchases}
-                  data={purchases}
+                  data={searchPurchases(purchases)}
                   title="Listado de compras"
                 />
               </Tab>
@@ -288,8 +391,13 @@ export default function HomeAdmin() {
         </>
       ) : (
         <div className={styles.spinner}>
-              <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
-
+          <SpinnerCircularFixed
+            size={250}
+            thickness={90}
+            speed={111}
+            color="rgba(140, 82, 255, 1)"
+            secondaryColor="rgba(74, 57, 172, 0.3)"
+          />
         </div>
       )}
     </div>
