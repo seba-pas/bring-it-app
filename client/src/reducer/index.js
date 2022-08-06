@@ -22,6 +22,7 @@ const initialState = {
   provinces: [],
   putUser: "",
   putBusiness: "",
+  putPass:"",
   businessEditInfo: {},
   userEditInfo: {},
   uniqueProvinces: [],
@@ -545,6 +546,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         images: action.payload.secure_url, //[action.payload, ...state.images]
       };
+
     case 'GET_FAVOURITES':
       return{
         ...state,

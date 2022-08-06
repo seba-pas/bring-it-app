@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  PASS_CHANGE,
   POST_REVIEW,
   GET_EMAIL,
   GET_ALL_PRODUCTS,
@@ -856,5 +857,23 @@ export const postFavourites = (body, token) => {
     } catch (error) {
       console.log(error);
     }
+
+  }
+}
+
+// CAMBIO DE PASSWORD 
+export const changePassword = (email, body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(`/user/recover/password/${email}`, body);
+      console.log(res.data);
+      return dispatch({
+        type: PASS_CHANGE,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
+
