@@ -25,8 +25,8 @@ function HomeUserPurchase() {
     comment: "",
     rating: "",
     userEmail: user.email,
-    /* productId: purchases[0] */
-  });
+    // productId: purchases.filter(e => e.id === e)
+  }); 
 
   const handleRating = (input) => {
     setAvgRating(input);
@@ -170,7 +170,14 @@ function HomeUserPurchase() {
         </Modal.Header>
         <Modal.Body>
           <select name="" id="">
-          {/* {console.log(nameCity.map((item) => item.map ))} */}
+          {/* {nameCity.filter((item) =>item.producto.map(e => e))} */}
+                  {/* {nameCity.map((item) =>item.producto.map((e) => {
+                    return (
+                      <option name='productId' value={e.productId} key={e.productId}>
+                        {e}
+                      </option>
+                    )
+                  }))} */}
           </select>
           {/* <DataTable
             columns={columnasRating}
