@@ -103,11 +103,8 @@ function PerfilUser(props) {
     );
   };
   return (
-    <div className={styles.PerfilBusiness}>
+    <div>
       <Container>
-        <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-          Editar Usuario
-        </h1>
         <Row>
           <Col
             lg={8}
@@ -167,6 +164,12 @@ function PerfilUser(props) {
                 >
                   <Button onClick={(e) => handleBack(e)}>Atras</Button>
                   <Button type="submit">Listo</Button>
+                  <Button
+                    className="btn btn-primary"
+                    onClick={(e) => handleDesactivate(e)}
+                  >
+                    Desactivar Cuenta
+                  </Button>
                 </Col>
               </Row>
             </Form>

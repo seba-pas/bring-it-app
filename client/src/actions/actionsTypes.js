@@ -67,7 +67,24 @@ export const GET_EMAIL = "GET_EMAIL";
 export const POST_REVIEW = "POST_REVIEW";
 
 // save images
-export const SAVE_IMAGE = "SAVE_IMAGE"; 
 
 // RESET STATE
 export const RESET_INITIAL_STATE = 'RESET_INITIAL_STATE'
+
+
+export const PASS_CHANGE = "PASS_CHANGE";
+
+
+export const SAVE_IMAGE = "SAVE_IMAGE"; 
+
+//Match get 
+export const GET_MATCH = "GET_MATCH"
+//Match put
+export const PUT_MATCH = "PUT_MATCH"
+
+
+//favoritos
+export const GET_FAVOURITES = 'GET_FAVOURITES';
+export const POST_FAVOURITES = 'POST_FAVOURITES';
+
+

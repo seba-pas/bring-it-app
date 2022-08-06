@@ -49,7 +49,6 @@ export default function HomePersonas() {
     if(b > a) return -1;
     return 0;
   })
-  console.log(BRANCHES)
 
 
   let provOrder = BRANCHES.map((e) => e.province);

@@ -1,4 +1,4 @@
-import {React,useEffect,useState} from "react";
+import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
@@ -7,13 +7,16 @@ import styles from "../styles/Usuario.module.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { SpinnerCircularFixed } from "spinners-react";
 
+
 import { desactivateUser, cleanUsers, cleanBusiness, cleanUserState, getActiveUser, getAllEmail, resetInitialState } from "../actions";
+
 import swal from "sweetalert";
 import UserTravels from "./UserTravels";
-import HomeUserPurchase from './HomeUserPurchase.jsx';
-import RecuperarPassword from './RecuperarPassword.jsx';
+import HomeUserPurchase from "./HomeUserPurchase.jsx";
+import RecuperarPassword from "./RecuperarPassword.jsx";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import Favourites from "./Favourites";
 
 const Usuario = () => {
   const [key, setKey] = useState("home");
@@ -22,8 +25,8 @@ const Usuario = () => {
   const history = useHistory();
   const business = useSelector((state) => state.business);
   const email = useSelector((state) => state.allEmail);
-
-  // const isBusiness = email.find((e) => e.email == user.email) ? true : false
+  const userToken = useSelector((state) => state.userToken);
+  const isBusiness =  email.find((e) => e.email == user.email) ? true : false 
 
 
   useEffect(() => {
@@ -33,8 +36,10 @@ const Usuario = () => {
 
   function handleDesactivate(e) {
     e.preventDefault();
+
     dispatch(desactivateUser(user.email));
     dispatch(resetInitialState());
+
     history.push("/");
   }
 
@@ -92,6 +97,12 @@ const Usuario = () => {
             >
               Modificar Contraseña
             </button>
+          <button
+              className="btn btn-primary"
+              onClick={() => history.push("/persona/favoritos")}
+            >
+              Mis Favoritos
+            </button>
             <button
               className="btn btn-primary"
               onClick={() => history.push("/empresas")}
@@ -147,10 +158,7 @@ const Usuario = () => {
               justify
             >
               <Tab eventKey="home" title="Datos generales">
-                <h1> {`Hola ${user.name} ${user.lastname} !`}</h1>
-                <h1>Mi Email: {user.email}</h1>
-                <h1>Mi Fecha De Nacimiento: {user.birthDate}</h1>
-                <h1>Mi Número de Teléfono: {user.phone}</h1>
+                <PerfilUser />
               </Tab>
               <Tab eventKey="profile1" title="Mis compras">
                 <HomeUserPurchase />
@@ -160,6 +168,9 @@ const Usuario = () => {
               </Tab>
               <Tab eventKey="profile3" title="Modificar contraseña">
                 <RecuperarPassword />
+              </Tab>
+              <Tab eventKey="profile4" title="Mis Favoritos">
+                <Favourites/>
               </Tab>
             </Tabs>
           </div>
@@ -202,18 +213,18 @@ const Usuario = () => {
                 Registrarme como Empresa
               </button>
             )}*/}
-            <button
-              className="btn btn-primary"
-              onClick={(e) => handleDesactivate(e)}
-            >
-              Desactivar Cuenta
-            </button>
+            
           </div>
         </div>
       ) : (
         <div className={styles.spinner}>
-               <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
-
+          <SpinnerCircularFixed
+            size={250}
+            thickness={90}
+            speed={111}
+            color="rgba(140, 82, 255, 1)"
+            secondaryColor="rgba(74, 57, 172, 0.3)"
+          />
         </div>
       )}
     </div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  PASS_CHANGE,
   POST_REVIEW,
   GET_EMAIL,
   GET_ALL_PRODUCTS,
@@ -65,7 +66,16 @@ import {
   ACTIVATE_BRANCH,
   ACTIVATE_PRODUCT,
   SAVE_IMAGE,
+
   RESET_INITIAL_STATE
+
+
+  GET_MATCH,
+  PUT_MATCH,
+
+  GET_FAVOURITES,
+  POST_FAVOURITES,
+
 
 } from "./actionsTypes";
 
@@ -73,7 +83,7 @@ import {
 export const getAllProducts = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get('/product');
+      const res = await axios.get("/product");
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: res.data,
@@ -83,7 +93,6 @@ export const getAllProducts = () => {
     }
   };
 };
-
 
 export const getAllProductsDetail = (id) => {
   return async function (dispatch) {
@@ -135,9 +144,9 @@ export const setProduct = () => {
 export const addProduct = (body, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/product`, body,
-        { headers: { authorization: `Bearer ${token}` } }
-      );
+      const res = await axios.post(`/product`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: POST_PRODUCT,
         payload: res.data,
@@ -151,10 +160,10 @@ export const addProduct = (body, token) => {
 export const editProduct = (id, body, token) => {
   return async function (dispatch) {
     try {
-      console.log("este es el body", body)
-      const res = await axios.put(`/product/${id}`, body,
-        { headers: { authorization: `Bearer ${token}` } }
-      );
+      console.log("este es el body", body);
+      const res = await axios.put(`/product/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
 
       return dispatch({
         type: PUT_PRODUCT,
@@ -165,11 +174,13 @@ export const editProduct = (id, body, token) => {
     }
   };
 };
-export const desactivateProduct = (id) => {
+export const desactivateProduct = (id, token, businessEmail) => {
   return async function (dispatch) {
     try {
-      const body = { active: false };
-      const res = await axios.put(`/product/${id}`, body);
+      const body = { active: false, businessEmail: businessEmail };
+      const res = await axios.put(`/product/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: DESACTIVATE_PRODUCT,
         payload: res.data,
@@ -179,11 +190,13 @@ export const desactivateProduct = (id) => {
     }
   };
 };
-export const activateProduct = (id) => {
+export const activateProduct = (id, token, businessEmail) => {
   return async function (dispatch) {
     try {
-      const body = { active: true };
-      const res = await axios.put(`/product/${id}`, body);
+      const body = { active: true, businessEmail: businessEmail };
+      const res = await axios.put(`/product/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: ACTIVATE_PRODUCT,
         payload: res.data,
@@ -206,9 +219,7 @@ export const orderByPrice = (payload) => {
 
 export const getCategories = () => {
   return async function (dispatch) {
-
     const res = await axios.get("/category");
-
 
     return dispatch({
       type: GET_CATEGORIES,
@@ -261,8 +272,7 @@ export const filterByBusiness = (payload) => {
 
 export const getAllBranches = () => {
   return async function (dispatch) {
-
-    const res = await axios('/businessbranch');
+    const res = await axios("/businessbranch");
     return dispatch({
       type: GET_ALL_BRANCHES,
       payload: res.data,
@@ -286,7 +296,6 @@ export const filterByBranchesProvince = (payload) => {
 
 export const getAllCities = () => {
   return async function (dispatch) {
-
     const res = await axios("/city");
 
     return dispatch({
@@ -314,16 +323,15 @@ export const filterByProvinceCity = (payload) => {
 //LIMPIAR ESTADOS AL CERRAR SESION
 export const cleanUserState = () => {
   return {
-    type: CLEAN_USER_STATE
-  }
-}
+    type: CLEAN_USER_STATE,
+  };
+};
 
 export const cleanBusinessState = () => {
   return {
-    type: CLEAN_BUSINESS_STATE
-  }
-}
-
+    type: CLEAN_BUSINESS_STATE,
+  };
+};
 
 export const cleanUsers = () => {
   return { type: CLEAN_USERS };
@@ -347,8 +355,6 @@ export const getUsers = () => {
     }
   };
 };
-
-
 
 export const login = (body) => {
   return async function (dispatch) {
@@ -380,18 +386,15 @@ export const addUser = (body) => {
 };
 export const getActiveUser = () => {
   return {
-    type: GET_ACTIVE_USER
-
-  }
-
-}
+    type: GET_ACTIVE_USER,
+  };
+};
 
 export const editUser = (id, body, token) => {
   return async function (dispatch) {
     try {
-
       const res = await axios.put(`/user/${id}`, body, {
-        headers: { authorization: `Bearer ${token}` }
+        headers: { authorization: `Bearer ${token}` },
       });
       return dispatch({
         type: PUT_USER,
@@ -410,23 +413,22 @@ export const cleanPutUser = () => {
 export const getUserByEmail = (email) => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`/user/${email}`)
+      const res = await axios.get(`/user/${email}`);
       return dispatch({
         type: GET_USER_BY_EMAIL,
         payload: res.data,
-      })
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-}
+  };
+};
 
 //COMIENZA ACTION BUSINESS
 
 export function addBusiness(body) {
   return async function (dispatch) {
     try {
-
       let json = await axios.post(`/business`, body);
 
       return dispatch({
@@ -468,11 +470,11 @@ export const loginBusiness = (body) => {
 };
 
 export const editBusiness = (id, body, token) => {
-  console.log("el body de edit business", body)
+  console.log("el body de edit business", body);
   return async function (dispatch) {
     try {
       const res = await axios.put(`/business/${id}`, body, {
-        headers: { authorization: `Bearer ${token}` }
+        headers: { authorization: `Bearer ${token}` },
       });
       return dispatch({
         type: PUT_BUSINESS,
@@ -488,12 +490,9 @@ export const editBusiness = (id, body, token) => {
 export const addTravel = (body, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(
-        `/travel`,
-        body, {
-        headers: { authorization: `Bearer ${token}` }
-      }
-      );
+      const res = await axios.post(`/travel`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: ADD_TRAVEL,
         payload: res.data,
@@ -507,24 +506,22 @@ export const addTravel = (body, token) => {
 export const getByPurchaseEmail = (email) => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`/purchase/email/${email}`)
+      const res = await axios.get(`/purchase/email/${email}`);
       return dispatch({
         type: GET_BY_PURCHASE_EMAIL,
         payload: res.data,
-      })
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-}
+  };
+};
 
 //get travels
 export const getAllTravel = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(
-        `/travel`
-      );
+      const res = await axios.get(`/travel`);
       return dispatch({
         type: GET_TRAVELS,
         payload: res.data,
@@ -571,29 +568,28 @@ export function getCart() {
   };
 }
 
-// agregar sede
 export function postReview(body) {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/review`, body)
+      const res = await axios.post(`/review`, body);
       debugger;
       return dispatch({
         type: POST_REVIEW,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
+
+// agregar sede
 export function postBranch(body, token) {
   return async function (dispatch) {
     try {
-      const res = await axios.post(
-        `/businessbranch`,
-        body,
-        { headers: { authorization: `Bearer ${token}` } }
-      );
+      const res = await axios.post(`/businessbranch`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: POST_BRANCH,
         payload: res.data,
@@ -608,11 +604,9 @@ export function postBranch(body, token) {
 export function editBranch(id, body, token) {
   return async function (dispatch) {
     try {
-      const res = await axios.put(
-        `/businessbranch/${id}`,
-        body,
-        { headers: { authorization: `Bearer ${token}` } }
-      );
+      const res = await axios.put(`/businessbranch/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: EDIT_BRANCH,
         payload: res.data,
@@ -624,11 +618,13 @@ export function editBranch(id, body, token) {
 }
 
 //borrar sede (desactivar)
-export const deleteBranch = (id) => {
+export const deleteBranch = (id, token) => {
   return async function (dispatch) {
     try {
       const body = { active: false };
-      const res = await axios.put(`/businessbranch/${id}`, body);
+      const res = await axios.put(`/businessbranch/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` }, //falta en ruta
+      });
       return dispatch({
         type: DELETE_BRANCH,
         payload: res.data,
@@ -640,11 +636,13 @@ export const deleteBranch = (id) => {
 };
 
 //Activar branch
-export const activateBranch = (id) => {
+export const activateBranch = (id, token) => {
   return async function (dispatch) {
     try {
       const body = { active: true };
-      const res = await axios.put(`/businessbranch/${id}`, body);
+      const res = await axios.put(`/businessbranch/${id}`, body, {
+        headers: { authorization: `Bearer ${token}` }, //falta en ruta
+      });
       return dispatch({
         type: ACTIVATE_BRANCH,
         payload: res.data,
@@ -655,116 +653,168 @@ export const activateBranch = (id) => {
   };
 };
 
-
-// desactivar cuenta usuario 
-export const desactivateUser = (email) => {
+// desactivar cuenta usuario
+export const desactivateUser = (email, token) => {
   return async function (dispatch) {
     try {
       const body = { active: false };
-      const res = await axios.put(`/user/${email}`, body);
+      const res = await axios.put(`/user/${email}`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: DESACTIVATE_USER,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};
 
-// activar cuenta usuario 
-export const activateUser = (email) => {
+// activar cuenta usuario
+export const activateUser = (email, token) => {
   return async function (dispatch) {
     try {
       const body = { active: true };
-      const res = await axios.put(`/user/${email}`, body);
+      const res = await axios.put(`/user/${email}`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: ACTIVATE_USER,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};
 
 // desactivar cuenta business
-export const desactivateBusiness = (email) => {
+export const desactivateBusiness = (email, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/business/desactivate/${email}`);
+      const body = { active: true };
+      console.log(token);
+      const res = await axios.put(`/business/desactivate/${email}`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+
       return dispatch({
         type: DESACTIVATE_BUSINESS,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};
 
 // activar cuenta business
-export const activateBusiness = (email) => {
+export const activateBusiness = (email, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/business/activate/${email}`);
+      const res = await axios.put(
+        `/business/activate/${email}`,
+        { body: true },
+        {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      );
       return dispatch({
         type: ACTIVATE_BUSINESS,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};
 
-// banear cuenta usuario 
+// banear cuenta usuario
 export const deleteUser = (email, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/user/baneo/${email}`, {
-        headers: { authorization: `Bearer ${token}` }
-      });
+      const res = await axios.put(
+        `/user/baneo/${email}`,
+        { body: true },
+        {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      );
       return dispatch({
         type: DELETE_USER,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};
 
-// banear cuenta empresa 
+// banear cuenta empresa
 export const deleteBusiness = (email, token) => {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`/business/baneo/${email}`, {
-        headers: { authorization: `Bearer ${token}` }
-      });
+      const res = await axios.put(
+        `/business/baneo/${email}`,
+        { body: true },
+        {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      );
       return dispatch({
         type: DELETE_BUSINESS,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};
 
 // all email
 export const getAllEmail = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get('/business/email')
+      const res = await axios.get("/business/email");
       return dispatch({
         type: GET_EMAIL,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+};
+
+export const putMatch = (idPurchase, idTravel) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(`/travel/purchase/${idPurchase}/${idTravel}`);
+      debugger;
+      return dispatch({
+        type: PUT_MATCH,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getMatch = (idPurchase) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(`/travel/purchase/${idPurchase}`);
+      return dispatch({
+        type: GET_MATCH,
+        payload: [res.data,idPurchase],
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 //SAVE IMAGE
@@ -772,14 +822,69 @@ export const getAllEmail = () => {
 export const saveImage = (urlImage) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post("https://api.cloudinary.com/v1_1/bringitapp/upload", urlImage)
+      const res = await axios.post(
+        "https://api.cloudinary.com/v1_1/bringitapp/upload",
+        urlImage
+      );
 
       return dispatch({
         type: SAVE_IMAGE,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+  };
+};
+
+
+//FAVORITOS
+export const getFavourites = () => {
+  return async function (dispatch) {
+    try {
+      const res = await axios(`/user/${userEmail}`);
+      debugger;
+      return dispatch({
+        type: GET_FAVOURITES,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const postFavourites = (body, token) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`/favorite`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      debugger;
+      return dispatch({
+        type: POST_FAVOURITES,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 }
+
+// CAMBIO DE PASSWORD 
+export const changePassword = (email, body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(`/user/recover/password/${email}`, body);
+      console.log(res.data);
+      return dispatch({
+        type: PASS_CHANGE,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+

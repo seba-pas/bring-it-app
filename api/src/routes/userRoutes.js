@@ -19,15 +19,13 @@ router.put("/baneo/:email", verifyToken, async (req, res) => {
     try {
       await User.update({deleted: true},{
         where: {
-            email,
+            email:email,
         }
     })
     res.status(200).send('Se bloqueo el usuario correctamente');
     } catch (e) {
       res.send("error:" + e.message);
-    }      
-    
-  } else{
+    } } else{
     res.status(403).json(`No tiene permiso para bloquear esta cuenta usuario`);
   }   
 });
@@ -90,7 +88,6 @@ router.put("/:email", verifyToken, async (req, res) => {
   //Agrego verificacion de token, userLogin viene de la fc verifyToken
   // (if el usuario loggeado es el mismo usuario cuyos datos se quieren modificar, o es admin)
   if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){  
-    console.log(`soy req.userLogin: ${req.userLogin}`);
     console.log(`soy req.userLogin.isAdmin: ${req.userLogin.isAdmin}`);  
     console.log(`estoy en update user ${email}`);
     try {
@@ -136,14 +133,11 @@ router.get("/:email", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const userLogin = await User.findByPk(req.body.email);
-
     if (!userLogin) return res.status(201).send("Usuario no encontrado");
-
     const hashedPassword = CryptoJS.AES.decrypt(userLogin.password, process.env.PASS_SEC);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-
     if(originalPassword !== req.body.password) return res.status(201).send(`Datos incorrectos`);
-
+    if (userLogin.deleted) return res.status(201).send('Usuario bloqueado');
     const accessToken = jwt.sign({
       email: userLogin.email,
       isBusiness: userLogin.isBusiness,
@@ -158,52 +152,19 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
-
-// Ruta para cambiar la contraseña del usuario
-
-// router.put("/recover/password/:email", async (req, res) => { 
-//   const { passwordOne } = req.body;
-//   const { passwordTwo } = req.body;
-//   const { email } = req.params;
-
-//   const encPass = CryptoJS.AES.encrypt(passwordTwo, process.env.PASS_SEC);
-//   console.log(encPass)
-//   const user = await User.findOne({ where: { email } })
-//   const hashed = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);
-//   console.log(hashed);
-//   // const decPass = hashed.toString(CryptoJS.enc.Utf8);
-
-//   if(passwordOne === hashed) {
-//     try {
-//       await User.update(encPass, {
-//         where: {
-//           email
-//         }
-//       })
-//       res.json("Listo papurro")
-//     } catch(err) {
-//       console.log(err)
-//     }    
-//   } else {
-//     console.log("NOT FOUND")
-//   }
-
-
-// });
-
 router.put("/recover/password/:email", async (req, res) => {
     const userLogin = await User.findByPk(req.params.email);
     const {passwordV}= req.body;
     const {passwordN}= req.body;
+    console.log('pass nueva body',passwordN);
 
     const hashedPassword = CryptoJS.AES.decrypt(userLogin.password, process.env.PASS_SEC);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-    console.log("1: ",hashedPassword);
-    console.log("2: ",originalPassword);
-    console.log("3", passwordV);
+    console.log("1 hashed pass: ",hashedPassword);
+    console.log("2 original pass: ",originalPassword);
+    console.log("3: pass vieja", passwordV);
     const passNueva=  CryptoJS.AES.encrypt(passwordN, process.env.PASS_SEC).toString();
-    console.log(passNueva);
+    console.log('oass nueva hasheada',passNueva);
 
     if(originalPassword == passwordV) {
       console.log("4")
@@ -216,32 +177,33 @@ router.put("/recover/password/:email", async (req, res) => {
         })
         
         // nodemailer
-      let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          user: 'bringit662@gmail.com',
-          pass: 'owtgyxnzmbchbhjj'
-        }
-      });
+      // let transporter = nodemailer.createTransport({
+      //   host: 'smtp.gmail.com',
+      //   port: 465,
+      //   secure: true,
+      //   auth: {
+      //     user: 'bringit662@gmail.com',
+      //     pass: 'owtgyxnzmbchbhjj'
+      //   }
+      // });
 
-      const email = await transporter.sendMail({
-        from: "Bring It App <bringit662@gmail.com>",
-        to: req.params.email,
-        subject: "Cambio de contraseña",
-        html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
-        <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
-        `
-      })
+      // const email = await transporter.sendMail({
+      //   from: "Bring It App <bringit662@gmail.com>",
+      //   to: req.params.email,
+      //   subject: "Cambio de contraseña",
+      //   html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
+      //   <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
+      //   `
+      // })
 
 
         res.json("contraceña cambiada")
       } catch(error) {
-        console.log(error)
+        console.log('5')
+        console.log('208',error)
       }    
     } else {
-      console.log("NOT FOUND") 
+      console.log("contraseña incorrecta") 
     }
 });
 
