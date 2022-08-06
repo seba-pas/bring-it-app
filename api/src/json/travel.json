@@ -1,0 +1,63 @@
+[{
+    "userEmail": "tomas@gmail.com",
+    "travelProvince": "Jujuy",
+    "travelCityId": "386049",
+    "arrivalProvince": "Córdoba",
+    "arrivalCityId": "140147",
+    "startDate": "2022-09-02",
+    "arrivalDate":"2022-09-09"
+},
+{
+    "userEmail": "agustin@gmail.com",
+    "travelProvince": "Jujuy",
+    "travelCityId": "386049",
+    "arrivalProvince": "Córdoba",
+    "arrivalCityId": "140147",
+    "startDate": "2022-10-02",
+    "arrivalDate":"2022-10-09"
+},
+{
+    "userEmail": "celeste@gmail.com",
+    "travelProvince": "Jujuy",
+    "travelCityId": "386049",
+    "arrivalProvince": "Córdoba",
+    "arrivalCityId": "140147",
+    "startDate": "2023-01-01",
+    "arrivalDate":"2023-01-15"
+}, 
+{
+    "userEmail": "tomas@gmail.com",
+    "travelProvince": "Salta",
+    "travelCityId": "660035",
+    "arrivalProvince": "Córdoba",
+    "arrivalCityId": "140147",
+    "startDate": "2022-10-02",
+    "arrivalDate":"2022-10-09"
+},
+{
+    "userEmail": "agustin@gmail.com",
+    "travelProvince": "Salta",
+    "travelCityId": "660035",
+    "arrivalProvince": "Córdoba",
+    "arrivalCityId": "140147",
+    "startDate": "2022-09-02",
+    "arrivalDate":"2022-09-09"
+},
+{
+    "userEmail": "celeste@gmail.com",
+    "travelProvince": "Salta",
+    "travelCityId": "660035",
+    "arrivalProvince": "Córdoba",
+    "arrivalCityId": "140147",
+    "startDate": "2022-11-01",
+    "arrivalDate":"2022-11-15"
+},{
+    "userEmail": "agustina@gmail.com",
+    "travelProvince": "Buenos Aires",
+    "travelCityId": "060882",
+    "arrivalProvince": "Córdoba",
+    "arrivalCityId": "140147",
+    "startDate": "2022-10-02",
+    "arrivalDate":"2022-10-09"
+}
+]
