@@ -13,7 +13,7 @@ import NavBar from "../components/NavBar";
 import swal from "sweetalert";
 import styles from "../styles/ProductDetail.module.css";
 import "bootstrap/dist/css/bootstrap.css";
-
+import AddFavourites from "./AddFavourites";
 export const ProductDetail = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -81,6 +81,7 @@ export const ProductDetail = () => {
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
 
+      <AddFavourites/>
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
           <div className={styles.imgCon}>

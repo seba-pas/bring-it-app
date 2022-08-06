@@ -14,6 +14,7 @@ import HomeUserPurchase from './HomeUserPurchase.jsx';
 import RecuperarPassword from './RecuperarPassword.jsx';
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import Favourites from "./Favourites";
 
 const Usuario = () => {
   const [key, setKey] = useState("home");
@@ -93,6 +94,12 @@ const Usuario = () => {
             >
               Modificar Contraseña
             </button>
+          <button
+              className="btn btn-primary"
+              onClick={() => history.push("/persona/favoritos")}
+            >
+              Mis Favoritos
+            </button>
             <button
               className="btn btn-primary"
               onClick={() => history.push("/empresas")}
@@ -161,6 +168,9 @@ const Usuario = () => {
               </Tab>
               <Tab eventKey="profile3" title="Modificar contraseña">
                 <RecuperarPassword />
+              </Tab>
+              <Tab eventKey="profile4" title="Mis Favoritos">
+                <Favourites/>
               </Tab>
             </Tabs>
           </div>

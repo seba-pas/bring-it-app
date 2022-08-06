@@ -31,8 +31,8 @@
 
 .paginado button:hover {
   font-weight: bold;
-  background-color: rgba(210, 105, 30, 0.15);
-  color:  #8c52ff;
+  background-color: rgba(0, 0, 0, 0.877);
+  color:  white;
 }
 
 .containerB {
