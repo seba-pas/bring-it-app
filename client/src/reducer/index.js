@@ -352,18 +352,19 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case "GET_ALL_PROVINCES":
-      let sortedProv = state.provinces.sort(function (a, b) {
-        if (a.nombre > b.nombre) {
-          return 1;
-        }
-        if (b.nombre > a.nombre) {
-          return -1;
-        }
-        return 0;
-      });
+      // let sortedProv = state.provinces.sort(function (a, b) {
+      //   console.log(a.nombre, b.nombre)
+      //   if (a.nombre > b.nombre) {
+      //     return 1;
+      //   }
+      //   if (b.nombre > a.nombre) {
+      //     return -1;
+      //   }
+      //   return 0;
+      // });
       return {
         ...state,
-        provinces: sortedProv,
+        provinces: action.payload,
       };
 
     case "FILTER_BY_PROVINCES":

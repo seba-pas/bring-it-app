@@ -45,7 +45,7 @@ const Usuario = () => {
 
   function handleCloseSessionBusiness(e) {
     e.preventDefault();
-    // dispatch(resetInitialState());
+    dispatch(cleanBusiness());
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
@@ -56,7 +56,7 @@ const Usuario = () => {
 
   function handleCloseSesion(e) {
     e.preventDefault();
-    // dispatch(resetInitialState());
+    dispatch(cleanUsers());
     dispatch(cleanUserState())
     swal(
       "Tu sesion ha sido cerrada con éxito",
