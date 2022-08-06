@@ -75,7 +75,13 @@ export default function HomeAdmin() {
   }, [dispatch]);
 
   function searchProduct(rows) {
-    return rows.filter((row) => row.name.toLowerCase().indexOf(q) > -1);
+    return rows.filter((row) => row.name.toLowerCase().indexOf(q) > -1 ||
+    row.price.toString().toLowerCase().indexOf(q) > -1 ||
+    row.weight.toString().toLowerCase().indexOf(q) > -1 ||
+    row.stock.toString().toLowerCase().indexOf(q) > -1 ||
+    row.description.toLowerCase().indexOf(q) > -1 ||
+    row.businessbranch.businessBranchName.toLowerCase().indexOf(q) > -1
+    );
   };
 
   function searchUsers(rows) {
