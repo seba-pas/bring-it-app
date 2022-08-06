@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getByPurchaseEmail, getAllCities, postReview } from "../actions";
+import { getByPurchaseEmail, getAllCities, postReview, getMatch } from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
@@ -79,8 +79,9 @@ function HomeUserPurchase() {
   const handleShow = (id) => {
     setShow((showId) => (showId === id ? null : id));
   };
-  function editUsers() {
-    alert("PROXIMAMENTE!!!");
+  const searchMatch = (idPurchase) => {
+    dispatch(getMatch(idPurchase))
+    history.push("/persona/matchTravelsPurchases")
   }
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
@@ -135,7 +136,7 @@ function HomeUserPurchase() {
           <FaSearchLocation
             title="Encontrar viajero"
             style={{ marginRight: "15px", fontSize: "30px" }}
-            onClick={(e) => editUsers(e)}
+            onClick={() => searchMatch(row.id)}
           />
           <BsFillBookmarkStarFill onClick={() => handleShow(row.id)} />
         </button>

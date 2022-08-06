@@ -68,3 +68,8 @@ export const POST_REVIEW = "POST_REVIEW";
 
 // save images
 export const SAVE_IMAGE = "SAVE_IMAGE"; 
+
+//Match get 
+export const GET_MATCH = "GET_MATCH"
+//Match put
+export const PUT_MATCH = "PUT_MATCH"
