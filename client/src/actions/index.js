@@ -65,8 +65,13 @@ import {
   ACTIVATE_BRANCH,
   ACTIVATE_PRODUCT,
   SAVE_IMAGE,
+
   GET_MATCH,
   PUT_MATCH,
+
+  GET_FAVOURITES,
+  POST_FAVOURITES,
+
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -793,6 +798,7 @@ export const getMatch = (idPurchase) => {
         type: GET_MATCH,
         payload: [res.data,idPurchase],
       });
+
     } catch (error) {
       console.log(error);
     }
@@ -811,6 +817,40 @@ export const saveImage = (urlImage) => {
 
       return dispatch({
         type: SAVE_IMAGE,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
+//FAVORITOS
+export const getFavourites = () => {
+  return async function (dispatch) {
+    try {
+      const res = await axios(`/user/${userEmail}`);
+      debugger;
+      return dispatch({
+        type: GET_FAVOURITES,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const postFavourites = (body, token) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`/favorite`, body, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      debugger;
+      return dispatch({
+        type: POST_FAVOURITES,
         payload: res.data,
       });
     } catch (error) {
