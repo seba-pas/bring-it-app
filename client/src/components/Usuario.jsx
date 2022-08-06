@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Usuario.module.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { SpinnerCircularFixed } from "spinners-react";
-
+import PerfilUser from './PerfilUser'
 
 import { desactivateUser, cleanUsers, cleanBusiness, cleanUserState, getActiveUser, getAllEmail, resetInitialState } from "../actions";
 
