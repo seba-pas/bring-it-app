@@ -26,7 +26,7 @@ const Usuario = () => {
   const business = useSelector((state) => state.business);
   const email = useSelector((state) => state.allEmail);
   const userToken = useSelector((state) => state.userToken);
-  const isBusiness =  email.find((e) => e.email == user.email) ? true : false 
+  const isBusiness = email.find((e) => e.email == user.email) ? true : false
 
 
   useEffect(() => {
@@ -38,14 +38,14 @@ const Usuario = () => {
     e.preventDefault();
 
     dispatch(desactivateUser(user.email));
-    dispatch(resetInitialState());
+    // dispatch(resetInitialState());
 
     history.push("/");
   }
 
   function handleCloseSessionBusiness(e) {
     e.preventDefault();
-    dispatch(resetInitialState());
+    // dispatch(resetInitialState());
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
@@ -56,7 +56,7 @@ const Usuario = () => {
 
   function handleCloseSesion(e) {
     e.preventDefault();
-    dispatch(resetInitialState());
+    // dispatch(resetInitialState());
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
@@ -97,7 +97,7 @@ const Usuario = () => {
             >
               Modificar Contraseña
             </button>
-          <button
+            <button
               className="btn btn-primary"
               onClick={() => history.push("/persona/favoritos")}
             >
@@ -170,7 +170,7 @@ const Usuario = () => {
                 <RecuperarPassword />
               </Tab>
               <Tab eventKey="profile4" title="Mis Favoritos">
-                <Favourites/>
+                <Favourites />
               </Tab>
             </Tabs>
           </div>
@@ -213,7 +213,7 @@ const Usuario = () => {
                 Registrarme como Empresa
               </button>
             )}*/}
-            
+
           </div>
         </div>
       ) : (
