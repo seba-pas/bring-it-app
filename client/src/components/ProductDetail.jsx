@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllProductsDetail,
@@ -14,12 +14,15 @@ import swal from "sweetalert";
 import styles from "../styles/ProductDetail.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import AddFavourites from "./AddFavourites";
+
 export const ProductDetail = () => {
+
   const history = useHistory();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.productsDetail);
   const cart = useSelector((state) => state.cart);
   const { id } = useParams();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCart());
@@ -55,7 +58,21 @@ export const ProductDetail = () => {
           "error"
         );
       } else {
-        if (product.stock >= cart[0].quantity) {
+        if (cart.filter(e => e.id === product.id).length > 0) {
+          if (cart.filter(e => e.id === product.id).quantity < product.stock) {
+
+            dispatch(addToCart(product));
+            swal(
+              "Buen trabajo!",
+              "El producto fue agregado con exito!",
+              "success"
+            );
+            return;
+          } else {
+            swal("No tenemos más stock", "Acabamos de enviar un Email a la empresa correspondiente", "error")
+            return;
+          }
+        } else {
           dispatch(addToCart(product));
           swal(
             "Buen trabajo!",
@@ -63,12 +80,6 @@ export const ProductDetail = () => {
             "success"
           );
           return;
-        } else {
-          swal(
-            "No tenemos la cantidad solicitada",
-            "Nuestro stock es menor a la cantidad que deseas",
-            "error"
-          );
         }
       }
     } else {
@@ -76,12 +87,12 @@ export const ProductDetail = () => {
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
     }
   }
-console.log(`product stock`,product.stock, `cart`, cart)
+  console.log(`product stock`, product.stock, `cart`, cart)
   return (
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
 
-      <AddFavourites/>
+      <AddFavourites />
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
           <div className={styles.imgCon}>
@@ -98,8 +109,8 @@ console.log(`product stock`,product.stock, `cart`, cart)
                 <span>Empresa: </span>
 
                 {product.businessbranch.businessBranchName === null ||
-                product.categories === undefined ||
-                product.businessbranch.businessBranchName.length == 0
+                  product.categories === undefined ||
+                  product.businessbranch.businessBranchName.length == 0
                   ? ""
                   : product.businessbranch.businessBranchName.split(" - ")[0]}
               </p>
@@ -113,8 +124,8 @@ console.log(`product stock`,product.stock, `cart`, cart)
               <p className="card-text" id={styles.empresa}>
                 <span id={styles.categoria}>En: </span>
                 {product.categories === null ||
-                product.categories === undefined ||
-                product.categories.length == 0
+                  product.categories === undefined ||
+                  product.categories.length == 0
                   ? "No tiene categoría"
                   : product.categories[0].name}
               </p>
@@ -169,7 +180,7 @@ console.log(`product stock`,product.stock, `cart`, cart)
         </div>
       ) : (
         <div className={styles.spinner}>
-              <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
+          <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
 
         </div>
       )}
