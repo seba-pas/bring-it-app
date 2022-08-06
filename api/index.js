@@ -30,9 +30,9 @@ const http = require("http");
 const serverChat = http.createServer(server);
 
 const io = new Server(serverChat, {
-  cors: {
+  // cors: {
     // origin: "http://localhost:3000",
-  },
+  // },
 });
 
 io.on("connection", (socket) => {

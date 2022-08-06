@@ -26,7 +26,7 @@ const Usuario = () => {
   const business = useSelector((state) => state.business);
   const email = useSelector((state) => state.allEmail);
   const userToken = useSelector((state) => state.userToken);
-  const isBusiness = email.find((e) => e.email == user.email) ? true : false
+  // const isBusiness = email.find((e) => e.email == user.email) ? true : false
 
 
   useEffect(() => {
@@ -57,6 +57,7 @@ const Usuario = () => {
   function handleCloseSesion(e) {
     e.preventDefault();
     // dispatch(resetInitialState());
+    dispatch(cleanUserState())
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",

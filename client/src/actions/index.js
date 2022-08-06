@@ -67,7 +67,7 @@ import {
   ACTIVATE_PRODUCT,
   SAVE_IMAGE,
 
-  RESET_INITIAL_STATE,
+  // RESET_INITIAL_STATE,
 
 
   GET_MATCH,
@@ -129,11 +129,11 @@ export const setDetail = () => {
 };
 
 
-export const resetInitialState = () => {
-  return {
-    type: RESET_INITIAL_STATE
-  }
-}
+// export const resetInitialState = () => {
+//   return {
+//     type: RESET_INITIAL_STATE
+//   }
+// }
 
 export const setProduct = () => {
   return {

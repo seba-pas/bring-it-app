@@ -55,11 +55,11 @@ const initialState = {
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
 
-    case "RESET_INITIAL_STATE":
-      return {
-        ...initialState,
-        provinces: state.provinces
-      }
+    // case "RESET_INITIAL_STATE":
+    //   return {
+    //     ...initialState,
+    //     provinces: state.provinces
+    //   }
 
     case "GET_MATCH":
       return {
