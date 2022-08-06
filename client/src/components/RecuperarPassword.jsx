@@ -12,9 +12,6 @@ function RecuperarPassword(props) {
       {/* <NavBarLanding/> */}
       <div>
       <Container>
-          <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-            Modificar contraseña
-          </h1>
           <Row>
             <Col
               lg={8}
