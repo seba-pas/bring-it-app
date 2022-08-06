@@ -29,17 +29,19 @@ import TableMatchTravels from './components/TableMatchTravels.jsx'
 
 
 import Favourites from "./components/Favourites";
+import Chat from "./components/Chat";
 
 
 function App() {
 
-  
+
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
 
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
+        <Route exact path="/chat" component={Chat} />
         <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/conocemas" component={ConoceMas} />
@@ -75,7 +77,7 @@ function App() {
         <Route exact path="/perfil" component={PerfilBusiness} />
         <Route exact path="/modificarPasswordBusiness" component={RecuperarPasswordBusiness} />
 
-        <Route exact path="/persona/matchTravelsPurchases" component={TableMatchTravels}/>
+        <Route exact path="/persona/matchTravelsPurchases" component={TableMatchTravels} />
 
 
         {/* <Route exact path="/testing" component={FormTravel} /> */}
