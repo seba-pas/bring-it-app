@@ -75,7 +75,6 @@ export const GET_MATCH = "GET_MATCH"
 //Match put
 export const PUT_MATCH = "PUT_MATCH"
 
-export const SAVE_IMAGE = "SAVE_IMAGE";
 
 //favoritos
 export const GET_FAVOURITES = 'GET_FAVOURITES';
