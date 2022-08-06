@@ -43,6 +43,8 @@ const initialState = {
   allEmail: [],
   review: "",
   images: [],
+  favourites: [],
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -53,6 +55,7 @@ export default function rootReducer(state = initialState, action) {
         products: action.payload,
         allProducts: action.payload,
         deleteProduct: "",
+        favourites: action.payload
       };
     case "GET_PRODUCTS_DETAIL":
       return {
@@ -529,6 +532,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         images: action.payload.secure_url//[action.payload, ...state.images]
       };
+    case 'GET_FAVOURITES':
+      return{
+        ...state,
+        favourites: action.payload
+      };
+    case 'POST_FAVOURITES':
+      return{
+        ...state,
+        favourites: action.payload
+      }
 
     default:
       return {

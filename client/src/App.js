@@ -24,6 +24,7 @@ import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from "./components/Usuario.jsx";
 import RecuperarPasswordBusiness from "./components/RecuperarPasswordBusiness";
+import Favourites from "./components/Favourites";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
         <Route exact path="/persona/misviajes" component={UserTravels} />
         <Route exact path="/product/:id" component={ProductDetail} />
         <Route exact path="/filtroprov" component={FilterProvince} />
+        <Route exact path="/persona/favoritos" component={Favourites} />
         <Route exact path='/persona/compra' render={() => (
           user !== "clean" ? <CheckOut /> : <Redirect to="/" />
         )} />

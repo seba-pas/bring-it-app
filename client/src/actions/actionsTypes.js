@@ -67,4 +67,8 @@ export const GET_EMAIL = "GET_EMAIL";
 export const POST_REVIEW = "POST_REVIEW";
 
 // save images
-export const SAVE_IMAGE = "SAVE_IMAGE"; 
+export const SAVE_IMAGE = "SAVE_IMAGE";
+
+//favoritos
+export const GET_FAVOURITES = 'GET_FAVOURITES';
+export const POST_FAVOURITES = 'POST_FAVOURITES';
