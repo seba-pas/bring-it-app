@@ -68,3 +68,6 @@ export const POST_REVIEW = "POST_REVIEW";
 
 // save images
 export const SAVE_IMAGE = "SAVE_IMAGE"; 
+
+//password change 
+export const PASS_CHANGE = "PASS_CHANGE";

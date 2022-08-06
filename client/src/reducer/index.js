@@ -22,6 +22,7 @@ const initialState = {
   provinces: [],
   putUser: "",
   putBusiness: "",
+  putPass:"",
   businessEditInfo: {},
   userEditInfo: {},
   uniqueProvinces: [],
@@ -516,6 +517,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         images: action.payload.secure_url//[action.payload, ...state.images]
       };
+      // case "PASS_CHANGE":
+      //   user.password
+      //   return {
+      //     ...state,
+      //     user.password: action.payload,
+      //   };
     default:
       return {
         ...state,

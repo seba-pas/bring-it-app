@@ -27,8 +27,8 @@ import Usuario from "./components/Usuario.jsx";
 function App() {
 
   
-  const user = useSelector((state) => state.user)
-  const business = useSelector((state) => state.business)
+  const user = useSelector((state) => state.user);
+  const business = useSelector((state) => state.business);
 
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
