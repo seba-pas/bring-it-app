@@ -16,6 +16,10 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    productName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
     },
     {
         timestamps: false

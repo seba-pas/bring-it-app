@@ -53,6 +53,7 @@ function HomeUserPurchase() {
     event.preventDefault();
     history.push("/filtro");
   };
+  console.log(purchases)
   const changeCity = purchases;
   const nameCity = changeCity.map((e) => {
     return {
@@ -63,7 +64,7 @@ function HomeUserPurchase() {
       province: e.province,
       totalPrice: e.totalPrice,
       cantidad: e.purchaseitems.reduce((a, e) => e.quantity + a, 0),
-      producto: e.purchaseitems.map((e) => `${e.product.name}, `),
+      producto: e.purchaseitems.map((e) => `${e.productName}, `),
       arrivalCityId: gState.allCities.filter(
         (el) => parseInt(el.id) === parseInt(e.arrivalCityId)
       )[0].nombre,
@@ -170,18 +171,11 @@ function HomeUserPurchase() {
         </Modal.Header>
         <Modal.Body>
           <select name="" id="">
-          {/* {nameCity.filter((item) =>item.producto.map(e => e))} */}
-                  {/* {nameCity.map((item) =>item.producto.map((e) => {
-                    return (
-                      <option name='productId' value={e.productId} key={e.productId}>
-                        {e}
-                      </option>
-                    )
-                  }))} */}
+          {nameCity.filter((item) => item.id === show)}
           </select>
           {/* <DataTable
             columns={columnasRating}
-            data={nameCity.filter((item) => item.id === show)}
+           
             title="Listado de compras"
           /> */}
           <br />
