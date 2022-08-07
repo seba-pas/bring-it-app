@@ -69,16 +69,16 @@ import {
 
   // RESET_INITIAL_STATE,
 
+
   //MACH
   GET_MATCH,
   PUT_MATCH,
   CLEAN_MATCH,
 
   //FAVORITES
+
   GET_FAVOURITES,
   POST_FAVOURITES,
-
-
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -129,7 +129,6 @@ export const setDetail = () => {
     type: SET_PRODUCT_DETAIL,
   };
 };
-
 
 // export const resetInitialState = () => {
 //   return {
@@ -239,7 +238,7 @@ export const filterByCategory = (payload) => {
 
 export const getAllProvinces = () => {
   return async function (dispatch) {
-    const res = await axios("/province");   
+    const res = await axios("/province");
     return dispatch({
       type: GET_ALL_PROVINCES,
       payload: res.data,
@@ -809,9 +808,8 @@ export const getMatch = (idPurchase) => {
       const res = await axios.get(`/travel/purchase/${idPurchase}`);
       return dispatch({
         type: GET_MATCH,
-        payload: [res.data,idPurchase],
+        payload: [res.data, idPurchase],
       });
-
     } catch (error) {
       console.log(error);
     }
@@ -844,13 +842,12 @@ export const saveImage = (urlImage) => {
   };
 };
 
-
 //FAVORITOS
-export const getFavourites = () => {
+export const getFavourites = (userEmail) => {
   return async function (dispatch) {
     try {
-      const res = await axios(`/user/${userEmail}`);
-      debugger;
+      const res = await axios(`/favorite/user/${userEmail}`);     
+
       return dispatch({
         type: GET_FAVOURITES,
         payload: res.data,
@@ -863,6 +860,7 @@ export const getFavourites = () => {
 
 export const postFavourites = (body, token) => {
   return async function (dispatch) {
+    console.log(body, token);
     try {
       const res = await axios.post(`/favorite`, body, {
         headers: { authorization: `Bearer ${token}` },
@@ -875,11 +873,10 @@ export const postFavourites = (body, token) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
 
-  }
-}
-
-// CAMBIO DE PASSWORD 
+// CAMBIO DE PASSWORD
 export const changePassword = (email, body) => {
   return async function (dispatch) {
     try {
@@ -894,4 +891,3 @@ export const changePassword = (email, body) => {
     }
   };
 };
-
