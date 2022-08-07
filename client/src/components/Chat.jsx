@@ -6,12 +6,10 @@ import "../styles/Chat.css";
 import sendLogo from './img/send.png'
 import closeIcon from './img/closeIcon.png'
 import Message from "./Message.jsx";
-// import ReactScrollToBottom from "react-scroll-to-bottom";
-// import closeIcon from "../../images/closeIcon.png";
+import ReactScrollToBottom from "react-scroll-to-bottom";
 
 let socket;
 
-// const ENDPOINT = "https://demo-cchat.herokuapp.com/";
 const ENDPOINT = "https://bringit-arg.herokuapp.com/"
 
 const Chat = () => {
@@ -23,8 +21,6 @@ const Chat = () => {
         socket.emit('message', { message, id });
         document.getElementById('chatInput').value = "";
     }
-
-    console.log(messages);
     useEffect(() => {
         socket = socketIo(ENDPOINT, { transports: ['websocket'] });
 
@@ -74,9 +70,9 @@ const Chat = () => {
                     <h2>C CHAT</h2>
                     <a href="/"> <img src={closeIcon} alt="Close" /></a>
                 </div>
-                {/* <ReactScrollToBottom className="chatBox"> */}
+                <ReactScrollToBottom className="chatBox">
                     {messages.map((item, i) => <Message user={item.id === id ? '' : item.user} message={item.message} classs={item.id === id ? 'right' : 'left'} />)}
-                {/* </ReactScrollToBottom> */}
+                </ReactScrollToBottom>
                 <div className="inputBox">
                     <input onKeyPress={(event) => event.key === 'Enter' ? send() : null} type="text" id="chatInput" />
                     <button onClick={send} className="sendBtn"><img src={sendLogo} alt="Send" /> </button>
