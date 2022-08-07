@@ -72,7 +72,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         matchOk: action.payload,
       };
-
+    case "CLEAN_MATCH":
+      return {
+        ...state, 
+        matchOk: "clean"
+      }
     case "GET_ALL_PRODUCTS":
       return {
         ...state,

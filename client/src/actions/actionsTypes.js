@@ -81,7 +81,7 @@ export const SAVE_IMAGE = "SAVE_IMAGE";
 export const GET_MATCH = "GET_MATCH"
 //Match put
 export const PUT_MATCH = "PUT_MATCH"
-
+export const CLEAN_MATCH = "CLEAN_MATCH"
 
 //favoritos
 export const GET_FAVOURITES = 'GET_FAVOURITES';
