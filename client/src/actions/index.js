@@ -791,7 +791,6 @@ export const putMatch = (idPurchase, idTravel) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(`/travel/purchase/${idPurchase}/${idTravel}`);
-      debugger;
       return dispatch({
         type: PUT_MATCH,
         payload: res.data,

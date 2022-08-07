@@ -197,7 +197,7 @@ router.put("/recover/password/:email", async (req, res) => {
       // })
 
 
-        res.json("contraceña cambiada")
+        res.json("contraseña cambiada")
       } catch(error) {
         console.log('5')
         console.log('208',error)
