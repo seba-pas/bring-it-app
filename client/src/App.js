@@ -26,7 +26,7 @@ import Usuario from "./components/Usuario.jsx";
 import RecuperarPasswordBusiness from "./components/RecuperarPasswordBusiness";
 
 import TableMatchTravels from './components/TableMatchTravels.jsx'
-
+import Join from './components/Join.jsx'
 
 import Favourites from "./components/Favourites";
 import Chat from "./components/Chat";
@@ -41,6 +41,7 @@ function App() {
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
+        <Route exact path="/join" component={Join} />
         <Route exact path="/chat" component={Chat} />
         <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
         <Route exact path="/" component={LandingPage} />

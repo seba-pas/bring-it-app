@@ -24,44 +24,40 @@ const { apiCity } = require('./src/controllers/cityControllers')
 const { apiProvince } = require('./src/controllers/provinceControllers')
 const { loadDB } = require('./src/json/jsonControllers')
 // const municipios = json1.municipios;
-//todo CHAT V1.0 ------------------------------------------
-const { Server } = require("socket.io");
-const http = require("http");
-const serverChat = http.createServer(server);
+const http=require("http");
+const socketIO = require("socket.io");
+const users=[{}];
+server.get("/",(req,res)=>{
+    res.send("HELL ITS WORKING");
+})
 
-const io = new Server(serverChat, {
-  // cors: {
-    // origin: "http://localhost:3000",
-  // },
+const servidor= http.createServer(server);
+
+const io=socketIO(servidor);
+
+io.on("connection",(socket)=>{
+    console.log("New Connection");
+
+    socket.on('joined',({user})=>{
+          users[socket.id]=user;
+          console.log(`${user} has joined `);
+          socket.broadcast.emit('userJoined',{user:"Admin",message:` ${users[socket.id]} has joined`});
+          socket.emit('welcome',{user:"Admin",message:`Welcome to the chat,${users[socket.id]} `})
+    })
+
+    socket.on('message',({message,id})=>{
+        io.emit('sendMessage',{user:users[id],message,id});
+    })
+
+    socket.on('desconectado',()=>{
+          socket.broadcast.emit('leave',{user:"Admin",message:`${users[socket.id]}  has left`});
+        console.log(`user left`);
+    })
 });
 
-io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
-  socket.on("message", (message) => {
-    console.log("message", message)
-    socket.broadcast.emit(`${message.split("/")[0]}`, {
-
-      body: message.split("/")[1],
-      from: socket.from,
-    });
-  });
-  /* socket.on("join_room", (data) => {
-    socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data}`);
-  });
-
-  socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data);
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User Disconnected", socket.id);
-  }); */
-});
-//TODO------------------------------------------------------
 // // Syncing all the models at once.
 conn.sync({ force: false }).then(() => {
-  server.listen(process.env.PORT || 3001, async () => {
+  servidor.listen(process.env.PORT || 3001, async () => {
     await apiProvince();
     await apiCity();
     await loadDB();

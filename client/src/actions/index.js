@@ -68,8 +68,15 @@ import {
   SAVE_IMAGE,
 
   // RESET_INITIAL_STATE,
+
+
+  //MACH
   GET_MATCH,
   PUT_MATCH,
+  CLEAN_MATCH,
+
+  //FAVORITES
+
   GET_FAVOURITES,
   POST_FAVOURITES,
 } from "./actionsTypes";
@@ -807,6 +814,12 @@ export const getMatch = (idPurchase) => {
       console.log(error);
     }
   };
+};
+
+export function cleanMatch() {
+  return {
+    type: CLEAN_MATCH,
+  }
 };
 
 //SAVE IMAGE
