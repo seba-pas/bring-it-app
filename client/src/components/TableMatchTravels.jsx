@@ -4,7 +4,7 @@ import DataTable from "react-data-table-component";
 import moment from "moment";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { BsCardChecklist } from "react-icons/bs";
-import { putMatch } from "../actions";
+import { putMatch , cleanMatch} from "../actions";
 import swal from "sweetalert";
 function TableMatchTravels() {
   const match = useSelector((state) => state.listTravelsMatch);
@@ -30,8 +30,27 @@ function TableMatchTravels() {
   });
   const matchDef = (idTravels) => {
     dispatch(putMatch(idPurchase, idTravels));
-    swal("Match correcto", "Felicitaciones", "success");
+    
   };
+
+  const matchOk = useSelector((state) => state.matchOk);
+  const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return;
+    } else {
+      if (matchOk === "clean") {
+        return ;
+      } else if (matchOk === "Matcheado con éxito") {
+        swal("Match correcto", "Felicitaciones", "success");
+        dispatch(cleanMatch());
+      } else if (matchOk === "La compra ya cuenta con viajero") {
+        swal("La compra ya cuenta con viajero", "Lo sentimos", "error");
+        dispatch(cleanMatch());
+      }
+    }
+  }, [matchOk]);
 
   //   const allTravels = useSelector((state) => state.allTravels);
   function formatDate(value) {

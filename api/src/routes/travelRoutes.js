@@ -109,10 +109,17 @@ router.get('/purchase/:idPurchase', async (req, res) => {
 router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
     try {
         const {idPurchase, travelId} = req.params;
-        const updated = await Purchase.update({travelId}, {
+        const purchase = await Purchase.findByPk(idPurchase);
+        if (!purchase.travelId) {
+                    const updated = await Purchase.update({travelId}, {
             where: {id: idPurchase}
         });
         res.status(201).send("Matcheado con éxito")
+        } else {
+            res.status(200).send("La compra ya cuenta con viajero")
+        }
+
+        
     } catch (error) {
         res.status(404).send(error.message);
     }
