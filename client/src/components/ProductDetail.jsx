@@ -92,7 +92,7 @@ export const ProductDetail = () => {
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
 
-      <AddFavourites />
+     
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
           <div className={styles.imgCon}>
@@ -160,6 +160,8 @@ export const ProductDetail = () => {
                     COMPRAR
                   </a>
                 </div> */}
+                
+                 <AddFavourites />
                 <button
                   className="btn btn-primary"
                   onClick={(e) => handleClickAddToCart(e)}

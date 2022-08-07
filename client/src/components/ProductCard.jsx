@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import styles from "../styles/ProductCard.module.css";
+import addFavourite from './AddFavourites'
 
 export default function ProductCard({
   name,
@@ -51,6 +52,7 @@ export default function ProductCard({
       >
         Ver Producto
       </a>
+      <addFavourite />
       <div className="card-footer" id={styles.empresa}>
        {/* <small style={{fontSize: '5px'}}> Empresa:{" "}</small> */}
         <small className="text-muted" id={styles.bold}>
