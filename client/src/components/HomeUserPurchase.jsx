@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getByPurchaseEmail, getAllCities, postReview, getMatch } from "../actions";
+import {
+  getByPurchaseEmail,
+  getAllCities,
+  postReview,
+  getMatch,
+  cleanGetMatch,
+} from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
@@ -20,13 +26,13 @@ function HomeUserPurchase() {
   const user = useSelector((state) => state.user);
   const [avgRating, setAvgRating] = useState(0);
   const [selectedData, setSelectedData] = useState();
-
+  const listMatch = useSelector((state) => state.listTravelsMatch);
   const [input, setInput] = useState({
     comment: "",
     rating: "",
     userEmail: user.email,
     // productId: purchases.filter(e => e.id === e)
-  }); 
+  });
 
   const handleRating = (input) => {
     setAvgRating(input);
@@ -34,7 +40,11 @@ function HomeUserPurchase() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(input));
-    swal("Muchas gracias por tu feedback", "Esperemos que sigas eligiendo Bring it", "success")
+    swal(
+      "Muchas gracias por tu feedback",
+      "Esperemos que sigas eligiendo Bring it",
+      "success"
+    );
   }
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -51,9 +61,9 @@ function HomeUserPurchase() {
   }, [input.rating]);
   const handleBack = (event) => {
     event.preventDefault();
-    history.push("/filtro");
+    history.push("/persona/filtro");
   };
-  console.log(purchases)
+  console.log(purchases);
   const changeCity = purchases;
   const nameCity = changeCity.map((e) => {
     return {
@@ -70,7 +80,6 @@ function HomeUserPurchase() {
       )[0].nombre,
     };
   });
-  console.log(nameCity)
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
     dispatch(getAllCities());
@@ -80,10 +89,24 @@ function HomeUserPurchase() {
   const handleShow = (id) => {
     setShow((showId) => (showId === id ? null : id));
   };
+
   const searchMatch = (idPurchase) => {
-    dispatch(getMatch(idPurchase))
-    history.push("/persona/matchTravelsPurchases")
-  }
+    alert('Para para para para estamos arreglando flacoooo') 
+    /* if (listMatch !== "No existen coincidencias"){
+      dispatch(getMatch(idPurchase));
+      history.push("/persona/matchTravelsPurchases");
+      dispatch(cleanGetMatch());
+    } else if(listMatch === "No existen coincidencias") {
+      swal(
+        "Todavia no tienes viajeros disponibles",
+        "Intentalo mas tarde",
+        "error"
+      );
+      dispatch(cleanGetMatch());
+    } else{
+      dispatch(cleanGetMatch());
+    } */
+  };
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
   };
@@ -114,7 +137,7 @@ function HomeUserPurchase() {
 
     {
       name: "Producto",
-      selector: (row) => row.producto,
+      selector: (row) => row.purchaseitems.map((e) => `${e.productName}, `),
       sortable: true,
     },
     {
@@ -126,7 +149,7 @@ function HomeUserPurchase() {
     { name: "Ciudad", selector: (row) => row.arrivalCityId, sortable: true },
     {
       name: "Cantidad Total",
-      selector: (row) => row.cantidad,
+      selector: (row) => row.purchaseitems.reduce((a, e) => e.quantity + a, 0),
       sortable: true,
     },
     { name: "Precio total", selector: (row) => row.totalPrice, sortable: true },
@@ -139,7 +162,10 @@ function HomeUserPurchase() {
             style={{ marginRight: "15px", fontSize: "30px" }}
             onClick={() => searchMatch(row.id)}
           />
-          <BsFillBookmarkStarFill onClick={() => handleShow(row.id)} />
+          <BsFillBookmarkStarFill
+            onClick={() => handleShow(row.id)}
+            style={{ fontSize: "30px" }}
+          />
         </button>
       ),
     },
@@ -155,14 +181,14 @@ function HomeUserPurchase() {
         >
           <DataTable
             columns={columnas}
-            data={nameCity}
+            data={purchases}
             title="Listado de compras"
           />
           <hr />
           <br />
         </Col>
       </Row>
-      <Button onClick={(e) => history.goBack(e)}>Atras</Button>
+      {/* <Button onClick={(e) => history.goBack(e)}>Atras</Button> */}
       <Modal show={show !== null} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -171,7 +197,10 @@ function HomeUserPurchase() {
         </Modal.Header>
         <Modal.Body>
           <select name="" id="">
-          {nameCity.filter((item) => item.id === show)}
+            {console.log(
+              "soy el filter",
+              purchases.filter((item) => item.id === show)
+            )}
           </select>
           {/* <DataTable
             columns={columnasRating}

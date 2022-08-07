@@ -37,7 +37,7 @@ function LandingPage1() {
         "warning"
       );
     } else {
-      history.push("/filtro");
+      history.push("/persona/filtro");
     }
   }
 

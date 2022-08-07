@@ -66,13 +66,12 @@ export default function NavBarLanding() {
 
   useEffect(() => {
     dispatch(getActiveUser());
-
   }, [dispatch]);
-  
+
   // if(Object.entries(user)?.length > 0){
   //   user = 'clean'
   // }
-  console.log(user)
+  console.log(user);
   const validateBusiness = (inputBusiness) => {
     const errors = {};
 
@@ -188,13 +187,13 @@ export default function NavBarLanding() {
         });
         dispatch(cleanBusiness());
         return;
-      } else if(business === "Empresa bloqueada") {
+      } else if (business === "Empresa bloqueada") {
         swal(
           "Su cuenta ha sido bloqueda por el administrador",
-          "Para mas información comuniquese con bringit662@gmail.com", 
+          "Para mas información comuniquese con bringit662@gmail.com",
           "error"
         );
-        } else if (!business.active) {
+      } else if (!business.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -203,7 +202,7 @@ export default function NavBarLanding() {
         ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateBusiness(business.email, businessToken ));
+            dispatch(activateBusiness(business.email, businessToken));
             setInput({
               email: "",
               password: "",
@@ -298,13 +297,13 @@ export default function NavBarLanding() {
         });
         dispatch(cleanUsers());
         return;
-       } else if(user === "Usuario bloqueado") {
+      } else if (user === "Usuario bloqueado") {
         swal(
           "Su cuenta ha sido bloqueda por el administrador",
-          "Para mas información comuniquese con bringit662@gmail.com", 
+          "Para mas información comuniquese con bringit662@gmail.com",
           "error"
         );
-        } else if (!user.active) {
+      } else if (!user.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -318,7 +317,7 @@ export default function NavBarLanding() {
               email: "",
               password: "",
             });
-            history.push("/filtro");
+            history.push("/persona/filtro");
           } else {
             history.push("/");
           }
@@ -329,7 +328,7 @@ export default function NavBarLanding() {
           email: "",
           password: "",
         });
-        history.push("/filtro");
+        history.push("/persona/filtro");
       }
     }
   }, [user]);
@@ -384,7 +383,9 @@ export default function NavBarLanding() {
             <AvatarBadge boxSize="1.25em" bg="green.500" />
           </Avatar>
         </div>
-      ) : business && typeof business !== "string" && Object.entries(business).length > 1 ? (
+      ) : business &&
+        typeof business !== "string" &&
+        Object.entries(business).length > 1 ? (
         <div
           style={{
             height: "100%",
@@ -458,7 +459,13 @@ export default function NavBarLanding() {
                     />
                     {errors.password && <p>{errors.password}</p>}
                   </Form.Group>
-
+                  <Row style={{ paddingBottom: "15px", cursor: "pointer" }}>
+                    <Col>
+                      <Link to="/recuperarPassword">
+                        <a className="link">Olvidaste tu contraseña?</a>
+                      </Link>
+                    </Col>
+                  </Row>
                   <Button
                     variant="info"
                     type="submit"
@@ -502,7 +509,13 @@ export default function NavBarLanding() {
                       {errors.password && <p>{errors.password}</p>}
                     </Form.Group>
                   </Row>
-
+                  <Row style={{ paddingBottom: "15px", cursor: "pointer" }}>
+                    <Col>
+                      <Link to="/recuperarPassword">
+                        <a className="link">Olvidaste tu contraseña?</a>
+                      </Link>
+                    </Col>
+                  </Row>
                   <Button
                     variant="info"
                     type="submit"

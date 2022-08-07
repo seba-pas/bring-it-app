@@ -12,7 +12,7 @@ function TableMatchTravels() {
   const gState = useSelector((state) => state);
   const tableMatch = match;
   const dispatch = useDispatch();
-  const listMatch = tableMatch.map((e) => {
+  const listMatch = tableMatch?.map((e) => {
     return {
       arrivalCityId: gState.allCities.filter(
         (el) => parseInt(el.id) === parseInt(e.arrivalCityId)

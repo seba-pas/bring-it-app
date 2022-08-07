@@ -93,7 +93,7 @@ export default function HomePersonas() {
     });
   }, [gState]);
   useEffect(() => {
-    if (input.perfil === "email") history.push("/perfil");
+    if (input.perfil === "email") history.push("/empresas/perfil");
     else if (input.perfil === "close") {
       cart = [];
       history.push("/");

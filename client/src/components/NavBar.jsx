@@ -53,7 +53,7 @@ export default function NavBar() {
   useEffect(() => {
 
     if (input.perfil === "email") {
-      history.push("/perfilUser");
+      history.push("/persona/perfilUser");
     }
     if (input.perfil === "misViajes") {
       history.push("/persona/misviajes");
@@ -91,7 +91,7 @@ export default function NavBar() {
 
   function handleClick(e) {
     e.preventDefault();
-    history.push("/compra");
+    history.push("/persona/compra");
   }
 
   function onClick(e) {

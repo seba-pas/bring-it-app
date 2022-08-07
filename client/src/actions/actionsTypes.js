@@ -78,6 +78,7 @@ export const PASS_CHANGE = "PASS_CHANGE";
 export const SAVE_IMAGE = "SAVE_IMAGE"; 
 
 //Match get 
+export const CLEAN_GET_MATCH = "CLEAN_GET_MATCH";
 export const GET_MATCH = "GET_MATCH"
 //Match put
 export const PUT_MATCH = "PUT_MATCH"

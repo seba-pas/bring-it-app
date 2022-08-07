@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import NavBarLanding from "./NavBarLanding";
 import { changePassword} from '../actions/index';
+import swal from "sweetalert";
 function RecuperarPassword(props) {
   const email= useSelector(state=>state.user.email);
   const [input,setInput]=useState({
@@ -19,8 +20,7 @@ function RecuperarPassword(props) {
   function handleSubmit(e){
     e.preventDefault();
     dispatch(changePassword(email, input));
-
-
+    swal('Su contraseña se modifico correctamente',"", "success")
   };
   function handleChange(e){
     setInput({
@@ -89,8 +89,8 @@ function RecuperarPassword(props) {
                   className="text-center p-5 m-auto shadow-sm rounded-lg"
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <Button style={{width:"60%", marginRight:"10px"}} onClick={(e) => handleBack(e)}>Atras</Button>
                   <Button type="submit">Confirmar</Button>
+                  {/* <Button style={{width:"60%", marginRight:"10px"}} onClick={(e) => handleBack(e)}>Atras</Button> */}
                 </Col>
               </Row>
               </Form>
