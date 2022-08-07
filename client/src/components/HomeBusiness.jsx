@@ -54,7 +54,7 @@ function HomeBusiness() {
 
     //esto tambien esta en NavBarBusiness, cual es el oficial?
     useEffect(() => {
-        if (input.perfil === "email") history.push("/perfil");
+        if (input.perfil === "email") history.push("/empresas/perfil");
         
         else if (input.perfil === "close") history.push("/");
     }, [input.perfil]);
@@ -86,7 +86,7 @@ function HomeBusiness() {
             <div className={styles.HomeBusiness} >
                 <div className={styles.container}>
                     <div className={styles.btnContainer}>
-                        <NavLink to='/productmanager'>
+                        <NavLink to='/empresas/productmanager'>
                             <button className={styles.btn}>+</button>
                         </NavLink>
                     </div>

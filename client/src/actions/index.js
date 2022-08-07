@@ -79,6 +79,7 @@ import {
 
   GET_FAVOURITES,
   POST_FAVOURITES,
+  CLEAN_GET_MATCH,
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -814,6 +815,12 @@ export const getMatch = (idPurchase) => {
       console.log(error);
     }
   };
+};
+
+export function cleanGetMatch() {
+  return {
+    type: CLEAN_GET_MATCH,
+  }
 };
 
 export function cleanMatch() {

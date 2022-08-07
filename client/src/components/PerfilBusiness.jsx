@@ -226,7 +226,7 @@ function PerfilBusiness(props) {
           )
         );
 
-    history.push("/perfil");
+    history.push("/empresas/perfil");
   };
 
   const [image, setImage] = useState("");

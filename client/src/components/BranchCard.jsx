@@ -25,7 +25,7 @@ function BranchCard({ id, name, city, province, address }) {
             <th>{address}</th>
             <th>
                 <div className={styles.btncontainer}>
-                    <NavLink to={`/perfil/${id}`}>
+                    <NavLink to={`/empresas/perfil/${id}`}>
                         <button className={styles.btn}>
                             <IoCreateOutline />
                         </button>

@@ -17,7 +17,7 @@ export default function FilterBefore() {
         <h3>Presiona el mapa para ver por provincias</h3>
         </div>
       <div style={{justifyContent: 'center',height: "80vh", display: 'flex', marginTop: "15vh", textDecoration:'none'}}>
-      <Link to='/filtroprov'>
+      <Link to='persona/filtroprov'>
         <img src={imagen} alt="Imagen no encontrada" />
         </Link> 
         <Link to='/persona'>
