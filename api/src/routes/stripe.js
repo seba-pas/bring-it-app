@@ -41,7 +41,7 @@ router.post('/payment', async (req, res) => {
             secure: true,
             auth: {
             user: 'bringit662@gmail.com',
-            pass: 'owtgyxnzmbchbhjj'
+            pass: 'baiepxymtdopmjuj'
             }
         });
 

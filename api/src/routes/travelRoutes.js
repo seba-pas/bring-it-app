@@ -122,7 +122,7 @@ router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
         secure: true,
         auth: {
           user: 'bringit662@gmail.com',
-          pass: 'owtgyxnzmbchbhjj'
+          pass: 'baiepxymtdopmjuj'
         }
       });
       // mail a viajero

@@ -50,7 +50,7 @@ router.post('/', async (req, res) => {
             secure: true,
             auth: {
                 user: 'bringit662@gmail.com',
-                pass: 'owtgyxnzmbchbhjj'
+                pass: 'baiepxymtdopmjuj'
             }
         });
 
@@ -270,7 +270,7 @@ router.get('/', (req, res) => {
         secure: true,
         auth: {
           user: 'bringit662@gmail.com',
-          pass: 'owtgyxnzmbchbhjj'
+          pass: 'baiepxymtdopmjuj'
         }
       });
 
