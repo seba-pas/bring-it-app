@@ -81,7 +81,6 @@ function HomeUserPurchase() {
     };
   });
 
-  
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
     dispatch(getAllCities());
@@ -92,21 +91,9 @@ function HomeUserPurchase() {
     setShow((showId) => (showId === id ? null : id));
   };
   const searchMatch = (idPurchase) => {
-    alert("Para para para para estamos arreglando flacoooo");
-    /* if (listMatch !== "No existen coincidencias"){
-      dispatch(getMatch(idPurchase));
-      history.push("/persona/matchTravelsPurchases");
-      dispatch(cleanGetMatch());
-    } else if(listMatch === "No existen coincidencias") {
-      swal(
-        "Todavia no tienes viajeros disponibles",
-        "Intentalo mas tarde",
-        "error"
-      );
-      dispatch(cleanGetMatch());
-    } else{
-      dispatch(cleanGetMatch());
-    } */
+    dispatch(getMatch(idPurchase));
+    history.push("/persona/matchTravelsPurchases");
+    // dispatch(cleanGetMatch());
   };
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
@@ -172,10 +159,10 @@ function HomeUserPurchase() {
     },
   ];
   var filterByProduct = purchases.filter((item) => item.id === show);
-  console.log(nameCity.productId)
+  console.log(nameCity.productId);
   // console.log('soy filterByProduct',filterByProduct[0][purchaseitems]);
   /* var filtrado = filterByProduct.forEach((e) => { */
-    /* console.log(e.purchaseitems); */ /* .map((y) => {
+  /* console.log(e.purchaseitems); */ /* .map((y) => {
       var products = { productId: y.productId, productName: y.productName };
       debugger;
     }); */
@@ -208,13 +195,13 @@ function HomeUserPurchase() {
         </Modal.Header>
         <Modal.Body>
           {/* <select> */}
-           {/*  {console.log(filterByProduct[0].id)} */} {/* /* && filterByProduct[0].purchaseitems.map((e) => (
+          {/*  {console.log(filterByProduct[0].id)} */}{" "}
+          {/* /* && filterByProduct[0].purchaseitems.map((e) => (
               <option key={e.productId} value={e.productId}>
                 {e.productName}
               </option>
-            ))} */ }
+            ))} */}
           {/* </select> */}
-
           {/* <DataTable
             columns={columnasRating}
            
