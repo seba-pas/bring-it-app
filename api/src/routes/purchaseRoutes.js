@@ -113,9 +113,9 @@ router.post("/", async (req, res) => {
         purchaseId: createdPurchase.id,
         productId: i.id,
         quantity: i.quantity,
+        productName: i.name // agregar en el form de purchase (ya viene en el cart)
       });
      const oldStock =  (await Product.findByPk(i.id)).stock;
-     console.log(oldStock);
      await Product.update({
       stock: (oldStock - i.quantity)
      }, {

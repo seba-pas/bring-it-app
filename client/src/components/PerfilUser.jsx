@@ -22,7 +22,8 @@ function PerfilUser(props) {
     phone: infoUser.phone,
     arrayInfo: [],
   });
-
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
   const uploadImage = async (e) => {
     const files = e.target.files;
     const data = new FormData();
@@ -33,6 +34,11 @@ function PerfilUser(props) {
     console.log("si");
   };
 
+
+
+  
+
+  
   // NUEVO CELE Y AGUSES PARA MANEJAR LA RTA DE LA RUTA EDITAR (SI HIZO EL CAMBIO, EN POS DE LA AUTORIZACION)
   const putUser = gState.putUser; //xq se llama asi?
 
@@ -154,6 +160,18 @@ function PerfilUser(props) {
                   onChange={handleInputChange}
                 />
               </Form.Group>
+
+              <Form.Group>
+                <label for="exampleFile">Logo</label>
+                <Form.Control
+                  // id="exampleFile"
+                  name="logo"
+                  type="file"
+                  // value={input.logo}
+                  onChange={uploadImage}
+                />
+              </Form.Group>
+
               <Row>
                 <Col
                   lg={6}

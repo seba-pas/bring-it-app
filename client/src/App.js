@@ -24,13 +24,14 @@ import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
 import Usuario from "./components/Usuario.jsx";
 import RecuperarPasswordBusiness from "./components/RecuperarPasswordBusiness";
-
+import OlvidastePassword from "./components/OlvidastePassword";
 import TableMatchTravels from './components/TableMatchTravels.jsx'
 import Join from './components/Join.jsx'
 
 import Favourites from "./components/Favourites";
 import Chat from "./components/Chat";
 
+import LoginGoogleSuccess from './components/LoginGoogleSuccess';
 
 function App() {
 
@@ -41,16 +42,17 @@ function App() {
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
+        <Route exact path= "/recuperarPassword" component={OlvidastePassword}/>
         <Route exact path="/join" component={Join} />
         <Route exact path="/chat" component={Chat} />
-        <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} />
+        {/* <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} /> */}
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/conocemas" component={ConoceMas} />
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
         <Route exact path="/vidriera" component={Vidriera} />
         <Route exact path='/usuarioE' component={Usuario} />
-        <Route path="/filtro" render={() => (
+        <Route path="/persona/filtro" render={() => (
           user !== "clean" ? <FilterBefore /> : <Redirect to="/" />
         )} />
         <Route exact path="/persona" render={() => (
@@ -59,29 +61,33 @@ function App() {
         <Route exact path="/persona/modificarPassword" component={RecuperarPassword} />
         <Route exact path="/persona/homeUserPurchase" component={HomeUserPurchase} />
         <Route exact path="/persona/misviajes" component={UserTravels} />
-        <Route exact path="/product/:id" component={ProductDetail} />
-        <Route exact path="/filtroprov" component={FilterProvince} />
+        <Route exact path="/persona/product/:id" component={ProductDetail} />
+        <Route exact path="/persona/filtroprov" component={FilterProvince} />
         <Route exact path="/persona/favoritos" component={Favourites} />
         <Route exact path='/persona/compra' render={() => (
           user !== "clean" ? <CheckOut /> : <Redirect to="/" />
         )} />
-        <Route exact path="/perfilUser" component={PerfilUser} />
+        <Route exact path="/persona/perfilUser" component={PerfilUser} />
         <Route exact path="/admin" render={() => (
           user.isAdmin ? <HomeAdmin /> : <Redirect to="/" />
         )} />
         <Route exact path="/empresas" render={() => (
           business !== "clean" ? <HomeBusiness /> : <Redirect to="/" />
         )} />
-        <Route path="/productmanager/:id" component={ProductManager} />
-        <Route exact path="/productmanager" component={ProductManager} />
-        <Route path="/perfil/:id" component={PerfilBusiness} />
-        <Route exact path="/perfil" component={PerfilBusiness} />
-        <Route exact path="/modificarPasswordBusiness" component={RecuperarPasswordBusiness} />
+        <Route path="/empresas/productmanager/:id" component={ProductManager} />
+        <Route exact path="/empresas/productmanager" component={ProductManager} />
+        <Route path="/empresas/perfil/:id" component={PerfilBusiness} />
+        <Route exact path="/empresas/perfil" component={PerfilBusiness} />
+        <Route exact path="/empresas/modificarPasswordBusiness" component={RecuperarPasswordBusiness} />
 
         <Route exact path="/persona/matchTravelsPurchases" component={TableMatchTravels} />
 
 
         {/* <Route exact path="/testing" component={FormTravel} /> */}
+
+        {/* Soy Cele: Agrego rutas de redireccion para el login success o login error (autenticacion con google*/}
+        <Route exact path="/login/success" component={LoginGoogleSuccess}/>
+        <Route exact path="/login/error">Error al loggearte con Google. Intenta de nuevo!</Route>
       </Switch>
     </div>
   );

@@ -12,7 +12,7 @@ function TableMatchTravels() {
   const gState = useSelector((state) => state);
   const tableMatch = match;
   const dispatch = useDispatch();
-  const listMatch = tableMatch.map((e) => {
+  const listMatch = tableMatch?.map((e) => {
     return {
       arrivalCityId: gState.allCities.filter(
         (el) => parseInt(el.id) === parseInt(e.arrivalCityId)
@@ -30,7 +30,6 @@ function TableMatchTravels() {
   });
   const matchDef = (idTravels) => {
     dispatch(putMatch(idPurchase, idTravels));
-    
   };
 
   const matchOk = useSelector((state) => state.matchOk);
@@ -43,7 +42,7 @@ function TableMatchTravels() {
       if (matchOk === "clean") {
         return ;
       } else if (matchOk === "Matcheado con éxito") {
-        swal("Match correcto", "Felicitaciones", "success");
+        swal("Match correcto", "Verifique su correo electronico asi podra contactarse con el viajero", "success");
         dispatch(cleanMatch());
       } else if (matchOk === "La compra ya cuenta con viajero") {
         swal("La compra ya cuenta con viajero", "Lo sentimos", "error");
@@ -90,11 +89,12 @@ function TableMatchTravels() {
       button: true,
       cell: (row) => (
         <button style={{ display: "flex" }}>
-          <BsCardChecklist
+          {/* <BsCardChecklist
             style={{ marginRight: "15px", fontSize: "20px" }}
             onClick={(e) => editUsers(e)}
-          />
+          /> */}
           <BsCheckCircleFill
+          title="Confirmar match"
             style={{ fontSize: "20px" }}
             onClick={() => matchDef(row.id)}
           />

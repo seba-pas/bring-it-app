@@ -78,6 +78,7 @@ export const PASS_CHANGE = "PASS_CHANGE";
 export const SAVE_IMAGE = "SAVE_IMAGE"; 
 
 //Match get 
+export const CLEAN_GET_MATCH = "CLEAN_GET_MATCH";
 export const GET_MATCH = "GET_MATCH"
 //Match put
 export const PUT_MATCH = "PUT_MATCH"
@@ -87,4 +88,7 @@ export const CLEAN_MATCH = "CLEAN_MATCH"
 export const GET_FAVOURITES = 'GET_FAVOURITES';
 export const POST_FAVOURITES = 'POST_FAVOURITES';
 
+export const PASS_CHANGE_BUSINESS = "PASS_CHANGE_BUSINESS";
 
+//login con google
+export const POST_LOGIN_GOOGLE = "POST_LOGIN_GOOGLE";

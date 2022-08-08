@@ -26,7 +26,7 @@ function ProductCardBusiness({ id, image, productName, amount, description }) {
             <th>{description}</th>
             <th>
                 <div className={styles.btncontainer}>
-                    <NavLink to={`/productmanager/${id}`}>
+                    <NavLink to={`/empresas/productmanager/${id}`}>
                         <button className={styles.btn}>
                             <IoCreateOutline />
                         </button>
