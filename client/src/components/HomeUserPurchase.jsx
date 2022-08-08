@@ -99,6 +99,7 @@ function HomeUserPurchase() {
   const handleShow = (id) => {
     setShow((showId) => (showId === id ? null : id));
   };
+
   const searchMatch = (idPurchase) => {
     dispatch(getMatch(idPurchase));
   };
