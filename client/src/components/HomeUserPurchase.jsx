@@ -17,6 +17,8 @@ import { useHistory } from "react-router-dom";
 // import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
 import moment from "moment";
+
+
 function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
@@ -91,22 +93,31 @@ function HomeUserPurchase() {
   };
 
   const searchMatch = (idPurchase) => {
-    alert('Para para para para estamos arreglando flacoooo') 
-    /* if (listMatch !== "No existen coincidencias"){
-      dispatch(getMatch(idPurchase));
-      history.push("/persona/matchTravelsPurchases");
-      dispatch(cleanGetMatch());
-    } else if(listMatch === "No existen coincidencias") {
-      swal(
-        "Todavia no tienes viajeros disponibles",
-        "Intentalo mas tarde",
-        "error"
-      );
-      dispatch(cleanGetMatch());
-    } else{
-      dispatch(cleanGetMatch());
-    } */
+    dispatch(getMatch(idPurchase));
   };
+
+  //manejo de estado listMatch
+  const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return;
+    } else {
+      if (listMatch === "clean") {
+        return ;
+      } else if (listMatch === "No existen coincidencias") {
+        swal(
+          "Todavía no tienes viajeros disponibles",
+          "Intentalo mas tarde",
+          "error"
+        );
+        dispatch(cleanGetMatch());
+      } else if (typeof listMatch === "object") {
+        history.push("/persona/matchTravelsPurchases");
+      }
+    }
+  }, [listMatch]);
+
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
   };

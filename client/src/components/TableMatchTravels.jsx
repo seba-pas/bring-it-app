@@ -30,7 +30,6 @@ function TableMatchTravels() {
   });
   const matchDef = (idTravels) => {
     dispatch(putMatch(idPurchase, idTravels));
-    
   };
 
   const matchOk = useSelector((state) => state.matchOk);
