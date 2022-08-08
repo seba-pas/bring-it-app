@@ -22,12 +22,12 @@ export default function FilterProvince() {
 
   let provOrder = BRANCHES?.map((e) => e.province);
   provOrder = provOrder.sort((a, b) => {
-    if(a > b) return  1;
-    if(b > a) return -1;
+    if (a > b) return 1;
+    if (b > a) return -1;
     return 0;
-  })
+  });
 
-  const [orden, setOrden] = useState("All");
+  const [orden, setOrden] = useState("Provincias");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(8);
   const indexOfLastProduct = currentPage * productsPerPage; // 10
@@ -66,7 +66,7 @@ export default function FilterProvince() {
   }
   function handleClick(e) {
     e.preventDefault();
-    setOrden("All");
+    setOrden("Provincias");
     dispatch(getAllProducts());
     setCurrentPage(1);
   }
@@ -74,73 +74,95 @@ export default function FilterProvince() {
   return (
     <div className={styles.div}>
       <NavBar />
-      {PRODUCTS && Object.entries(PRODUCTS).length > 0 && typeof PRODUCTS !== 'string' ? (
-
-      PRODUCTS == "No se encontraron productos asociados" ? (
-        <div style={{color:'#8c52ff', background:'white', marginTop:'150px'}}>
+      {PRODUCTS &&
+      Object.entries(PRODUCTS).length > 0 &&
+      typeof PRODUCTS !== "string" ? (
+        PRODUCTS == "No se encontraron productos asociados" ? (
+          <div
+            style={{
+              color: "#8c52ff",
+              background: "white",
+              marginTop: "150px",
+            }}
+          >
             <h1>No se encontraron productos asociados</h1>
-            <button className='btn btn-primary' style={{marginTop: '40px'}} onClick={(e) => handleClick(e)}>Volver</button>
+            <button
+              className="btn btn-primary"
+              style={{ marginTop: "40px" }}
+              onClick={(e) => handleClick(e)}
+            >
+              Volver
+            </button>
           </div>
-          ) : (
-            <div>
+        ) : (
+          <div>
             <select
-            value={BRANCHES.businessbranches}
-            onChange={(e) => handleFilterByBranchesProvinces(e)}
-            style={{
-              color: "white",
-              marginTop: "33px",
-              backgroundColor: "#8c52ff",
-              border: "none",
-              fontSize: "18px",
-              fontFamily: "Montserrat",
-              fontWeight: "400",
-              cursor: "pointer",
-            }}
-          >
-            <option value="All">Todas</option>
+              value={BRANCHES.businessbranches}
+              onChange={(e) => handleFilterByBranchesProvinces(e)}
+              style={{
+                color: "white",
+                marginTop: "33px",
+                backgroundColor: "#8c52ff",
+                border: "none",
+                fontSize: "18px",
+                fontFamily: "Montserrat",
+                fontWeight: "400",
+                cursor: "pointer",
+              }}
+            >
+              <option hidden value="Provincias">
+                Provincias
+              </option>
+              <option value="All">Todas</option>
 
-            {provUnica?.map((e) => {
-              return (
-                <option value={e} key={e}>
-                  {e}
-                </option>
-              );
-            })}
-          </select>
-          <select
-            onChange={(e) => handleSort(e)}
-            style={{
-              color: "white",
-              marginTop: "33px",
-              backgroundColor: "#8c52ff",
-              border: "none",
-              fontSize: "18px",
-              fontFamily: "Montserrat",
-              fontWeight: "400",
-              margin: "10px",
-              cursor: "pointer",
-            }}
-          >
-            Todos
-            <option value="Desordenado" hidden selected>
-              Ordenar por
-            </option>
-            <option value="asc">Menor Precio</option>
-            <option value="desc">Mayor Precio</option>
-          </select>
-          <div className={styles.contcards} style={{ width: "100%" }}>
-            <ProductCards currentProducts={currentProducts} />
+              {provUnica?.map((e) => {
+                return (
+                  <option value={e} key={e}>
+                    {e}
+                  </option>
+                );
+              })}
+            </select>
+            <select
+              onChange={(e) => handleSort(e)}
+              style={{
+                color: "white",
+                marginTop: "33px",
+                backgroundColor: "#8c52ff",
+                border: "none",
+                fontSize: "18px",
+                fontFamily: "Montserrat",
+                fontWeight: "400",
+                margin: "10px",
+                cursor: "pointer",
+              }}
+            >
+              Todos
+              <option value="Desordenado" hidden selected>
+                Ordenar por
+              </option>
+              <option value="asc">Menor Precio</option>
+              <option value="desc">Mayor Precio</option>
+            </select>
+            <div className={styles.contcards} style={{ width: "100%" }}>
+              <ProductCards currentProducts={currentProducts} />
+            </div>
+            <Pagination
+              productsPerPage={productsPerPage}
+              PRODUCTS={PRODUCTS.length}
+              paginado={paginado}
+            />
           </div>
-          <Pagination
-            productsPerPage={productsPerPage}
-            PRODUCTS={PRODUCTS.length}
-            paginado={paginado}
-          />
-        </div>
-      ) 
+        )
       ) : (
         <div className={styles.spinner}>
-       <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
+          <SpinnerCircularFixed
+            size={250}
+            thickness={90}
+            speed={111}
+            color="rgba(140, 82, 255, 1)"
+            secondaryColor="rgba(74, 57, 172, 0.3)"
+          />
         </div>
       )}
     </div>
