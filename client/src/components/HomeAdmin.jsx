@@ -323,8 +323,12 @@ export default function HomeAdmin() {
                     style={{
                       background: "#8c52ff",
                       color: "white",
-                      borderRadius: "20px",
+                      borderRadius: "15px",
                       margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
                     }}
                   />
                 </div>
@@ -344,8 +348,12 @@ export default function HomeAdmin() {
                     style={{
                       background: "#8c52ff",
                       color: "white",
-                      borderRadius: "20px",
+                      borderRadius: "15px",
                       margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
                     }}
                   />
                 </div>
@@ -364,8 +372,12 @@ export default function HomeAdmin() {
                     style={{
                       background: "#8c52ff",
                       color: "white",
-                      borderRadius: "20px",
+                      borderRadius: "15px",
                       margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
                     }}
                   />
                 </div>
@@ -384,8 +396,12 @@ export default function HomeAdmin() {
                     style={{
                       background: "#8c52ff",
                       color: "white",
-                      borderRadius: "20px",
+                      borderRadius: "15px",
                       margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
                     }}
                   />
                 </div>
@@ -405,8 +421,12 @@ export default function HomeAdmin() {
                     style={{
                       background: "#8c52ff",
                       color: "white",
-                      borderRadius: "20px",
+                      borderRadius: "15px",
                       margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
                     }}
                   />
                 </div>

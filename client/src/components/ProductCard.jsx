@@ -45,7 +45,7 @@ export default function ProductCard({
       </div>
 
       <a
-        href={`persona/product/${id}`}
+        href={`/persona/product/${id}`}
         className="btn btn-primary stretched-link"
         id={styles.boton}
       >

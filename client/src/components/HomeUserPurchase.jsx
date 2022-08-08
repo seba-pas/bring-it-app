@@ -8,6 +8,7 @@ import {
   postReview,
   getMatch,
   cleanGetMatch,
+  setProduct,
 } from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
@@ -17,6 +18,7 @@ import { useHistory } from "react-router-dom";
 // import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
 import moment from "moment";
+
 function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
@@ -31,7 +33,7 @@ function HomeUserPurchase() {
     comment: "",
     rating: "",
     userEmail: user.email,
-    // productId: purchases.filter(e => e.id === e)
+    productId: 0,
   });
 
   const handleRating = (input) => {
@@ -40,11 +42,17 @@ function HomeUserPurchase() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(input));
+    debugger;
     swal(
       "Muchas gracias por tu feedback",
       "Esperemos que sigas eligiendo Bring it",
       "success"
     );
+    setInput({
+      comment: "",
+      rating: "",
+
+    });
   }
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -63,7 +71,6 @@ function HomeUserPurchase() {
     event.preventDefault();
     history.push("/persona/filtro");
   };
-  console.log(purchases);
   const changeCity = purchases;
   const nameCity = changeCity.map((e) => {
     return {
@@ -80,6 +87,9 @@ function HomeUserPurchase() {
       )[0].nombre,
     };
   });
+
+  console.log("nameCity", nameCity)
+
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
     dispatch(getAllCities());
@@ -89,24 +99,32 @@ function HomeUserPurchase() {
   const handleShow = (id) => {
     setShow((showId) => (showId === id ? null : id));
   };
-
   const searchMatch = (idPurchase) => {
-    alert('Para para para para estamos arreglando flacoooo') 
-    /* if (listMatch !== "No existen coincidencias"){
-      dispatch(getMatch(idPurchase));
-      history.push("/persona/matchTravelsPurchases");
-      dispatch(cleanGetMatch());
-    } else if(listMatch === "No existen coincidencias") {
-      swal(
-        "Todavia no tienes viajeros disponibles",
-        "Intentalo mas tarde",
-        "error"
-      );
-      dispatch(cleanGetMatch());
-    } else{
-      dispatch(cleanGetMatch());
-    } */
+    dispatch(getMatch(idPurchase));
   };
+
+  //manejo de estado listMatch
+  const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return;
+    } else {
+      if (listMatch === "clean") {
+        return;
+      } else if (listMatch === "No existen coincidencias") {
+        swal(
+          "Todavía no tienes viajeros disponibles",
+          "Intentalo mas tarde",
+          "error"
+        );
+        dispatch(cleanGetMatch());
+      } else if (typeof listMatch === "object") {
+        history.push("/persona/matchTravelsPurchases");
+      }
+    }
+  }, [listMatch]);
+
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
   };
@@ -114,6 +132,7 @@ function HomeUserPurchase() {
     return value ? moment(value).format("DD/MM/YYYY") : "";
   }
   const columnasRating = [
+
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
     {
       name: "Fecha de compra",
@@ -137,7 +156,7 @@ function HomeUserPurchase() {
 
     {
       name: "Producto",
-      selector: (row) => row.purchaseitems.map((e) => `${e.productName}, `),
+      selector: (row) => row.producto,
       sortable: true,
     },
     {
@@ -149,7 +168,7 @@ function HomeUserPurchase() {
     { name: "Ciudad", selector: (row) => row.arrivalCityId, sortable: true },
     {
       name: "Cantidad Total",
-      selector: (row) => row.purchaseitems.reduce((a, e) => e.quantity + a, 0),
+      selector: (row) => row.cantidad,
       sortable: true,
     },
     { name: "Precio total", selector: (row) => row.totalPrice, sortable: true },
@@ -170,6 +189,10 @@ function HomeUserPurchase() {
       ),
     },
   ];
+
+  var filterByProduct = purchases.filter((item) => item.id === show).map(e => e.purchaseitems)[0];
+
+
   return (
     <div>
       <Row>
@@ -181,11 +204,69 @@ function HomeUserPurchase() {
         >
           <DataTable
             columns={columnas}
-            data={purchases}
+            data={nameCity}
             title="Listado de compras"
           />
           <hr />
           <br />
+          <Modal show={show !== null} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                Dejanos tu comentario sobre el producto que compraste
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={(e) => handleSubmit(e)}>
+                <select name="productId" value={input.productId} onChange={handleInputChange} >
+                  {/* <option value="">{ }</option> */}
+                  {filterByProduct?.map((e) => (
+                    <option
+                      key={e.productId}
+                      value={e.productId}
+                    >
+                      {e.productName}
+                    </option>))}
+                </select>
+                <br />
+                <Form.Label style={{ paddingBottom: "15px" }}>
+                  Indica del 1 al 5 que tan satisfecho esta con su compra
+                </Form.Label>
+                <input
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  max="5"
+                  name="rating"
+                  rating={avgRating}
+                  value={input.rating}
+                  handleRating={handleRating}
+                  onChange={(e) => handleInputChange(e)}
+                />
+                <br />
+                <br />
+                <StarRating stars={avgRating} />
+                <Form.Group className="mb-3">
+                  <Form.Label>Deja tu comentario</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={input.comment}
+                    name="comment"
+                    required
+                    onChange={(e) => handleInputChange(e)}
+                  />
+                </Form.Group>
+                <Button className="mt-3 mb-5 w-100 mt-3" type="submit">
+                  Enviar comentario
+                </Button>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Col>
       </Row>
       {/* <Button onClick={(e) => history.goBack(e)}>Atras</Button> */}
@@ -196,17 +277,13 @@ function HomeUserPurchase() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <select name="" id="">
-            {console.log(
-              "soy el filter",
-              purchases.filter((item) => item.id === show)
-            )}
-          </select>
-          {/* <DataTable
-            columns={columnasRating}
-           
-            title="Listado de compras"
-          /> */}
+          {/* <select>
+            {filterByProduct.purchaseitems.map((e) => (
+              <option key={e.productId} value={e.productId}>
+                {e.productName}
+              </option>
+            ))}
+          </select> */}
           <br />
           <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Label style={{ paddingBottom: "15px" }}>
@@ -248,6 +325,7 @@ function HomeUserPurchase() {
           </Button>
         </Modal.Footer>
       </Modal>
+
     </div>
   );
 }

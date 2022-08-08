@@ -43,6 +43,7 @@ router.post('/', async (req, res) => {
         const businessBranchName = `${businessName} - sede ${cityName}`;
         const newBusinessBranch = await Businessbranch.create({ businessBranchName, businessEmail, cityId, province, address });
 
+        // holis
         // nodemailer
         let transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
@@ -50,7 +51,7 @@ router.post('/', async (req, res) => {
             secure: true,
             auth: {
                 user: 'bringit662@gmail.com',
-                pass: 'owtgyxnzmbchbhjj'
+                pass: 'baiepxymtdopmjuj'
             }
         });
 
@@ -240,7 +241,7 @@ router.get('/', (req, res) => {
 });
 
   // cambio de password
-  router.put("/recover/password/businginess/:email", async (req, res) => {
+  router.put("/recover/password/:email", async (req, res) => {
     const userLogin = await Business.findByPk(req.params.email);
     const {passwordV}= req.body;
     const {passwordN}= req.body;
@@ -270,7 +271,7 @@ router.get('/', (req, res) => {
         secure: true,
         auth: {
           user: 'bringit662@gmail.com',
-          pass: 'owtgyxnzmbchbhjj'
+          pass: 'baiepxymtdopmjuj'
         }
       });
 
