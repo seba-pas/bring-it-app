@@ -23,14 +23,14 @@ server.use(cors())
 
 server.use(express.json());
 
+server.use(
+  cookieSession({name: "session", keys: [process.env.COOKIE_KEY], maxAge: 24*60*60*1000})
+);
 server.use(session({
   secret: [process.env.SESSION_KEY],
   resave: true,
   saveUninitialized: true
 })); //para la aut de 3ros
-server.use(
-  cookieSession({name: "session", keys: [process.env.COOKIE_KEY], maxAge: 24*60*60*1000})
-);
 server.use(passport.initialize());//para la aut de 3ros
 server.use(passport.session());//para la aut de 3ros
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
