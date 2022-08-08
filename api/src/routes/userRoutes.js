@@ -152,6 +152,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//Cambiar contraceña
 router.put("/recover/password/:email", async (req, res) => {
     const userLogin = await User.findByPk(req.params.email);
     const {passwordV}= req.body;
@@ -164,7 +165,7 @@ router.put("/recover/password/:email", async (req, res) => {
     console.log("2 original pass: ",originalPassword);
     console.log("3: pass vieja", passwordV);
     const passNueva=  CryptoJS.AES.encrypt(passwordN, process.env.PASS_SEC).toString();
-    console.log('oass nueva hasheada',passNueva);
+    console.log('Pass nueva hasheada',passNueva);
 
     if(originalPassword == passwordV) {
       console.log("4")
@@ -207,4 +208,24 @@ router.put("/recover/password/:email", async (req, res) => {
     }
 });
 
+//
+router.put('/recover/password/olv/:email', async (req,res )=>{
+  const passN= Math.floor(Math.random(10000000 - 9000000) * 100000000);
+  console.log(req.body.email);
+  const userEmail= await User.findByPk(req.body.email);
+  const passHash=  CryptoJS.AES.encrypt(passN, process.env.PASS_SEC).toString();
+  if(userEmail){
+    const email=userEmail.email;
+    console.log('EMAIL: ',email);
+    console.log('PASS:',passN);
+    console.log('PASS ENCRYPTADA: ',passHash);
+    res.status(200).send('listorty');
+  }else{
+    res.send('email no rregistrado');
+  }
+  
+  
+
+})
+ 
 module.exports = router;
