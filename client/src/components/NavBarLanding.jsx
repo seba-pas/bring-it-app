@@ -410,11 +410,12 @@ const redirectToGoogle = async () => {
           }}
         >
           <Avatar
+          size='lg'
             onClick={() => history.push("/usuarioE")}
             name={`${user?.name} ${user?.lastname}`}
-            src=""
+            src={user.image}
           >
-            <AvatarBadge boxSize="1.25em" bg="green.500" />
+           <AvatarBadge boxSize="0.08m" bg="springgreen" borderColor='springgreen' />
           </Avatar>
         </div>
       ) : business &&
@@ -430,11 +431,12 @@ const redirectToGoogle = async () => {
           }}
         >
           <Avatar
+          size='lg'
             onClick={() => history.push("/usuarioE")}
             name={`${business?.businessName}`}
             src=""
           >
-            <AvatarBadge boxSize="1.25em" bg="green.500" />
+           <AvatarBadge boxSize="0.08m" bg="springgreen" borderColor='springgreen' />
           </Avatar>
         </div>
       ) : (
