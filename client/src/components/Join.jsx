@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "../styles/Join.css";
-import logo from "./img/ja.png";
+import logo from "./img/logo2-removebg-preview.png";
 import { Link } from "react-router-dom";
 
 let user;
@@ -20,9 +20,9 @@ const Join = () => {
         <div className="JoinPage">
             <div className="JoinContainer">
                 <img src={logo} alt="logo" />
-                <h1>C CHAT</h1>
-                <input onChange={(e) => setname(e.target.value)} placeholder="Enter Your Name" type="text" id="joinInput" />
-                <Link onClick={(event) => !name ? event.preventDefault() : null} to="/chat">  <button onClick={sendUser} className="joinbtn">Login In</button></Link>
+                <h1>CONECTA</h1>
+                <input onChange={(e) => setname(e.target.value)} placeholder="Escribi tu nombre" type="text" id="joinInput" />
+                <Link onClick={(event) => !name ? event.preventDefault() : null} to="/chat">  <button onClick={sendUser} className="joinbtn">Ingresar</button></Link>
             </div>
         </div>
     )
