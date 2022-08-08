@@ -207,4 +207,27 @@ router.put("/recover/password/:email", async (req, res) => {
     }
 });
 
+//LOG IN para usuario loggeado con Google
+//Cuando el log in con Google es exitoso, desde el front se le pega a esta ruta. Aca le ponemos el JWT Token
+//"http://localhost:3001/user/google/login/" 
+router.post("/google/login", (req, res) => {
+  //del front viene por body la info del usuario loggeado con google
+  
+  try {
+    if (!req.body) return res.status(201).send("No se recibio información del usuario loggeado con Google");
+    const accessToken = jwt.sign({
+      email: req.body.email,
+      isBusiness: req.body.isBusiness,
+      isAdmin: req.body.isAdmin,
+    }, process.env.JWT_SEC, { expiresIn: '30m' });
+    //console.log(accessToken);          
+    
+    const userInfo = req.body; 
+    return res.status(200).json({userInfo, accessToken});
+
+  } catch (error) {
+    res.status(404).send(`error:${error.message}`);
+  }   
+ });
+
 module.exports = router;
