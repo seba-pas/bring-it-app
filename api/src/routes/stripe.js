@@ -34,6 +34,7 @@ router.post('/payment', async (req, res) => {
 		});
 		console.log("payment", payment)
 
+        // holis
 		// nodemailer
         let transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
@@ -41,7 +42,7 @@ router.post('/payment', async (req, res) => {
             secure: true,
             auth: {
             user: 'bringit662@gmail.com',
-            pass: 'owtgyxnzmbchbhjj'
+            pass: 'baiepxymtdopmjuj'
             }
         });
 
