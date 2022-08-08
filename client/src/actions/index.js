@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  PASS_CHANGE_BUSINESS,
   PASS_CHANGE,
   POST_REVIEW,
   GET_EMAIL,
@@ -893,6 +894,21 @@ export const changePassword = (email, body) => {
       console.log(res.data);
       return dispatch({
         type: PASS_CHANGE,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const changePasswordBusiness = (email, body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(`/business/recover/password/${email}`, body);
+      console.log(res.data);
+      return dispatch({
+        type: PASS_CHANGE_BUSINESS,
         payload: res.data,
       });
     } catch (error) {

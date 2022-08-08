@@ -1,17 +1,38 @@
-import React from "react";
+import {React,useState} from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import NavBarLanding from "./NavBarLanding";
-
+import { changePasswordBusiness } from "../actions/index";
+import swal from "sweetalert";
+import { useDispatch, useSelector } from "react-redux";
 function RecuperarPasswordBusiness(props) {
+  const email= useSelector(state=>state.business.email);
+
   const handleBack = (event) => {
     event.preventDefault();
     props.history.goBack();
   };
+  const [input, setInput] = useState({
+    passwordV: "",
+    passwordN: "",
+  });
+  const dispatch = useDispatch();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(changePasswordBusiness(email, input));
+    swal("Su contraseña se modifico correctamente", "", "success");
+  }
+  function handleChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  }
   return (
     <div>
       {/* <NavBarLanding/> */}
       <div>
-      <Container>
+        <Container>
           <Row>
             <Col
               lg={8}
@@ -25,25 +46,23 @@ function RecuperarPasswordBusiness(props) {
                 // className={style.forms}
               >
                 <Form.Group className="mb-3">
-                  <Form.Label>Contraseña anterior</Form.Label>
+                  <Form.Label>Contraseña actual</Form.Label>
                   <Form.Control
                     placeholder="Ingresa tu contraseña antigua"
                     type="password"
-                    /* value={input.email} */
-                    /* name="email"
-                    id="email" */
+                    value={input.passwordV}
+                    name="passwordV"
                     required
-                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   />
                 </Form.Group>
-                 <Form.Group className="mb-3">
+                <Form.Group className="mb-3">
                   <Form.Label>Contraseña nueva</Form.Label>
                   <Form.Control
                     placeholder="Ingresa tu contraseña nueva"
                     type="password"
-                    /* value={input.email} */
-                    /* name="email"
-                    id="email" */
+                    // value={input.passwordN}
+                    // name="passwordN"
                     required
                     // onChange={(e) => handleChange(e)}
                   />
@@ -54,25 +73,24 @@ function RecuperarPasswordBusiness(props) {
                   <Form.Control
                     placeholder="Ingresa tu contraseña nueva"
                     type="password"
-                    /* value={input.email} */
-                    /* name="email"
-                    id="email" */
+                    value={input.passwordN}
+                    name="passwordN"
                     required
-                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   />
                 </Form.Group>
                 <Row>
-                <Col
-                  lg={6}
-                  md={6}
-                  sm={12}
-                  className="text-center p-5 m-auto shadow-sm rounded-lg"
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <Button style={{width:"60%", marginRight:"10px"}} onClick={(e) => handleBack(e)}>Atras</Button>
-                  <Button type="submit">Confirmar compra</Button>
-                </Col>
-              </Row>
+                  <Col
+                    lg={6}
+                    md={6}
+                    sm={12}
+                    className="text-center p-5 m-auto shadow-sm rounded-lg"
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Button type="submit">Confirmar</Button>
+                    {/* <Button style={{width:"60%", marginRight:"10px"}} onClick={(e) => handleBack(e)}>Atras</Button> */}
+                  </Col>
+                </Row>
               </Form>
             </Col>
           </Row>
