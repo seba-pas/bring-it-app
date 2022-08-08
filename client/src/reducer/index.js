@@ -561,7 +561,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allEmail: action.payload,
       };
-    case "SAVE_IMAGE":
+    case "SAVE_IMAGE":     
       return {
         ...state,
         images: action.payload.secure_url, //[action.payload, ...state.images]
