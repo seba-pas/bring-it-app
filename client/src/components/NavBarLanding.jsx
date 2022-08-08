@@ -344,7 +344,7 @@ export default function NavBarLanding() {
 //fc relacionadas a la aut con Google:
 const getAuthenticatedUser = async () => {
   const response = await axios.get(
-    "http://localhost:3001/auth/authenticatedUser",
+    "/auth/authenticatedUser",
     { withCredentials: true }
     )
     .catch((err) => {
@@ -358,7 +358,7 @@ const getAuthenticatedUser = async () => {
 
 const redirectToGoogle = async () => {
   let timer = null;
-  const googleLoginURL = "http://localhost:3001/auth/login/google";
+  const googleLoginURL = "/auth/login/google";
   const newWindow = window.open(googleLoginURL, "_blank", "width=500, height=600");
   //chequeamos sin la ventana esta cerrada o no (se cierra cdo el loggeo con Google termina (exitoso o no))
   if(newWindow){

@@ -38,7 +38,7 @@ server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "https://bring-it-app.vercel.app"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -90,7 +90,7 @@ const { User} = require('./db');
 
 
 
-const GOOGLE_CALLBACK_URL = "http://localhost:3001/auth/google/callback" // //ojo deploy ver esto
+const GOOGLE_CALLBACK_URL = "/auth/google/callback" // //ojo deploy ver esto
 
 //2DO PASO se busca o crea el usuario con los datos de la cuenta de Google
 passport.use(
@@ -143,7 +143,7 @@ server.get(
   (req,res) => {
     //autenticacion exitosa, redirige al la ruta del FRONT donde se renderiza el componente q cierra solo
     //console.log("Ruta http://localhost:3001/auth/google/callback, req.user: ", req.user); //req.user se obtuvo de nuestra bd, viene de la deserializacion    
-    res.redirect("http://localhost:3000/login/success");    
+    res.redirect("https://bring-it-app.vercel.app");    
   }
 );
 
@@ -174,7 +174,7 @@ server.get("/auth/logout/google", (req,res) => {
       debugger;
       res.send("Log out de la sesión con Google exitoso");
     }
-    res.send('NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
+    res.send('No se pudo hacer el log out de la sesión con Google');
   } catch (error) {
     res.send("error:" + e.message);
   }
