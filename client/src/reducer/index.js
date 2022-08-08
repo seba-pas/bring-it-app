@@ -577,6 +577,13 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         favourites: action.payload,
       };
+
+      case "DELETE_FAVOURITE": 
+      return {
+      ...state,
+     favourites: action.payload
+      }
+
     //login con Google
     case "POST_LOGIN_GOOGLE":        
     if( typeof action.payload === "string"){
@@ -592,6 +599,7 @@ export default function rootReducer(state = initialState, action) {
         userToken: action.payload.accessToken,
       };
     }      
+
 
     default:
       return {
