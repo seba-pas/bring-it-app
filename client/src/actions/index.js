@@ -81,6 +81,9 @@ import {
   GET_FAVOURITES,
   POST_FAVOURITES,
   CLEAN_GET_MATCH,
+
+  //login con Google
+  POST_LOGIN_GOOGLE,
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -913,3 +916,18 @@ export const changePasswordBusiness = (email, body) => {
     }
   };
 };
+
+// login con Google
+export const loginUserGoogle = (body) => {
+  return async function (dispatch) {
+    try {      
+      const res = await axios.post(`/user/google/login/`, body);      
+      return dispatch({
+        type: POST_LOGIN_GOOGLE,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}

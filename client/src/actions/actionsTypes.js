@@ -88,5 +88,7 @@ export const CLEAN_MATCH = "CLEAN_MATCH"
 export const GET_FAVOURITES = 'GET_FAVOURITES';
 export const POST_FAVOURITES = 'POST_FAVOURITES';
 
-
 export const PASS_CHANGE_BUSINESS = "PASS_CHANGE_BUSINESS";
+
+//login con google
+export const POST_LOGIN_GOOGLE = "POST_LOGIN_GOOGLE";

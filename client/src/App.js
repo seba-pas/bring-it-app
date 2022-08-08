@@ -31,6 +31,7 @@ import Join from './components/Join.jsx'
 import Favourites from "./components/Favourites";
 import Chat from "./components/Chat";
 
+import LoginGoogleSuccess from './components/LoginGoogleSuccess';
 
 function App() {
 
@@ -83,6 +84,10 @@ function App() {
 
 
         {/* <Route exact path="/testing" component={FormTravel} /> */}
+
+        {/* Soy Cele: Agrego rutas de redireccion para el login success o login error (autenticacion con google*/}
+        <Route exact path="/login/success" component={LoginGoogleSuccess}/>
+        <Route exact path="/login/error">Error al loggearte con Google. Intenta de nuevo!</Route>
       </Switch>
     </div>
   );
