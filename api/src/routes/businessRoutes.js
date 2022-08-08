@@ -240,7 +240,7 @@ router.get('/', (req, res) => {
 });
 
   // cambio de password
-  router.put("/recover/password/businginess/:email", async (req, res) => {
+  router.put("/recover/password/:email", async (req, res) => {
     const userLogin = await Business.findByPk(req.params.email);
     const {passwordV}= req.body;
     const {passwordN}= req.body;
