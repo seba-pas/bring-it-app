@@ -49,30 +49,10 @@ export const ProductDetail = () => {
         "error"
       );
       return;
-    }
-    if (cart.length > 0) {
-      if (cart[0].businessbranchId !== product.businessbranchId) {
-        swal(
-          "Este producto pertenece a otra empresa",
-          "Podés agregarlo como favorito para comprarlo en tu proximo carrito!",
-          "error"
-        );
-      } else {
-        if (cart.filter(e => e.id === product.id).length > 0) {
-          if (cart.filter(e => e.id === product.id).quantity < product.stock) {
+    }else {
+      if (cart.filter(e => e.id === product.id).length > 0) {
+        if (cart.filter(e => e.id === product.id).quantity < product.stock) {
 
-            dispatch(addToCart(product));
-            swal(
-              "Buen trabajo!",
-              "El producto fue agregado con exito!",
-              "success"
-            );
-            return;
-          } else {
-            swal("No tenemos más stock", "Acabamos de enviar un Email a la empresa correspondiente", "error")
-            return;
-          }
-        } else {
           dispatch(addToCart(product));
           swal(
             "Buen trabajo!",
@@ -80,8 +60,32 @@ export const ProductDetail = () => {
             "success"
           );
           return;
+        } else {
+          swal("No tenemos más stock", "Acabamos de enviar un Email a la empresa correspondiente", "error")
+          return;
         }
+      } else {
+        dispatch(addToCart(product));
+        swal(
+          "Buen trabajo!",
+          "El producto fue agregado con exito!",
+          "success"
+        );
+        return;
       }
+    }
+
+
+
+    //CELE
+    if (cart.length > 0) {
+      if (cart[0].businessbranchId !== product.businessbranchId) {
+        swal(
+          "Este producto pertenece a otra empresa",
+          "Podés agregarlo como favorito para comprarlo en tu proximo carrito!",
+          "error"
+        );
+      } 
     } else {
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
