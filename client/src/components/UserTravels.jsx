@@ -104,7 +104,7 @@ function UserTravels() {
 
   return (
     <div>
-      {changedCityNames.length > 0 ? (
+      {changedCityNames?.length > 0 ? (
         <div>
           <DataTable
             columns={columnas}
@@ -120,24 +120,25 @@ function UserTravels() {
               className="text-center p-5 m-auto rounded-lg"
               style={{ display: "flex" }}
             >
-              <Button
-                onClick={() => history.goBack()}
-                style={{ marginLeft: "45%" }}
-              >
-                ATRAS
-              </Button>
             </Col>
           </Row>
         </div>
       ) : (
-        <div className={styles.spinner}>
-          <SpinnerCircularFixed
-            size={150}
-            thickness={100}
-            speed={100}
-            color="rgba(65, 212, 207, 1)"
-            secondaryColor="rgba(0, 0, 0, 1)"
-          />
+        <div style={{background:'white', fontSize:'20px', height:'200px'}}>
+          <br />
+          <Row>
+            <div style={{marginTop:'50px'}}>
+            <h1 >No se encontraron viajes asociados</h1>
+            </div>
+            <Col
+              lg={6}
+              md={6}
+              sm={12}
+              className="text-center p-5 m-auto rounded-lg"
+              style={{ display: "flex" }}
+            >
+            </Col>
+          </Row>
         </div>
       )}
     </div>
@@ -145,29 +146,3 @@ function UserTravels() {
 }
 
 export default UserTravels;
-// <div className={styles.travels} >
-//     <div className={styles.container}>
-//         <div className={styles.tableContainer}>
-//             {<table>
-//                 <thead>
-//                     <tr className={styles.trStyle}>
-
-//                         <th>Origen</th>
-//                         <th>Destino</th>
-//                         <th>Actions</th>
-
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-
-//                     {input.travels?.map(c => {
-//                         return (
-//                             <ProducTravelCard key={c.id} id={c.id} arrivalCityId={c.arrivalCityId} arrivalDate={c.arrivalDate} arrivalProvince={c.arrivalProvince} startDate={c.startDate} travelCityId={c.travelCityId} travelProvince={c.travelProvince} />
-//                         )
-//                     })}
-//                 </tbody>
-//             </table>
-//             }
-//         </div>
-//     </div>
-// </div>

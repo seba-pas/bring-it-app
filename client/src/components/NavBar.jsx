@@ -4,10 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
 
-
-import logo from "./img/logo2.png";
-import { getUsers, getCart, clearCart , desactivateUser, cleanUsers} from "../actions";
-
+import logo from "./img/logo2-removebg-preview.png";
+import { getUsers, getCart, clearCart , desactivateUser, cleanUsers, getAllEmail} from "../actions";
 
 import userProfile from "./img/userPerfilImage.jpg";
 import Modal from "react-bootstrap/Modal";
@@ -20,6 +18,7 @@ import { Avatar, AvatarBadge } from "@chakra-ui/react";
 
 //seba
 export default function NavBar() {
+  const emails= useSelector(state=>state.allEmail);
   const [search, setSearch] = useState("");
   const gState = useSelector((state) => state);
   const stateCart = useSelector((state) => state.cart);
@@ -27,6 +26,7 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   useEffect(() => {
+   
     dispatch(getUsers());
   }, [dispatch]);
   const [opening, setOpening] = useState(false);
@@ -36,6 +36,7 @@ export default function NavBar() {
   });
 
   const userAvatar = gState.user;
+  console.log(gState.user)
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -50,8 +51,9 @@ export default function NavBar() {
   }, [gState]);
 
   useEffect(() => {
+
     if (input.perfil === "email") {
-      history.push("/perfilUser");
+      history.push("/persona/perfilUser");
     }
     if (input.perfil === "misViajes") {
       history.push("/persona/misviajes");
@@ -59,6 +61,7 @@ export default function NavBar() {
     if (input.perfil === "modificarPassword") {
       history.push("/persona/modificarPassword");
     }
+
     if (input.perfil === "desactivarMiCuenta") {
       dispatch(desactivateUser(input.user.email));
       dispatch(cleanUsers());
@@ -75,6 +78,7 @@ export default function NavBar() {
 
   const handleOnChange = (event) => {
     event.preventDefault();
+    console.log(emails);
     setInput((prevInput) => {
       return {
         ...prevInput,
@@ -87,7 +91,7 @@ export default function NavBar() {
 
   function handleClick(e) {
     e.preventDefault();
-    history.push("/compra");
+    history.push("/persona/compra");
   }
 
   function onClick(e) {
@@ -97,6 +101,7 @@ export default function NavBar() {
 
   return (
     <div className={styles.navbar}>
+       
       <div className={styles.imagen}>
         <a onClick={() => history.goBack()} style={{ cursor: "pointer" }}>
           <img
@@ -113,7 +118,7 @@ export default function NavBar() {
         <li
           style={{
             listStyle: "none",
-            color: "#d2691E",
+            color: "#8c52ff",
             fontSize: "18px",
             margin: "3px",
             marginTop: "33px",
@@ -122,11 +127,11 @@ export default function NavBar() {
 
           
 
-          <button id={styles.botonCart} onClick={handleShow} style={{backgroundColor: "black", fontSize: '12px', borderColor: '#8c52ff', marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px', marginLeft:'70px'}}>
+          <button id={styles.botonCart} onClick={handleShow} /*style={{  fontSize: '12px', borderColor: '#8c52ff', marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px', marginLeft:'70px'}}*/>
 
             {/* <FaShoppingBag/> */}
             <span
-              style={{ color: "#D2691E", margin: "0px", fontSize: "18px" }}
+              style={{ color: "white", margin: "0px", fontSize: "18px" }}
               className="badge"
             >
               {"🛒 "}
@@ -184,6 +189,9 @@ export default function NavBar() {
           <option value="misViajes">Mis Viajes</option>
            <option value="email">Editar mi cuenta</option> 
             <option value="modificarPassword">Modificar contraseña</option>
+            {
+            emails && !emails.includes (gState.user.others.dataValues.email)?  <option value="crearEmpresa">Crear Empresa</option> : <option value="crearEmpresa">Ingresar cuenta Empresa</option>
+          }
           <option value="desactivarMiCuenta">Desactivar mi cuenta</option>
           <option value="close">Cerrar sesión</option>
 
@@ -197,6 +205,7 @@ export default function NavBar() {
             cursor: "pointer",
           }}
         >
+         
           <Avatar
             onClick={() => history.push("/usuarioE")}
             name={`${userAvatar.name} ${userAvatar.lastname}`}

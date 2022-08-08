@@ -11,7 +11,7 @@ function PerfilUser(props) {
   const dispatch = useDispatch();
 
   const emailState = gState.email;
-  const infoUser = gState.user;  
+  const infoUser = gState.user;
   const tokenUser = gState.userToken;
 
   const [input, setInput] = useState({
@@ -22,29 +22,42 @@ function PerfilUser(props) {
     phone: infoUser.phone,
     arrayInfo: [],
   });
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "Bringit");
+    setLoading(true);
+    dispatch(saveImage(data));
+    console.log("si");
+  };
 
 
 
-// NUEVO CELE Y AGUSES PARA MANEJAR LA RTA DE LA RUTA EDITAR (SI HIZO EL CAMBIO, EN POS DE LA AUTORIZACION)
+  
+
+  
+  // NUEVO CELE Y AGUSES PARA MANEJAR LA RTA DE LA RUTA EDITAR (SI HIZO EL CAMBIO, EN POS DE LA AUTORIZACION)
   const putUser = gState.putUser; //xq se llama asi?
 
-const [didMount, setDidMount] = useState(true);
-useEffect(() => {
-  if (didMount) {
-    setDidMount(false);
-    dispatch(cleanPutUser());
-    return;
-  } else {
-    if(putUser === "clean"){
-      return;
-    }
-    else if (putUser === "1 Usuarios modificados") {
-      swal("Buen trabajo!", "El usuario fue editado con éxito!", "success");      
-      dispatch(getUserByEmail(infoUser.email));
+  const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
       dispatch(cleanPutUser());
+      return;
+    } else {
+      if (putUser === "clean") {
+        return;
+      } else if (putUser === "1 Usuarios modificados") {
+        swal("Buen trabajo!", "El usuario fue editado con éxito!", "success");
+        dispatch(getUserByEmail(infoUser.email));
+        dispatch(cleanPutUser());
+      }
     }
-  }
-}, [putUser]);
+  }, [putUser]);
 
   useEffect(() => {}, [
     input.email,
@@ -70,30 +83,34 @@ useEffect(() => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (infoUser.email === input.email && infoUser.password === input.password && infoUser.name === input.name
-    && infoUser.lastname === input.lastname && infoUser.phone === input.phone){
+    if (
+      infoUser.email === input.email &&
+      infoUser.password === input.password &&
+      infoUser.name === input.name &&
+      infoUser.lastname === input.lastname &&
+      infoUser.phone === input.phone
+    ) {
       swal("No se ha realizado ninguna modificación");
       return;
     }
     dispatch(
-      editUser(input.email, {
-        password: input.password,
-        name: input.name,
-        lastname: input.lastname,
-        phone: input.phone,
+      editUser(
+        input.email,
+        {
+          password: input.password,
+          name: input.name,
+          lastname: input.lastname,
+          phone: input.phone,
 
-        arrayInfo: [],
-      },
-      tokenUser //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+          arrayInfo: [],
+        },
+        tokenUser //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
-    );     
+    );
   };
   return (
-    <div className={styles.PerfilBusiness}>
+    <div>
       <Container>
-        <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-          Editar Usuario
-        </h1>
         <Row>
           <Col
             lg={8}
@@ -143,6 +160,18 @@ useEffect(() => {
                   onChange={handleInputChange}
                 />
               </Form.Group>
+
+              <Form.Group>
+                <label for="exampleFile">Logo</label>
+                <Form.Control
+                  // id="exampleFile"
+                  name="logo"
+                  type="file"
+                  // value={input.logo}
+                  onChange={uploadImage}
+                />
+              </Form.Group>
+
               <Row>
                 <Col
                   lg={6}
@@ -153,6 +182,12 @@ useEffect(() => {
                 >
                   <Button onClick={(e) => handleBack(e)}>Atras</Button>
                   <Button type="submit">Listo</Button>
+                  <Button
+                    className="btn btn-primary"
+                    onClick={(e) => handleDesactivate(e)}
+                  >
+                    Desactivar Cuenta
+                  </Button>
                 </Col>
               </Row>
             </Form>
@@ -167,10 +202,3 @@ useEffect(() => {
 }
 
 export default PerfilUser;
-
-// email: "",
-//     password: "",
-//     confirmPassword: "",
-//     name: "",
-//     lastname: "",
-//     birthDate: "",

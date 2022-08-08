@@ -7,11 +7,13 @@ const router = Router();
 // http://localhost:3001/favorite
 router.post('/', verifyToken, async (req,res) => {   
     const {userEmail, productId} = req.body; 
+    console.log('soy body'+ req.body)   
+    debugger; 
     //Agrego verificacion de token, userLogin viene de la fc verifyToken
     // (if el usuario loggeado es el mismo usuario cuyos datos se quieren modificar)
     if(req.userLogin.email === userEmail){      
         try {        
-            const createdFavorite = await addFavorite ({...req.body});          
+            const createdFavorite = await addFavorite ({...req.body});     
             //createdFavorite es un boolean: true si lo creó y false si lo encontro (y por ende no lo creó)
             if (createdFavorite) return res.send (`Favorito agregado correctamente`);
             else return res.send (`El producto con id: ${productId} ya se encuentra marcado como favorito para el usuario ${userEmail}`);

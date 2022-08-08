@@ -1,0 +1,40 @@
+.container-un {
+	display:  flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+	background-color: white;
+	border: 1px solid lightgray;
+	padding: 50px;
+	width: 400px;
+	height: 400px;
+	margin-left: 500px;
+}
+
+.title-un {
+	font-family: sans-serif;
+	font-size: 50px;
+}
+
+.subtitle-un {
+	font-family: sans-serif;
+}
+
+.un-btn {
+	font-family: sans-serif;
+	background: none;
+	padding: 15px;
+	margin-top: 10px;
+	border: 1px solid lightgray;
+	cursor: pointer;
+}
+
+.un-btn:hover {
+	font-family: sans-serif;
+	background: lightcoral;
+	padding: 15px;
+	margin-top: 10px;
+	border: 1px solid lightgray;
+	cursor: pointer;
+}

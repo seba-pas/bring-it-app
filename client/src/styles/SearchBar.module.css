@@ -43,21 +43,23 @@
 
 }
 .divContainer input:focus::placeholder{
-    color:#8c52ff;
+    color:black;
 
 }
 
 #boton {
   background-color: #8c52ff;
-  color: black;
+  color: rgba(0, 0, 0, 0.877);
   font-weight: bold;
   border: none;
   border-radius: 50%;
   font-size: 20px;
-  padding-top: 0px;
+  /* padding-top: 0px; */
+  width: 40px;
 }
 
 #boton:hover {
+  background-color: rgba(0, 0, 0, 0.877);
     color: white;
   
   transition: color 0.2s ease;

@@ -30,12 +30,33 @@ export default function HomePersonas() {
   const PRODUCTS = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
   const cart = useSelector((state) => state.cart);
-  const CATEGORY = useSelector((state) => state.categories);
+  let CATEGORY = useSelector((state) => state.categories);
+  CATEGORY = CATEGORY.sort((a, b) => {
+    if(a.name > b.name) return  1;
+    if(b.name > a.name) return -1;
+    return 0;
+  })
   const CITIES = useSelector((state) => state.business2);
   const PROVINCES = useSelector((state) => state.branches);
   const stateCart = useSelector((state) => state.cart);
   const gState = useSelector((state) => state);
-  const BRANCHES = useSelector((state) => state.branches);
+  let BRANCHES = useSelector((state) => state.branches);
+
+
+  let businessOrder = BRANCHES.map((e) => e.businessBranchName);
+  businessOrder = businessOrder.sort((a, b) => {
+    if(a > b) return  1;
+    if(b > a) return -1;
+    return 0;
+  })
+
+
+  let provOrder = BRANCHES.map((e) => e.province);
+  provOrder = provOrder.sort((a, b) => {
+    if(a > b) return  1;
+    if(b > a) return -1;
+    return 0;
+  })
 
   const [orden, setOrden] = useState("");
   const [category, setCategory] = useState("All");
@@ -69,7 +90,7 @@ export default function HomePersonas() {
     });
   }, [gState]);
   useEffect(() => {
-    if (input.perfil === "email") history.push("/perfil");
+    if (input.perfil === "email") history.push("/empresas/perfil");
     else if (input.perfil === "close") {
       cart = [];
       history.push("/");
@@ -113,7 +134,7 @@ export default function HomePersonas() {
   }
 
   //funcion para filtrar por empresas
-  const provUnica = [...new Set(BRANCHES.map((e) => e.province))]
+  const provUnica = [...new Set(provOrder)]
   function handleFilterByBusiness(e) {
     e.preventDefault();
     setBusinnes(e.target.value);
@@ -142,8 +163,7 @@ export default function HomePersonas() {
 
   return (
     <div style={{background:'white'}}>
-      {/* {console.log(...new Set(BRANCHES.map((e) => e.province)))} */}
-      
+
       <NavBar />
       <FormTravel />
       {PRODUCTS.length > 0 ? (
@@ -175,7 +195,7 @@ export default function HomePersonas() {
                   <option value="All">Todas</option>
                   {CATEGORY.map((CATEGORY) => {
                     return (
-                      <option value={CATEGORY.name} key={CATEGORY.id}>
+                      <option value={CATEGORY.name} key={CATEGORY.name}>
                         {CATEGORY.name}
                       </option>
                     );
@@ -190,12 +210,11 @@ export default function HomePersonas() {
                   <option hidden selected>
                     Empresa
                   </option>
-                  {BRANCHES?.map((BRANCHES) => {
+                  {businessOrder?.map((BRANCHES) => {
                     return (
+                      <option value={BRANCHES} key={BRANCHES}>
 
-                      <option value={BRANCHES.businessBranchName} key={BRANCHES.id}>
-
-                        {BRANCHES.businessBranchName}
+                        {BRANCHES}
                       </option>
                     );
                   })}
@@ -234,13 +253,8 @@ export default function HomePersonas() {
         )
       ) : (
         <div className={styles.spinner}>
-          <SpinnerCircularFixed
-            size={250}
-            thickness={100}
-            speed={100}
-            color="rgba(210, 105, 30, 1)"
-            secondaryColor="rgba(210, 105, 30, 0.23)"
-          />
+               <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
+
         </div>
       )}
     </div>

@@ -1,0 +1,41 @@
+[{ 
+    "totalPrice": "2300.00",
+    "maxDeliveryDate": "2023-12-12",
+    "arrivalCityId": "140147", 
+    "province": "Córdoba",
+    "userEmail": "agustina@gmail.com",
+    "items": [ {"id":9, "quantity":2, "name":"Cafe Colombiano"}, {"id":1, "quantity":2, "name":"Bombo"}  ]
+  },
+  { 
+    "totalPrice": "450.00",
+    "maxDeliveryDate": "2022-12-10",
+    "arrivalCityId": "140147",
+    "province": "Córdoba",
+    "userEmail": "agustina@gmail.com",
+    "items": [ {"id":2, "quantity":1, "name":"Guitarra"}  ]
+  },
+  { 
+    "totalPrice": "2100.00",
+    "maxDeliveryDate": "2024-12-12",
+    "arrivalCityId": "823120",
+    "province": "Santa Fe",
+    "userEmail": "agustina@gmail.com",
+    "items": [ {"id":3, "quantity":2, "name":"Gin de Lupulo"}  ]
+  },
+  { 
+    "totalPrice": "970.00",
+    "maxDeliveryDate": "2024-12-12",
+    "arrivalCityId": "823120",
+    "province": "Santa Fe",
+    "userEmail": "celeste@gmail.com",
+    "items": [ {"id":7, "quantity":2, "name":"Yerba Orgánica"}  ]
+  },
+  { 
+    "totalPrice": "800.00",
+    "maxDeliveryDate": "2024-12-12",
+    "arrivalCityId": "386161",
+    "province": "Jujuy",
+    "userEmail": "celeste@gmail.com",
+    "items": [ {"id":9, "quantity":2, "name":"Cafe Colombiano"}  ]
+  }
+]

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
@@ -7,7 +7,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
-import image from "../components/img/logo2.png";
+import image from "../components/img/logo2-removebg-preview.png";
 import {
   login,
   loginBusiness,
@@ -22,16 +22,19 @@ import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import axios from "axios";
-
+import jwt_decode from "jwt-decode";
 
 //seba
 export default function NavBarLanding() {
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+
+  const [usuario, setUsuario] = useState({});
+
   const user = useSelector((state) => state.user);
-  const activeUser = user !== 'clean'? user : 'clean';
-  
+  const userToken = useSelector((state) => state.userToken);
   const business = useSelector((state) => state.business);
+  const businessToken = useSelector((state) => state.businessToken);
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -46,11 +49,32 @@ export default function NavBarLanding() {
     password: "",
   });
 
-useEffect(() => {
-  dispatch(getActiveUser())
- }, [dispatch])
- 
+  function handleCallbackResponse(response) {
+    var userObject = jwt_decode(response.credential);
+    console.log(userObject);
+    setUsuario(userObject);
+  }
 
+  /* useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "641652149872-h0qtl62b27hp6d03dtbk7ecn7si2mepq.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large ",
+    });
+  }, []); */
+
+  useEffect(() => {
+    dispatch(getActiveUser());
+  }, [dispatch]);
+
+  // if(Object.entries(user)?.length > 0){
+  //   user = 'clean'
+  // }
+  console.log(user);
   const validateBusiness = (inputBusiness) => {
     const errors = {};
 
@@ -166,6 +190,12 @@ useEffect(() => {
         });
         dispatch(cleanBusiness());
         return;
+      } else if (business === "Empresa bloqueada") {
+        swal(
+          "Su cuenta ha sido bloqueda por el administrador",
+          "Para mas información comuniquese con bringit662@gmail.com",
+          "error"
+        );
       } else if (!business.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
@@ -175,7 +205,7 @@ useEffect(() => {
         ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateBusiness(business.email));
+            dispatch(activateBusiness(business.email, businessToken));
             setInput({
               email: "",
               password: "",
@@ -270,6 +300,12 @@ useEffect(() => {
         });
         dispatch(cleanUsers());
         return;
+      } else if (user === "Usuario bloqueado") {
+        swal(
+          "Su cuenta ha sido bloqueda por el administrador",
+          "Para mas información comuniquese con bringit662@gmail.com",
+          "error"
+        );
       } else if (!user.active) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
@@ -279,12 +315,12 @@ useEffect(() => {
         ).then((value) => {
           if (value) {
             swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
-            dispatch(activateUser(user.email));
+            dispatch(activateUser(user.email, userToken));
             setInput({
               email: "",
               password: "",
             });
-            history.push("/filtro");
+            history.push("/persona/filtro");
           } else {
             history.push("/");
           }
@@ -295,7 +331,7 @@ useEffect(() => {
           email: "",
           password: "",
         });
-        history.push("/filtro");
+        history.push("/persona/filtro");
       }
     }
   }, [user]);
@@ -348,9 +384,6 @@ useEffect(() => {
         justifyContent: "space-between",
       }}
     >
-      {/* <div className={styles.imagen}> */}
-
-      {/* <NavLink exact to="/"> */}
       <img
         src={image}
         style={{
@@ -359,42 +392,66 @@ useEffect(() => {
           objectFit: "fit",
           paddingBottom: "0px",
 
-          marginLeft: '2%',
+          marginLeft: "2%",
           marginTop: "3px",
-          paddingTop:'5px',
-
+          paddingTop: "5px",
         }}
         alt="Logo no encontrado"
       />
-      {/* </NavLink> */}
-      {/* </div> */}
 
       <div className={styles.SearchBar}></div>
 
-      {activeUser !== 'clean' && Object.entries(activeUser).length > 0 ? (
+      {user && typeof user !== "string" && Object.entries(user).length > 1 ? (
         <div
           style={{
             height: "100%",
-            paddingTop: "33px",           
+            paddingTop: "33px",
             cursor: "pointer",
-            marginRight: '0px',
-          marginLeft: '45%'
+            marginRight: "0px",
+            marginLeft: "45%",
           }}
         >
           <Avatar
             onClick={() => history.push("/usuarioE")}
-            name={`${activeUser.name} ${activeUser.lastname}`}
+            name={`${user?.name} ${user?.lastname}`}
+            src=""
+          >
+            <AvatarBadge boxSize="1.25em" bg="green.500" />
+          </Avatar>
+        </div>
+      ) : business &&
+        typeof business !== "string" &&
+        Object.entries(business).length > 1 ? (
+        <div
+          style={{
+            height: "100%",
+            paddingTop: "33px",
+            cursor: "pointer",
+            marginRight: "0px",
+            marginLeft: "45%",
+          }}
+        >
+          <Avatar
+            onClick={() => history.push("/usuarioE")}
+            name={`${business?.businessName}`}
             src=""
           >
             <AvatarBadge boxSize="1.25em" bg="green.500" />
           </Avatar>
         </div>
       ) : (
-        <div className={styles.contbotones2} style={{ marginLeft: "30%" }}>
+        <div className={styles.contbotones2} style={{ marginLeft: "55%" }}>
           <button id={styles.login} onClick={handleShowLogin}>
             LOGIN
           </button>
           <button onClick={handleShow}>REGISTRARSE</button>
+
+          {/* <div id="signInDiv"></div>
+          {
+            usuario && <div>
+              <img src={usuario.picture} alt='' style={{borderRadius: '50%'}}/><h3>{usuario.name}</h3>
+            </div>
+          } */}
         </div>
       )}
 
@@ -403,6 +460,7 @@ useEffect(() => {
           <Modal.Header closeButton>
             <Modal.Title>Bienvenido por favor ingresa tus datos</Modal.Title>
           </Modal.Header>
+
           <Modal.Body>
             <Tabs
               id="controlled-tab-example"
@@ -437,7 +495,13 @@ useEffect(() => {
                     />
                     {errors.password && <p>{errors.password}</p>}
                   </Form.Group>
-
+                  <Row style={{ paddingBottom: "15px", cursor: "pointer" }}>
+                    <Col>
+                      <Link to="/recuperarPassword">
+                        <a className="link">Olvidaste tu contraseña?</a>
+                      </Link>
+                    </Col>
+                  </Row>
                   <Button
                     variant="info"
                     type="submit"
@@ -481,7 +545,13 @@ useEffect(() => {
                       {errors.password && <p>{errors.password}</p>}
                     </Form.Group>
                   </Row>
-
+                  <Row style={{ paddingBottom: "15px", cursor: "pointer" }}>
+                    <Col>
+                      <Link to="/recuperarPassword">
+                        <a className="link">Olvidaste tu contraseña?</a>
+                      </Link>
+                    </Col>
+                  </Row>
                   <Button
                     variant="info"
                     type="submit"

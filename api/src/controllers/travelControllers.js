@@ -10,7 +10,7 @@ async function getTravel() {
     if (travel !== '') {
         return travel;
     } else {
-        return 'No HAY TRAVEL';
+        return 'No se encontraron viajes asociados';
     }
 };
 

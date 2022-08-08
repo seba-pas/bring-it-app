@@ -31,8 +31,10 @@ function FormPurchase() {
     items: cart,
     totalPrice: cart
     .reduce((acc, item) => acc + item.quantity * item.price, 0)
-    .toFixed(2)
+    .toFixed(2),
+    province: ""
   });
+  console.log(gState.businessEmail)
   const handleInputChange = (event) => {
     event.preventDefault();
     setInput((prevInput) => {
@@ -42,10 +44,6 @@ function FormPurchase() {
       };
     });
   };
-  /* const handleBack = (event) => {
-    event.preventDefault();
-    event.history.goBack()
-  }; */
   useEffect(() => {
     dispatch(getAllProvinces());
     dispatch(getAllCities());
@@ -90,6 +88,7 @@ function FormPurchase() {
         amount: totalAmount * 100,
         name: input.name, // son 20 dólares
         email: input.userEmail,
+        emailBusiness: gState.businessEmail
       });
 
       elements.getElement(CardElement).clear();

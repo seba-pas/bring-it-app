@@ -19,6 +19,14 @@ export default function FilterProvince() {
   const dispatch = useDispatch();
   const PRODUCTS = useSelector((state) => state.products);
   const BRANCHES = useSelector((state) => state.branches);
+
+  let provOrder = BRANCHES?.map((e) => e.province);
+  provOrder = provOrder.sort((a, b) => {
+    if(a > b) return  1;
+    if(b > a) return -1;
+    return 0;
+  })
+
   const [orden, setOrden] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(8);
@@ -48,7 +56,7 @@ export default function FilterProvince() {
     setOrden(`Ordenado ${e.target.value}`);
   }
   //funcion para ordenar por
-  const provUnica = [...new Set(BRANCHES.map((e) => e.province))];
+  const provUnica = [...new Set(provOrder)];
   function handleFilterByBranchesProvinces(e) {
     e.preventDefault();
     setOrden(e.target.value);
@@ -66,7 +74,7 @@ export default function FilterProvince() {
   return (
     <div className={styles.div}>
       <NavBar />
-      {PRODUCTS.length > 0 ? (
+      {PRODUCTS && Object.entries(PRODUCTS).length > 0 && typeof PRODUCTS !== 'string' ? (
 
       PRODUCTS == "No se encontraron productos asociados" ? (
         <div style={{color:'#8c52ff', background:'white', marginTop:'150px'}}>
@@ -132,13 +140,7 @@ export default function FilterProvince() {
       ) 
       ) : (
         <div className={styles.spinner}>
-          <SpinnerCircularFixed
-            size={250}
-            thickness={100}
-            speed={100}
-            color="rgba(210, 105, 30, 1)"
-            secondaryColor="rgba(210, 105, 30, 0.23)"
-          />
+       <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
         </div>
       )}
     </div>

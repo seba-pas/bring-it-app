@@ -29,8 +29,6 @@ router.post('/', verifyToken, async (req, res) => {
 // http://localhost:3001/api/product/:id
 router.get('/:id', (req, res) => {
     const id = req.params.id;
-    console.log(`En ruta product/id, el id recibido por params es: ${id}`);
-
     try {
         getProductById(id).then(product =>
             //Si es objeto lo devuelve, si es texto diciendo q no se encontro el objeto, pone estado de error y lo devuelve
@@ -43,9 +41,7 @@ router.get('/:id', (req, res) => {
 //GET Products con opcion query name
 // http://localhost:3001/api/product
 router.get('/', async (req, res) => {
-    console.log("postproducts")
     const { name } = req.query;
-    // console.log(`search: ${name}`);
     try {
         return getProducts(name).then(products =>
             res.send(products));
@@ -60,7 +56,7 @@ router.put('/:id', verifyToken, async (req, res) => {
     //Agrego verificacion de token, userLogin viene de la fc verifyToken
     // (if la empresa loggeada es la misma empresa que quiere editar un producto)
     const businessEmail = req.body.businessEmail;
-    if(req.userLogin.email === businessEmail){    
+    if(req.userLogin.email === businessEmail || req.userLogin.isAdmin ){    
     try {
             const { id } = req.params;
             const modification = req.body; //json con atributos a modificar y nuevos valores
@@ -78,7 +74,7 @@ router.put('/:id', verifyToken, async (req, res) => {
   } 
 })
 
-//DELETE PRODUCT // A PROBAR SI FUNCIONA
+//DELETE PRODUCT // BACK UP (No se usa)
 // http://localhost:3001/api/product/:id
 router.delete('/:id', async (req, res) => {
     try {

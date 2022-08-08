@@ -56,6 +56,10 @@ module.exports = (sequelize) => {
       //allowNull: false
       allowNull: true //pongo true x la aut de google. Ver en un 2do paso si se puede traer esta info de google
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     deleted: {
       type: DataTypes.BOOLEAN,
       allowNull: true,

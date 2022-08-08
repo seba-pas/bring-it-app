@@ -22,6 +22,7 @@ const initialState = {
   provinces: [],
   putUser: "",
   putBusiness: "",
+  putPass: "",
   businessEditInfo: {},
   userEditInfo: {},
   uniqueProvinces: [],
@@ -29,27 +30,62 @@ const initialState = {
   travel: "",
   allTravels: [],
   branches: [],
-  provinceBranches : [],
+  provinceBranches: [],
   //Carrito (cart)
   cart: [],
-  cart2: [], // cart: [ [{producto1 con todos sus datos}, cantidad], [{producto2 con todos sus datos}, cantidad] ]
-
+  cart2: [],
   branchAdded: "",
-  brancDeleted: "",
+  branchDeleted: "",
   branchPut: "",
   activeUser: "",
-  activeBusiness: ""
-
+  activeBusiness: "",
+  deletedBusiness: "",
+  deletedUser: "",
+  allEmail: [],
+  review: "",
+  images: [],
+  listTravelsMatch: [],
+  matchOk: "",
+  idPurchase: "",
+  favourites: [],
 };
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
+    // case "RESET_INITIAL_STATE":
+    //   return {
+    //     ...initialState,
+    //     provinces: state.provinces
+    //   }
+
+    case "GET_MATCH":
+      return {
+        ...state,
+        listTravelsMatch: action.payload[0],
+        idPurchase: action.payload[1],
+      };
+    case "CLEAN_GET_MATCH":
+      return {
+        ...state,
+        listTravelsMatch: "clean",
+      };
+    case "PUT_MATCH":
+      return {
+        ...state,
+        matchOk: action.payload,
+      };
+    case "CLEAN_MATCH":
+      return {
+        ...state,
+        matchOk: "clean",
+      };
     case "GET_ALL_PRODUCTS":
       return {
         ...state,
         products: action.payload,
         allProducts: action.payload,
         deleteProduct: "",
+        favourites: action.payload,
       };
     case "GET_PRODUCTS_DETAIL":
       return {
@@ -57,15 +93,15 @@ export default function rootReducer(state = initialState, action) {
         productsDetail: action.payload,
       };
     case "POST_PURCHASE":
-      return{
+      return {
         ...state,
-        purchase: action.payload
-      }
-      case "GET_BY_PURCHASE_EMAIL":
-        return {
-          ...state,
-          purchases: action.payload
-        }
+        purchase: action.payload,
+      };
+    case "GET_BY_PURCHASE_EMAIL":
+      return {
+        ...state,
+        purchases: action.payload,
+      };
     case "POST_USER":
       return {
         ...state,
@@ -92,10 +128,10 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         changeProduct: action.payload,
       };
-    case "DELETE_PRODUCT":
+    case "DESACTIVATE_PRODUCT":
       return {
         ...state,
-        deleteProduct: action.payload,
+        desactivateProduct: action.payload,
       };
     case "CLEAN_USERS":
       return {
@@ -111,23 +147,24 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         user: "clean",
-        userToken: "clean"
+        userToken: "clean",
+        activeUser: "clean",
       };
-      case "CLEAN_BUSINESS_STATE":
-        return {
-          ...state,
-          business: "clean",
-          businessToken: "clean",
-          businessEmail: "clean"
-        };
+    case "CLEAN_BUSINESS_STATE":
+      return {
+        ...state,
+        business: "clean",
+        businessToken: "clean",
+        businessEmail: "clean",
+        activeBusiness: "clean",
+      };
     case "POST_LOGIN":
-      if( typeof action.payload === "string"){
+      if (typeof action.payload === "string") {
         return {
           ...state,
-          user: action.payload
-        }
-      }  
-      else{
+          user: action.payload,
+        };
+      } else {
         return {
           ...state,
           user: action.payload.others.dataValues,
@@ -143,24 +180,24 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         putUser: "clean",
-      };  
+      };
     case "GET_USER_BY_EMAIL":
       return {
         ...state,
-        user: action.payload
-      };    
+        user: action.payload,
+      };
     case "POST_LOGINBUSINESS":
-      if( typeof action.payload[0] === "string"){
+      if (typeof action.payload[0] === "string") {
         return {
           ...state,
           business: action.payload[0],
         };
-      }else{
+      } else {
         return {
           ...state,
           business: action.payload[0].others.dataValues,
           businessEmail: action.payload[1],
-          businessToken: action.payload[0].accessToken
+          businessToken: action.payload[0].accessToken,
         };
       }
 
@@ -173,16 +210,17 @@ export default function rootReducer(state = initialState, action) {
       } else {
         return {
           ...state,
-          products: action.payload ? action.payload : "No se encontraron productos asociados",
+          products: action.payload
+            ? action.payload
+            : "No se encontraron productos asociados",
         };
       }
-      case 'GET_ACTIVE_USER':
-        let userActive = state.user
-        return {
-          ...state,
-          user: userActive
-          
-        }
+    case "GET_ACTIVE_USER":
+      let userActive = state.user;
+      return {
+        ...state,
+        user: userActive,
+      };
 
     case "ORDER_BY_PRICE":
       // if(action.payload === 'All'){
@@ -194,23 +232,23 @@ export default function rootReducer(state = initialState, action) {
       let sortedPrice =
         action.payload === "asc"
           ? state.products.sort(function (a, b) {
-            if (a.price > b.price) {
-              return 1;
-            }
-            if (b.price > a.price) {
-              return -1;
-            }
-            return 0;
-          })
+              if (a.price > b.price) {
+                return 1;
+              }
+              if (b.price > a.price) {
+                return -1;
+              }
+              return 0;
+            })
           : state.products.sort(function (a, b) {
-            if (a.price > b.price) {
-              return -1;
-            }
-            if (b.price > a.price) {
-              return 1;
-            }
-            return 0;
-          });
+              if (a.price > b.price) {
+                return -1;
+              }
+              if (b.price > a.price) {
+                return 1;
+              }
+              return 0;
+            });
       return {
         ...state,
         products: sortedPrice,
@@ -237,7 +275,9 @@ export default function rootReducer(state = initialState, action) {
 
       return {
         ...state,
-        products: filterCategory.length ? filterCategory : "No se encontraron productos asociados",
+        products: filterCategory.length
+          ? filterCategory
+          : "No se encontraron productos asociados",
       };
 
     case "SET_PRODUCT_DETAIL":
@@ -258,7 +298,7 @@ export default function rootReducer(state = initialState, action) {
         )[0],
         uniqueProvinces: uniqueProvince,
         branchAdded: "",
-        brancDeleted: "",
+        branchDeleted: "",
         branchPut: "",
       };
     case "FILTER_BY_BUSINESS":
@@ -268,9 +308,8 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allBusiness
           : allBusiness.filter(
-
-            (e) => e.businessbranch.businessBranchName === action.payload
-          );
+              (e) => e.businessbranch.businessBranchName === action.payload
+            );
 
       return {
         ...state,
@@ -279,7 +318,7 @@ export default function rootReducer(state = initialState, action) {
           : "No se encontraron productos asociados",
       };
 
-    case 'GET_ALL_BRANCHES':
+    case "GET_ALL_BRANCHES":
       return {
         ...state,
         branches: action.payload,
@@ -289,8 +328,8 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allBranches
           : allBranches.filter(
-            (e) => e.businessbranch.businessBranchName === action.payload
-          );
+              (e) => e.businessbranch.businessBranchName === action.payload
+            );
       return {
         ...state,
         products: filterBranches.length
@@ -298,28 +337,37 @@ export default function rootReducer(state = initialState, action) {
           : "No se encontraron productos asociados",
       };
 
-    case 'FILTER_BY_BRANCHES_PROVINCES':
+    case "FILTER_BY_BRANCHES_PROVINCES":
       const allProvBranches = state.allProducts;
-      const filterBranchesProvince = 
-      action.payload === 'All'
-      ? allProvBranches
-      : allProvBranches.filter(
-        (e) => e.businessbranch.province === action.payload
-      );
+      const filterBranchesProvince =
+        action.payload === "All"
+          ? allProvBranches
+          : allProvBranches.filter(
+              (e) => e.businessbranch.province === action.payload
+            );
       return {
         ...state,
         products: filterBranchesProvince.length
-            ? filterBranchesProvince
-            : "No se encontraron productos asociados",
-
+          ? filterBranchesProvince
+          : "No se encontraron productos asociados",
       };
-    case 'SET_PRODUCTS':
-      return{
+    case "SET_PRODUCTS":
+      return {
         ...state,
-        allProducts: []
-      }
+        allProducts: [],
+      };
 
     case "GET_ALL_PROVINCES":
+      // let sortedProv = state.provinces.sort(function (a, b) {
+      //   console.log(a.nombre, b.nombre)
+      //   if (a.nombre > b.nombre) {
+      //     return 1;
+      //   }
+      //   if (b.nombre > a.nombre) {
+      //     return -1;
+      //   }
+      //   return 0;
+      // });
       return {
         ...state,
         provinces: action.payload,
@@ -331,7 +379,9 @@ export default function rootReducer(state = initialState, action) {
       const filterProvinces =
         action.payload === "All"
           ? allProvinces
-          : allProvinces.filter((e) => e.businessbranch.province === action.payload);
+          : allProvinces.filter(
+              (e) => e.businessbranch.province === action.payload
+            );
       return {
         ...state,
         products: filterProvinces.length
@@ -344,14 +394,17 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allCities: action.payload,
       };
-    case 'FILTER_BY_CITIES':
+    case "FILTER_BY_CITIES":
       const allCities = state.allProducts;
-      const filterCities = action.payload === 'All'
-        ? allCities
-        : allCities.filter((e) => e.business.cityId === action.payload)
+      const filterCities =
+        action.payload === "All"
+          ? allCities
+          : allCities.filter((e) => e.business.cityId === action.payload);
       return {
         ...state,
-        products: filterCities.length ? filterCities : "No se encontraron productos asociados"
+        products: filterCities.length
+          ? filterCities
+          : "No se encontraron productos asociados",
       };
 
     //Filtrado de ciudades segun la provincia (recibe provinceId (string))
@@ -378,13 +431,19 @@ export default function rootReducer(state = initialState, action) {
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
       );
+      console.log(itemInCart);
+      /* 
+        itemIncart.stock > itemIncart.quantity ? itemInCart : alert('No tenemos tanto stock')
+      */
+      /* cart.filter((e) => e.id === product.id)[0].stock <
+         cart.filter((e) => e.id === product.id)[0].quantity; */
+      // itemInCart = state.cart.filter((e) => console.log(e))
       return itemInCart
         ? {
-
             ...state,
             cart: state.cart.map((item) =>
               item.id === productoCantidad.id
-                ? { ...item, quantity: item.quantity + 1  }
+                ? { ...item, quantity: item.quantity + 1 }
                 : item
             ),
           }
@@ -398,17 +457,17 @@ export default function rootReducer(state = initialState, action) {
       let itemToDelete = state.cart.find((item) => item.id === action.payload);
       return itemToDelete.quantity > 1
         ? {
-          ...state,
-          cart: state.cart.map((item) =>
-            item.id === action.payload
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
-          ),
-        }
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === action.payload
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          }
         : {
-          ...state,
-          cart: state.cart.filter((item) => item.id !== action.payload),
-        };
+            ...state,
+            cart: state.cart.filter((item) => item.id !== action.payload),
+          };
     //Elimina el producto del arreglo cart (recibe id)
     case "REMOVE_ALL_FROM_CART":
       return {
@@ -437,6 +496,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allTravels: action.payload,
       };
+    case "POST_REVIEW":
+      return {
+        ...state,
+        review: action.payload,
+      };
     case "POST_BRANCH":
       return {
         ...state,
@@ -445,38 +509,13 @@ export default function rootReducer(state = initialState, action) {
     case "DELETE_BRANCH":
       return {
         ...state,
-        brancDeleted: action.payload,
+        branchDeleted: action.payload,
       };
     case "EDIT_BRANCH":
       return {
         ...state,
         branchPut: action.payload,
       };
-      //borrado lógico
-      case "DESACTIVATE_USER":
-        return {
-          ...state,
-          activeUser: action.payload,
-          user: {}
-        }
-        case "ACTIVATE_USER":
-          return {
-            ...state,
-            activeUser: action.payload,
-          }
-          case "DESACTIVATE_BUSINESS":
-            return {
-              ...state,
-              activeBusiness: action.payload,
-              business: {}
-            }
-            case "ACTIVATE_BUSINESS":
-              return {
-                ...state,
-                activeBusiness: action.payload,
-              }
-              // fin borrado lógico
-
       //login con Google
       case "POST_LOGIN_GOOGLE":        
         if( typeof action.payload === "string"){
@@ -492,6 +531,63 @@ export default function rootReducer(state = initialState, action) {
             userToken: action.payload.accessToken,
           };
         }
+
+
+    //borrado lógico
+    case "DESACTIVATE_USER":
+      return {
+        ...state,
+        activeUser: action.payload,
+        user: "clean",
+      };
+    case "ACTIVATE_USER":
+      return {
+        ...state,
+        activeUser: action.payload,
+      };
+    case "DESACTIVATE_BUSINESS":
+      return {
+        ...state,
+        activeBusiness: action.payload,
+        business: "clean",
+      };
+    case "ACTIVATE_BUSINESS":
+      return {
+        ...state,
+        activeBusiness: action.payload,
+      };
+    case "DELETE_BUSINESS":
+      return {
+        ...state,
+        deletedBusiness: action.payload,
+      };
+    case "DELETE_USER":
+      return {
+        ...state,
+        deletedUser: action.payload,
+      };
+    // fin borrado lógico
+    case "GET_EMAIL":
+      return {
+        ...state,
+        allEmail: action.payload,
+      };
+    case "SAVE_IMAGE":
+      return {
+        ...state,
+        images: action.payload.secure_url, //[action.payload, ...state.images]
+      };
+
+    case "GET_FAVOURITES":
+      return {
+        ...state,
+        favourites: action.payload,
+      };
+    case "POST_FAVOURITES":
+      return {
+        ...state,
+        favourites: action.payload,
+      };
     default:
       return {
         ...state,
