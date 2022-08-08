@@ -8,6 +8,7 @@ import {
   postReview,
   getMatch,
   cleanGetMatch,
+  setProduct,
 } from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
@@ -63,7 +64,6 @@ function HomeUserPurchase() {
     event.preventDefault();
     history.push("/persona/filtro");
   };
-  console.log(purchases);
   const changeCity = purchases;
   const nameCity = changeCity.map((e) => {
     return {
@@ -80,6 +80,8 @@ function HomeUserPurchase() {
       )[0].nombre,
     };
   });
+
+  
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
     dispatch(getAllCities());
@@ -89,9 +91,8 @@ function HomeUserPurchase() {
   const handleShow = (id) => {
     setShow((showId) => (showId === id ? null : id));
   };
-
   const searchMatch = (idPurchase) => {
-    alert('Para para para para estamos arreglando flacoooo') 
+    alert("Para para para para estamos arreglando flacoooo");
     /* if (listMatch !== "No existen coincidencias"){
       dispatch(getMatch(idPurchase));
       history.push("/persona/matchTravelsPurchases");
@@ -137,7 +138,7 @@ function HomeUserPurchase() {
 
     {
       name: "Producto",
-      selector: (row) => row.purchaseitems.map((e) => `${e.productName}, `),
+      selector: (row) => row.producto,
       sortable: true,
     },
     {
@@ -149,7 +150,7 @@ function HomeUserPurchase() {
     { name: "Ciudad", selector: (row) => row.arrivalCityId, sortable: true },
     {
       name: "Cantidad Total",
-      selector: (row) => row.purchaseitems.reduce((a, e) => e.quantity + a, 0),
+      selector: (row) => row.cantidad,
       sortable: true,
     },
     { name: "Precio total", selector: (row) => row.totalPrice, sortable: true },
@@ -170,6 +171,16 @@ function HomeUserPurchase() {
       ),
     },
   ];
+  var filterByProduct = purchases.filter((item) => item.id === show);
+  console.log(nameCity.productId)
+  // console.log('soy filterByProduct',filterByProduct[0][purchaseitems]);
+  /* var filtrado = filterByProduct.forEach((e) => { */
+    /* console.log(e.purchaseitems); */ /* .map((y) => {
+      var products = { productId: y.productId, productName: y.productName };
+      debugger;
+    }); */
+  /* }); */
+
   return (
     <div>
       <Row>
@@ -181,7 +192,7 @@ function HomeUserPurchase() {
         >
           <DataTable
             columns={columnas}
-            data={purchases}
+            data={nameCity}
             title="Listado de compras"
           />
           <hr />
@@ -196,12 +207,14 @@ function HomeUserPurchase() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <select name="" id="">
-            {console.log(
-              "soy el filter",
-              purchases.filter((item) => item.id === show)
-            )}
-          </select>
+          {/* <select> */}
+           {/*  {console.log(filterByProduct[0].id)} */} {/* /* && filterByProduct[0].purchaseitems.map((e) => (
+              <option key={e.productId} value={e.productId}>
+                {e.productName}
+              </option>
+            ))} */ }
+          {/* </select> */}
+
           {/* <DataTable
             columns={columnasRating}
            
