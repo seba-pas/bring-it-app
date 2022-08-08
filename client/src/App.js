@@ -21,9 +21,9 @@ import FilterProvince from "./components/FilterProvince";
 import HomeUserPurchase from "./components/HomeUserPurchase";
 import RecuperarPassword from "./components/RecuperarPassword";
 import PruebaCloudinary from "./components/PruebaCloudinary";
-import Usuario from './components/Usuario.jsx'
+import Usuario from './components/Usuario.jsx';
 
-
+import LoginGoogleSuccess from './components/LoginGoogleSuccess';
 
 function App() {
   return (
@@ -53,6 +53,10 @@ function App() {
         <Route exact path="/persona/modificarPassword" component={RecuperarPassword}/>
         <Route exact path="/persona/homeUserPurchase" component={HomeUserPurchase}/>
         {/* <Route exact path="/testing" component={FormTravel} /> */}
+
+        {/* Soy Cele: Agrego rutas de redireccion para el login success o login error (autenticacion con google*/}
+        <Route exact path="/login/success" component={LoginGoogleSuccess}/>
+        <Route exact path="/login/error">Error al loggearte con Google. Intenta de nuevo!</Route>
       </Switch>
     </div>
   );

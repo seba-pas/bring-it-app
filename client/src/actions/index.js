@@ -59,7 +59,11 @@ import {
   DESACTIVATE_BUSINESS,
   DESACTIVATE_USER,
   DELETE_BUSINESS,
-  DELETE_USER
+  DELETE_USER,
+
+  //login con Google
+  GET_AUTHENTICATED_USER,
+  POST_LOGIN_GOOGLE
 
 } from "./actionsTypes";
 
@@ -666,3 +670,17 @@ export const activateBusiness = (email) => {
   }
 }
 
+// login con Google
+export const loginUserGoogle = (body) => {
+  return async function (dispatch) {
+    try {      
+      const res = await axios.post(`/user/google/login/`, body);      
+      return dispatch({
+        type: POST_LOGIN_GOOGLE,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}

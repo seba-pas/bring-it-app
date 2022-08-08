@@ -21,6 +21,7 @@ const businessBranchRoutes = require ('./businessBranchRoutes');
 
 
 
+
 // const productRoutes = require ("./productRoutes");
 // const categoryRoutes = require ("./categoryRoutes");
 // const businessRoutes = require ("./businessRoutes");
@@ -54,8 +55,6 @@ router.use('/review', reviewRoutes);
 //Configuracion de rutas Purchase
 router.use('/purchase', purchaseRouters);
 router.use('/checkout', stripeRoute);
-
-
 
 
 

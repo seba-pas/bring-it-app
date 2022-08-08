@@ -25,7 +25,8 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        //allowNull: false
+        allowNull: true //pongo true x la aut de google. Ver en un 2do paso si se puede traer esta info de google
     },
       name: {
         type: DataTypes.STRING,
@@ -37,7 +38,8 @@ module.exports = (sequelize) => {
       }, 
       birthDate: {
           type: DataTypes.DATEONLY, 
-          allowNull: false
+          //allowNull: false
+          allowNull: true //pongo true x la aut de google. Ver en un 2do paso si se puede traer esta info de google
       },
     review: {
         type: DataTypes.STRING, // DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
@@ -51,7 +53,8 @@ module.exports = (sequelize) => {
     // },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false
+      //allowNull: false
+      allowNull: true //pongo true x la aut de google. Ver en un 2do paso si se puede traer esta info de google
     },
     deleted: {
       type: DataTypes.BOOLEAN,
@@ -70,6 +73,10 @@ module.exports = (sequelize) => {
     isBusiness: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    googleId: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
 
     },

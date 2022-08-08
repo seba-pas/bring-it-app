@@ -476,6 +476,22 @@ export default function rootReducer(state = initialState, action) {
                 activeBusiness: action.payload,
               }
               // fin borrado lógico
+
+      //login con Google
+      case "POST_LOGIN_GOOGLE":        
+        if( typeof action.payload === "string"){
+          return {
+            ...state,
+            user: action.payload
+          }
+        }  
+        else{
+          return {
+            ...state,
+            user: action.payload.userInfo,
+            userToken: action.payload.accessToken,
+          };
+        }
     default:
       return {
         ...state,
