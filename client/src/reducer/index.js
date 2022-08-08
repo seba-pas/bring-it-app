@@ -78,8 +78,9 @@ export default function rootReducer(state = initialState, action) {
     case "CLEAN_MATCH":
       return {
         ...state,
-        matchOk: "clean",
-      };
+        matchOk: "clean"
+      }
+
     case "GET_ALL_PRODUCTS":
       return {
         ...state,
@@ -123,16 +124,20 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         product: action.payload,
+        images: "",
+
       };
     case "PUT_PRODUCT":
       return {
         ...state,
         changeProduct: action.payload,
+        images: ""
       };
     case "DESACTIVATE_PRODUCT":
       return {
         ...state,
         desactivateProduct: action.payload,
+        deleteProduct: "desactivate",
       };
     case "CLEAN_USERS":
       return {
@@ -584,6 +589,13 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         favourites: action.payload,
       };
+
+      case "DELETE_FAVOURITE": 
+      return {
+      ...state,
+     favourites: action.payload
+      }
+
     //login con Google
     case "POST_LOGIN_GOOGLE":        
     if( typeof action.payload === "string"){
@@ -599,6 +611,7 @@ export default function rootReducer(state = initialState, action) {
         userToken: action.payload.accessToken,
       };
     }      
+
 
     default:
       return {
