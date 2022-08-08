@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getByPurchaseEmail, getFavourites } from "../actions/index";
-import { useParams } from "react-router-dom";
 import ProductCards from "./ProductCards";
 
 export default function Favourites() {
@@ -15,10 +14,9 @@ export default function Favourites() {
     dispatch(getFavourites(email));
   }, [dispatch]);
 
-  const allFavouriteId =
-    favorites && typeof favorites !== "string"
-      ? favorites.map((e) => e.productId)
-      : "No Tienes Favoritos asignados";
+  const allFavouriteId = Array.isArray(favorites)
+    ? favorites.map((e) => e.productId)
+    : [];
 
   var favoriteProducts = [];
   for (let i = 0; i < allFavouriteId.length; i++) {

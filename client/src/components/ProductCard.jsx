@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import styles from "../styles/ProductCard.module.css";
-import addFavourite from './AddFavourites'
+import AddFavourites from "./AddFavourites";
 
 export default function ProductCard({
   name,
@@ -14,7 +14,6 @@ export default function ProductCard({
   categories,
   id,
 }) {
-
   return (
     <div
       className="card"
@@ -23,7 +22,7 @@ export default function ProductCard({
     >
       <img
         className="card-img-top"
-        style={{ objectFit: "cover" , height: '40%'}}
+        style={{ objectFit: "cover", height: "40%" }}
         src={image}
         alt="no pudo cargarse la imagen"
       />
@@ -35,7 +34,6 @@ export default function ProductCard({
           ${price}.00
         </h5>
         <p className="card-text" id={styles.description}>
-          
           {description}
         </p>
         {/* <p>
@@ -45,6 +43,7 @@ export default function ProductCard({
             : "No tiene categoria"}
         </p> */}
       </div>
+
       <a
         href={`persona/product/${id}`}
         className="btn btn-primary stretched-link"
@@ -52,11 +51,14 @@ export default function ProductCard({
       >
         Ver Producto
       </a>
-      <addFavourite />
+      
+      <span>💜 100</span>
       <div className="card-footer" id={styles.empresa}>
-       {/* <small style={{fontSize: '5px'}}> Empresa:{" "}</small> */}
+        {/* <small style={{fontSize: '5px'}}> Empresa:{" "}</small> */}
         <small className="text-muted" id={styles.bold}>
-          {business.businessBranchName ? business.businessBranchName.split(" - ")[0] : "No esta asociado a una empresa"}
+          {business.businessBranchName
+            ? business.businessBranchName.split(" - ")[0]
+            : "No esta asociado a una empresa"}
         </small>
       </div>
     </div>

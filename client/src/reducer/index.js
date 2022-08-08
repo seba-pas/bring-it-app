@@ -572,6 +572,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         favourites: action.payload,
       };
+      case "DELETE_FAVOURITE": 
+      return {
+      ...state,
+     favourites: action.payload
+      }
 
     default:
       return {

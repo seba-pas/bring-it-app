@@ -161,7 +161,7 @@ export const ProductDetail = () => {
                   </a>
                 </div> */}
                 
-                 <AddFavourites />
+                 Agregar a mis Favoritos: <AddFavourites />
                 <button
                   className="btn btn-primary"
                   onClick={(e) => handleClickAddToCart(e)}
