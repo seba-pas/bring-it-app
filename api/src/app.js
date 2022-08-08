@@ -165,6 +165,21 @@ server.get("/auth/authenticatedUser",  (req,res) => {
 });
 
 
+//Ruta para el log out (borra el req.user);
+//http://localhost:3001/auth/logout/google
+server.get("/auth/logout/google", (req,res) => {
+  try {
+    if(req.user){
+      req.logout();
+      debugger;
+      res.send("Log out de la sesión con Google exitoso");
+    }
+    res.send('NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
+  } catch (error) {
+    res.send("error:" + e.message);
+  }
+});
+
 //dejo esto aca abajo para q redireccione ahora, y no antes xq sino no entra a las rutas q estan aca en app
 server.use("/", routes);
 

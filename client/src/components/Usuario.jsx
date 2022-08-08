@@ -8,7 +8,7 @@ import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { SpinnerCircularFixed } from "spinners-react";
 import PerfilUser from './PerfilUser'
 
-import { desactivateUser, cleanUsers, cleanBusiness, cleanUserState, getActiveUser, getAllEmail, resetInitialState } from "../actions";
+import { desactivateUser, cleanUsers, cleanBusiness, cleanUserState, getActiveUser, getAllEmail, logoutGoogleSession } from "../actions";
 
 import swal from "sweetalert";
 import UserTravels from "./UserTravels";
@@ -58,6 +58,7 @@ const Usuario = () => {
     e.preventDefault();
     dispatch(cleanUsers());
     dispatch(cleanUserState())
+    dispatch(logoutGoogleSession())
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",

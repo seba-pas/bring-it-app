@@ -19,7 +19,6 @@ import { useHistory } from "react-router-dom";
 import StarRating from "./StarRating";
 import moment from "moment";
 
-
 function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
@@ -104,7 +103,7 @@ function HomeUserPurchase() {
       return;
     } else {
       if (listMatch === "clean") {
-        return ;
+        return;
       } else if (listMatch === "No existen coincidencias") {
         swal(
           "Todavía no tienes viajeros disponibles",
@@ -182,14 +181,16 @@ function HomeUserPurchase() {
     },
   ];
   var filterByProduct = purchases.filter((item) => item.id === show);
-  console.log(nameCity.productId);
+  console.log(filterByProduct)
+  // console.log(nameCity.productId);
   // console.log('soy filterByProduct',filterByProduct[0][purchaseitems]);
-  /* var filtrado = filterByProduct.forEach((e) => { */
-  /* console.log(e.purchaseitems); */ /* .map((y) => {
-      var products = { productId: y.productId, productName: y.productName };
-      debugger;
-    }); */
-  /* }); */
+  // var filtrado = filterByProduct.forEach((e) => {
+  //   e.purchaseitems.map((y) => {
+  //     var products = { productId: y.productId, productName: y.productName };
+  //     clg;
+  //     debugger;
+  //   });
+  // });
 
   return (
     <div>
@@ -217,19 +218,13 @@ function HomeUserPurchase() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* <select> */}
-          {/*  {console.log(filterByProduct[0].id)} */}{" "}
-          {/* /* && filterByProduct[0].purchaseitems.map((e) => (
+          {/* <select>
+            {filterByProduct.purchaseitems.map((e) => (
               <option key={e.productId} value={e.productId}>
                 {e.productName}
               </option>
-            ))} */}
-          {/* </select> */}
-          {/* <DataTable
-            columns={columnasRating}
-           
-            title="Listado de compras"
-          /> */}
+            ))}
+          </select> */}
           <br />
           <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Label style={{ paddingBottom: "15px" }}>
