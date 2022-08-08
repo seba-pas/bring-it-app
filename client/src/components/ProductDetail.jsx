@@ -65,6 +65,7 @@ export const ProductDetail = () => {
         return;
       }
     } else {
+      //jeje
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
       return;
