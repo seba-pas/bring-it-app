@@ -84,6 +84,7 @@ import {
 
   //login con Google
   POST_LOGIN_GOOGLE,
+  LOGOUT_GOOGLE_SESSION,
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -906,7 +907,6 @@ export const changePasswordBusiness = (email, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(`/business/recover/password/${email}`, body);
-      console.log(res.data);
       return dispatch({
         type: PASS_CHANGE_BUSINESS,
         payload: res.data,
@@ -925,6 +925,24 @@ export const loginUserGoogle = (body) => {
       return dispatch({
         type: POST_LOGIN_GOOGLE,
         payload: res.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+// logout de la sesión de Google 
+export const logoutGoogleSession = () => {
+  return async function (dispatch) {
+    try {      
+      const res = await axios.get(`/auth/logout/google`,
+      { withCredentials: true }
+      );  
+      debugger; 
+      console.log(res)   
+      return dispatch({
+        type: LOGOUT_GOOGLE_SESSION        
       })
     } catch (error) {
       console.log(error.message);

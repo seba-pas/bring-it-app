@@ -19,7 +19,6 @@ import { useHistory } from "react-router-dom";
 import StarRating from "./StarRating";
 import moment from "moment";
 
-
 function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
@@ -190,10 +189,8 @@ function HomeUserPurchase() {
       ),
     },
   ];
-  var filterByProduct = purchases.filter((item) => item.id === show).map(e => e.purchaseitems)[0];
-  console.log("filter", filterByProduct)
-  // console.log(nameCity.productId);
 
+  var filterByProduct = purchases.filter((item) => item.id === show).map(e => e.purchaseitems)[0];
 
 
   return (
@@ -273,6 +270,61 @@ function HomeUserPurchase() {
         </Col>
       </Row>
       {/* <Button onClick={(e) => history.goBack(e)}>Atras</Button> */}
+      <Modal show={show !== null} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Dejanos tu comentario sobre el producto que compraste
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* <select>
+            {filterByProduct.purchaseitems.map((e) => (
+              <option key={e.productId} value={e.productId}>
+                {e.productName}
+              </option>
+            ))}
+          </select> */}
+          <br />
+          <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Label style={{ paddingBottom: "15px" }}>
+              Indica del 1 al 5 que tan satisfecho esta con su compra
+            </Form.Label>
+            <input
+              type="number"
+              step="0.1"
+              min="0"
+              max="5"
+              name="rating"
+              rating={avgRating}
+              value={input.rating}
+              handleRating={handleRating}
+              onChange={(e) => handleInputChange(e)}
+            />
+            <br />
+            <br />
+            <StarRating stars={avgRating} />
+            <Form.Group className="mb-3">
+              <Form.Label>Deja tu comentario</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={input.comment}
+                name="comment"
+                required
+                onChange={(e) => handleInputChange(e)}
+              />
+            </Form.Group>
+            <Button className="mt-3 mb-5 w-100 mt-3" type="submit">
+              Enviar comentario
+            </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
     </div>
   );
