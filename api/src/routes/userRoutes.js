@@ -206,7 +206,7 @@ router.put("/recover/password/:email", async (req, res) => {
       console.log("contraseña incorrecta") 
     }
 });
-
+// holis
 //LOG IN para usuario loggeado con Google
 //Cuando el log in con Google es exitoso, desde el front se le pega a esta ruta. Aca le ponemos el JWT Token
 //"http://localhost:3001/user/google/login/" 

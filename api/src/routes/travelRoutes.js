@@ -125,6 +125,7 @@ router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
           pass: 'baiepxymtdopmjuj'
         }
       });
+      // holis
       // mail a viajero
       const purchaser = await User.findByPk(purchase.userEmail);
       const traveler = await User.findByPk((await Travel.findByPk(travelId)).userEmail);

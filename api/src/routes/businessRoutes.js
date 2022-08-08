@@ -43,6 +43,7 @@ router.post('/', async (req, res) => {
         const businessBranchName = `${businessName} - sede ${cityName}`;
         const newBusinessBranch = await Businessbranch.create({ businessBranchName, businessEmail, cityId, province, address });
 
+        // holis
         // nodemailer
         let transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
