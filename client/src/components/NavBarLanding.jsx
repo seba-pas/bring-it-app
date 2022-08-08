@@ -16,11 +16,13 @@ import {
   activateUser,
   activateBusiness,
   getActiveUser,
+  loginUserGoogle
 } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
 //seba
 export default function NavBarLanding() {
   const [show, setShow] = useState(false);
@@ -339,6 +341,38 @@ export default function NavBarLanding() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+//fc relacionadas a la aut con Google:
+const getAuthenticatedUser = async () => {
+  const response = await axios.get(
+    "http://localhost:3001/auth/authenticatedUser",
+    { withCredentials: true }
+    )
+    .catch((err) => {
+      console.log(`No se loggeo correctamente`);
+    });
+  if (response && response.data){
+    console.log("Usuario loggeado: ", response.data);
+    dispatch(loginUserGoogle(response.data));
+  }      
+};
+
+const redirectToGoogle = async () => {
+  let timer = null;
+  const googleLoginURL = "http://localhost:3001/auth/login/google";
+  const newWindow = window.open(googleLoginURL, "_blank", "width=500, height=600");
+  //chequeamos sin la ventana esta cerrada o no (se cierra cdo el loggeo con Google termina (exitoso o no))
+  if(newWindow){
+    timer = setInterval(() => {
+      if(newWindow.closed){
+        console.log("Se cerro la ventana de autenticación");
+        getAuthenticatedUser();
+        if (timer) clearInterval(timer);
+      }
+    }, 500);
+  }
+}
+
+
   return (
     <div
       className={styles.navbarLanding}
@@ -524,6 +558,17 @@ export default function NavBarLanding() {
                   >
                     Iniciar sesion
                   </Button>
+                  <div>
+                    O inicia sesion con 
+                    <Button
+                    variant="info"
+                    type="submit"
+                    id={styles.iniciarSesion}                    
+                    onClick={redirectToGoogle}
+                  >
+                    Google
+                  </Button>                    
+                  </div>
                 </Form>
               </Tab>
             </Tabs>
