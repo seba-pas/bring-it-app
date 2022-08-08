@@ -34,7 +34,7 @@ function HomeUserPurchase() {
     comment: "",
     rating: "",
     userEmail: user.email,
-    // productId: purchases.filter(e => e.id === e)
+    productId: 0,
   });
 
   const handleRating = (input) => {
@@ -43,11 +43,17 @@ function HomeUserPurchase() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(input));
+    debugger;
     swal(
       "Muchas gracias por tu feedback",
       "Esperemos que sigas eligiendo Bring it",
       "success"
     );
+    setInput({
+      comment: "",
+      rating: "",
+
+    });
   }
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -83,6 +89,8 @@ function HomeUserPurchase() {
     };
   });
 
+  console.log("nameCity", nameCity)
+
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
     dispatch(getAllCities());
@@ -104,7 +112,7 @@ function HomeUserPurchase() {
       return;
     } else {
       if (listMatch === "clean") {
-        return ;
+        return;
       } else if (listMatch === "No existen coincidencias") {
         swal(
           "Todavía no tienes viajeros disponibles",
@@ -125,6 +133,7 @@ function HomeUserPurchase() {
     return value ? moment(value).format("DD/MM/YYYY") : "";
   }
   const columnasRating = [
+
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
     {
       name: "Fecha de compra",
@@ -181,15 +190,11 @@ function HomeUserPurchase() {
       ),
     },
   ];
-  var filterByProduct = purchases.filter((item) => item.id === show);
-  console.log(nameCity.productId);
-  // console.log('soy filterByProduct',filterByProduct[0][purchaseitems]);
-  /* var filtrado = filterByProduct.forEach((e) => { */
-  /* console.log(e.purchaseitems); */ /* .map((y) => {
-      var products = { productId: y.productId, productName: y.productName };
-      debugger;
-    }); */
-  /* }); */
+  var filterByProduct = purchases.filter((item) => item.id === show).map(e => e.purchaseitems)[0];
+  console.log("filter", filterByProduct)
+  // console.log(nameCity.productId);
+
+
 
   return (
     <div>
@@ -207,70 +212,68 @@ function HomeUserPurchase() {
           />
           <hr />
           <br />
+          <Modal show={show !== null} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                Dejanos tu comentario sobre el producto que compraste
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={(e) => handleSubmit(e)}>
+                <select name="productId" value={input.productId} onChange={handleInputChange} >
+                  {/* <option value="">{ }</option> */}
+                  {filterByProduct?.map((e) => (
+                    <option
+                      key={e.productId}
+                      value={e.productId}
+                    >
+                      {e.productName}
+                    </option>))}
+                </select>
+                <br />
+                <Form.Label style={{ paddingBottom: "15px" }}>
+                  Indica del 1 al 5 que tan satisfecho esta con su compra
+                </Form.Label>
+                <input
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  max="5"
+                  name="rating"
+                  rating={avgRating}
+                  value={input.rating}
+                  handleRating={handleRating}
+                  onChange={(e) => handleInputChange(e)}
+                />
+                <br />
+                <br />
+                <StarRating stars={avgRating} />
+                <Form.Group className="mb-3">
+                  <Form.Label>Deja tu comentario</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={input.comment}
+                    name="comment"
+                    required
+                    onChange={(e) => handleInputChange(e)}
+                  />
+                </Form.Group>
+                <Button className="mt-3 mb-5 w-100 mt-3" type="submit">
+                  Enviar comentario
+                </Button>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Col>
       </Row>
       {/* <Button onClick={(e) => history.goBack(e)}>Atras</Button> */}
-      <Modal show={show !== null} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            Dejanos tu comentario sobre el producto que compraste
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {/* <select> */}
-          {/*  {console.log(filterByProduct[0].id)} */}{" "}
-          {/* /* && filterByProduct[0].purchaseitems.map((e) => (
-              <option key={e.productId} value={e.productId}>
-                {e.productName}
-              </option>
-            ))} */}
-          {/* </select> */}
-          {/* <DataTable
-            columns={columnasRating}
-           
-            title="Listado de compras"
-          /> */}
-          <br />
-          <Form onSubmit={(e) => handleSubmit(e)}>
-            <Form.Label style={{ paddingBottom: "15px" }}>
-              Indica del 1 al 5 que tan satisfecho esta con su compra
-            </Form.Label>
-            <input
-              type="number"
-              step="0.1"
-              min="0"
-              max="5"
-              name="rating"
-              rating={avgRating}
-              value={input.rating}
-              handleRating={handleRating}
-              onChange={(e) => handleInputChange(e)}
-            />
-            <br />
-            <br />
-            <StarRating stars={avgRating} />
-            <Form.Group className="mb-3">
-              <Form.Label>Deja tu comentario</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={input.comment}
-                name="comment"
-                required
-                onChange={(e) => handleInputChange(e)}
-              />
-            </Form.Group>
-            <Button className="mt-3 mb-5 w-100 mt-3" type="submit">
-              Enviar comentario
-            </Button>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+
     </div>
   );
 }
