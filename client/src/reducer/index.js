@@ -1,5 +1,6 @@
 const initialState = {
   products: [],
+  recuperandoContraseña: "",
   productsDetail: {},
   allProducts: [],
   user: {},
@@ -143,6 +144,17 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         business: "clean",
       };
+    case "PASS_RECOVER":
+    console.log(action.payload)
+      return {
+        ...state,
+        recuperandoContraseña: action.payload
+      }
+    case "CLEAN_RECOVER_PASSWORD":
+      return {
+        ...state,
+        recuperandoContraseña: ""
+      }
     case "CLEAN_USER_STATE":
       return {
         ...state,

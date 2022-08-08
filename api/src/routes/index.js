@@ -14,6 +14,7 @@ const stripeRoute = require('./stripe');
 const reviewRoutes = require('./reviewRoutes');
 const userRoutes = require('./userRoutes');
 const travelRoutes = require('./travelRoutes'); 
+const recoverPassword = require('./recoverPassword'); 
 
 const favoriteRoutes = require ('./favoriteRoutes');
 
@@ -45,6 +46,7 @@ router.use('/user', userRoutes);
 router.use('/travel', travelRoutes);
 router.use('/cart', cartRoutes);
 router.use('/favorite', favoriteRoutes);
+router.use('/recoverPassword', recoverPassword);
 
 router.use('/businessbranch', businessBranchRoutes);
 
