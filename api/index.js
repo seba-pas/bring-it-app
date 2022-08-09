@@ -23,7 +23,7 @@ const { db } = require('./src/db');
 const { apiCity } = require('./src/controllers/cityControllers')
 const { apiProvince } = require('./src/controllers/provinceControllers')
 const { loadDB } = require('./src/json/jsonControllers')
-// const municipios = json1.municipios;
+
 const http = require("http");
 const socketIO = require("socket.io");
 const users = [{}];
@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
 });
 
 // // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   servidor.listen(process.env.PORT || 3001, async () => {
     await apiProvince();
     await apiCity();
