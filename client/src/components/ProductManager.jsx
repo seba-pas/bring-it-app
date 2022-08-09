@@ -19,6 +19,7 @@ function ProductManager(props) {
     }, [dispatch]);
 
     let product = gState.allProducts ? gState.allProducts.filter(e => e.id === parseInt(id))[0] : {}
+    console.log("product", product)
 
     let categories = gState.categories;
 
@@ -44,11 +45,6 @@ function ProductManager(props) {
         allCategories: categories,
         branch: "",
     })
-
-
-
-
-
 
     const [error, setError] = useState({
         errorname: "",
@@ -275,7 +271,7 @@ function ProductManager(props) {
 
                         type="file"
                         name="image"
-                        // value={input.image}
+                        // useRef={input.image}
                         placeholder="Imagen"
                         onChange={uploadImage}
                     />

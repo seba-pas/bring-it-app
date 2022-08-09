@@ -4,12 +4,17 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/PerfilBusiness.module.css";
 
-import { editUser, cleanPutUser, getUserByEmail } from "../actions";
+import { editUser, cleanPutUser, getUserByEmail,desactivateUser,cleanUsers ,saveImage} from "../actions";
+import { useHistory } from "react-router-dom";
+
 
 function PerfilUser(props) {
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const urlImage = useSelector((state) => state.images)
 
+ 
   const emailState = gState.email;
   const infoUser = gState.user;
   const tokenUser = gState.userToken;
@@ -21,7 +26,10 @@ function PerfilUser(props) {
     lastname: infoUser.lastname,
     phone: infoUser.phone,
     arrayInfo: [],
+    image: ""
   });
+
+
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
   const uploadImage = async (e) => {
@@ -31,14 +39,10 @@ function PerfilUser(props) {
     data.append("upload_preset", "Bringit");
     setLoading(true);
     dispatch(saveImage(data));
+
     console.log("si");
   };
 
-
-
-  
-
-  
   // NUEVO CELE Y AGUSES PARA MANEJAR LA RTA DE LA RUTA EDITAR (SI HIZO EL CAMBIO, EN POS DE LA AUTORIZACION)
   const putUser = gState.putUser; //xq se llama asi?
 
@@ -88,7 +92,7 @@ function PerfilUser(props) {
       infoUser.password === input.password &&
       infoUser.name === input.name &&
       infoUser.lastname === input.lastname &&
-      infoUser.phone === input.phone
+      infoUser.phone === input.phone 
     ) {
       swal("No se ha realizado ninguna modificación");
       return;
@@ -101,13 +105,19 @@ function PerfilUser(props) {
           name: input.name,
           lastname: input.lastname,
           phone: input.phone,
-
+          image: urlImage,
           arrayInfo: [],
         },
         tokenUser //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
     );
   };
+  function handleDesactivate() {
+    dispatch(desactivateUser(infoUser.email,tokenUser));
+    history.push("/");
+    dispatch(cleanUsers());
+    
+  }
   return (
     <div>
       <Container>
@@ -165,7 +175,7 @@ function PerfilUser(props) {
                 <label for="exampleFile">Logo</label>
                 <Form.Control
                   // id="exampleFile"
-                  name="logo"
+                  name="image"
                   type="file"
                   // value={input.logo}
                   onChange={uploadImage}
@@ -180,7 +190,7 @@ function PerfilUser(props) {
                   className="text-center p-5 m-auto shadow-sm rounded-lg"
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <Button onClick={(e) => handleBack(e)}>Atras</Button>
+                  {/* <Button onClick={(e) => handleBack(e)}>Atras</Button> */}
                   <Button type="submit">Listo</Button>
                   <Button
                     className="btn btn-primary"

@@ -49,7 +49,8 @@ export const ProductDetail = () => {
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
     }
-    if (cart.filter((e) => e.id === product.id).length > 0) {
+
+    /* if (cart.filter((e) => e.id === product.id).length > 0) {
       // debugger;
       if (cart[0].quantity < product.stock) {
         dispatch(addToCart(product));
@@ -65,18 +66,17 @@ export const ProductDetail = () => {
         return;
       }
     } else {
-      //jeje
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
       return;
-    }
+    } */
   }
 
   return (
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
 
-      <AddFavourites />
+     
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
           <div className={styles.imgCon}>
@@ -144,6 +144,8 @@ export const ProductDetail = () => {
                     COMPRAR
                   </a>
                 </div> */}
+                
+                 Agregar a mis Favoritos: <AddFavourites />
                 <button
                   className="btn btn-primary"
                   onClick={(e) => handleClickAddToCart(e)}

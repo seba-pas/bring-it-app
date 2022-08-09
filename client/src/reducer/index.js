@@ -1,5 +1,6 @@
 const initialState = {
   products: [],
+  recuperandoContraseña: "",
   productsDetail: {},
   allProducts: [],
   user: {},
@@ -78,8 +79,9 @@ export default function rootReducer(state = initialState, action) {
     case "CLEAN_MATCH":
       return {
         ...state,
-        matchOk: "clean",
-      };
+        matchOk: "clean"
+      }
+
     case "GET_ALL_PRODUCTS":
       return {
         ...state,
@@ -129,17 +131,21 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         product: action.payload,
         images: "",
+
       };
     case "PUT_PRODUCT":
       return {
         ...state,
         changeProduct: action.payload,
+
         images: "",
+
       };
     case "DESACTIVATE_PRODUCT":
       return {
         ...state,
         desactivateProduct: action.payload,
+        deleteProduct: "desactivate",
       };
     case "CLEAN_USERS":
       return {
@@ -151,6 +157,17 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         business: "clean",
       };
+    case "PASS_RECOVER":
+    console.log(action.payload)
+      return {
+        ...state,
+        recuperandoContraseña: action.payload
+      }
+    case "CLEAN_RECOVER_PASSWORD":
+      return {
+        ...state,
+        recuperandoContraseña: ""
+      }
     case "CLEAN_USER_STATE":
       return {
         ...state,
@@ -440,12 +457,7 @@ export default function rootReducer(state = initialState, action) {
         (item) => item.id === productoCantidad.id
       );
       console.log(itemInCart);
-      /* 
-        itemIncart.stock > itemIncart.quantity ? itemInCart : alert('No tenemos tanto stock')
-      */
-      /* cart.filter((e) => e.id === product.id)[0].stock <
-         cart.filter((e) => e.id === product.id)[0].quantity; */
-      // itemInCart = state.cart.filter((e) => console.log(e))
+     
       return itemInCart
         ? {
           ...state,
@@ -564,7 +576,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allEmail: action.payload,
       };
-    case "SAVE_IMAGE":
+    case "SAVE_IMAGE":     
       return {
         ...state,
         images: action.payload.secure_url, //[action.payload, ...state.images]
@@ -580,6 +592,13 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         favourites: action.payload,
       };
+
+      case "DELETE_FAVOURITE": 
+      return {
+      ...state,
+     favourites: action.payload
+      }
+
     //login con Google
     case "POST_LOGIN_GOOGLE":
       if (typeof action.payload === "string") {
@@ -595,6 +614,7 @@ export default function rootReducer(state = initialState, action) {
           userToken: action.payload.accessToken,
         };
       }
+
 
     default:
       return {

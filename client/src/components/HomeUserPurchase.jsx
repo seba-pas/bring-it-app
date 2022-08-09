@@ -18,7 +18,6 @@ import { useHistory } from "react-router-dom";
 import StarRating from "./StarRating";
 import moment from "moment";
 
-
 function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
@@ -205,8 +204,11 @@ function HomeUserPurchase() {
       ),
     },
   ];
+
+
   var filterByProduct = purchases.filter((item) => item.id === show).map(e => e.purchaseitems)[0];
-  console.log("filter", filterByProduct)
+
+
 
   return (
     <div>

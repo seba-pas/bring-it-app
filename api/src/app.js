@@ -39,6 +39,7 @@ server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -90,7 +91,7 @@ const { User} = require('./db');
 
 
 
-const GOOGLE_CALLBACK_URL = "http://localhost:3001/auth/google/callback" // //ojo deploy ver esto
+const GOOGLE_CALLBACK_URL = "/auth/google/callback" // //ojo deploy ver esto
 
 //2DO PASO se busca o crea el usuario con los datos de la cuenta de Google
 passport.use(
@@ -164,6 +165,21 @@ server.get("/auth/authenticatedUser",  (req,res) => {
   }
 });
 
+
+//Ruta para el log out (borra el req.user);
+//http://localhost:3001/auth/logout/google
+server.get("/auth/logout/google", (req,res) => {
+  try {
+    if(req.user){
+      req.logout();
+      debugger;
+      res.send("Log out de la sesión con Google exitoso");
+    }
+    res.send('No se pudo hacer el log out de la sesión con Google');
+  } catch (error) {
+    res.send("error:" + e.message);
+  }
+});
 
 //dejo esto aca abajo para q redireccione ahora, y no antes xq sino no entra a las rutas q estan aca en app
 server.use("/", routes);

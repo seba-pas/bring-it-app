@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
         secure: true,
         auth: {
           user: 'bringit662@gmail.com',
-          pass: 'owtgyxnzmbchbhjj'
+          pass: 'baiepxymtdopmjuj'
         }
       });
 
@@ -73,7 +73,7 @@ router.post("/", async (req, res) => {
 
       res.status(201).send(newUser[1] ? "Usuario creado" : "El usuario ya existe");
     } catch (e) {
-      res.send("error:" + e.message);
+      res.send("error:" + e);
     }
   // }
 });
@@ -166,7 +166,7 @@ router.put("/recover/password/:email", async (req, res) => {
     const passNueva=  CryptoJS.AES.encrypt(passwordN, process.env.PASS_SEC).toString();
     console.log('oass nueva hasheada',passNueva);
 
-    if(originalPassword == passwordV) {
+    // if(originalPassword == passwordV) {
       console.log("4")
       try {
 
@@ -177,24 +177,24 @@ router.put("/recover/password/:email", async (req, res) => {
         })
         
         // nodemailer
-      // let transporter = nodemailer.createTransport({
-      //   host: 'smtp.gmail.com',
-      //   port: 465,
-      //   secure: true,
-      //   auth: {
-      //     user: 'bringit662@gmail.com',
-      //     pass: 'owtgyxnzmbchbhjj'
-      //   }
-      // });
+      let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'bringit662@gmail.com',
+          pass: 'baiepxymtdopmjuj'
+        }
+      });
 
-      // const email = await transporter.sendMail({
-      //   from: "Bring It App <bringit662@gmail.com>",
-      //   to: req.params.email,
-      //   subject: "Cambio de contraseña",
-      //   html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
-      //   <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
-      //   `
-      // })
+      const email = await transporter.sendMail({
+        from: "Bring It App <bringit662@gmail.com>",
+        to: req.params.email,
+        subject: "Cambio de contraseña",
+        html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
+        <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/modificarContrasenia">aqui</a></p>
+        `
+      })
 
 
         res.json("contraseña cambiada")
@@ -202,11 +202,11 @@ router.put("/recover/password/:email", async (req, res) => {
         console.log('5')
         console.log('208',error)
       }    
-    } else {
-      console.log("contraseña incorrecta") 
-    }
+    // } else {
+      // console.log("contraseña incorrecta") 
+    // }
 });
-
+// holis
 //LOG IN para usuario loggeado con Google
 //Cuando el log in con Google es exitoso, desde el front se le pega a esta ruta. Aca le ponemos el JWT Token
 //"http://localhost:3001/user/google/login/" 

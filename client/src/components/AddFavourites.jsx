@@ -1,7 +1,7 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postFavourites } from "../actions";
+import { deleteFavourite, getFavourites, postFavourites } from "../actions";
 import swal from "sweetalert";
 
 export default function AddFavourites() {
@@ -9,35 +9,83 @@ export default function AddFavourites() {
   const globalState = useSelector((state) => state);
   const product = useSelector((state) => state.productsDetail);
   const user = useSelector((state) => state.user);
+  const favorites = useSelector((state) => state.favourites);
+  const [toggle, setToggle] = useState(false);
 
   const token = globalState.userToken;
+
   const email = user.email;
   const id = product.id;
 
+  const allFavorites = Array.isArray(favorites)
+    ? favorites?.map((e) => e.productId)
+    : [];
+
+
+  useEffect(() => {
+    dispatch(getFavourites(email));
+  }, [dispatch]);
+  useEffect(() => {
+    allFavorites && allFavorites.includes(id) ? setToggle(true) : toggle;
+  }, [id, favorites, allFavorites, user]);
+
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(
-      postFavourites(
-        {
+    if (toggle === false) {
+      setToggle(true);
+      dispatch(
+        postFavourites(
+          {
+            userEmail: email,
+            productId: id,
+          },
+          token
+        )
+      );
+      swal(
+        "Felicitaciones!",
+        `Añadiste ${product.name} a tu lista de favoritos`,
+        "success"
+      );
+      return;
+    }
+    if (toggle === true) {
+      setToggle(false);
+      dispatch(
+        deleteFavourite({
           userEmail: email,
           productId: id,
-        },
-        token
-      )
-    );
-    swal(
-      "Felicitaciones!",
-      `Añadiste ${product.name} a tu lista de favoritos`,
-      "success"
-    );
+        })
+      );
+
+      setToggle(false);
+      swal(
+        `el producto ${product.name} ha sido borrado con éxito`,
+        "puedes volver a agregarlo cuando desees",
+        "success"
+      );
+      setToggle(false);
+    } else {
+      swal("Te Pedimos disculpas", "Vuelve a intentarlo", "warning");
+      return;
+    }
+    //action delete
   };
 
   return (
-    <div>
+    <div
+      style={{ display: "flex", justifyContent: "center", marginBottom: "8px" }}
+    >
       <button onClick={(e) => handleClick(e)}>
-        <span aria-label="Fav" role="img">
-          🤍
-        </span>
+        {toggle && toggle === true ? (
+          <span id="heart" aria-label="Fav" role="img">
+            💜
+          </span>
+        ) : (
+          <span id="heart" aria-label="Fav" role="img">
+            🤍
+          </span>
+        )}
       </button>
     </div>
   );

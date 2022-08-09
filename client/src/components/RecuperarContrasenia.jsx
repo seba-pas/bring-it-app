@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import NavBarLanding from "./NavBarLanding";
-import { changePassword, recoverPassword } from '../actions/index';
+import { changePassword, recoverPassword, cleanRecoverPassword } from '../actions/index';
 import swal from "sweetalert";
-function RecuperarPassword(props) {
-  const email= useSelector(state=>state.user.email);
-  const [input,setInput]=useState({
-    passwordV:'',
+
+
+export default function RecuperarContrasenia(props) {
+
+const recuperandoContraseña = useSelector((state) => state.recuperandoContraseña);
+console.log(recuperandoContraseña)
+
+
+  const [input,setInput] = useState({
     passwordN:''
   })
   const dispatch= useDispatch();
@@ -19,8 +24,9 @@ function RecuperarPassword(props) {
 
   function handleSubmit(e){
     e.preventDefault();
-    dispatch(changePassword(email, input));
+    dispatch(changePassword(recuperandoContraseña, input));
     swal('Su contraseña se modifico correctamente',"", "success")
+    dispatch(cleanRecoverPassword())
   };
   function handleChange(e){
     setInput({
@@ -30,8 +36,9 @@ function RecuperarPassword(props) {
   }
 
 
-  return (
-    <div>
+
+	return (
+		<div>
       {/* <NavBarLanding/> */}
       <div>
       <Container>
@@ -47,7 +54,7 @@ function RecuperarPassword(props) {
                 onSubmit={(e) => handleSubmit(e)}
                 // className={style.forms}
               >
-                <Form.Group className="mb-3">
+                {/*<Form.Group className="mb-3">
                   <Form.Label>Contraseña actual</Form.Label>
                   <Form.Control
                     placeholder="Ingresa tu contraseña antigua"
@@ -57,7 +64,7 @@ function RecuperarPassword(props) {
                     required
                     onChange={(e) => handleChange(e)}
                   />
-                </Form.Group>
+                </Form.Group>*/}
                  <Form.Group className="mb-3">
                   <Form.Label>Contraseña nueva</Form.Label>
                   <Form.Control
@@ -102,7 +109,5 @@ function RecuperarPassword(props) {
         </Container>
       </div>
     </div>
-  );
+	)
 }
-
-export default RecuperarPassword;

@@ -17,7 +17,6 @@ import NavBarAdmin from "./NavBarAdmin";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import DataTable from "react-data-table-component";
-import { FaPencilAlt } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import moment from "moment";
 import { FaSearchLocation } from "react-icons/fa";
@@ -122,15 +121,14 @@ export default function HomeAdmin() {
   }
 
    /* function searchPurchases(rows) {
-     debugger;
     return rows.filter((row) => 
     console.log(row) && 
      row.id.toLowerCase().indexOf(q) > -1 ||
-    row.purchaseitems.toLowerCase().indexOf(q) > -1 ||
-    row.maxDeliveryDate.toLowerCase().indexOf(q) > -1 ||
-    row.name.toLowerCase().indexOf(q) > -1 ||
-    row.quantity.toLowerCase().indexOf(q) > - 1 ||
-    row.totalPrice.toLowerCase().indexOf(q) > - 1
+    // row.purchaseitems.toLowerCase().indexOf(q) > -1 ||
+    row.maxDeliveryDate.toLowerCase().indexOf(q) > -1 
+    // row.name.toLowerCase().indexOf(q) > -1 ||
+    // row.quantity.toLowerCase().indexOf(q) > - 1 ||
+    // row.totalPrice.toLowerCase().indexOf(q) > - 1
     );
   };  */
 
@@ -143,7 +141,7 @@ export default function HomeAdmin() {
     },
     {
       name: "Fecha de max de espera",
-      selector: (row) => row.maxDeliveryDate,
+      selector: (row) => formatDate(row.maxDeliveryDate),
       sortable: true,
     },
     {
@@ -156,10 +154,7 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button style={{ display: "flex" }}>
-          <FaPencilAlt
-            style={{ marginRight: "15px", fontSize: "20px" }}
-            onClick={(e) => editBusiness(e)}
-          />
+          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteBusiness(e)}
@@ -190,10 +185,7 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button style={{ display: "flex" }}>
-          <FaPencilAlt
-            style={{ marginRight: "15px", fontSize: "20px" }}
-            onClick={(e) => editUsers(e)}
-          />
+          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteUsers(e)}
@@ -224,10 +216,7 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button style={{ display: "flex" }}>
-          <FaPencilAlt
-            style={{ marginRight: "15px", fontSize: "20px" }}
-            onClick={(e) => editUsers(e)}
-          />
+          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteUsers(e)}
@@ -251,10 +240,7 @@ export default function HomeAdmin() {
       button: true,
       cell: (row) => (
         <button style={{ display: "flex" }}>
-          <FaPencilAlt
-            style={{ marginRight: "15px", fontSize: "20px" }}
-            onClick={(e) => editUsers(e)}
-          />
+          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => banearUsers(e, row.email)}
@@ -282,10 +268,7 @@ export default function HomeAdmin() {
       button: true,
       cell: (row) => (
         <button style={{ display: "flex" }}>
-          <FaPencilAlt
-            style={{ marginRight: "15px", fontSize: "20px" }}
-            onClick={(e) => editBusiness(e)}
-          />
+         
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => banearBusiness(e, row.email)}

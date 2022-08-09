@@ -61,7 +61,7 @@ async function getAllEmail(){
         const allEmail= await Business.findAll({
             attributes: ['email']
         })
-        console.log(allEmail);
+        
         return allEmail;
         
     } catch (error) {
