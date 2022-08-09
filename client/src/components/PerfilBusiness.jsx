@@ -9,6 +9,8 @@ import {
   postBranch,
   editBranch,
   saveImage,
+  desactivateBusiness,
+  cleanBusinessState
 } from "../actions";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -266,14 +268,15 @@ function PerfilBusiness(props) {
 
     swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
   };
-
+  function handleDesactivate() {
+    dispatch(desactivateBusiness(infoBusiness.email,tokenBusiness));
+    history.push("/");
+    dispatch(cleanBusinessState());
+    
+  }
   return (
     <div>
       <Container>
-        <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-          Editar de empresa
-        </h1>
-
         <Tabs
           id="controlled-tab-example"
           activeKey={key}
@@ -357,23 +360,6 @@ function PerfilBusiness(props) {
                         />
                       </Form.Group>
                     </Col>
-                    {/* <Form.Group className="mb-3">
-                    <Form.Label>Logo:</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="address"
-                      value={input.address}
-                      placeholder="Dirección"
-                      onChange={handleInputChange}
-                    />
-                    {!error.erroraddress ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.erroraddress} </label>
-                    )}
-
-                  </Form.Group> */}
-                    {/* </Col> */}
                   </Row>
                   <Row>
                     <Col>
@@ -416,6 +402,9 @@ function PerfilBusiness(props) {
                       >
                         Editar Empresa
                       </Button>
+                    </Col>
+                    <Col>
+                        <Button onClick={(e) => handleDesactivate(e)}>Desactivar cuenta</Button>
                     </Col>
                   </Row>
                 </Form>

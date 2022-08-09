@@ -4,12 +4,13 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/PerfilBusiness.module.css";
 
-import { editUser, cleanPutUser, getUserByEmail } from "../actions";
+import { editUser, cleanPutUser, getUserByEmail,desactivateUser,cleanUsers } from "../actions";
+import { useHistory } from "react-router-dom";
 
 function PerfilUser(props) {
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const emailState = gState.email;
   const infoUser = gState.user;
   const tokenUser = gState.userToken;
@@ -34,11 +35,6 @@ function PerfilUser(props) {
     console.log("si");
   };
 
-
-
-  
-
-  
   // NUEVO CELE Y AGUSES PARA MANEJAR LA RTA DE LA RUTA EDITAR (SI HIZO EL CAMBIO, EN POS DE LA AUTORIZACION)
   const putUser = gState.putUser; //xq se llama asi?
 
@@ -108,6 +104,12 @@ function PerfilUser(props) {
       )
     );
   };
+  function handleDesactivate() {
+    dispatch(desactivateUser(infoUser.email,tokenUser));
+    history.push("/");
+    dispatch(cleanUsers());
+    
+  }
   return (
     <div>
       <Container>
@@ -180,7 +182,7 @@ function PerfilUser(props) {
                   className="text-center p-5 m-auto shadow-sm rounded-lg"
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <Button onClick={(e) => handleBack(e)}>Atras</Button>
+                  {/* <Button onClick={(e) => handleBack(e)}>Atras</Button> */}
                   <Button type="submit">Listo</Button>
                   <Button
                     className="btn btn-primary"

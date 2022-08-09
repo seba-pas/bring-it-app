@@ -233,7 +233,7 @@ export default function HomePersonas() {
                   <option hidden value="Provincias">
                     Provincias
                   </option>
-                  t<option value="All">Todas</option>
+                  <option value="All">Todas</option>
                   {provUnica?.map((e) => {
                     return (
                       <option value={e} key={e}>
