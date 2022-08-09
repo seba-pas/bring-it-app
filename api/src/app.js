@@ -38,7 +38,11 @@ server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
+<<<<<<< HEAD
   res.header("Access-Control-Allow-Origin", "https://bring-it-app.vercel.app"); // update to match the domain you will make the request from
+=======
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+>>>>>>> abe4e93632b146108ad46d7977a0b3de2c5daa8e
 
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
@@ -144,7 +148,7 @@ server.get(
   (req,res) => {
     //autenticacion exitosa, redirige al la ruta del FRONT donde se renderiza el componente q cierra solo
     //console.log("Ruta http://localhost:3001/auth/google/callback, req.user: ", req.user); //req.user se obtuvo de nuestra bd, viene de la deserializacion    
-    res.redirect("http://localhost:3000/login/success");    
+    res.redirect("https://bring-it-app.vercel.app/login/success");    
   }
 );
 
