@@ -209,7 +209,7 @@ router.put("/recover/password/:email", async (req, res) => {
 });
 
 
-//Olvide mi contraceña 
+//Olvide mi contraseña 
 
 router.put('/recover/password/olv/pass', async (req,res )=>{
   const passN= Math.floor(Math.random(10000000 - 9000000) * 100000000);
