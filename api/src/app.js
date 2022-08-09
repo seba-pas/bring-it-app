@@ -38,11 +38,9 @@ server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
-<<<<<<< HEAD
+
   res.header("Access-Control-Allow-Origin", "https://bring-it-app.vercel.app"); // update to match the domain you will make the request from
-=======
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
->>>>>>> abe4e93632b146108ad46d7977a0b3de2c5daa8e
+
 
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
@@ -158,14 +156,16 @@ server.get(
 //http://localhost:3001/auth/authenticatedUser
 server.get("/auth/authenticatedUser",  (req,res) => {  
   //console.log(`estoy en el get /authenticatedUser, req.user: `);
+  console.log(req.user)
+  console.log(req.data)
   try {
     if (req.user){
       //console.log(req.user);
       return res.status(200).json(req.user);
     }
-    res.status(401).send("no hay req.user");
+    res.status(401).send("error falopa");
   } catch (error) {
-    res.status(401).send("no hay req.user");
+    res.status(403).send("error 403");
   }
 });
 
