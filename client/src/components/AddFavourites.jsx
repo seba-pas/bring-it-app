@@ -49,7 +49,7 @@ export default function AddFavourites() {
     }
     if (toggle === true) {
       setToggle(false);
-      debugger;
+      // debugger;
       dispatch(
         deleteFavourite({
           userEmail: email,

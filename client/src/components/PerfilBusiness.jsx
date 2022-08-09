@@ -271,9 +271,24 @@ function PerfilBusiness(props) {
     swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
   };
   function handleDesactivate() {
-    dispatch(desactivateBusiness(infoBusiness.email, tokenBusiness));
-    history.push("/");
-    dispatch(cleanBusinessState());
+    swal({
+      title: "¿Está seguro que quiere desactivar su cuenta?",
+      text: "Si desactiva su cuenta ya no tendrá acceso a la misma.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Su cuenta ha sido desactivada!", {
+          icon: "success",
+        });
+        dispatch(desactivateBusiness(infoBusiness.email, tokenBusiness));
+        history.push("/");
+        dispatch(cleanBusinessState());
+      } else {
+        swal("Su cuenta no ha sido desactivada");
+      }
+    });
   }
 
   function closeSesion() {

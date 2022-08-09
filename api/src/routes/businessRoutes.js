@@ -50,13 +50,13 @@ router.post('/', async (req, res) => {
             port: 465,
             secure: true,
             auth: {
-                user: 'bringit662@gmail.com',
-                pass: 'baiepxymtdopmjuj'
+                user: "bringitservices2022@gmail.com",
+                pass: "rgmizokemaustfnd"
             }
         });
 
         const email = await transporter.sendMail({
-            from: "Bring It App <bringit662@gmail.com>",
+            from: "Bring It App <bringitservices2022@gmail.com>",
             to: req.body.email,
             subject: "¡Bienvenido a Bring It Empresas!",
             html: `<h3>Bienvenido a Bring It App, ${req.body.businessName}!</h3>
@@ -270,13 +270,13 @@ router.get('/', (req, res) => {
         port: 465,
         secure: true,
         auth: {
-          user: 'bringit662@gmail.com',
-          pass: 'baiepxymtdopmjuj'
+          user: "bringitservices2022@gmail.com",
+          pass: "rgmizokemaustfnd"
         }
       });
 
       const email = await transporter.sendMail({
-        from: "Bring It App <bringit662@gmail.com>",
+        from: "Bring It App <bringitservices2022@gmail.com>",
         to: req.params.email,
         subject: "Cambio de contraseña",
         html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
@@ -319,13 +319,13 @@ router.put('/recover/password/olv/:email', async (req,res )=>{
         //   port: 465,
         //   secure: true,
         //   auth: {
-        //     user: 'bringit662@gmail.com',
+        //     user: "bringitservices2022@gmail.com",
         //     pass: 'owtgyxnzmbchbhjj'
         //   }
         // });
   
         // const email = await transporter.sendMail({
-        //   from: "Bring It App <bringit662@gmail.com>",
+        //   from: "Bring It App <bringitservices2022@gmail.com>",
         //   to: req.params.email,
         //   subject: "Cambio de contraseña",
         //   html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>

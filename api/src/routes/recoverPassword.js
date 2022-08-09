@@ -13,13 +13,13 @@ router.post("/", async(req, res) => {
         	port: 465,
         	secure: true,
         	auth: {
-          	user: 'bringit662@gmail.com',
-          	pass: 'baiepxymtdopmjuj'
+          	user: "bringitservices2022@gmail.com",
+          	pass: "rgmizokemaustfnd"
        		}
       	});
 
       	await transporter.sendMail({
-        	from: "Bring It App <bringit662@gmail.com>",
+        	from: "Bring It App <bringitservices2022@gmail.com>",
         	to: email,
         	subject: "Cambio de contraseña",
         	html: `<h3>Solicitaste un cambio de contraseña, podrás hacerlo haciendo click en este <p><a href="http://localhost:3000/recuperarContrasenia">enlace</a></p></h3>`

@@ -41,13 +41,13 @@ router.post('/payment', async (req, res) => {
             port: 465,
             secure: true,
             auth: {
-            user: 'bringit662@gmail.com',
-            pass: 'baiepxymtdopmjuj'
+            user: "bringitservices2022@gmail.com",
+            pass: "rgmizokemaustfnd"
             }
         });
 
         await transporter.sendMail({
-            from: "Bring It App <bringit662@gmail.com>",
+            from: "Bring It App <bringitservices2022@gmail.com>",
             to: email,
             subject: "Pago realizado satisfactoriamente",
             html: `<h3>¡Muchas gracias por tu compra, ${name}!</h3>
@@ -58,7 +58,7 @@ router.post('/payment', async (req, res) => {
         })
 
         await transporter.sendMail({
-            from: "Bring It App <bringit662@gmail.com>",
+            from: "Bring It App <bringitservices2022@gmail.com>",
             to: emailBusiness,
             subject: "Compraron un producto de tu empresa",
             html: `<h3>¡Acaban de hacer una compra, el usuario ${email}!</h3>
