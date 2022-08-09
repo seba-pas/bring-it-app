@@ -21,9 +21,9 @@ import { useHistory } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import RecuperarPasswordBusiness from "./RecuperarPasswordBusiness";
+import { Avatar, AvatarBadge } from "@chakra-ui/avatar";
 
 function PerfilBusiness(props) {
-
   const [key, setKey] = useState("home");
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -254,13 +254,15 @@ function PerfilBusiness(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
-      editBusiness(input.email, {
-        businessName: input.businessName,
-        cuit: input.cuit,
-        taxBracket: input.taxBracket,
-        logo: input.logo,
-        phone: input.phone,
-      },
+      editBusiness(
+        input.email,
+        {
+          businessName: input.businessName,
+          cuit: input.cuit,
+          taxBracket: input.taxBracket,
+          logo: input.logo,
+          phone: input.phone,
+        },
 
         tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
@@ -269,22 +271,33 @@ function PerfilBusiness(props) {
     swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
   };
   function handleDesactivate() {
-    dispatch(desactivateBusiness(infoBusiness.email,tokenBusiness));
+    dispatch(desactivateBusiness(infoBusiness.email, tokenBusiness));
     history.push("/");
     dispatch(cleanBusinessState());
   }
 
-  function closeSesion(){
+  function closeSesion() {
     dispatch(cleanBusinessState());
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
       "success"
     );
-    history.push("/")
+    history.push("/");
   }
   return (
     <div>
+      <Avatar
+        size="lg"
+        name={gState.business.businesName}
+        src={gState.businessEditInfo.logo}
+      >
+        <AvatarBadge
+          boxSize="0.08m"
+          bg="springgreen"
+          borderColor="springgreen"
+        />
+      </Avatar>
       <Container>
         <Tabs
           id="controlled-tab-example"
@@ -413,10 +426,12 @@ function PerfilBusiness(props) {
                       </Button>
                     </Col>
                     <Col>
-                        <Button onClick={(e) => handleDesactivate(e)}>Desactivar cuenta</Button>
+                      <Button onClick={(e) => handleDesactivate(e)}>
+                        Desactivar cuenta
+                      </Button>
                     </Col>
                     <Col>
-                        <Button onClick={closeSesion}>Cerrar sesión</Button>
+                      <Button onClick={closeSesion}>Cerrar sesión</Button>
                     </Col>
                   </Row>
                 </Form>
@@ -524,7 +539,6 @@ function PerfilBusiness(props) {
                               {e.nombre}
                             </option>
                           ))
-
                       : ""}
                   </Form.Select>
                   {!error.errorcity ? (

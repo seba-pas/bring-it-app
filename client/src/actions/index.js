@@ -80,14 +80,12 @@ import {
   POST_FAVOURITES,
   CLEAN_GET_MATCH,
   DELETE_FAVOURITE,
+  GET_ALL_FAVOURITES,
 
   //login con Google
   POST_LOGIN_GOOGLE,
-
   GET_ALL_PURCHASES,
-
   LOGOUT_GOOGLE_SESSION,
-
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -119,13 +117,12 @@ export const getAllProductsDetail = (id) => {
   };
 };
 
-
 export const recoverPassword = (body) => {
-      console.log("input", body)
+  console.log("input", body);
   return async function (dispatch) {
     try {
       const res = await axios.post("/recoverPassword", body);
-      console.log("recoverPassword: ", res.data)
+      console.log("recoverPassword: ", res.data);
       return dispatch({
         type: "PASS_RECOVER",
         payload: res.data,
@@ -136,13 +133,11 @@ export const recoverPassword = (body) => {
   };
 };
 
-
 export const cleanRecoverPassword = () => {
   return {
-    type: "CLEAN_RECOVER_PASSWORD"
-  }
-}
-
+    type: "CLEAN_RECOVER_PASSWORD",
+  };
+};
 
 export const getAllProductsName = (name) => {
   return async function (dispatch) {
@@ -554,7 +549,7 @@ export const getAllPurchases = () => {
   return async function (dispatch) {
     try {
       const res = await axios.get(`/purchase`);
-      console.log("esto llega get all", res.data)
+      console.log("esto llega get all", res.data);
       return dispatch({
         type: GET_ALL_PURCHASES,
         payload: res.data,
@@ -911,13 +906,24 @@ export const getFavourites = (userEmail) => {
   };
 };
 
-export const postFavourites = (body, token) => {
+export const getAllFavourites = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/favorite`, body, {
-        headers: { authorization: `Bearer ${token}` },
+      const res = await axios.get("/favorite/products");
+      return dispatch({
+        type: GET_ALL_FAVOURITES,
+        payload: res.data,
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
+export const postFavourites = (body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`/favorite`, body);
       return dispatch({
         type: POST_FAVOURITES,
         payload: res.data,
@@ -928,13 +934,10 @@ export const postFavourites = (body, token) => {
   };
 };
 
-export const deleteFavourite = (body, token) => {
+export const deleteFavourite = (body) => {
   return async function (dispatch) {
     try {
-      const res = await axios.delete(`/favorite`, body, {
-        headers: { authorization: `Bearer ${token}` },
-      });
-
+      const res = await axios.delete(`/favorite`, body);
       return dispatch({
         type: DELETE_FAVOURITE,
         payload: res.data,
