@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getByPurchaseEmail, getAllCities, postReview, getMatch } from "../actions";
+import {
+  getByPurchaseEmail,
+  getAllCities,
+  postReview,
+  getMatch,
+  cleanGetMatch,
+  setProduct,
+} from "../actions";
 import { FaSearchLocation } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
@@ -11,6 +18,8 @@ import { useHistory } from "react-router-dom";
 // import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
 import moment from "moment";
+
+
 function HomeUserPurchase() {
   const dispatch = useDispatch();
   const gState = useSelector((state) => state);
@@ -20,13 +29,13 @@ function HomeUserPurchase() {
   const user = useSelector((state) => state.user);
   const [avgRating, setAvgRating] = useState(0);
   const [selectedData, setSelectedData] = useState();
-
+  const listMatch = useSelector((state) => state.listTravelsMatch);
   const [input, setInput] = useState({
     comment: "",
     rating: "",
     userEmail: user.email,
     // productId: purchases.filter(e => e.id === e)
-  }); 
+  });
 
   const handleRating = (input) => {
     setAvgRating(input);
@@ -34,7 +43,11 @@ function HomeUserPurchase() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(input));
-    swal("Muchas gracias por tu feedback", "Esperemos que sigas eligiendo Bring it", "success")
+    swal(
+      "Muchas gracias por tu feedback",
+      "Esperemos que sigas eligiendo Bring it",
+      "success"
+    );
   }
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -51,7 +64,7 @@ function HomeUserPurchase() {
   }, [input.rating]);
   const handleBack = (event) => {
     event.preventDefault();
-    history.push("/filtro");
+    history.push("/persona/filtro");
   };
   const changeCity = purchases;
   const nameCity = changeCity.map((e) => {
@@ -63,13 +76,13 @@ function HomeUserPurchase() {
       province: e.province,
       totalPrice: e.totalPrice,
       cantidad: e.purchaseitems.reduce((a, e) => e.quantity + a, 0),
-      producto: e.purchaseitems.map((e) => `${e.product.name}, `),
+      producto: e.purchaseitems.map((e) => `${e.productName}, `),
       arrivalCityId: gState.allCities.filter(
         (el) => parseInt(el.id) === parseInt(e.arrivalCityId)
       )[0].nombre,
     };
   });
-  console.log(nameCity)
+
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
     dispatch(getAllCities());
@@ -80,9 +93,31 @@ function HomeUserPurchase() {
     setShow((showId) => (showId === id ? null : id));
   };
   const searchMatch = (idPurchase) => {
-    dispatch(getMatch(idPurchase))
-    history.push("/persona/matchTravelsPurchases")
-  }
+    dispatch(getMatch(idPurchase));
+  };
+
+  //manejo de estado listMatch
+  const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return;
+    } else {
+      if (listMatch === "clean") {
+        return ;
+      } else if (listMatch === "No existen coincidencias") {
+        swal(
+          "Todavía no tienes viajeros disponibles",
+          "Intentalo mas tarde",
+          "error"
+        );
+        dispatch(cleanGetMatch());
+      } else if (typeof listMatch === "object") {
+        history.push("/persona/matchTravelsPurchases");
+      }
+    }
+  }, [listMatch]);
+
   const handleChange = (state) => {
     setSelectedData(state.selectedRows);
   };
@@ -138,11 +173,24 @@ function HomeUserPurchase() {
             style={{ marginRight: "15px", fontSize: "30px" }}
             onClick={() => searchMatch(row.id)}
           />
-          <BsFillBookmarkStarFill onClick={() => handleShow(row.id)} />
+          <BsFillBookmarkStarFill
+            onClick={() => handleShow(row.id)}
+            style={{ fontSize: "30px" }}
+          />
         </button>
       ),
     },
   ];
+  var filterByProduct = purchases.filter((item) => item.id === show);
+  console.log(nameCity.productId);
+  // console.log('soy filterByProduct',filterByProduct[0][purchaseitems]);
+  /* var filtrado = filterByProduct.forEach((e) => { */
+  /* console.log(e.purchaseitems); */ /* .map((y) => {
+      var products = { productId: y.productId, productName: y.productName };
+      debugger;
+    }); */
+  /* }); */
+
   return (
     <div>
       <Row>
@@ -161,7 +209,7 @@ function HomeUserPurchase() {
           <br />
         </Col>
       </Row>
-      <Button onClick={(e) => history.goBack(e)}>Atras</Button>
+      {/* <Button onClick={(e) => history.goBack(e)}>Atras</Button> */}
       <Modal show={show !== null} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -169,19 +217,17 @@ function HomeUserPurchase() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <select name="" id="">
-          {/* {nameCity.filter((item) =>item.producto.map(e => e))} */}
-                  {/* {nameCity.map((item) =>item.producto.map((e) => {
-                    return (
-                      <option name='productId' value={e.productId} key={e.productId}>
-                        {e}
-                      </option>
-                    )
-                  }))} */}
-          </select>
+          {/* <select> */}
+          {/*  {console.log(filterByProduct[0].id)} */}{" "}
+          {/* /* && filterByProduct[0].purchaseitems.map((e) => (
+              <option key={e.productId} value={e.productId}>
+                {e.productName}
+              </option>
+            ))} */}
+          {/* </select> */}
           {/* <DataTable
             columns={columnasRating}
-            data={nameCity.filter((item) => item.id === show)}
+           
             title="Listado de compras"
           /> */}
           <br />

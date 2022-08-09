@@ -40,7 +40,7 @@ export default function NavBarBusiness() {
 
     useEffect(() => {
         if (input.perfil === "email") {
-            history.push("/perfil");
+            history.push("/empresas/perfil");
         } else if (input.perfil === "desactivarMiCuenta") {
             dispatch(desactivateBusiness(gState.business.email, token));
             dispatch(cleanBusinessState()); //no se esta limpiando el estado

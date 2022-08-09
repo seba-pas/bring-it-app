@@ -1,58 +1,86 @@
-import { React, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import io from "socket.io-client";
+import React, { useEffect, useState } from 'react'
+import { user } from "./Join.jsx";
+import socketIo from "socket.io-client";
+import "../styles/Chat.css";
+// import sendLogo from "../../images/send.png";
+import sendLogo from './img/send.png'
+import closeIcon from './img/closeIcon.png'
+import Message from "./Message.jsx";
+import ReactScrollToBottom from "react-scroll-to-bottom";
 
+let socket;
 
-function Chat() {
+const ENDPOINT = "https://bringit-arg.herokuapp.com/"
 
-    // const socket = io("http://localhost:3001");
-    const socket = io();
-    const [message, setMessage] = useState("");
-    const [messages, setMessages] = useState([]);
+const Chat = () => {
+    const [id, setid] = useState("");
+    const [messages, setMessages] = useState([])
 
-    const user = useSelector((state) => state.user.email);
-    //
-    const destino = "agustina@gmail.com"
+    const send = () => {
+        const message = document.getElementById('chatInput').value;
+        socket.emit('message', { message, id });
+        document.getElementById('chatInput').value = "";
+    }
     useEffect(() => {
-        const receiveMessage = (message) => {
-            setMessages([message, ...messages]);
-        };
-        socket.on(`${user}`, receiveMessage);
-        return () => {
-            socket.off(`${user}`, receiveMessage);
-        };
-    }, [messages]);
+        socket = socketIo(ENDPOINT, { transports: ['websocket'] });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        socket.emit("message", `${destino}/${message}`);
-        const newMessage = {
-            body: message,
-            from: `${user}`,
-        };
-        setMessages([newMessage, ...messages]);
-        setMessage("");
-    };
+        socket.on('connect', () => {
+            
+            setid(socket.id);
+
+        })
+        console.log(socket);
+        socket.emit('joined', { user })
+
+        socket.on('welcome', (data) => {
+            setMessages([...messages, data]);
+            console.log(data.user, data.message);
+        })
+
+        socket.on('userJoined', (data) => {
+            setMessages([...messages, data]);
+            console.log(data.user, data.message);
+        })
+
+        socket.on('leave', (data) => {
+            setMessages([...messages, data]);
+            console.log(data.user, data.message)
+        })
+
+        return () => {
+            socket.emit('desconectado');
+            socket.off();
+        }
+    }, [])
+
+    useEffect(() => {
+        socket.on('sendMessage', (data) => {
+            setMessages([...messages, data]);
+            console.log(data.user, data.message, data.id);
+        })
+        return () => {
+            socket.off();
+        }
+    }, [messages])
+
     return (
-        <div>
-            <form action="" onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    onChange={(e) => setMessage(e.target.value)}
-                    value={message}
-                />
-                <ul>
-                    {messages.map((message, index) => (
-                        <li key={index}>
-                            <p>
-                                {message.from}: {message.body}
-                            </p>
-                        </li>
-                    ))}
-                </ul>
-            </form>
+        <div className="chatPage">
+            <div className="chatContainer">
+                <div className="header">
+                    <h2>C CHAT</h2>
+                    <a href="/"> <img src={closeIcon} alt="Close" /></a>
+                </div>
+                <ReactScrollToBottom className="chatBox">
+                    {messages.map((item, i) => <Message user={item.id === id ? '' : item.user} message={item.message} classs={item.id === id ? 'right' : 'left'} />)}
+                </ReactScrollToBottom>
+                <div className="inputBox">
+                    <input onKeyPress={(event) => event.key === 'Enter' ? send() : null} type="text" id="chatInput" />
+                    <button onClick={send} className="sendBtn"><img src={sendLogo} alt="Send" /> </button>
+                </div>
+            </div>
+
         </div>
-    );
+    )
 }
 
 export default Chat

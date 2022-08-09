@@ -26,8 +26,11 @@ import swal from "sweetalert";
 export default function HomeAdmin() {
   const [key, setKey] = useState("home");
   const dispatch = useDispatch();
-  const purchases = useSelector((state) => state.purchases);
+  const userPurchase = useSelector((state) => state.user);
   const USERS = useSelector((state) => state.users);
+  const gState = useSelector((state) => state);
+  console.log(gState);
+  const purchases = useSelector((state) => state.purchases);
   const products = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
   const allTravels = useSelector((state) => state.allTravels);
@@ -67,61 +70,69 @@ export default function HomeAdmin() {
   }
 
   useEffect(() => {
+    dispatch(getByPurchaseEmail(userPurchase.email));
     dispatch(getAllProducts());
     dispatch(getUsers());
     dispatch(getAllBusiness());
     dispatch(getAllTravel());
-    dispatch(getByPurchaseEmail(USERS.email));
   }, [dispatch]);
 
   function searchProduct(rows) {
-    return rows.filter((row) => row.name.toLowerCase().indexOf(q) > -1 ||
-    row.price.toString().toLowerCase().indexOf(q) > -1 ||
-    row.weight.toString().toLowerCase().indexOf(q) > -1 ||
-    row.stock.toString().toLowerCase().indexOf(q) > -1 ||
-    row.description.toLowerCase().indexOf(q) > -1 ||
-    row.businessbranch.businessBranchName.toLowerCase().indexOf(q) > -1
+    return rows.filter(
+      (row) =>
+        row.name.toLowerCase().indexOf(q) > -1 ||
+        row.price.toString().toLowerCase().indexOf(q) > -1 ||
+        row.weight.toString().toLowerCase().indexOf(q) > -1 ||
+        row.stock.toString().toLowerCase().indexOf(q) > -1 ||
+        row.description.toLowerCase().indexOf(q) > -1 ||
+        row.businessbranch.businessBranchName.toLowerCase().indexOf(q) > -1
     );
-  };
+  }
 
   function searchUsers(rows) {
-    return rows.filter((row) => row.name.toLowerCase().indexOf(q) > -1 ||
-    row.email.toLowerCase().indexOf(q) > -1 ||
-    row.lastname.toLowerCase().indexOf(q) > -1 ||
-    row.birthDate.toLowerCase().indexOf(q) > -1
+    return rows.filter(
+      (row) =>
+        row.name.toLowerCase().indexOf(q) > -1 ||
+        row.email.toLowerCase().indexOf(q) > -1 ||
+        row.lastname.toLowerCase().indexOf(q) > -1 ||
+        row.birthDate.toLowerCase().indexOf(q) > -1
     );
-  };
-  
+  }
+
   function searchBusiness(rows) {
-    return rows.filter((row) => 
-    row.email.toLowerCase().indexOf(q) > -1 ||
-    row.businessName.toLowerCase().indexOf(q) > -1 ||
-    row.cuit.toLowerCase().indexOf(q) > -1 ||
-    row.phone.toLowerCase().indexOf(q) > -1 ||
-    row.taxBracket.toLowerCase().indexOf(q) > - 1
+    return rows.filter(
+      (row) =>
+        row.email.toLowerCase().indexOf(q) > -1 ||
+        row.businessName.toLowerCase().indexOf(q) > -1 ||
+        row.cuit.toLowerCase().indexOf(q) > -1 ||
+        row.phone.toLowerCase().indexOf(q) > -1 ||
+        row.taxBracket.toLowerCase().indexOf(q) > -1
     );
-  };
+  }
 
   function searchTravels(rows) {
-    return rows.filter((row) => 
-    row.travelProvince.toLowerCase().indexOf(q) > -1 ||
-    row.arrivalProvince.toLowerCase().indexOf(q) > -1 ||
-    row.startDate.toLowerCase().indexOf(q) > -1 ||
-    row.arrivalDate.toLowerCase().indexOf(q) > -1 ||
-    row.userEmail.toLowerCase().indexOf(q) > - 1
+    return rows.filter(
+      (row) =>
+        row.travelProvince.toLowerCase().indexOf(q) > -1 ||
+        row.arrivalProvince.toLowerCase().indexOf(q) > -1 ||
+        row.startDate.toLowerCase().indexOf(q) > -1 ||
+        row.arrivalDate.toLowerCase().indexOf(q) > -1 ||
+        row.userEmail.toLowerCase().indexOf(q) > -1
     );
-  };
+  }
 
-  function searchPurchases(rows) {
+   /* function searchPurchases(rows) {
+     debugger;
     return rows.filter((row) => 
-    row.id.toLowerCase().indexOf(q) > -1 ||
+    console.log(row) && 
+     row.id.toLowerCase().indexOf(q) > -1 ||
     row.purchaseitems.toLowerCase().indexOf(q) > -1 ||
     row.maxDeliveryDate.toLowerCase().indexOf(q) > -1 ||
     row.name.toLowerCase().indexOf(q) > -1 ||
     row.quantity.toLowerCase().indexOf(q) > - 1 ||
     row.totalPrice.toLowerCase().indexOf(q) > - 1
     );
-  };
+  };  */
 
   const columnasPurchases = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
@@ -309,7 +320,16 @@ export default function HomeAdmin() {
                     type="text"
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
-                    style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                    style={{
+                      background: "#8c52ff",
+                      color: "white",
+                      borderRadius: "15px",
+                      margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
+                    }}
                   />
                 </div>
                 <DataTable
@@ -320,12 +340,21 @@ export default function HomeAdmin() {
                 <br />
               </Tab>
               <Tab eventKey="profile" title="Listado de empresas">
-              <div>
+                <div>
                   <input
                     type="text"
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
-                    style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                    style={{
+                      background: "#8c52ff",
+                      color: "white",
+                      borderRadius: "15px",
+                      margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
+                    }}
                   />
                 </div>
                 <DataTable
@@ -340,7 +369,16 @@ export default function HomeAdmin() {
                     type="text"
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
-                    style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                    style={{
+                      background: "#8c52ff",
+                      color: "white",
+                      borderRadius: "15px",
+                      margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
+                    }}
                   />
                 </div>
                 <DataTable
@@ -350,12 +388,21 @@ export default function HomeAdmin() {
                 />
               </Tab>
               <Tab eventKey="profile3" title="Listado de viajes">
-              <div>
+                <div>
                   <input
                     type="text"
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
-                   style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                    style={{
+                      background: "#8c52ff",
+                      color: "white",
+                      borderRadius: "15px",
+                      margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
+                    }}
                   />
                 </div>
                 <DataTable
@@ -366,17 +413,26 @@ export default function HomeAdmin() {
                 />
               </Tab>
               <Tab eventKey="profile4" title="Listado de compras">
-              <div>
+                <div>
                   <input
                     type="text"
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
-                    style={{ background: "#8c52ff", color: "white", borderRadius: '20px', margin:'20px' }}
+                    style={{
+                      background: "#8c52ff",
+                      color: "white",
+                      borderRadius: "15px",
+                      margin: "20px",
+                      fontSize:'15px',
+                      paddingLeft:'10px',
+                      width:'250px',
+                      height:'27px'
+                    }}
                   />
                 </div>
                 <DataTable
                   columns={columnasPurchases}
-                  data={searchPurchases(purchases)}
+                  data={purchases}
                   title="Listado de compras"
                 />
               </Tab>

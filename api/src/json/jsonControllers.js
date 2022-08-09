@@ -110,6 +110,7 @@ async function loadDB (){
             purchaseId: createdPurchase[0].id,
             productId: i.id,
             quantity: i.quantity,
+            productName: i.name
             }
           });
     }) 

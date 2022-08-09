@@ -152,7 +152,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//Cambiar contraceña
+// Cambiar contraceña usuario 
 router.put("/recover/password/:email", async (req, res) => {
     const userLogin = await User.findByPk(req.params.email);
     const {passwordV}= req.body;
@@ -173,7 +173,7 @@ router.put("/recover/password/:email", async (req, res) => {
 
         await User.update({password:passNueva}, {
           where: {
-            email: req.params.email,
+            email:  req.params.email,
           }
         })
         
@@ -181,7 +181,7 @@ router.put("/recover/password/:email", async (req, res) => {
       // let transporter = nodemailer.createTransport({
       //   host: 'smtp.gmail.com',
       //   port: 465,
-      //   secure: true,
+      //   secure:true,
       //   auth: {
       //     user: 'bringit662@gmail.com',
       //     pass: 'owtgyxnzmbchbhjj'
@@ -198,28 +198,40 @@ router.put("/recover/password/:email", async (req, res) => {
       // })
 
 
-        res.json("contraceña cambiada")
+        res.json("contraseña cambiada")
       } catch(error) {
         console.log('5')
         console.log('208',error)
       }    
     } else {
-      console.log("contraseña incorrecta") 
+      console.log("contraseña incorrecta")  
     }
 });
 
-//
-router.put('/recover/password/olv/:email', async (req,res )=>{
+
+//Olvide mi contraceña 
+
+router.put('/recover/password/olv/pass', async (req,res )=>{
   const passN= Math.floor(Math.random(10000000 - 9000000) * 100000000);
   console.log(req.body.email);
   const userEmail= await User.findByPk(req.body.email);
-  const passHash=  CryptoJS.AES.encrypt(passN, process.env.PASS_SEC).toString();
+  console.log(passN.toString());
   if(userEmail){
     const email=userEmail.email;
     console.log('EMAIL: ',email);
-    console.log('PASS:',passN);
+    console.log('PASS:',passN); 
+    const passHash=   CryptoJS.AES.encrypt(passN.toString(), process.env.PASS_SEC).toString();
     console.log('PASS ENCRYPTADA: ',passHash);
-    res.status(200).send('listorty');
+    try {
+      await User.update({password:passHash}, {
+        where: {
+          email: email,
+        }
+      })
+        res.status(200).send('listo');
+    } catch (error) {
+      console.log(error.message);
+    }
   }else{
     res.send('email no rregistrado');
   }
@@ -228,4 +240,29 @@ router.put('/recover/password/olv/:email', async (req,res )=>{
 
 })
  
+
+//LOG IN para usuario loggeado con Google
+//Cuando el log in con Google es exitoso, desde el front se le pega a esta ruta. Aca le ponemos el JWT Token
+//"http://localhost:3001/user/google/login/" 
+router.post("/google/login", (req, res) => {
+  //del front viene por body la info del usuario loggeado con google
+  
+  try {
+    if (!req.body) return res.status(201).send("No se recibio información del usuario loggeado con Google");
+    const accessToken = jwt.sign({
+      email: req.body.email,
+      isBusiness: req.body.isBusiness,
+      isAdmin: req.body.isAdmin,
+    }, process.env.JWT_SEC, { expiresIn: '30m' });
+    //console.log(accessToken);          
+    
+    const userInfo = req.body; 
+    return res.status(200).json({userInfo, accessToken});
+
+  } catch (error) {
+    res.status(404).send(`error:${error.message}`);
+  }   
+ });
+
+
 module.exports = router;

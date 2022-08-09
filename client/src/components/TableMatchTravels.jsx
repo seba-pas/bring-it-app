@@ -4,7 +4,7 @@ import DataTable from "react-data-table-component";
 import moment from "moment";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { BsCardChecklist } from "react-icons/bs";
-import { putMatch } from "../actions";
+import { putMatch , cleanMatch} from "../actions";
 import swal from "sweetalert";
 function TableMatchTravels() {
   const match = useSelector((state) => state.listTravelsMatch);
@@ -12,7 +12,7 @@ function TableMatchTravels() {
   const gState = useSelector((state) => state);
   const tableMatch = match;
   const dispatch = useDispatch();
-  const listMatch = tableMatch.map((e) => {
+  const listMatch = tableMatch?.map((e) => {
     return {
       arrivalCityId: gState.allCities.filter(
         (el) => parseInt(el.id) === parseInt(e.arrivalCityId)
@@ -30,8 +30,26 @@ function TableMatchTravels() {
   });
   const matchDef = (idTravels) => {
     dispatch(putMatch(idPurchase, idTravels));
-    swal("Match correcto", "Felicitaciones", "success");
   };
+
+  const matchOk = useSelector((state) => state.matchOk);
+  const [didMount, setDidMount] = useState(true);
+  useEffect(() => {
+    if (didMount) {
+      setDidMount(false);
+      return;
+    } else {
+      if (matchOk === "clean") {
+        return ;
+      } else if (matchOk === "Matcheado con éxito") {
+        swal("Match correcto", "Verifique su correo electronico asi podra contactarse con el viajero", "success");
+        dispatch(cleanMatch());
+      } else if (matchOk === "La compra ya cuenta con viajero") {
+        swal("La compra ya cuenta con viajero", "Lo sentimos", "error");
+        dispatch(cleanMatch());
+      }
+    }
+  }, [matchOk]);
 
   //   const allTravels = useSelector((state) => state.allTravels);
   function formatDate(value) {
@@ -71,11 +89,12 @@ function TableMatchTravels() {
       button: true,
       cell: (row) => (
         <button style={{ display: "flex" }}>
-          <BsCardChecklist
+          {/* <BsCardChecklist
             style={{ marginRight: "15px", fontSize: "20px" }}
             onClick={(e) => editUsers(e)}
-          />
+          /> */}
           <BsCheckCircleFill
+          title="Confirmar match"
             style={{ fontSize: "20px" }}
             onClick={() => matchDef(row.id)}
           />

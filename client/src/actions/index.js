@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  PASS_CHANGE_BUSINESS,
   PASS_CHANGE,
   POST_REVIEW,
   GET_EMAIL,
@@ -70,13 +71,19 @@ import {
   // RESET_INITIAL_STATE,
 
 
+  //MACH
   GET_MATCH,
   PUT_MATCH,
+  CLEAN_MATCH,
+
+  //FAVORITES
 
   GET_FAVOURITES,
   POST_FAVOURITES,
+  CLEAN_GET_MATCH,
 
-
+  //login con Google
+  POST_LOGIN_GOOGLE,
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -127,7 +134,6 @@ export const setDetail = () => {
     type: SET_PRODUCT_DETAIL,
   };
 };
-
 
 // export const resetInitialState = () => {
 //   return {
@@ -237,7 +243,7 @@ export const filterByCategory = (payload) => {
 
 export const getAllProvinces = () => {
   return async function (dispatch) {
-    const res = await axios("/province");   
+    const res = await axios("/province");
     return dispatch({
       type: GET_ALL_PROVINCES,
       payload: res.data,
@@ -790,7 +796,6 @@ export const putMatch = (idPurchase, idTravel) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(`/travel/purchase/${idPurchase}/${idTravel}`);
-      debugger;
       return dispatch({
         type: PUT_MATCH,
         payload: res.data,
@@ -807,13 +812,24 @@ export const getMatch = (idPurchase) => {
       const res = await axios.get(`/travel/purchase/${idPurchase}`);
       return dispatch({
         type: GET_MATCH,
-        payload: [res.data,idPurchase],
+        payload: [res.data, idPurchase],
       });
-
     } catch (error) {
       console.log(error);
     }
   };
+};
+
+export function cleanGetMatch() {
+  return {
+    type: CLEAN_GET_MATCH,
+  }
+};
+
+export function cleanMatch() {
+  return {
+    type: CLEAN_MATCH,
+  }
 };
 
 //SAVE IMAGE
@@ -836,13 +852,12 @@ export const saveImage = (urlImage) => {
   };
 };
 
-
 //FAVORITOS
-export const getFavourites = () => {
+export const getFavourites = (userEmail) => {
   return async function (dispatch) {
     try {
-      const res = await axios(`/user/${userEmail}`);
-      debugger;
+      const res = await axios(`/favorite/user/${userEmail}`);     
+
       return dispatch({
         type: GET_FAVOURITES,
         payload: res.data,
@@ -855,6 +870,7 @@ export const getFavourites = () => {
 
 export const postFavourites = (body, token) => {
   return async function (dispatch) {
+    console.log(body, token);
     try {
       const res = await axios.post(`/favorite`, body, {
         headers: { authorization: `Bearer ${token}` },
@@ -867,11 +883,10 @@ export const postFavourites = (body, token) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
 
-  }
-}
-
-// CAMBIO DE PASSWORD 
+// CAMBIO DE PASSWORD
 export const changePassword = (email, body) => {
   return async function (dispatch) {
     try {
@@ -887,3 +902,32 @@ export const changePassword = (email, body) => {
   };
 };
 
+export const changePasswordBusiness = (email, body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(`/business/recover/password/${email}`, body);
+      console.log(res.data);
+      return dispatch({
+        type: PASS_CHANGE_BUSINESS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// login con Google
+export const loginUserGoogle = (body) => {
+  return async function (dispatch) {
+    try {      
+      const res = await axios.post(`/user/google/login/`, body);      
+      return dispatch({
+        type: POST_LOGIN_GOOGLE,
+        payload: res.data
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}

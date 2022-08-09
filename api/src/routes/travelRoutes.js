@@ -1,10 +1,11 @@
 
 const { Router } = require("express");
-const { Travel , Purchase , Purchaseitem, Product , Businessbranch } = require('./../db')
+const { Travel , Purchase , Purchaseitem, Product , Businessbranch, User } = require('./../db')
 const { getTravel } = require('../controllers/travelControllers')
 const router = Router();
 const {Op} = require('sequelize');
 const { verifyToken } = require ("../middlewares/verifyToken");
+const nodemailer = require('nodemailer');
 
 //GET trae todos los travel
 router.get('/', async (req, res) => {
@@ -109,10 +110,59 @@ router.get('/purchase/:idPurchase', async (req, res) => {
 router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
     try {
         const {idPurchase, travelId} = req.params;
-        const updated = await Purchase.update({travelId}, {
+        const purchase = await Purchase.findByPk(idPurchase);
+        if (!purchase.travelId) {
+                    const updated = await Purchase.update({travelId}, {
             where: {id: idPurchase}
         });
+    // nodemailer
+      let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'bringit662@gmail.com',
+          pass: 'owtgyxnzmbchbhjj'
+        }
+      });
+      // mail a viajero
+      const purchaser = await User.findByPk(purchase.userEmail);
+      const traveler = await User.findByPk((await Travel.findByPk(travelId)).userEmail);
+      const emailTraveler = await transporter.sendMail({
+        from: "Bring It App <bringit662@gmail.com>",
+        to: traveler.email,
+        subject: "¡Nuevo paquete para transportar!",
+        html: `<h3>¡Felicitaciones, vas a transportar la compra de ${purchaser.name}!</h3>
+        <p>Estamos muy contentos de que puedas aprovechar tu viaje para 
+        transportar una compra más de la comunidad.
+        <br>
+        Por favor ingresa al siguiente Link para poder coordinar la entrega con ${purchaser.name}:
+        <br>
+        <a href="https://bring-it-app.vercel.app/join">https://bring-it-app.vercel.app/join</a>
+        <br />
+        ¡Muchas gracias!
+        </p>`
+      })
+      const emailPurchaser = await transporter.sendMail({
+        from: "Bring It App <bringit662@gmail.com>",
+        to: purchaser.email,
+        subject: `¡Tu compra Nº${idPurchase} ya tiene transporte!`,
+        html: `<h3>¡Felicitaciones, tu compra Nº${idPurchase} ya tiene transporte!!</h3>
+        <p>Estamos muy contentos de que puedas comprar a través de Bring it.
+        <br />
+        ${traveler.name} llevará tu paquete a destino. Por favor comunicate con el/la a través del chat de la página.
+        <br />
+        <a href="https://bring-it-app.vercel.app/join">https://bring-it-app.vercel.app/join</a>
+        <br />
+        ¡Muchas gracias!
+        </p>`
+      })
         res.status(201).send("Matcheado con éxito")
+        } else {
+            res.status(200).send("La compra ya cuenta con viajero")
+        }
+
+        
     } catch (error) {
         res.status(404).send(error.message);
     }
