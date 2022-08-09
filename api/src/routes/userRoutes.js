@@ -84,12 +84,12 @@ router.post("/", async (req, res) => {
 router.put("/:email", verifyToken, async (req, res) => {
   const { email } = req.params;
   const modification = req.body; //json con atributos a modificar y nuevos valores    
-  console.log(`estoy en update user ${email} antes del if, req.headers.authorization: ${req.headers.authorization}`);
+  // console.log(`estoy en update user ${email} antes del if, req.headers.authorization: ${req.headers.authorization}`);
   //Agrego verificacion de token, userLogin viene de la fc verifyToken
   // (if el usuario loggeado es el mismo usuario cuyos datos se quieren modificar, o es admin)
   if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){  
-    console.log(`soy req.userLogin.isAdmin: ${req.userLogin.isAdmin}`);  
-    console.log(`estoy en update user ${email}`);
+    // console.log(`soy req.userLogin.isAdmin: ${req.userLogin.isAdmin}`);  
+    // console.log(`estoy en update user ${email}`);
     try {
       const q = await User.update(modification, {
         where: { email: email },
