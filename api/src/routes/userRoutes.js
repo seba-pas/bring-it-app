@@ -152,7 +152,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Cambiar contraceña usuario 
+// Cambiar contraseña usuario 
 router.put("/recover/password/:email", async (req, res) => {
     const userLogin = await User.findByPk(req.params.email);
     const {passwordV}= req.body;
