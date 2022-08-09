@@ -12,7 +12,7 @@ const router = Router();
 // http://localhost:3001/favorite
 router.post("/", async (req, res) => {
   const { userEmail, productId } = req.body;
-  console.log(req.body);
+
 
   //Agrego verificacion de token, userLogin viene de la fc verifyToken
   // (if el usuario loggeado es el mismo usuario cuyos datos se quieren modificar)
@@ -65,7 +65,7 @@ router.delete("/", async (req, res) => {
   const { userEmail, productId } = req.body;
   //Agrego verificacion de token, userLogin viene de la fc verifyToken
   // (if el usuario loggeado es el mismo usuario cuyos datos se quieren modificar)
-  console.log(req.body);
+
 
   try {
     await removeFavorite({ ...req.body });

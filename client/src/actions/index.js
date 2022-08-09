@@ -79,14 +79,11 @@ import {
   GET_FAVOURITES,
   POST_FAVOURITES,
   CLEAN_GET_MATCH,
-
   DELETE_FAVOURITE,
-
 
   //login con Google
   POST_LOGIN_GOOGLE,
   LOGOUT_GOOGLE_SESSION,
-
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -890,13 +887,11 @@ export const postFavourites = (body, token) => {
 
 export const deleteFavourite = (body, token) => {
   return async function (dispatch) {
-    console.log(body)
-    console.log(body)
     try {
       const res = await axios.delete(`/favorite`, body, {
-        headers: { authorization: `Bearer ${token}`},
+        headers: { authorization: `Bearer ${token}` },
       });
-      debugger;
+
       return dispatch({
         type: DELETE_FAVOURITE,
         payload: res.data,
@@ -940,32 +935,32 @@ export const changePasswordBusiness = (email, body) => {
 // login con Google
 export const loginUserGoogle = (body) => {
   return async function (dispatch) {
-    try {      
-      const res = await axios.post(`/user/google/login/`, body);      
+    try {
+      const res = await axios.post(`/user/google/login/`, body);
       return dispatch({
         type: POST_LOGIN_GOOGLE,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};
 
-// logout de la sesión de Google 
+// logout de la sesión de Google
 export const logoutGoogleSession = () => {
   return async function (dispatch) {
-    try {      
-      const res = await axios.get(`/auth/logout/google`,
-      { withCredentials: true }
-      );  
-      debugger; 
-      console.log(res)   
+    try {
+      const res = await axios.get(`/auth/logout/google`, {
+        withCredentials: true,
+      });
+      debugger;
+      console.log(res);
       return dispatch({
-        type: LOGOUT_GOOGLE_SESSION        
-      })
+        type: LOGOUT_GOOGLE_SESSION,
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};

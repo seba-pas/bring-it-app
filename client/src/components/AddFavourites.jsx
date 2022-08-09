@@ -20,9 +20,7 @@ export default function AddFavourites() {
   const allFavorites = Array.isArray(favorites)
     ? favorites?.map((e) => e.productId)
     : [];
-  console.log(favorites);
 
-  // console.log(allFavorites.includes(id));
 
   useEffect(() => {
     dispatch(getFavourites(email));
