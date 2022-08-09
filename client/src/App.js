@@ -53,7 +53,7 @@ function App() {
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
         <Route exact path="/vidriera" component={Vidriera} />
-        <Route exact path='/usuarioE' component={Usuario} />
+        <Route exact path='/persona/usuarioE' component={Usuario} />
         <Route path="/persona/filtro" render={() => (
           user !== "clean" ? <FilterBefore /> : <Redirect to="/" />
         )} />
