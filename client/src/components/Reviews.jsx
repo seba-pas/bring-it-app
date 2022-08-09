@@ -24,7 +24,7 @@ function Reviews() {
               </div>
             ))
           ) : (
-            <div>No hay</div>
+            <div>{""}</div>
           )}
         </Row>
       </Container>
