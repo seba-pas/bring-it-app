@@ -661,10 +661,10 @@ export function editBranch(id, body, token) {
 }
 
 //borrar sede (desactivar)
-export const deleteBranch = (id, token) => {
+export const deleteBranch = (id, token, email) => {
   return async function (dispatch) {
     try {
-      const body = { active: false };
+      const body = { active: false , businessEmail: email};
       const res = await axios.put(`/businessbranch/${id}`, body, {
         headers: { authorization: `Bearer ${token}` }, //falta en ruta
       });

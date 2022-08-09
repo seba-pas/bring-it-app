@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from "../styles/BranchCard.module.css";
 import { IoCreateOutline, IoCloseCircleOutline } from "react-icons/io5";
 import { deleteBranch } from '../actions';
@@ -7,16 +7,18 @@ import { NavLink } from 'react-router-dom';
 
 function BranchCard({ id, name, city, province, address }) {
     const dispatch = useDispatch();
+    const businessToken = useSelector((state) => state.businessToken);
+    const businessEmail = useSelector((state) => state.businessEmail);
     async function handleEdit(event) {
         event.preventDefault();
         //dispatch(editBranch(id));
 
     }
-    async function handleDelet(event) {
+    async function handleDelete(event) {
         event.preventDefault();
-        dispatch(deleteBranch(id));
-
+        dispatch(deleteBranch(id, businessToken, businessEmail));
     }
+
     return (
         <tr>
             <th>{name}</th >
@@ -30,7 +32,7 @@ function BranchCard({ id, name, city, province, address }) {
                             <IoCreateOutline />
                         </button>
                     </NavLink>
-                    <button className={styles.btn} onClick={(event) => { handleDelet(event); }}>
+                    <button className={styles.btn} onClick={(event) => { handleDelete(event); }}>
                         <IoCloseCircleOutline />
                     </button>
                 </div>

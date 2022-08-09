@@ -23,7 +23,12 @@ module.exports = (sequelize) => {
       province: {
         type: DataTypes.STRING,
         allowNull: false
-      }
+      }, 
+      status: {
+        type: DataTypes.ENUM("paid", "traveling", "delivered"),
+        allowNull: false,
+        defaultValue: "paid"
+      },
     },
     {
         timestamps: true,
