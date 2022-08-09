@@ -20,7 +20,7 @@ function RecuperarPasswordBusiness(props) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(changePasswordBusiness(email, input));
-    swal("Su contraseña se modifico correctamente", "", "success");
+    swal("Su contraseña se modificó correctamente", "", "success");
   }
   function handleChange(e) {
     setInput({

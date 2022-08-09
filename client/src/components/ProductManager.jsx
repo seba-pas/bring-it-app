@@ -32,7 +32,7 @@ function ProductManager(props) {
         description: product.description || "",
         categoryId: product.categories?.map(e => e.id) || [],
         allCategories: categories,
-        branch: "",
+        branch: product.businessbranchId || "",
 
     } : {
         name: "",
@@ -132,9 +132,11 @@ function ProductManager(props) {
     };
 
     useEffect(() => {
-        setInput({
-            ...input, image: gState.images
-        })
+        if (gState.images !== "") {
+            setInput({
+                ...input, image: gState.images
+            })
+        }
     }, [gState.images])
 
 
@@ -191,8 +193,9 @@ function ProductManager(props) {
                     branch: "",
                 }
             })
-
         }
+
+
         //dispatch(editProduct(props.match.params.id, input));
 
     }

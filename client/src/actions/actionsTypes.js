@@ -38,6 +38,7 @@ export const FILTER_BY_BRANCHES_PROVINCES = "FILTER_BY_BRANCHES_PROVINCES";
 export const SET_PRODUCTS = "SET_PRODUCTS";
 export const POST_PURCHASE = "POST_PURCHASE";
 export const GET_BY_PURCHASE_EMAIL = "GET_BY_PURCHASE_EMAIL";
+export const GET_ALL_PURCHASES = "GET_ALL_PURCHASES";
 //Acciones del carrito (cart)
 export const GET_CART = "GET_CART";
 export const ADD_TO_CART = "ADD_TO_CART";
@@ -74,7 +75,7 @@ export const PASS_CHANGE = "PASS_CHANGE";
 
 export const SAVE_IMAGE = "SAVE_IMAGE";
 
-//Match get
+
 export const CLEAN_GET_MATCH = "CLEAN_GET_MATCH";
 export const GET_MATCH = "GET_MATCH";
 //Match put
@@ -86,11 +87,14 @@ export const CLEAN_MATCH = "CLEAN_MATCH";
 export const GET_FAVOURITES = "GET_FAVOURITES";
 export const POST_FAVOURITES = "POST_FAVOURITES";
 export const DELETE_FAVOURITE = "DELETE_FAVOURITE";
+export const GET_ALL_FAVOURITES = 'GET_ALL_FAVOURITES';
 
 
 export const PASS_CHANGE_BUSINESS = "PASS_CHANGE_BUSINESS";
 
 //login con google
 export const POST_LOGIN_GOOGLE = "POST_LOGIN_GOOGLE";
+
 export const LOGOUT_GOOGLE_SESSION = "LOGOUT_GOOGLE_SESSION";
+
 

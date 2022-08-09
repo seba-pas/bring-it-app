@@ -168,7 +168,7 @@ function RegisterBusiness() {
       return;
     } else {
       if (business === "Empresa y sede creada") {
-        swal("Buen trabajo!", "La empresa fue creada con exito!", "success");
+        swal("Buen trabajo!", "La empresa fue creada con éxito!", "success");
         setInput({
           email: "",
           password: "",

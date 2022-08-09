@@ -30,7 +30,7 @@ export default function NavBarRegisters() {
     e.preventDefault();
     if (input.email !== "" && input.password !== "") {
       // dispatch(createLogin(input));
-      swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+      swal("Buen trabajo!", "Entró al sistema correctamente!", "success");
       setInput({
         email: "",
         password: "",

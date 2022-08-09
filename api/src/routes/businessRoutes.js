@@ -294,5 +294,58 @@ router.get('/', (req, res) => {
     }
 });
 
+//Olvide mi contraseña 
+
+router.put('/recover/password/olv/:email', async (req,res )=>{
+    const passN= Math.floor(Math.random(10000000 - 9000000) * 100000000);
+    console.log(req.body.email);
+    const userEmail= await Business.findByPk(req.body.email);
+    console.log(passN.toString());
+    if(userEmail){
+      const email=userEmail.email;
+      console.log('EMAIL: ',email);
+      console.log('PASS:',passN); 
+      const passHash=   CryptoJS.AES.encrypt(passN.toString(), process.env.PASS_SEC).toString();
+      console.log('PASS ENCRYPTADA: ',passHash);
+      try {
+        await Business.update({password:passHash}, {
+          where: {
+            email: email,
+          }
+        })
+          // nodemailer
+        // let transporter = nodemailer.createTransport({
+        //   host: 'smtp.gmail.com',
+        //   port: 465,
+        //   secure: true,
+        //   auth: {
+        //     user: 'bringit662@gmail.com',
+        //     pass: 'owtgyxnzmbchbhjj'
+        //   }
+        // });
+  
+        // const email = await transporter.sendMail({
+        //   from: "Bring It App <bringit662@gmail.com>",
+        //   to: req.params.email,
+        //   subject: "Cambio de contraseña",
+        //   html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
+        //   <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
+        //   `
+        // })
+        
+        res.status(200).send('listo');
+      } catch (error) {
+        console.log(error.message);
+      }
+    }else{
+      res.send('email no rregistrado');
+    }
+    
+    
+  
+  })
+
+
+
 
 module.exports = router;

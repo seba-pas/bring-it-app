@@ -22,7 +22,7 @@ PARARSE EN LA BRANCH = git checkout nombreDeLaBranch
 
 VER EN QUE BRANCH ESTAMOS PARADOS = git branch
 
-//PARA BORRAR UNA BRANCH = git branch -d nombredelabranch
+PARA BORRAR UNA BRANCH = git branch -d nombredelabranch
 
 
 

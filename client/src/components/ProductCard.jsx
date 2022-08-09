@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import styles from "../styles/ProductCard.module.css";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import styles from "../styles/ProductCard.module.css";
 import AddFavourites from "./AddFavourites";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllFavourites } from "../actions";
+import { PinInputDescendantsProvider } from "@chakra-ui/react";
 
 export default function ProductCard({
   name,
@@ -14,6 +17,20 @@ export default function ProductCard({
   categories,
   id,
 }) {
+  const dispatch = useDispatch();
+  const allFavourites = useSelector((state) => state.allFavourites);
+
+  useEffect(() => {
+    dispatch(getAllFavourites());
+  }, [dispatch]);
+
+  if ( allFavourites && allFavourites.hasOwnProperty(`${id}`) ) {
+     var fav = allFavourites[id]
+  } else {
+   var fav = 0
+  }
+
+
   return (
     <div
       className="card"
@@ -51,8 +68,8 @@ export default function ProductCard({
       >
         Ver Producto
       </a>
-      
-      <span>💜 100</span>
+
+      <span>💜{fav}</span>
       <div className="card-footer" id={styles.empresa}>
         {/* <small style={{fontSize: '5px'}}> Empresa:{" "}</small> */}
         <small className="text-muted" id={styles.bold}>
