@@ -34,7 +34,6 @@ function HomeUserPurchase() {
     userEmail: gState.user.email,
     productId: 0,
   });
-
   const handleRating = (input) => {
     setAvgRating(input);
   };
@@ -42,7 +41,6 @@ function HomeUserPurchase() {
     e.preventDefault();
     console.log("esto envio ", input)
     dispatch(postReview(input));
-
     swal(
       "Muchas gracias por tu feedback",
       "Esperemos que sigas eligiendo Bring it",
@@ -51,7 +49,6 @@ function HomeUserPurchase() {
     setInput({
       comment: "",
       rating: "",
-
     });
   }
   const handleInputChange = (event) => {
@@ -92,7 +89,7 @@ function HomeUserPurchase() {
     };
   });
 
-  console.log("nameCity", nameCity)
+  console.log("nameCity", nameCity);
 
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
@@ -137,7 +134,6 @@ function HomeUserPurchase() {
     return value ? moment(value).format("DD/MM/YYYY") : "";
   }
   const columnasRating = [
-
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
     {
       name: "Fecha de compra",
@@ -151,19 +147,17 @@ function HomeUserPurchase() {
       sortable: true,
     },
   ];
-
   const conditionalRowStyles = [
     {
-      when: row => row.travel !== null,
+      when: (row) => row.travel !== null,
       style: {
-        backgroundColor: '#8c52ff',
-        color: 'white',
-        '&:hover': {
-          cursor: 'pointer',
+        backgroundColor: "#8c52ff",
+        color: "white",
+        "&:hover": {
+          cursor: "pointer",
         },
       },
     },
-
   ];
   const columnas = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
@@ -209,13 +203,13 @@ function HomeUserPurchase() {
     },
   ];
 
-
-  var filterByProduct = purchases.filter((item) => item.id === show).map(e => e.purchaseitems)[0];
-
-
+  var filterByProduct = purchases
+    .filter((item) => item.id === show)
+    .map((e) => e.purchaseitems)[0];
 
   return (
     <div>
+      {nameCity?.length > 0 ? (
       <Row>
         <Col
           lg={12}
@@ -239,15 +233,14 @@ function HomeUserPurchase() {
             </Modal.Header>
             <Modal.Body>
               <Form onSubmit={(e) => handleSubmit(e)}>
+
                 <select name="productId" value={input.productId} onChange={handleInputChange} >
                   <option value="">{ }</option>
                   {filterByProduct?.map((e) => (
-                    <option
-                      key={e.productId}
-                      value={e.productId}
-                    >
+                    <option key={e.productId} value={e.productId}>
                       {e.productName}
-                    </option>))}
+                    </option>
+                  ))}
                 </select>
                 <br />
                 <Form.Label style={{ paddingBottom: "15px" }}>
@@ -291,6 +284,24 @@ function HomeUserPurchase() {
           </Modal>
         </Col>
       </Row>
+      ) : (
+        <div style={{ background: 'white', fontSize: '20px', height: '200px' }}>
+          <br />
+          <Row>
+            <div style={{ marginTop: '50px' }}>
+              <h1 >No se encontraron compras asociados</h1>
+            </div>
+            <Col
+              lg={6}
+              md={6}
+              sm={12}
+              className="text-center p-5 m-auto rounded-lg"
+              style={{ display: "flex" }}
+            >
+            </Col>
+          </Row>
+        </div>
+      )}  
     </div>
   );
 }

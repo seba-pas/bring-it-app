@@ -23,7 +23,7 @@ const { db } = require('./src/db');
 const { apiCity } = require('./src/controllers/cityControllers')
 const { apiProvince } = require('./src/controllers/provinceControllers')
 const { loadDB } = require('./src/json/jsonControllers')
-// const municipios = json1.municipios;
+
 const http = require("http");
 const socketIO = require("socket.io");
 const users = [{}];

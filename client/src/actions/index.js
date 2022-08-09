@@ -69,7 +69,7 @@ import {
   SAVE_IMAGE,
 
   // RESET_INITIAL_STATE,
-
+  GET_REVIEWS,
   //MACH
   GET_MATCH,
   PUT_MATCH,
@@ -615,7 +615,6 @@ export function postReview(body) {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/review`, body);
-      // debugger;
       return dispatch({
         type: POST_REVIEW,
         payload: res.data,
@@ -661,10 +660,10 @@ export function editBranch(id, body, token) {
 }
 
 //borrar sede (desactivar)
-export const deleteBranch = (id, token) => {
+export const deleteBranch = (id, token, email) => {
   return async function (dispatch) {
     try {
-      const body = { active: false };
+      const body = { active: false , businessEmail: email};
       const res = await axios.put(`/businessbranch/${id}`, body, {
         headers: { authorization: `Bearer ${token}` }, //falta en ruta
       });
@@ -1002,13 +1001,26 @@ export const logoutGoogleSession = () => {
       const res = await axios.get(`/auth/logout/google`, {
         withCredentials: true,
       });
-      // debugger;
       console.log(res);
       return dispatch({
         type: LOGOUT_GOOGLE_SESSION,
       });
     } catch (error) {
       console.log(error.message);
+    }
+  };
+};
+
+export const getReviews = (idProduct) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(`/review/${idProduct}`);
+      return dispatch({
+        type: GET_REVIEWS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 };
