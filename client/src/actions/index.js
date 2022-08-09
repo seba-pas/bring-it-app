@@ -615,7 +615,7 @@ export function postReview(body) {
   return async function (dispatch) {
     try {
       const res = await axios.post(`/review`, body);
-      debugger;
+      // debugger;
       return dispatch({
         type: POST_REVIEW,
         payload: res.data,
@@ -936,7 +936,7 @@ export const postFavourites = (body) => {
 
 export const deleteFavourite = (body) => {
   return async function (dispatch) {
-      try {
+    try {
       const res = await axios.delete(`/favorite`, {
         data: { userEmail: body.userEmail, productId: body.productId },
       });
@@ -1002,7 +1002,7 @@ export const logoutGoogleSession = () => {
       const res = await axios.get(`/auth/logout/google`, {
         withCredentials: true,
       });
-      debugger;
+      // debugger;
       console.log(res);
       return dispatch({
         type: LOGOUT_GOOGLE_SESSION,
