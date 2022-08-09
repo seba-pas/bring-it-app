@@ -936,8 +936,10 @@ export const postFavourites = (body) => {
 
 export const deleteFavourite = (body) => {
   return async function (dispatch) {
-    try {
-      const res = await axios.delete(`/favorite`, body);
+      try {
+      const res = await axios.delete(`/favorite`, {
+        data: { userEmail: body.userEmail, productId: body.productId },
+      });
       return dispatch({
         type: DELETE_FAVOURITE,
         payload: res.data,
