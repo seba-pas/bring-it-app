@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import styles from "../styles/NavBar.module.css"
+import styles from "../styles/NavBar.module.css";
+import { Avatar, AvatarBadge } from '@chakra-ui/avatar';
 
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +15,7 @@ export default function NavBarBusiness() {
     const dispatch = useDispatch();
     const history = useHistory();
     const token = gState.businessToken;
-
+    console.log(gState);
     useEffect(() => {
         dispatch(getAllBusiness());
         dispatch(getCategories());
@@ -74,20 +75,27 @@ export default function NavBarBusiness() {
                 </NavLink>
             </div>
             <div className={styles.perfil}>
+            <Avatar
+          size='lg'
+            onClick={() => history.push("/empresas/perfil")}
+            name={gState.business.businesName}
+            src={gState.businessEditInfo.logo}
+          >
+            <AvatarBadge boxSize="0.08m" bg="springgreen" borderColor='springgreen' />
+          </Avatar>
                 {/* <img
                     src={input.businessInfo.logo ? input.businessInfo.logo : userProfile}
                     style={{ width: "auto", height: "100px", borderRadius: "150px", border: "solid 4px transparent",marginLeft: '0px' }}
                     alt="Logo no encontrado"
                 /> */}
 
-                <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)} style={{display: 'flex',width: 'auto', marginRight: '50px', marginTop: '33px'}}>
+                {/* <select className={styles.selectPerfil} name="perfil" value="perfil" onChange={(e) => handleOnChange(e)} style={{display: 'flex',width: 'auto', marginRight: '50px', marginTop: '33px'}}>
                     <option value="">Mi cuenta</option>
-                    {/* <option value="">{input.perfil} </option> */}
                     <option value="email">{input.businessInfo.email}</option>
                     <option value="desactivarMiCuenta">Desactivar mi cuenta</option>
                     <option value="close">Cerrar sesión</option>
 
-                </select>
+                </select> */}
             </div>
 
         </div>
