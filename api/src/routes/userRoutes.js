@@ -157,18 +157,10 @@ router.put("/recover/password/:email", async (req, res) => {
     const userLogin = await User.findByPk(req.params.email);
     const {passwordV}= req.body;
     const {passwordN}= req.body;
-    console.log('pass nueva body',passwordN);
-
     const hashedPassword = CryptoJS.AES.decrypt(userLogin.password, process.env.PASS_SEC);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-    console.log("1 hashed pass: ",hashedPassword);
-    console.log("2 original pass: ",originalPassword);
-    console.log("3: pass vieja", passwordV);
     const passNueva=  CryptoJS.AES.encrypt(passwordN, process.env.PASS_SEC).toString();
-    console.log('Pass nueva hasheada',passNueva);
-
     if(originalPassword == passwordV) {
-      console.log("4")
       try {
 
         await User.update({password:passNueva}, {
@@ -200,7 +192,6 @@ router.put("/recover/password/:email", async (req, res) => {
 
         res.json("contraseña cambiada")
       } catch(error) {
-        console.log('5')
         console.log('208',error)
       }    
     } else {
@@ -213,15 +204,10 @@ router.put("/recover/password/:email", async (req, res) => {
 
 router.put('/recover/password/olv/pass', async (req,res )=>{
   const passN= Math.floor(Math.random(10000000 - 9000000) * 100000000);
-  console.log(req.body.email);
   const userEmail= await User.findByPk(req.body.email);
-  console.log(passN.toString());
   if(userEmail){
-    const email=userEmail.email;
-    console.log('EMAIL: ',email);
-    console.log('PASS:',passN); 
+    const email=userEmail.email;    
     const passHash=   CryptoJS.AES.encrypt(passN.toString(), process.env.PASS_SEC).toString();
-    console.log('PASS ENCRYPTADA: ',passHash);
     try {
       await User.update({password:passHash}, {
         where: {
