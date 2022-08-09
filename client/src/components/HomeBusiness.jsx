@@ -17,7 +17,7 @@ function HomeBusiness() {
 
     useEffect(() => {
         dispatch(getAllProducts());
-    }, [dispatch, gState.deleteProduct]);
+    }, [dispatch, gState.deleteProduct, gState.product]);
 
     useEffect(() => {
         dispatch(getAllProducts());
@@ -55,7 +55,6 @@ function HomeBusiness() {
     //esto tambien esta en NavBarBusiness, cual es el oficial?
     useEffect(() => {
         if (input.perfil === "email") history.push("/empresas/perfil");
-        
         else if (input.perfil === "close") history.push("/");
     }, [input.perfil]);
 
@@ -122,7 +121,7 @@ function HomeBusiness() {
                     </div> */}
                     <div className={styles.inventoryContainer}>
                         {<table>
-                            <thead className={styles.titlleTable} style={{color:'#8c52ff', fontWeight: '18px'}}>
+                            <thead className={styles.titlleTable} style={{ color: '#8c52ff', fontWeight: '18px' }}>
                                 <tr>
                                     <th>Imagen</th>
                                     <th>Producto</th>

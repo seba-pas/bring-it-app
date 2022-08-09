@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
 import ProductManager from "./components/ProductManager.jsx";
+import RecuperarContrasenia from './components/RecuperarContrasenia'
 import HomeBusiness from "./components/HomeBusiness.jsx";
 import HomePersonas from "./components/HomePersonas.jsx";
 import RegisterUser from "./components/RegisterUser.jsx";
@@ -43,6 +44,7 @@ function App() {
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
         <Route exact path= "/recuperarPassword" component={OlvidastePassword}/>
+        <Route exact path= "/recuperarContrasenia" component={RecuperarContrasenia}/>
         <Route exact path="/join" component={Join} />
         <Route exact path="/chat" component={Chat} />
         {/* <Route exact path="/pruebaCloudinary" component={PruebaCloudinary} /> */}
@@ -51,7 +53,7 @@ function App() {
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
         <Route exact path="/vidriera" component={Vidriera} />
-        <Route exact path='/usuarioE' component={Usuario} />
+        <Route exact path='/persona/usuarioE' component={Usuario} />
         <Route path="/persona/filtro" render={() => (
           user !== "clean" ? <FilterBefore /> : <Redirect to="/" />
         )} />

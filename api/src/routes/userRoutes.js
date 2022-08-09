@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
         secure: true,
         auth: {
           user: 'bringit662@gmail.com',
-          pass: 'owtgyxnzmbchbhjj'
+          pass: 'baiepxymtdopmjuj'
         }
       });
 
@@ -73,7 +73,7 @@ router.post("/", async (req, res) => {
 
       res.status(201).send(newUser[1] ? "Usuario creado" : "El usuario ya existe");
     } catch (e) {
-      res.send("error:" + e.message);
+      res.send("error:" + e);
     }
   // }
 });
@@ -188,8 +188,6 @@ router.put("/recover/password/:email", async (req, res) => {
       //   <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
       //   `
       // })
-
-
         res.json("contraseña cambiada")
       } catch(error) {
         console.log('208',error)

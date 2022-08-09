@@ -70,20 +70,22 @@ import {
 
   // RESET_INITIAL_STATE,
 
-
   //MACH
   GET_MATCH,
   PUT_MATCH,
   CLEAN_MATCH,
 
   //FAVORITES
-
   GET_FAVOURITES,
   POST_FAVOURITES,
   CLEAN_GET_MATCH,
+  DELETE_FAVOURITE,
+  GET_ALL_FAVOURITES,
 
   //login con Google
   POST_LOGIN_GOOGLE,
+  GET_ALL_PURCHASES,
+  LOGOUT_GOOGLE_SESSION,
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -112,6 +114,28 @@ export const getAllProductsDetail = (id) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const recoverPassword = (body) => {
+  console.log("input", body);
+  return async function (dispatch) {
+    try {
+      const res = await axios.post("/recoverPassword", body);
+      console.log("recoverPassword: ", res.data);
+      return dispatch({
+        type: "PASS_RECOVER",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const cleanRecoverPassword = () => {
+  return {
+    type: "CLEAN_RECOVER_PASSWORD",
   };
 };
 
@@ -521,6 +545,20 @@ export const getByPurchaseEmail = (email) => {
     }
   };
 };
+export const getAllPurchases = () => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(`/purchase`);
+      console.log("esto llega get all", res.data);
+      return dispatch({
+        type: GET_ALL_PURCHASES,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 //get travels
 export const getAllTravel = () => {
@@ -823,14 +861,14 @@ export const getMatch = (idPurchase) => {
 export function cleanGetMatch() {
   return {
     type: CLEAN_GET_MATCH,
-  }
-};
+  };
+}
 
 export function cleanMatch() {
   return {
     type: CLEAN_MATCH,
-  }
-};
+  };
+}
 
 //SAVE IMAGE
 
@@ -856,7 +894,7 @@ export const saveImage = (urlImage) => {
 export const getFavourites = (userEmail) => {
   return async function (dispatch) {
     try {
-      const res = await axios(`/favorite/user/${userEmail}`);     
+      const res = await axios(`/favorite/user/${userEmail}`);
 
       return dispatch({
         type: GET_FAVOURITES,
@@ -868,16 +906,40 @@ export const getFavourites = (userEmail) => {
   };
 };
 
-export const postFavourites = (body, token) => {
+export const getAllFavourites = () => {
   return async function (dispatch) {
-    console.log(body, token);
     try {
-      const res = await axios.post(`/favorite`, body, {
-        headers: { authorization: `Bearer ${token}` },
+      const res = await axios.get("/favorite/products");
+      return dispatch({
+        type: GET_ALL_FAVOURITES,
+        payload: res.data,
       });
-      debugger;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const postFavourites = (body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`/favorite`, body);
       return dispatch({
         type: POST_FAVOURITES,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteFavourite = (body) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.delete(`/favorite`, body);
+      return dispatch({
+        type: DELETE_FAVOURITE,
         payload: res.data,
       });
     } catch (error) {
@@ -906,7 +968,6 @@ export const changePasswordBusiness = (email, body) => {
   return async function (dispatch) {
     try {
       const res = await axios.put(`/business/recover/password/${email}`, body);
-      console.log(res.data);
       return dispatch({
         type: PASS_CHANGE_BUSINESS,
         payload: res.data,
@@ -920,14 +981,32 @@ export const changePasswordBusiness = (email, body) => {
 // login con Google
 export const loginUserGoogle = (body) => {
   return async function (dispatch) {
-    try {      
-      const res = await axios.post(`/user/google/login/`, body);      
+    try {
+      const res = await axios.post(`/user/google/login/`, body);
       return dispatch({
         type: POST_LOGIN_GOOGLE,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};
+
+// logout de la sesión de Google
+export const logoutGoogleSession = () => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(`/auth/logout/google`, {
+        withCredentials: true,
+      });
+      debugger;
+      console.log(res);
+      return dispatch({
+        type: LOGOUT_GOOGLE_SESSION,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};

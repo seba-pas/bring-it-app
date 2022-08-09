@@ -64,7 +64,7 @@ function FormTravel() {
         console.log("no2", now, "dat", input.dateTravel)
 
         if (input.dateTravel === "" || input.dateTravel < moment().format("YYYY-MM-DD")) errordateTravel = "Ingrese Fecha";
-        if (input.dateArrival === "" || input.dateTravel >= input.dateArrival) errordateArrival = "Debe ingresar una fecha correcta";
+        if (input.dateArrival === "" || input.dateTravel > input.dateArrival) errordateArrival = "Debe ingresar una fecha correcta";
         if (input.originProvince === "") errororiginProvince = "Seleccione una provincia";
         if (input.arrivalProvince === "") errorarrivalProvince = "Seleccione una provincia";
         if (input.originCity === "") errororiginCity = "Seleccione una Ciudad";

@@ -29,6 +29,7 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const userAvatar = gState.user;
+  const usuario =  ((state) => state.user)
 
   useEffect(() => {
     dispatch(getUsers());
@@ -190,11 +191,12 @@ export default function NavBar() {
           }}
         >
           <Avatar
+          size='lg'
             onClick={() => history.push("/usuarioE")}
             name={`${userAvatar.name} ${userAvatar.lastname}`}
-            src=""
+            src={usuario.image}
           >
-            <AvatarBadge boxSize="1.25em" bg="green.500" />
+           <AvatarBadge boxSize="0.08m" bg="springgreen" borderColor='springgreen' />
           </Avatar>
         </div>
       </div>

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import styles from "../styles/ProductCard.module.css";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import styles from "../styles/ProductCard.module.css";
+import AddFavourites from "./AddFavourites";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllFavourites } from "../actions";
+import { PinInputDescendantsProvider } from "@chakra-ui/react";
 
 export default function ProductCard({
   name,
@@ -13,6 +17,19 @@ export default function ProductCard({
   categories,
   id,
 }) {
+  const dispatch = useDispatch();
+  const allFavourites = useSelector((state) => state.allFavourites);
+
+  useEffect(() => {
+    dispatch(getAllFavourites());
+  }, [dispatch]);
+
+  if ( allFavourites && allFavourites.hasOwnProperty(`${id}`) ) {
+     var fav = allFavourites[id]
+  } else {
+   var fav = 0
+  }
+
 
   return (
     <div
@@ -22,7 +39,7 @@ export default function ProductCard({
     >
       <img
         className="card-img-top"
-        style={{ objectFit: "cover" , height: '40%'}}
+        style={{ objectFit: "cover", height: "40%" }}
         src={image}
         alt="no pudo cargarse la imagen"
       />
@@ -34,7 +51,6 @@ export default function ProductCard({
           ${price}.00
         </h5>
         <p className="card-text" id={styles.description}>
-          
           {description}
         </p>
         {/* <p>
@@ -44,6 +60,7 @@ export default function ProductCard({
             : "No tiene categoria"}
         </p> */}
       </div>
+
       <a
         href={`/persona/product/${id}`}
         className="btn btn-primary stretched-link"
@@ -51,10 +68,14 @@ export default function ProductCard({
       >
         Ver Producto
       </a>
+
+      <span>💜{fav}</span>
       <div className="card-footer" id={styles.empresa}>
-       {/* <small style={{fontSize: '5px'}}> Empresa:{" "}</small> */}
+        {/* <small style={{fontSize: '5px'}}> Empresa:{" "}</small> */}
         <small className="text-muted" id={styles.bold}>
-          {business.businessBranchName ? business.businessBranchName.split(" - ")[0] : "No esta asociado a una empresa"}
+          {business.businessBranchName
+            ? business.businessBranchName.split(" - ")[0]
+            : "No esta asociado a una empresa"}
         </small>
       </div>
     </div>

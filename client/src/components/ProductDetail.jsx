@@ -16,7 +16,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import AddFavourites from "./AddFavourites";
 
 export const ProductDetail = () => {
-
   const history = useHistory();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.productsDetail);
@@ -36,48 +35,8 @@ export const ProductDetail = () => {
     };
   }, [dispatch, id]);
 
-  // function handleClick(e) {
-  //   e.preventDefault();
-  //   history.go("/compra")
-  // }
   function handleClickAddToCart(e) {
     e.preventDefault();
-    if (product.stock <= 0) {
-      swal(
-        "Por el momento no tenemos mas stock",
-        "Acabamos de comunicarle a la empresa",
-        "error"
-      );
-      return;
-    }else {
-      if (cart.filter(e => e.id === product.id).length > 0) {
-        if (cart.filter(e => e.id === product.id).quantity < product.stock) {
-
-          dispatch(addToCart(product));
-          swal(
-            "Buen trabajo!",
-            "El producto fue agregado con exito!",
-            "success"
-          );
-          return;
-        } else {
-          swal("No tenemos más stock", "Acabamos de enviar un Email a la empresa correspondiente", "error")
-          return;
-        }
-      } else {
-        dispatch(addToCart(product));
-        swal(
-          "Buen trabajo!",
-          "El producto fue agregado con exito!",
-          "success"
-        );
-        return;
-      }
-    }
-
-
-
-    //CELE
     if (cart.length > 0) {
       if (cart[0].businessbranchId !== product.businessbranchId) {
         swal(
@@ -85,18 +44,43 @@ export const ProductDetail = () => {
           "Podés agregarlo como favorito para comprarlo en tu proximo carrito!",
           "error"
         );
-      } 
+      } else {
+
+        if (cart.filter((e) => e.id === product.id).length > 0) {
+          if (cart[0].quantity < product.stock) {
+            dispatch(addToCart(product));
+
+            swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+            return;
+          } else {
+            swal(
+              "No tenemos más stock",
+              "Acabamos de enviar un Email a la empresa correspondiente",
+              "error"
+            );
+            return;
+          }
+        } else {
+          dispatch(addToCart(product));
+          swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+          return;
+        }
+
+      }
+
     } else {
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
     }
+
+
   }
-  console.log(`product stock`, product.stock, `cart`, cart)
+
   return (
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
 
-      <AddFavourites />
+
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
           <div className={styles.imgCon}>
@@ -164,6 +148,8 @@ export const ProductDetail = () => {
                     COMPRAR
                   </a>
                 </div> */}
+
+                Agregar a mis Favoritos: <AddFavourites />
                 <button
                   className="btn btn-primary"
                   onClick={(e) => handleClickAddToCart(e)}
@@ -184,8 +170,13 @@ export const ProductDetail = () => {
         </div>
       ) : (
         <div className={styles.spinner}>
-          <SpinnerCircularFixed size={250} thickness={90} speed={111} color="rgba(140, 82, 255, 1)" secondaryColor="rgba(74, 57, 172, 0.3)" />
-
+          <SpinnerCircularFixed
+            size={250}
+            thickness={90}
+            speed={111}
+            color="rgba(140, 82, 255, 1)"
+            secondaryColor="rgba(74, 57, 172, 0.3)"
+          />
         </div>
       )}
     </div>
