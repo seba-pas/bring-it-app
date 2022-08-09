@@ -124,8 +124,8 @@ router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
         port: 465,
         secure: true,
         auth: {
-          user: 'bringit662@gmail.com',
-          pass: 'baiepxymtdopmjuj'
+          user: "bringitservices2022@gmail.com",
+          pass: "rgmizokemaustfnd"
         }
       });
       // holis
@@ -133,7 +133,7 @@ router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
       const purchaser = await User.findByPk(purchase.userEmail);
       const traveler = await User.findByPk((await Travel.findByPk(travelId)).userEmail);
       const emailTraveler = await transporter.sendMail({
-        from: "Bring It App <bringit662@gmail.com>",
+        from: "Bring It App <bringitservices2022@gmail.com>",
         to: traveler.email,
         subject: "¡Nuevo paquete para transportar!",
         html: `<h3>¡Felicitaciones, vas a transportar la compra de ${purchaser.name}!</h3>
@@ -148,7 +148,7 @@ router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
         </p>`
       })
       const emailPurchaser = await transporter.sendMail({
-        from: "Bring It App <bringit662@gmail.com>",
+        from: "Bring It App <bringitservices2022@gmail.com>",
         to: purchaser.email,
         subject: `¡Tu compra Nº${idPurchase} ya tiene transporte!`,
         html: `<h3>¡Felicitaciones, tu compra Nº${idPurchase} ya tiene transporte!!</h3>

@@ -8,6 +8,7 @@ import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
 import image from "../components/img/logo2-removebg-preview.png";
+import { BsGoogle } from "react-icons/bs";
 import {
   login,
   loginBusiness,
@@ -16,7 +17,7 @@ import {
   activateUser,
   activateBusiness,
   getActiveUser,
-  loginUserGoogle
+  loginUserGoogle,
 } from "../actions/index.js";
 import styles from "../styles/NavBarLanding.module.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -167,7 +168,7 @@ export default function NavBarLanding() {
       else if (business === "Usuario no encontrado") {
         swal(
           "Empresa no encontrada",
-          "La empresa a la que intentas entrar no esta registrada",
+          "La empresa a la que intentas entrar no está registrada",
           "error"
         );
 
@@ -192,7 +193,7 @@ export default function NavBarLanding() {
       } else if (business === "Empresa bloqueada") {
         swal(
           "Su cuenta ha sido bloqueda por el administrador",
-          "Para mas información comuniquese con bringit662@gmail.com",
+          "Para más información comuniquese con bringit662@gmail.com",
           "error"
         );
       } else if (!business.active) {
@@ -203,7 +204,7 @@ export default function NavBarLanding() {
           }
         ).then((value) => {
           if (value) {
-            swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+            swal("Buen trabajo!", "Entró al sistema correctamente!", "success");
             dispatch(activateBusiness(business.email, businessToken));
             setInput({
               email: "",
@@ -260,7 +261,7 @@ export default function NavBarLanding() {
       });
     } else {
       swal(
-        "Ops a ocurrido un error",
+        "Ups ha ocurrido un error",
         "Verifica cumplir con los requisitos",
         "error"
       );
@@ -302,7 +303,7 @@ export default function NavBarLanding() {
       } else if (user === "Usuario bloqueado") {
         swal(
           "Su cuenta ha sido bloqueda por el administrador",
-          "Para mas información comuniquese con bringit662@gmail.com",
+          "Para más información comuniquese con bringit662@gmail.com",
           "error"
         );
       } else if (!user.active) {
@@ -313,7 +314,7 @@ export default function NavBarLanding() {
           }
         ).then((value) => {
           if (value) {
-            swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+            swal("Buen trabajo!", "Entró al sistema correctamente!", "success");
             dispatch(activateUser(user.email, userToken));
             setInput({
               email: "",
@@ -325,7 +326,7 @@ export default function NavBarLanding() {
           }
         });
       } else if (user.active) {
-        swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+        swal("Buen trabajo!", "Entró al sistema correctamente!", "success");
         setInput({
           email: "",
           password: "",
@@ -341,37 +342,55 @@ export default function NavBarLanding() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-//fc relacionadas a la aut con Google:
-const getAuthenticatedUser = async () => {
-  const response = await axios.get(
-    "/auth/authenticatedUser",
-    { withCredentials: true }
-    )
-    .catch((err) => {
-      console.log(`No se loggeo correctamente`);
-    });
-  if (response && response.data){
-    console.log("Usuario loggeado: ", response.data);
-    dispatch(loginUserGoogle(response.data));
-  }      
-};
+  // //fc relacionadas a la aut con Google:
+  // const getAuthenticatedUser = async () => {
+  //   const response = await axios
+  //     .get("https://bringit-arg.herokuapp.com/auth/authenticatedUser", { withCredentials: true })
+  //     .catch((err) => {
+  //       console.log(`No se loggeo correctamente`);
+  //     });
+  //   if (response && response.data) {
+  //     console.log("Usuario loggeado: ", response.data);
+  //     dispatch(loginUserGoogle(response.data));
+  //   }
+  // };
 
-const redirectToGoogle = async () => {
-  let timer = null;
-  const googleLoginURL = "/auth/login/google";
-  const newWindow = window.open(googleLoginURL, "_blank", "width=500, height=600");
-  //chequeamos sin la ventana esta cerrada o no (se cierra cdo el loggeo con Google termina (exitoso o no))
-  if(newWindow){
-    timer = setInterval(() => {
-      if(newWindow.closed){
-        console.log("Se cerro la ventana de autenticación");
-        getAuthenticatedUser();
-        if (timer) clearInterval(timer);
-      }
-    }, 500);
-  }
-}
+  const getAuthenticatedUser = () => {
+    axios
+      .get("https://bringit-arg.herokuapp.com/auth/authenticatedUser", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response && response.data) {
+          console.log("Usuario loggeado: ", response.data);
+          dispatch(loginUserGoogle(response.data));
+        }
+      })
+      .catch((err) => {
+        console.log(`No se loggeo correctamente`);
+      });
+  };
 
+  const redirectToGoogle = async () => {
+    let timer = null;
+    const googleLoginURL =
+      "https://bringit-arg.herokuapp.com/auth/login/google";
+    const newWindow = window.open(
+      googleLoginURL,
+      "_blank",
+      "width=500, height=600"
+    );
+    //chequeamos sin la ventana esta cerrada o no (se cierra cdo el loggeo con Google termina (exitoso o no))
+    if (newWindow) {
+      timer = setInterval(() => {
+        if (newWindow.closed) {
+          console.log("Se cerro la ventana de autenticación");
+          getAuthenticatedUser();
+          if (timer) clearInterval(timer);
+        }
+      }, 500);
+    }
+  };
 
   return (
     <div
@@ -410,12 +429,16 @@ const redirectToGoogle = async () => {
           }}
         >
           <Avatar
-          size='lg'
-            onClick={() => history.push("/usuarioE")}
+            size="lg"
+            onClick={() => history.push("/persona/usuarioE")}
             name={`${user?.name} ${user?.lastname}`}
             src={user.image}
           >
-           <AvatarBadge boxSize="0.08m" bg="springgreen" borderColor='springgreen' />
+            <AvatarBadge
+              boxSize="0.08m"
+              bg="springgreen"
+              borderColor="springgreen"
+            />
           </Avatar>
         </div>
       ) : business &&
@@ -431,12 +454,15 @@ const redirectToGoogle = async () => {
           }}
         >
           <Avatar
-          size='lg'
-            onClick={() => history.push("/usuarioE")}
+            onClick={() => history.push("/empresas")}
             name={`${business?.businessName}`}
             src=""
           >
-           <AvatarBadge boxSize="0.08m" bg="springgreen" borderColor='springgreen' />
+            <AvatarBadge
+              boxSize="0.08m"
+              bg="springgreen"
+              borderColor="springgreen"
+            />
           </Avatar>
         </div>
       ) : (
@@ -497,7 +523,7 @@ const redirectToGoogle = async () => {
                   </Form.Group>
                   <Row style={{ paddingBottom: "15px", cursor: "pointer" }}>
                     <Col>
-                      <Link to="/recuperarPassword">
+                      <Link to="/recuperarContraseniaBusiness">
                         <a className="link">Olvidaste tu contraseña?</a>
                       </Link>
                     </Col>
@@ -556,21 +582,21 @@ const redirectToGoogle = async () => {
                     variant="info"
                     type="submit"
                     className={styles.buttonSubmit}
-                    style={{ marginLeft: "33%" }}
+                    style={{ marginLeft: "25%" }}
                   >
                     Iniciar sesion
                   </Button>
-                  <div>
-                    O inicia sesion con 
-                    <Button
+
+                  <Button
                     variant="info"
                     type="submit"
-                    id={styles.iniciarSesion}                    
+                    className="google"
+                    style={{ marginLeft: "15%" }}
+                    id={styles.iniciarSesion}
                     onClick={redirectToGoogle}
                   >
-                    Google
-                  </Button>                    
-                  </div>
+                    <BsGoogle />
+                  </Button>
                 </Form>
               </Tab>
             </Tabs>

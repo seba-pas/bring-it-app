@@ -48,28 +48,28 @@ router.post("/", async (req, res) => {
       });
       
       // nodemailer
-      let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          user: 'bringit662@gmail.com',
-          pass: 'baiepxymtdopmjuj'
-        }
-      });
+      // let transporter = nodemailer.createTransport({
+      //   host: 'smtp.gmail.com',
+      //   port: 465,
+      //   secure: true,
+      //   auth: {
+      //     user: "bringitservices2022@gmail.com",
+      //     pass: "rgmizokemaustfnd"
+      //   }
+      // });
 
-      const email = await transporter.sendMail({
-        from: "Bring It App <bringit662@gmail.com>",
-        to: req.body.email,
-        subject: "¡Bienvenido/a!",
-        html: `<h3>Bienvenido a Bring It App, ${req.body.name}!</h3>
-        <p>Estamos muy contentos de que formes parte de esta gran comunidad
-        te invito a que te suscribas a nuestra newsletter
-        <br />
-        para recibir ofertas interesantes a futuro
-        </p>
-        `
-      })
+      // const email = await transporter.sendMail({
+      //   from: "Bring It App <bringitservices2022@gmail.com>",
+      //   to: req.body.email,
+      //   subject: "¡Bienvenido/a!",
+      //   html: `<h3>Bienvenido a Bring It App, ${req.body.name}!</h3>
+      //   <p>Estamos muy contentos de que formes parte de esta gran comunidad
+      //   te invito a que te suscribas a nuestra newsletter
+      //   <br />
+      //   para recibir ofertas interesantes a futuro
+      //   </p>
+      //   `
+      // })
 
       res.status(201).send(newUser[1] ? "Usuario creado" : "El usuario ya existe");
     } catch (e) {
@@ -84,12 +84,12 @@ router.post("/", async (req, res) => {
 router.put("/:email", verifyToken, async (req, res) => {
   const { email } = req.params;
   const modification = req.body; //json con atributos a modificar y nuevos valores    
-  console.log(`estoy en update user ${email} antes del if, req.headers.authorization: ${req.headers.authorization}`);
+  // console.log(`estoy en update user ${email} antes del if, req.headers.authorization: ${req.headers.authorization}`);
   //Agrego verificacion de token, userLogin viene de la fc verifyToken
   // (if el usuario loggeado es el mismo usuario cuyos datos se quieren modificar, o es admin)
   if(req.userLogin.email === req.params.email || req.userLogin.isAdmin){  
-    console.log(`soy req.userLogin.isAdmin: ${req.userLogin.isAdmin}`);  
-    console.log(`estoy en update user ${email}`);
+    // console.log(`soy req.userLogin.isAdmin: ${req.userLogin.isAdmin}`);  
+    // console.log(`estoy en update user ${email}`);
     try {
       const q = await User.update(modification, {
         where: { email: email },
@@ -152,27 +152,20 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Cambiar contraseña usuario 
 router.put("/recover/password/:email", async (req, res) => {
     const userLogin = await User.findByPk(req.params.email);
     const {passwordV}= req.body;
     const {passwordN}= req.body;
-    console.log('pass nueva body',passwordN);
-
     const hashedPassword = CryptoJS.AES.decrypt(userLogin.password, process.env.PASS_SEC);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-    console.log("1 hashed pass: ",hashedPassword);
-    console.log("2 original pass: ",originalPassword);
-    console.log("3: pass vieja", passwordV);
     const passNueva=  CryptoJS.AES.encrypt(passwordN, process.env.PASS_SEC).toString();
-    console.log('oass nueva hasheada',passNueva);
-
-    // if(originalPassword == passwordV) {
-      console.log("4")
+    if(originalPassword == passwordV) {
       try {
 
         await User.update({password:passNueva}, {
           where: {
-            email: req.params.email,
+            email:  req.params.email,
           }
         })
         
@@ -182,13 +175,13 @@ router.put("/recover/password/:email", async (req, res) => {
         port: 465,
         secure: true,
         auth: {
-          user: 'bringit662@gmail.com',
-          pass: 'baiepxymtdopmjuj'
+          user: "bringitservices2022@gmail.com",
+          pass: "rgmizokemaustfnd"
         }
       });
 
       const email = await transporter.sendMail({
-        from: "Bring It App <bringit662@gmail.com>",
+        from: "Bring It App <bringitservices2022@gmail.com>",
         to: req.params.email,
         subject: "Cambio de contraseña",
         html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
@@ -196,17 +189,43 @@ router.put("/recover/password/:email", async (req, res) => {
         `
       })
 
-
         res.json("contraseña cambiada")
       } catch(error) {
-        console.log('5')
         console.log('208',error)
       }    
-    // } else {
-      // console.log("contraseña incorrecta") 
-    // }
+    } else {
+      console.log("contraseña incorrecta")  
+    }
 });
-// holis
+
+
+//Olvide mi contraseña 
+
+router.put('/recover/password/olv/pass', async (req,res )=>{
+  const passN= Math.floor(Math.random(10000000 - 9000000) * 100000000);
+  const userEmail= await User.findByPk(req.body.email);
+  if(userEmail){
+    const email=userEmail.email;    
+    const passHash=   CryptoJS.AES.encrypt(passN.toString(), process.env.PASS_SEC).toString();
+    try {
+      await User.update({password:passHash}, {
+        where: {
+          email: email,
+        }
+      })
+        res.status(200).send('listo');
+    } catch (error) {
+      console.log(error.message);
+    }
+  }else{
+    res.send('email no rregistrado');
+  }
+  
+  
+
+})
+ 
+
 //LOG IN para usuario loggeado con Google
 //Cuando el log in con Google es exitoso, desde el front se le pega a esta ruta. Aca le ponemos el JWT Token
 //"http://localhost:3001/user/google/login/" 
@@ -229,5 +248,6 @@ router.post("/google/login", (req, res) => {
     res.status(404).send(`error:${error.message}`);
   }   
  });
+
 
 module.exports = router;

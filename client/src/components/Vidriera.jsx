@@ -167,8 +167,8 @@ export default function HomePersonas() {
   function handleLog(e) {
     e.preventDefault();
     swal(
-      "No estas logueado",
-      "Logueate para poder comprar y disfrutar de mas funciones de BI!",
+      "No estás logueado",
+      "Logueate para poder comprar y disfrutar de más funciones de BI!",
       "error"
     );
   }

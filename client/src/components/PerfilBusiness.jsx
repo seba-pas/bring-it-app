@@ -9,6 +9,8 @@ import {
   postBranch,
   editBranch,
   saveImage,
+  desactivateBusiness,
+  cleanBusinessState,
 } from "../actions";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,9 +21,9 @@ import { useHistory } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import RecuperarPasswordBusiness from "./RecuperarPasswordBusiness";
+import { Avatar, AvatarBadge } from "@chakra-ui/avatar";
 
 function PerfilBusiness(props) {
-
   const [key, setKey] = useState("home");
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -252,13 +254,15 @@ function PerfilBusiness(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
-      editBusiness(input.email, {
-        businessName: input.businessName,
-        cuit: input.cuit,
-        taxBracket: input.taxBracket,
-        logo: input.logo,
-        phone: input.phone,
-      },
+      editBusiness(
+        input.email,
+        {
+          businessName: input.businessName,
+          cuit: input.cuit,
+          taxBracket: input.taxBracket,
+          logo: input.logo,
+          phone: input.phone,
+        },
 
         tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
       )
@@ -266,14 +270,50 @@ function PerfilBusiness(props) {
 
     swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
   };
+  function handleDesactivate() {
+    swal({
+      title: "¿Está seguro que quiere desactivar su cuenta?",
+      text: "Si desactiva su cuenta ya no tendrá acceso a la misma.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Su cuenta ha sido desactivada!", {
+          icon: "success",
+        });
+        dispatch(desactivateBusiness(infoBusiness.email, tokenBusiness));
+        history.push("/");
+        dispatch(cleanBusinessState());
+      } else {
+        swal("Su cuenta no ha sido desactivada");
+      }
+    });
+  }
 
+  function closeSesion() {
+    dispatch(cleanBusinessState());
+    swal(
+      "Tu sesión ha sido cerrada con éxito",
+      "Gracias por usar Bring it!",
+      "success"
+    );
+    history.push("/");
+  }
   return (
     <div>
+      <Avatar
+        size="lg"
+        name={gState.business.businesName}
+        src={gState.businessEditInfo.logo}
+      >
+        <AvatarBadge
+          boxSize="0.08m"
+          bg="springgreen"
+          borderColor="springgreen"
+        />
+      </Avatar>
       <Container>
-        <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">
-          Editar de empresa
-        </h1>
-
         <Tabs
           id="controlled-tab-example"
           activeKey={key}
@@ -357,23 +397,6 @@ function PerfilBusiness(props) {
                         />
                       </Form.Group>
                     </Col>
-                    {/* <Form.Group className="mb-3">
-                    <Form.Label>Logo:</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="address"
-                      value={input.address}
-                      placeholder="Dirección"
-                      onChange={handleInputChange}
-                    />
-                    {!error.erroraddress ? (
-                      <label> </label>
-                    ) : (
-                      <label> {error.erroraddress} </label>
-                    )}
-
-                  </Form.Group> */}
-                    {/* </Col> */}
                   </Row>
                   <Row>
                     <Col>
@@ -416,6 +439,14 @@ function PerfilBusiness(props) {
                       >
                         Editar Empresa
                       </Button>
+                    </Col>
+                    <Col>
+                      <Button onClick={(e) => handleDesactivate(e)}>
+                        Desactivar cuenta
+                      </Button>
+                    </Col>
+                    <Col>
+                      <Button onClick={closeSesion}>Cerrar sesión</Button>
                     </Col>
                   </Row>
                 </Form>
@@ -523,7 +554,6 @@ function PerfilBusiness(props) {
                               {e.nombre}
                             </option>
                           ))
-
                       : ""}
                   </Form.Select>
                   {!error.errorcity ? (

@@ -15,7 +15,6 @@ import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 
 import { useHistory } from "react-router-dom";
-// import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
 import moment from "moment";
 
@@ -32,7 +31,7 @@ function HomeUserPurchase() {
   const [input, setInput] = useState({
     comment: "",
     rating: "",
-    userEmail: user.email,
+    userEmail: gState.user.email,
     productId: 0,
   });
 
@@ -41,8 +40,9 @@ function HomeUserPurchase() {
   };
   function handleSubmit(e) {
     e.preventDefault();
+    console.log("esto envio ", input)
     dispatch(postReview(input));
-    debugger;
+
     swal(
       "Muchas gracias por tu feedback",
       "Esperemos que sigas eligiendo Bring it",
@@ -67,6 +67,9 @@ function HomeUserPurchase() {
   useEffect(() => {
     handleRating(input.rating);
   }, [input.rating]);
+  useEffect(() => {
+    input.userEmail = gState.user.email;
+  }, [input.productId]);
   const handleBack = (event) => {
     event.preventDefault();
     history.push("/persona/filtro");
@@ -82,6 +85,7 @@ function HomeUserPurchase() {
       totalPrice: e.totalPrice,
       cantidad: e.purchaseitems.reduce((a, e) => e.quantity + a, 0),
       producto: e.purchaseitems.map((e) => `${e.productName}, `),
+      travel: e.travelId,
       arrivalCityId: gState.allCities.filter(
         (el) => parseInt(el.id) === parseInt(e.arrivalCityId)
       )[0].nombre,
@@ -116,7 +120,7 @@ function HomeUserPurchase() {
       } else if (listMatch === "No existen coincidencias") {
         swal(
           "Todavía no tienes viajeros disponibles",
-          "Intentalo mas tarde",
+          "Inténtalo más tarde",
           "error"
         );
         dispatch(cleanGetMatch());
@@ -146,6 +150,20 @@ function HomeUserPurchase() {
       selector: (row) => row.producto,
       sortable: true,
     },
+  ];
+
+  const conditionalRowStyles = [
+    {
+      when: row => row.travel !== null,
+      style: {
+        backgroundColor: '#8c52ff',
+        color: 'white',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
+
   ];
   const columnas = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
@@ -191,7 +209,9 @@ function HomeUserPurchase() {
     },
   ];
 
+
   var filterByProduct = purchases.filter((item) => item.id === show).map(e => e.purchaseitems)[0];
+
 
 
   return (
@@ -207,6 +227,7 @@ function HomeUserPurchase() {
             columns={columnas}
             data={nameCity}
             title="Listado de compras"
+            conditionalRowStyles={conditionalRowStyles}
           />
           <hr />
           <br />
@@ -219,7 +240,7 @@ function HomeUserPurchase() {
             <Modal.Body>
               <Form onSubmit={(e) => handleSubmit(e)}>
                 <select name="productId" value={input.productId} onChange={handleInputChange} >
-                  {/* <option value="">{ }</option> */}
+                  <option value="">{ }</option>
                   {filterByProduct?.map((e) => (
                     <option
                       key={e.productId}
@@ -270,8 +291,6 @@ function HomeUserPurchase() {
           </Modal>
         </Col>
       </Row>
-      {/* <Button onClick={(e) => history.goBack(e)}>Atras</Button> */}
-
     </div>
   );
 }

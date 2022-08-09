@@ -31,7 +31,7 @@ import Join from './components/Join.jsx'
 
 import Favourites from "./components/Favourites";
 import Chat from "./components/Chat";
-
+import RecuperarContraseniaBusiness from "./components/RecuperarContraseniaBusiness";
 import LoginGoogleSuccess from './components/LoginGoogleSuccess';
 
 function App() {
@@ -43,6 +43,7 @@ function App() {
   return (
     <div style={{ backgroundColor: "#F6F5F5" }} className="App">
       <Switch>
+        <Route exact path="/recuperarContraseniaBusiness" component={RecuperarContraseniaBusiness}/>
         <Route exact path= "/recuperarPassword" component={OlvidastePassword}/>
         <Route exact path= "/recuperarContrasenia" component={RecuperarContrasenia}/>
         <Route exact path="/join" component={Join} />
@@ -53,7 +54,7 @@ function App() {
         <Route exact path="/RegisterUser" component={RegisterUser} />
         <Route exact path="/RegisterBusiness" component={RegisterBusiness} />
         <Route exact path="/vidriera" component={Vidriera} />
-        <Route exact path='/usuarioE' component={Usuario} />
+        <Route exact path='/persona/usuarioE' component={Usuario} />
         <Route path="/persona/filtro" render={() => (
           user !== "clean" ? <FilterBefore /> : <Redirect to="/" />
         )} />

@@ -12,7 +12,6 @@ export default function AddFavourites() {
   const favorites = useSelector((state) => state.favourites);
   const [toggle, setToggle] = useState(false);
 
-  const token = globalState.userToken;
 
   const email = user.email;
   const id = product.id;
@@ -20,9 +19,7 @@ export default function AddFavourites() {
   const allFavorites = Array.isArray(favorites)
     ? favorites?.map((e) => e.productId)
     : [];
-  console.log(favorites);
 
-  // console.log(allFavorites.includes(id));
 
   useEffect(() => {
     dispatch(getFavourites(email));
@@ -41,7 +38,6 @@ export default function AddFavourites() {
             userEmail: email,
             productId: id,
           },
-          token
         )
       );
       swal(
@@ -53,17 +49,17 @@ export default function AddFavourites() {
     }
     if (toggle === true) {
       setToggle(false);
+      // debugger;
       dispatch(
         deleteFavourite({
           userEmail: email,
           productId: id,
         })
       );
-
       setToggle(false);
       swal(
-        `el producto ${product.name} ha sido borrado con éxito`,
-        "puedes volver a agregarlo cuando desees",
+        `El producto ${product.name} ha sido borrado con éxito`,
+        "Puedes volver a agregarlo cuando desees",
         "success"
       );
       setToggle(false);

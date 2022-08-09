@@ -44,39 +44,43 @@ export const ProductDetail = () => {
           "Podés agregarlo como favorito para comprarlo en tu proximo carrito!",
           "error"
         );
-      }
-    } else {
-      dispatch(addToCart(product));
-      swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
-    }
-    if (cart.filter((e) => e.id === product.id).length > 0) {
-      // debugger;
-      if (cart[0].quantity < product.stock) {
-        dispatch(addToCart(product));
-        // debugger;
-        swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
-        return;
       } else {
-        swal(
-          "No tenemos más stock",
-          "Acabamos de enviar un Email a la empresa correspondiente",
-          "error"
-        );
-        return;
+
+        if (cart.filter((e) => e.id === product.id).length > 0) {
+          if (cart[0].quantity < product.stock) {
+            dispatch(addToCart(product));
+
+            swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
+            return;
+          } else {
+            swal(
+              "No tenemos más stock",
+              "Acabamos de enviar un Email a la empresa correspondiente",
+              "error"
+            );
+            return;
+          }
+        } else {
+          dispatch(addToCart(product));
+          swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
+          return;
+        }
+
       }
+
     } else {
-      //jeje
       dispatch(addToCart(product));
-      swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
-      return;
+      swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
     }
+
+
   }
 
   return (
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
 
-     
+
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
           <div className={styles.imgCon}>
@@ -93,8 +97,8 @@ export const ProductDetail = () => {
                 <span>Empresa: </span>
 
                 {product.businessbranch.businessBranchName === null ||
-                product.categories === undefined ||
-                product.businessbranch.businessBranchName.length == 0
+                  product.categories === undefined ||
+                  product.businessbranch.businessBranchName.length == 0
                   ? ""
                   : product.businessbranch.businessBranchName.split(" - ")[0]}
               </p>
@@ -108,8 +112,8 @@ export const ProductDetail = () => {
               <p className="card-text" id={styles.empresa}>
                 <span id={styles.categoria}>En: </span>
                 {product.categories === null ||
-                product.categories === undefined ||
-                product.categories.length == 0
+                  product.categories === undefined ||
+                  product.categories.length == 0
                   ? "No tiene categoría"
                   : product.categories[0].name}
               </p>
@@ -144,8 +148,8 @@ export const ProductDetail = () => {
                     COMPRAR
                   </a>
                 </div> */}
-                
-                 Agregar a mis Favoritos: <AddFavourites />
+
+                Agregar a mis Favoritos: <AddFavourites />
                 <button
                   className="btn btn-primary"
                   onClick={(e) => handleClickAddToCart(e)}

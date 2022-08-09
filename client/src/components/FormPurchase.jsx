@@ -93,7 +93,7 @@ function FormPurchase() {
 
       elements.getElement(CardElement).clear();
       dispatch(postPurchase(input));
-      swal("Buen trabajo", "La compra fue realizada con exito", "success");
+      swal("Buen trabajo", "La compra fue realizada con éxito", "success");
       history.push("/persona/homeUserPurchase");
       dispatch(clearCart());
     } else {

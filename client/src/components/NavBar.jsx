@@ -209,7 +209,7 @@ export default function NavBar() {
          
           <Avatar
           size='lg'
-            onClick={() => history.push("/usuarioE")}
+            onClick={() => history.push("/persona/usuarioE")}
             name={`${userAvatar.name} ${userAvatar.lastname}`}
             src={userAvatar.image}
           >
