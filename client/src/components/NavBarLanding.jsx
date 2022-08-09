@@ -345,7 +345,7 @@ export default function NavBarLanding() {
   //fc relacionadas a la aut con Google:
   const getAuthenticatedUser = async () => {
     const response = await axios
-      .get("/auth/authenticatedUser", { withCredentials: true })
+      .get("https://bringit-arg.herokuapp.com/auth/authenticatedUser", { withCredentials: true })
       .catch((err) => {
         console.log(`No se loggeo correctamente`);
       });
