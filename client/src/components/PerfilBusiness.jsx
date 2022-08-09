@@ -10,7 +10,7 @@ import {
   editBranch,
   saveImage,
   desactivateBusiness,
-  cleanBusinessState
+  cleanBusinessState,
 } from "../actions";
 import DataTable from "react-data-table-component";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -272,7 +272,16 @@ function PerfilBusiness(props) {
     dispatch(desactivateBusiness(infoBusiness.email,tokenBusiness));
     history.push("/");
     dispatch(cleanBusinessState());
-    
+  }
+
+  function closeSesion(){
+    dispatch(cleanBusinessState());
+    swal(
+      "Tu sesion ha sido cerrada con éxito",
+      "Gracias por usar Bring it!",
+      "success"
+    );
+    history.push("/")
   }
   return (
     <div>
@@ -405,6 +414,9 @@ function PerfilBusiness(props) {
                     </Col>
                     <Col>
                         <Button onClick={(e) => handleDesactivate(e)}>Desactivar cuenta</Button>
+                    </Col>
+                    <Col>
+                        <Button onClick={closeSesion}>Cerrar sesión</Button>
                     </Col>
                   </Row>
                 </Form>

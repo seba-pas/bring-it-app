@@ -8,6 +8,7 @@ import swal from "sweetalert";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
 import image from "../components/img/logo2-removebg-preview.png";
+import { BsGoogle } from "react-icons/bs";
 import {
   login,
   loginBusiness,
@@ -556,21 +557,22 @@ const redirectToGoogle = async () => {
                     variant="info"
                     type="submit"
                     className={styles.buttonSubmit}
-                    style={{ marginLeft: "33%" }}
+                    style={{ marginLeft: "25%" }}
                   >
                     Iniciar sesion
                   </Button>
-                  <div>
-                    O inicia sesion con 
+                  
                     <Button
                     variant="info"
                     type="submit"
+                    className="google"
+                    style={{marginLeft: "15%"}}
                     id={styles.iniciarSesion}                    
                     onClick={redirectToGoogle}
                   >
-                    Google
+                    <BsGoogle/>
                   </Button>                    
-                  </div>
+                  
                 </Form>
               </Tab>
             </Tabs>

@@ -449,12 +449,7 @@ export default function rootReducer(state = initialState, action) {
         (item) => item.id === productoCantidad.id
       );
       console.log(itemInCart);
-      /* 
-        itemIncart.stock > itemIncart.quantity ? itemInCart : alert('No tenemos tanto stock')
-      */
-      /* cart.filter((e) => e.id === product.id)[0].stock <
-         cart.filter((e) => e.id === product.id)[0].quantity; */
-      // itemInCart = state.cart.filter((e) => console.log(e))
+     
       return itemInCart
         ? {
             ...state,

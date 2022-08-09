@@ -49,7 +49,8 @@ export const ProductDetail = () => {
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
     }
-    if (cart.filter((e) => e.id === product.id).length > 0) {
+
+    /* if (cart.filter((e) => e.id === product.id).length > 0) {
       // debugger;
       if (cart[0].quantity < product.stock) {
         dispatch(addToCart(product));
@@ -65,11 +66,10 @@ export const ProductDetail = () => {
         return;
       }
     } else {
-      //jeje
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
       return;
-    }
+    } */
   }
 
   return (
