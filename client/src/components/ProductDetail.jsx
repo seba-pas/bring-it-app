@@ -50,7 +50,7 @@ export const ProductDetail = () => {
           if (cart[0].quantity < product.stock) {
             dispatch(addToCart(product));
 
-            swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+            swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
             return;
           } else {
             swal(
@@ -62,7 +62,7 @@ export const ProductDetail = () => {
           }
         } else {
           dispatch(addToCart(product));
-          swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+          swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
           return;
         }
 
@@ -70,7 +70,7 @@ export const ProductDetail = () => {
 
     } else {
       dispatch(addToCart(product));
-      swal("Buen trabajo!", "El producto fue agregado con exito!", "success");
+      swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
     }
 
 

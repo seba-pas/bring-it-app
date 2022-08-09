@@ -168,7 +168,7 @@ export default function NavBarLanding() {
       else if (business === "Usuario no encontrado") {
         swal(
           "Empresa no encontrada",
-          "La empresa a la que intentas entrar no esta registrada",
+          "La empresa a la que intentas entrar no está registrada",
           "error"
         );
 
@@ -193,7 +193,7 @@ export default function NavBarLanding() {
       } else if (business === "Empresa bloqueada") {
         swal(
           "Su cuenta ha sido bloqueda por el administrador",
-          "Para mas información comuniquese con bringit662@gmail.com",
+          "Para más información comuniquese con bringit662@gmail.com",
           "error"
         );
       } else if (!business.active) {
@@ -204,7 +204,7 @@ export default function NavBarLanding() {
           }
         ).then((value) => {
           if (value) {
-            swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+            swal("Buen trabajo!", "Entró al sistema correctamente!", "success");
             dispatch(activateBusiness(business.email, businessToken));
             setInput({
               email: "",
@@ -261,7 +261,7 @@ export default function NavBarLanding() {
       });
     } else {
       swal(
-        "Ops a ocurrido un error",
+        "Ups ha ocurrido un error",
         "Verifica cumplir con los requisitos",
         "error"
       );
@@ -303,7 +303,7 @@ export default function NavBarLanding() {
       } else if (user === "Usuario bloqueado") {
         swal(
           "Su cuenta ha sido bloqueda por el administrador",
-          "Para mas información comuniquese con bringit662@gmail.com",
+          "Para más información comuniquese con bringit662@gmail.com",
           "error"
         );
       } else if (!user.active) {
@@ -314,7 +314,7 @@ export default function NavBarLanding() {
           }
         ).then((value) => {
           if (value) {
-            swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+            swal("Buen trabajo!", "Entró al sistema correctamente!", "success");
             dispatch(activateUser(user.email, userToken));
             setInput({
               email: "",
@@ -326,7 +326,7 @@ export default function NavBarLanding() {
           }
         });
       } else if (user.active) {
-        swal("Buen trabajo!", "Entro al sistema correctamente!", "success");
+        swal("Buen trabajo!", "Entró al sistema correctamente!", "success");
         setInput({
           email: "",
           password: "",
@@ -413,7 +413,7 @@ export default function NavBarLanding() {
         >
           <Avatar
             size="lg"
-            onClick={() => history.push("/usuarioE")}
+            onClick={() => history.push("/persona/usuarioE")}
             name={`${user?.name} ${user?.lastname}`}
             src={user.image}
           >

@@ -116,7 +116,7 @@ function HomeUserPurchase() {
       } else if (listMatch === "No existen coincidencias") {
         swal(
           "Todavía no tienes viajeros disponibles",
-          "Intentalo mas tarde",
+          "Inténtalo más tarde",
           "error"
         );
         dispatch(cleanGetMatch());

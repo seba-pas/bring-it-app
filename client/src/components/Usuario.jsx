@@ -55,7 +55,7 @@ const Usuario = () => {
     e.preventDefault();
     dispatch(cleanBusiness());
     swal(
-      "Tu sesion ha sido cerrada con éxito",
+      "Tu sesión ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
       "success"
     );
@@ -69,7 +69,7 @@ const Usuario = () => {
     dispatch(logoutGoogleSession());
     dispatch(clearCart());
     swal(
-      "Tu sesion ha sido cerrada con éxito",
+      "Tu sesión ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
       "success"
     );

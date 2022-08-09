@@ -175,7 +175,7 @@ function RegisterUser() {
       return;
     } else {
       if (user === "Usuario creado") {
-        swal("Buen trabajo!", "El usuario fue creado con exito!", "success");
+        swal("Buen trabajo!", "El usuario fue creado con éxito!", "success");
         setInput({
           email: "",
           password: "",
