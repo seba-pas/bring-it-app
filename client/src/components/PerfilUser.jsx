@@ -106,7 +106,6 @@ function PerfilUser(props) {
           lastname: input.lastname,
           phone: input.phone,
           image: urlImage,
-
           arrayInfo: [],
         },
         tokenUser //envio de 3er parametro para enviar los headers en la accion (envio de token al back)

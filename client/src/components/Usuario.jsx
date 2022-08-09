@@ -16,6 +16,7 @@ import {
   getActiveUser,
   getAllEmail,
   logoutGoogleSession,
+  clearCart
 } from "../actions";
 
 import swal from "sweetalert";
@@ -66,6 +67,7 @@ const Usuario = () => {
     dispatch(cleanUsers());
     dispatch(cleanUserState());
     dispatch(logoutGoogleSession());
+    dispatch(clearCart());
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
