@@ -10,8 +10,8 @@ import ReactScrollToBottom from "react-scroll-to-bottom";
 
 let socket;
 
-// const ENDPOINT = "https://bringit-arg.herokuapp.com/" 
-const ENDPOINT = "http://localhost:3001"
+const ENDPOINT = "https://bringit-arg.herokuapp.com/" 
+// const ENDPOINT = "http://localhost:3001"
 
 const Chat = () => {
     const [id, setid] = useState("");

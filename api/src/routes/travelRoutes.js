@@ -98,6 +98,9 @@ router.get('/purchase/:idPurchase', async (req, res) => {
                 },
                 arrivalDate: {
                     [Op.lt]: purchase.maxDeliveryDate
+                },
+                userEmail:{
+                    [Op.ne]: purchase.userEmail
                 }
             }
         })

@@ -50,6 +50,7 @@ const initialState = {
   idPurchase: "",
   favourites: [],
   allPurchases: [],
+  reviews: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -59,6 +60,12 @@ export default function rootReducer(state = initialState, action) {
     //     ...initialState,
     //     provinces: state.provinces
     //   }
+
+    case "GET_REVIEWS":
+      return {
+        ...state,
+        reviews: action.payload,
+      };
 
     case "GET_MATCH":
       return {
