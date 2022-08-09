@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
 import moment from "moment";
+import NavBarProvince from './NavBarProvince';
+
 import { BsCheckCircleFill } from "react-icons/bs";
 import { BsCardChecklist } from "react-icons/bs";
 import { putMatch , cleanMatch} from "../actions";
@@ -104,6 +106,7 @@ function TableMatchTravels() {
   ];
   return (
     <div>
+      <NavBarProvince/>
       <DataTable
         columns={columnasTravels}
         data={listMatch}

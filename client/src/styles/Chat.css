@@ -14,7 +14,7 @@
 }
 
 .header{
-    background-color: crimson;
+    background-color: #944ffd;
     height: 15%;
    display: flex;
    align-items: center;
@@ -67,7 +67,7 @@
 
 
 .sendBtn{
-    background-color: crimson;
+    background-color: #944ffd;
     color: white;
     border: none;
     width: 21%;
@@ -81,7 +81,7 @@
     transition: all 0.3s;
 }
 .sendBtn:hover{
-    background-color: rgb(156, 13, 42);
+    background-color: black;
 } 
 .sendBtn:hover img{
     transform: translateX(10px);
