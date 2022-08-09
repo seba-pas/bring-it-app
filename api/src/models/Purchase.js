@@ -25,9 +25,9 @@ module.exports = (sequelize) => {
         allowNull: false
       }, 
       status: {
-        type: DataTypes.ENUM("paid", "traveling", "delivered"),
+        type: DataTypes.ENUM("Pagado", "En camino", "Entregado"),
         allowNull: false,
-        defaultValue: "paid"
+        defaultValue: "Pagado"
       },
     },
     {

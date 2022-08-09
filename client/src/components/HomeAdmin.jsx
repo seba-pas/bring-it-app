@@ -43,27 +43,44 @@ export default function HomeAdmin() {
 
   function banearUsers(e, email) {
     e.preventDefault();
-    dispatch(deleteUser(email, userToken));
-    swal(
-      "El usuario ha sido bloqueado con éxito",
-      "Gracias por usar Bring it!",
-      "success"
-    );
+    swal({
+      title: "¿Está seguro que quiere eliminar este usuario?",
+      text: "Si elimina el usuario, no podrá acceder más a su cuenta",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("El usuario ha sido eliminado", {
+          icon: "success",
+        });
+        dispatch(deleteUser(email, userToken));
+      } else {
+        swal("El usuario no ha sido eliminado");
+      }
+    });
   }
 
   function banearBusiness(e, email) {
     e.preventDefault();
-    dispatch(deleteBusiness(email, userToken));
-    swal(
-      "La empresa ha sido bloqueada con éxito",
-      "Gracias por usar Bring it!",
-      "success"
-    );
+    swal({
+      title: "¿Está seguro que quiere eliminar esta empresa?",
+      text: "Si elimina la empresa, no podrá acceder más a su cuenta",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("La empresa ha sido eliminado", {
+          icon: "success",
+        });
+        dispatch(deleteBusiness(email, userToken));
+      } else {
+        swal("La empresa no ha sido eliminado");
+      }
+    });
   }
 
-  function editUsers() {
-    alert("PROXIMAMENTE!!!");
-  }
   function editBusiness() {
     alert("PROXIMAMENTE!!!");
   }
