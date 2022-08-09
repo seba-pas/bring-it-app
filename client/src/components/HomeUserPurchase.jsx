@@ -15,7 +15,6 @@ import Modal from "react-bootstrap/Modal";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 
 import { useHistory } from "react-router-dom";
-// import ChangeRating from "./ChangeRating";
 import StarRating from "./StarRating";
 import moment from "moment";
 
@@ -83,6 +82,7 @@ function HomeUserPurchase() {
       totalPrice: e.totalPrice,
       cantidad: e.purchaseitems.reduce((a, e) => e.quantity + a, 0),
       producto: e.purchaseitems.map((e) => `${e.productName}, `),
+      travel: e.travelId,
       arrivalCityId: gState.allCities.filter(
         (el) => parseInt(el.id) === parseInt(e.arrivalCityId)
       )[0].nombre,
@@ -148,6 +148,20 @@ function HomeUserPurchase() {
       sortable: true,
     },
   ];
+  console.log("namecity", nameCity)
+  const conditionalRowStyles = [
+    {
+      when: row => row.travel !== null,
+      style: {
+        backgroundColor: '#8c52ff',
+        color: 'white',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
+
+  ];
   const columnas = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
     {
@@ -193,9 +207,6 @@ function HomeUserPurchase() {
   ];
   var filterByProduct = purchases.filter((item) => item.id === show).map(e => e.purchaseitems)[0];
   console.log("filter", filterByProduct)
-  // console.log(nameCity.productId);
-
-
 
   return (
     <div>
@@ -210,6 +221,7 @@ function HomeUserPurchase() {
             columns={columnas}
             data={nameCity}
             title="Listado de compras"
+            conditionalRowStyles={conditionalRowStyles}
           />
           <hr />
           <br />
@@ -222,7 +234,6 @@ function HomeUserPurchase() {
             <Modal.Body>
               <Form onSubmit={(e) => handleSubmit(e)}>
                 <select name="productId" value={input.productId} onChange={handleInputChange} >
-                  {/* <option value="">{ }</option> */}
                   {filterByProduct?.map((e) => (
                     <option
                       key={e.productId}
@@ -273,8 +284,6 @@ function HomeUserPurchase() {
           </Modal>
         </Col>
       </Row>
-      {/* <Button onClick={(e) => history.goBack(e)}>Atras</Button> */}
-
     </div>
   );
 }

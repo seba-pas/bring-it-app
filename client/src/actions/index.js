@@ -84,6 +84,7 @@ import {
 
   //login con Google
   POST_LOGIN_GOOGLE,
+  GET_ALL_PURCHASES,
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -521,6 +522,20 @@ export const getByPurchaseEmail = (email) => {
     }
   };
 };
+export const getAllPurchases = () => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(`/purchase`);
+      console.log("esto llega get all", res.data)
+      return dispatch({
+        type: GET_ALL_PURCHASES,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 //get travels
 export const getAllTravel = () => {
@@ -856,7 +871,7 @@ export const saveImage = (urlImage) => {
 export const getFavourites = (userEmail) => {
   return async function (dispatch) {
     try {
-      const res = await axios(`/favorite/user/${userEmail}`);     
+      const res = await axios(`/favorite/user/${userEmail}`);
 
       return dispatch({
         type: GET_FAVOURITES,
@@ -920,8 +935,8 @@ export const changePasswordBusiness = (email, body) => {
 // login con Google
 export const loginUserGoogle = (body) => {
   return async function (dispatch) {
-    try {      
-      const res = await axios.post(`/user/google/login/`, body);      
+    try {
+      const res = await axios.post(`/user/google/login/`, body);
       return dispatch({
         type: POST_LOGIN_GOOGLE,
         payload: res.data
