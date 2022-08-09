@@ -37,16 +37,8 @@ server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
-<<<<<<< HEAD
 server.use((req, res, next) => { //Alej
   res.header("Access-Control-Allow-Origin", "https://bring-it-app.vercel.app"); // update to match the domain you will make the request from
-=======
-server.use((req, res, next) => { //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  res.header("Access-Control-Allow-Origin", "https://bring-it-app.vercel.app"); // update to match the domain you will make the request from
->>>>>>> c8806f091ab59b6e131e69d3d27836b260a9ca35
-
-
-
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
