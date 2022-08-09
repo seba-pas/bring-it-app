@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTravel } from "../actions";
+import { getAllPurchases, getAllTravel } from "../actions";
 import styles from "../styles/UserTravels.module.css";
 import ProducTravelCard from "./ProducTravelCard";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -23,6 +23,7 @@ function UserTravels() {
   }
   useEffect(() => {
     dispatch(getAllTravel());
+    dispatch(getAllPurchases());
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,6 +41,7 @@ function UserTravels() {
   let toChange = input.travels;
   let changedCityNames = toChange.map((e) => {
     return {
+      id: e.id,
       startDate: e.startDate,
       travelProvince: e.travelProvince,
       travelCityId: gState.allCities.filter(
@@ -52,16 +54,33 @@ function UserTravels() {
       )[0].nombre,
     };
   });
-  console.log(changedCityNames);
 
-  function deleteTravel() {
-    alert("PROXIMAMENTE!!!");
+  const idsTravels = changedCityNames.map(e => e.id)
+  // const allPurchasesA = gState.allPurchases.filter(e => e.travelId !== null).filter(el => idsTravels.includes(el.travelId)).map(ele => swal("Felicitaciones", `el usuario ${ele.user.email} acepto que transporte sus productos`, "success"))
+
+
+
+  function deleteTravel(id) {
+
   }
 
   function editUsers() {
     alert("PROXIMAMENTE!!!");
   }
 
+  const conditionalRowStyles = [
+    {
+      when: row => gState.allPurchases.filter(e => e.travelId !== null).filter(el => el.travelId === row.id).length > 0,
+      style: {
+        backgroundColor: '#8c52ff',
+        color: 'white',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
+
+  ];
   const columnas = [
     {
       name: "Fecha",
@@ -89,10 +108,10 @@ function UserTravels() {
       button: true,
       cell: () => (
         <button>
-          <FaPencilAlt
+          {/* <FaPencilAlt
             style={{ marginRight: "15px", fontSize: "20px" }}
             onClick={(e) => editTravel(e)}
-          />
+          /> */}
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteTravel(e)}
@@ -110,6 +129,7 @@ function UserTravels() {
             columns={columnas}
             data={changedCityNames}
             title="Listado de viajes"
+            conditionalRowStyles={conditionalRowStyles}
           />
           <br />
           <Row>
@@ -124,11 +144,11 @@ function UserTravels() {
           </Row>
         </div>
       ) : (
-        <div style={{background:'white', fontSize:'20px', height:'200px'}}>
+        <div style={{ background: 'white', fontSize: '20px', height: '200px' }}>
           <br />
           <Row>
-            <div style={{marginTop:'50px'}}>
-            <h1 >No se encontraron viajes asociados</h1>
+            <div style={{ marginTop: '50px' }}>
+              <h1 >No se encontraron viajes asociados</h1>
             </div>
             <Col
               lg={6}

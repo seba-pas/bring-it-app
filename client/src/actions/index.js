@@ -83,7 +83,11 @@ import {
 
   //login con Google
   POST_LOGIN_GOOGLE,
+
+  GET_ALL_PURCHASES,
+
   LOGOUT_GOOGLE_SESSION,
+
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -539,6 +543,20 @@ export const getByPurchaseEmail = (email) => {
       const res = await axios.get(`/purchase/email/${email}`);
       return dispatch({
         type: GET_BY_PURCHASE_EMAIL,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const getAllPurchases = () => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(`/purchase`);
+      console.log("esto llega get all", res.data)
+      return dispatch({
+        type: GET_ALL_PURCHASES,
         payload: res.data,
       });
     } catch (error) {
