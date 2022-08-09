@@ -29,10 +29,10 @@ function LandingPage1() {
     e.preventDefault();
 
     if (user == "clean" && business == "clean") {
-      swal("No estas logueado", "Por favor logueate para ingresar", "error");
+      swal("No estás logueado", "Por favor logueate para ingresar", "error");
     } else if (user == "clean" && business !== "clean") {
       swal(
-        "Estas logueado como empresa",
+        "Estás logueado como empresa",
         "Por favor logueate como usuario para comprar",
         "warning"
       );
