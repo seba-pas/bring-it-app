@@ -339,7 +339,7 @@ router.put('/recover/password/olv/pass', async (req,res )=>{
         console.log(error.message);
       }
     }else{
-      res.send('email no rregistrado');
+      res.send('email no rregistrado ');
     }
     
     
