@@ -4,17 +4,22 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/PerfilBusiness.module.css";
 
-import { editUser, cleanPutUser, getUserByEmail,desactivateUser,cleanUsers ,saveImage} from "../actions";
+import {
+  editUser,
+  cleanPutUser,
+  getUserByEmail,
+  desactivateUser,
+  cleanUsers,
+  saveImage,
+} from "../actions";
 import { useHistory } from "react-router-dom";
-
 
 function PerfilUser(props) {
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
-  const urlImage = useSelector((state) => state.images)
+  const urlImage = useSelector((state) => state.images);
 
- 
   const emailState = gState.email;
   const infoUser = gState.user;
   const tokenUser = gState.userToken;
@@ -26,9 +31,8 @@ function PerfilUser(props) {
     lastname: infoUser.lastname,
     phone: infoUser.phone,
     arrayInfo: [],
-    image: ""
+    image: "",
   });
-
 
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -92,7 +96,7 @@ function PerfilUser(props) {
       infoUser.password === input.password &&
       infoUser.name === input.name &&
       infoUser.lastname === input.lastname &&
-      infoUser.phone === input.phone 
+      infoUser.phone === input.phone
     ) {
       swal("No se ha realizado ninguna modificación");
       return;
@@ -113,10 +117,24 @@ function PerfilUser(props) {
     );
   };
   function handleDesactivate() {
-    dispatch(desactivateUser(infoUser.email,tokenUser));
-    history.push("/");
-    dispatch(cleanUsers());
-    
+    swal({
+      title: "¿Está seguro que quiere desactivar su cuenta?",
+      text: "Si desactiva su cuenta ya no tendrá acceso a la misma.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Su cuenta ha sido desactivada!", {
+          icon: "success",
+        });
+        dispatch(desactivateUser(infoUser.email, tokenUser));
+        history.push("/");
+        dispatch(cleanUsers());
+      } else {
+        swal("Su cuenta no ha sido desactivada");
+      }
+    });
   }
   return (
     <div>
