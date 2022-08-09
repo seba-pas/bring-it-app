@@ -358,7 +358,7 @@ export default function NavBarLanding() {
   const redirectToGoogle = async () => {
     let timer = null;
     const urlBack = process.env.REACT_APP_API
-    const googleLoginURL = `${urlBack}/auth/login/google`; //La ruta del back 
+    const googleLoginURL = `${urlBack}auth/login/google`; //La ruta del back 
     const newWindow = window.open(
       googleLoginURL,
       "_blank",
