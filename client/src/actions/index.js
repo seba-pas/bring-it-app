@@ -118,6 +118,31 @@ export const getAllProductsDetail = (id) => {
   };
 };
 
+
+export const recoverPassword = (body) => {
+      console.log("input", body)
+  return async function (dispatch) {
+    try {
+      const res = await axios.post("/recoverPassword", body);
+      console.log("recoverPassword: ", res.data)
+      return dispatch({
+        type: "PASS_RECOVER",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
+export const cleanRecoverPassword = () => {
+  return {
+    type: "CLEAN_RECOVER_PASSWORD"
+  }
+}
+
+
 export const getAllProductsName = (name) => {
   return async function (dispatch) {
     try {

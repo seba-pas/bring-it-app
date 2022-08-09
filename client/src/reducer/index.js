@@ -1,5 +1,6 @@
 const initialState = {
   products: [],
+  recuperandoContraseña: "",
   productsDetail: {},
   allProducts: [],
   user: {},
@@ -148,6 +149,17 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         business: "clean",
       };
+    case "PASS_RECOVER":
+    console.log(action.payload)
+      return {
+        ...state,
+        recuperandoContraseña: action.payload
+      }
+    case "CLEAN_RECOVER_PASSWORD":
+      return {
+        ...state,
+        recuperandoContraseña: ""
+      }
     case "CLEAN_USER_STATE":
       return {
         ...state,
@@ -561,7 +573,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allEmail: action.payload,
       };
-    case "SAVE_IMAGE":
+    case "SAVE_IMAGE":     
       return {
         ...state,
         images: action.payload.secure_url, //[action.payload, ...state.images]

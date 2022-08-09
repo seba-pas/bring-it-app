@@ -166,7 +166,7 @@ router.put("/recover/password/:email", async (req, res) => {
     const passNueva=  CryptoJS.AES.encrypt(passwordN, process.env.PASS_SEC).toString();
     console.log('oass nueva hasheada',passNueva);
 
-    if(originalPassword == passwordV) {
+    // if(originalPassword == passwordV) {
       console.log("4")
       try {
 
@@ -192,7 +192,7 @@ router.put("/recover/password/:email", async (req, res) => {
         to: req.params.email,
         subject: "Cambio de contraseña",
         html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
-        <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
+        <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/modificarContrasenia">aqui</a></p>
         `
       })
 
@@ -202,9 +202,9 @@ router.put("/recover/password/:email", async (req, res) => {
         console.log('5')
         console.log('208',error)
       }    
-    } else {
-      console.log("contraseña incorrecta") 
-    }
+    // } else {
+      // console.log("contraseña incorrecta") 
+    // }
 });
 // holis
 //LOG IN para usuario loggeado con Google

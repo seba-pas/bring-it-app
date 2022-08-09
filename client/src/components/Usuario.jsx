@@ -6,9 +6,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../styles/Usuario.module.css";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { SpinnerCircularFixed } from "spinners-react";
-import PerfilUser from './PerfilUser'
+import PerfilUser from "./PerfilUser";
 
-import { desactivateUser, cleanUsers, cleanBusiness, cleanUserState, getActiveUser, getAllEmail, logoutGoogleSession } from "../actions";
+import {
+  desactivateUser,
+  cleanUsers,
+  cleanBusiness,
+  cleanUserState,
+  getActiveUser,
+  getAllEmail,
+  logoutGoogleSession,
+} from "../actions";
 
 import swal from "sweetalert";
 import UserTravels from "./UserTravels";
@@ -27,7 +35,6 @@ const Usuario = () => {
   const email = useSelector((state) => state.allEmail);
   const userToken = useSelector((state) => state.userToken);
   // const isBusiness = email.find((e) => e.email == user.email) ? true : false
-
 
   useEffect(() => {
     dispatch(getActiveUser());
@@ -57,8 +64,8 @@ const Usuario = () => {
   function handleCloseSesion(e) {
     e.preventDefault();
     dispatch(cleanUsers());
-    dispatch(cleanUserState())
-    dispatch(logoutGoogleSession())
+    dispatch(cleanUserState());
+    dispatch(logoutGoogleSession());
     swal(
       "Tu sesion ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
@@ -79,10 +86,19 @@ const Usuario = () => {
   return (
     <div style={{ height: "70vh", background: "white", marginTop: "30vh" }}>
       { user !== "clean" && Object.entries(user).length > 0 ? (
+
         <div>
           <div>
-            <Avatar name={`${user.name} ${user.lastname}`} src="">
-              <AvatarBadge boxSize="1.25em" bg="green.500" />
+            <Avatar
+              size="lg"
+              name={`${user.name} ${user.lastname}`}
+              src={user.image}
+            >
+              <AvatarBadge
+                boxSize="0.08m"
+                bg="springgreen"
+                borderColor="springgreen"
+              />
             </Avatar>
           </div>
           <div>
@@ -161,7 +177,6 @@ const Usuario = () => {
                 Registrarme como Empresa
               </button>
             )}*/}
-
           </div>
         </div>
       ) : (

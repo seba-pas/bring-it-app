@@ -4,13 +4,17 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/PerfilBusiness.module.css";
 
-import { editUser, cleanPutUser, getUserByEmail,desactivateUser,cleanUsers } from "../actions";
+import { editUser, cleanPutUser, getUserByEmail,desactivateUser,cleanUsers ,saveImage} from "../actions";
 import { useHistory } from "react-router-dom";
+
 
 function PerfilUser(props) {
   const gState = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
+  const urlImage = useSelector((state) => state.images)
+
+ 
   const emailState = gState.email;
   const infoUser = gState.user;
   const tokenUser = gState.userToken;
@@ -22,7 +26,10 @@ function PerfilUser(props) {
     lastname: infoUser.lastname,
     phone: infoUser.phone,
     arrayInfo: [],
+    image: ""
   });
+
+
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
   const uploadImage = async (e) => {
@@ -32,6 +39,7 @@ function PerfilUser(props) {
     data.append("upload_preset", "Bringit");
     setLoading(true);
     dispatch(saveImage(data));
+
     console.log("si");
   };
 
@@ -84,7 +92,7 @@ function PerfilUser(props) {
       infoUser.password === input.password &&
       infoUser.name === input.name &&
       infoUser.lastname === input.lastname &&
-      infoUser.phone === input.phone
+      infoUser.phone === input.phone 
     ) {
       swal("No se ha realizado ninguna modificación");
       return;
@@ -97,6 +105,7 @@ function PerfilUser(props) {
           name: input.name,
           lastname: input.lastname,
           phone: input.phone,
+          image: urlImage,
 
           arrayInfo: [],
         },
@@ -167,7 +176,7 @@ function PerfilUser(props) {
                 <label for="exampleFile">Logo</label>
                 <Form.Control
                   // id="exampleFile"
-                  name="logo"
+                  name="image"
                   type="file"
                   // value={input.logo}
                   onChange={uploadImage}

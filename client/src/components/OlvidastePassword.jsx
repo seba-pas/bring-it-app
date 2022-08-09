@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux'
+import { recoverPassword } from '../actions/index'
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import NavBarLanding from "./NavBarLanding";
 
 function OlvidastePassword() {
-    const history = useHistory();
+
+  const [input, setInput] = useState({
+    email: ''
+  })
+  console.log(input)
+
+  const dispatch = useDispatch()
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(recoverPassword(input))
+  }
+
+  const handleChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const history = useHistory();
   return (
     <div>
       <NavBarLanding />
@@ -27,10 +49,10 @@ function OlvidastePassword() {
                   <Form.Control
                     placeholder="Ingresa su email"
                     type="email"
-                    // value={input.passwordV}
-                    // name="passwordV"
+                    value={input.email}
+                    name="email"
                     required
-                    // onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   />
                 </Form.Group>
                 <Row>

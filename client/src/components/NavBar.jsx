@@ -24,6 +24,7 @@ export default function NavBar() {
   const stateCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const usuario  = useSelector((state) => state.user)
   const history = useHistory();
   useEffect(() => {
    
@@ -207,11 +208,12 @@ export default function NavBar() {
         >
          
           <Avatar
+          size='lg'
             onClick={() => history.push("/usuarioE")}
             name={`${userAvatar.name} ${userAvatar.lastname}`}
-            src=""
+            src={userAvatar.image}
           >
-            <AvatarBadge boxSize="1.25em" bg="green.500" />
+            <AvatarBadge boxSize="0.08m" bg="springgreen" borderColor='springgreen' />
           </Avatar>
         </div>
       </div>
