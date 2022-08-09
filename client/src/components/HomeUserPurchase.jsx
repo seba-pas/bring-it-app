@@ -31,7 +31,7 @@ function HomeUserPurchase() {
   const [input, setInput] = useState({
     comment: "",
     rating: "",
-    userEmail: user.email,
+    userEmail: gState.user.email,
     productId: 0,
   });
 
@@ -40,8 +40,9 @@ function HomeUserPurchase() {
   };
   function handleSubmit(e) {
     e.preventDefault();
+    console.log("esto envio ", input)
     dispatch(postReview(input));
-    debugger;
+
     swal(
       "Muchas gracias por tu feedback",
       "Esperemos que sigas eligiendo Bring it",
@@ -66,6 +67,9 @@ function HomeUserPurchase() {
   useEffect(() => {
     handleRating(input.rating);
   }, [input.rating]);
+  useEffect(() => {
+    input.userEmail = gState.user.email;
+  }, [input.productId]);
   const handleBack = (event) => {
     event.preventDefault();
     history.push("/persona/filtro");
@@ -147,7 +151,7 @@ function HomeUserPurchase() {
       sortable: true,
     },
   ];
-  console.log("namecity", nameCity)
+
   const conditionalRowStyles = [
     {
       when: row => row.travel !== null,
@@ -236,6 +240,7 @@ function HomeUserPurchase() {
             <Modal.Body>
               <Form onSubmit={(e) => handleSubmit(e)}>
                 <select name="productId" value={input.productId} onChange={handleInputChange} >
+                  <option value="">{ }</option>
                   {filterByProduct?.map((e) => (
                     <option
                       key={e.productId}
