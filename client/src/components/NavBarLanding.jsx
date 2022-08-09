@@ -431,8 +431,8 @@ const redirectToGoogle = async () => {
           }}
         >
           <Avatar
-          size='lg'
-            onClick={() => history.push("/usuarioE")}
+            onClick={() => history.push("/empresas")}
+
             name={`${business?.businessName}`}
             src=""
           >

@@ -85,65 +85,8 @@ const Usuario = () => {
 
   return (
     <div style={{ height: "70vh", background: "white", marginTop: "30vh" }}>
-      {console.log(email)}
-      {email.includes(user.email) || (business && business.email) ? (
-        <div>
-          <div>
-            <Avatar size="lg" name={`${business.businessName}`} src="">
-              <AvatarBadge
-                boxSize="0.08m"
-                bg="springgreen"
-                borderColor="springgreen"
-              />
-            </Avatar>
-          </div>
-          <div>
-            <h1> {`Hola ${business.businessName} !`}</h1>
-            <h1>Mi Email: {business.email}</h1>
-            <h1>Mi Número de Teléfono: {business.phone}</h1>
-          </div>
+      { user !== "clean" && Object.entries(user).length > 0 ? (
 
-          <div className={styles.contBotones}>
-            <button
-              className="btn btn-primary"
-              onClick={() => history.push("/persona/modificarPassword")}
-            >
-              Modificar Contraseña
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => history.push("/persona/favoritos")}
-            >
-              Mis Favoritos
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => history.push("/empresas")}
-            >
-              Gestionar Productos
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => history.goBack()}
-            >
-              Volver
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={(e) => handleCloseSessionBusiness(e)}
-            >
-              Cerrar Sesion
-            </button>
-            <button
-              className="btn btn-primary"
-              //   onClick={(e) => handleDesactivateBusiness(e)}
-              onClick={() => alert("falta esto")}
-            >
-              Desactivar Cuenta
-            </button>
-          </div>
-        </div>
-      ) : user !== "clean" && Object.entries(user).length > 0 ? (
         <div>
           <div>
             <Avatar
