@@ -279,13 +279,13 @@ router.get('/', (req, res) => {
         from: "Bring It App <bringitservices2022@gmail.com>",
         to: req.params.email,
         subject: "Cambio de contraseña",
-        html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
+        html: `<h3>Tu contraseña se modificó correctamente!</h3>
         <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
         `
       })
 
 
-        res.json("contraceña cambiada")
+        res.json("contraseña cambiada")
       } catch(error) {
         console.log(error)
       }    
@@ -299,16 +299,16 @@ router.get('/', (req, res) => {
 router.put('/recover/password/olv/:email', async (req,res )=>{
     const passN= Math.floor(Math.random(10000000 - 9000000) * 100000000);
     console.log(req.body.email);
-    const userEmail= await Business.findByPk(req.body.email);
-    console.log(passN.toString());
-    if(userEmail){
-      const email=userEmail.email;
+    const userEmail = await Business.findByPk(req.params.email);
+    console.log("contraseña nueva: ", passN.toString());
+    // if(userEmail){
+      const email = userEmail.email;
       console.log('EMAIL: ',email);
       console.log('PASS:',passN); 
-      const passHash=   CryptoJS.AES.encrypt(passN.toString(), process.env.PASS_SEC).toString();
-      console.log('PASS ENCRYPTADA: ',passHash);
+      const passHash = CryptoJS.AES.encrypt(passN.toString(), process.env.PASS_SEC).toString();
+      console.log('PASS ENCRYPTADA: ', passHash);
       try {
-        await Business.update({password:passHash}, {
+        await Business.update({password: passHash}, {
           where: {
             email: email,
           }
@@ -320,26 +320,28 @@ router.put('/recover/password/olv/:email', async (req,res )=>{
         //   secure: true,
         //   auth: {
         //     user: "bringitservices2022@gmail.com",
-        //     pass: 'owtgyxnzmbchbhjj'
+        //     pass: 'rgmizokemaustfnd'
         //   }
         // });
   
         // const email = await transporter.sendMail({
         //   from: "Bring It App <bringitservices2022@gmail.com>",
-        //   to: req.params.email,
+        //   to: req.body.email,
         //   subject: "Cambio de contraseña",
-        //   html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
-        //   <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
+        //   html: `<h3>Tu contraseña se modifico correctamente!</h3>
+        //   <p>Tienes que iniciar sesón con la siguiente contraseña: ${passN}</p>
+        //   <p>Ya podés iniciar sesión con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
+        //   <p>Recordá que es una contraseña provisoria, vas a tener que ingresar a tu panel de usuario para modificar la contraseña</p>
         //   `
         // })
         
-        res.status(200).send('listo');
+        res.status(200).send('Correo enviado satisfactoriamente!');
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
-    }else{
-      res.send('email no rregistrado');
-    }
+    // }else{
+    //   res.send('email no registrado');
+    // }
     
     
   

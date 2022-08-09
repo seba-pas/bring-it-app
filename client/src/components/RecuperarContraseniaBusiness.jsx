@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios'
 import {useDispatch, useSelector} from 'react-redux';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import NavBarLanding from "./NavBarLanding";
@@ -13,7 +14,7 @@ console.log(recuperandoContraseña) */
 
 
   const [input,setInput] = useState({
-    passwordN:''
+    email:''
   })
   const dispatch= useDispatch();
 
@@ -22,11 +23,11 @@ console.log(recuperandoContraseña) */
     props.history.goBack();
   };
 
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault();
-    dispatch(changePassword(recuperandoContraseña, input));
-    swal('Su contraseña se modifico correctamente',"", "success")
-    dispatch(cleanRecoverPassword())
+    await axios.put(`http://localhost:3001/recoverPassword/recover/password/olv`, input)
+    console.log(input)
+    swal('Se ha enviado un mensaje a su dirección de correo electrónico',"Verificar bandeja de entrada", "success")
   };
   function handleChange(e){
     setInput({
