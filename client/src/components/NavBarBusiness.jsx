@@ -39,18 +39,18 @@ export default function NavBarBusiness() {
 
 
 
-    useEffect(() => {
-        if (input.perfil === "email") {
-            history.push("/empresas/perfil");
-        } else if (input.perfil === "desactivarMiCuenta") {
-            dispatch(desactivateBusiness(gState.business.email, token));
-            dispatch(cleanBusinessState()); //no se esta limpiando el estado
-            history.push('/');
-        } else if (input.perfil === "close") { 
-            dispatch(cleanBusinessState());
-            history.push("/"); 
-        }
-    }, [input.perfil]);
+    // useEffect(() => {
+    //     if (input.perfil === "email") {
+    //         history.push("/empresas/perfil");
+    //     } else if (input.perfil === "desactivarMiCuenta") {
+    //         dispatch(desactivateBusiness(gState.business.email, token));
+    //         dispatch(cleanBusinessState()); //no se esta limpiando el estado
+    //         history.push('/');
+    //     } else if (input.perfil === "close") { 
+    //         dispatch(cleanBusinessState());
+    //         history.push("/"); 
+    //     }
+    // }, [input.perfil]);
 
 
     const handleOnChange = (event) => {

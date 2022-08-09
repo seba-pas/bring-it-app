@@ -273,7 +273,7 @@ function PerfilBusiness(props) {
   function handleDesactivate() {
     swal({
       title: "¿Está seguro que quiere desactivar su cuenta?",
-      text: "Si desactiva su cuenta ya no tendrá acceso a la misma.",
+      text: "Si desactiva su cuenta ya no podrás vender tus productos",
       icon: "warning",
       buttons: true,
       dangerMode: true,
