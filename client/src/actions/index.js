@@ -549,7 +549,7 @@ export const getAllPurchases = () => {
   return async function (dispatch) {
     try {
       const res = await axios.get(`/purchase`);
-      console.log("esto llega get all", res.data);
+      // console.log("esto llega get all", res.data);
       return dispatch({
         type: GET_ALL_PURCHASES,
         payload: res.data,

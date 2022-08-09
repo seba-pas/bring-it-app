@@ -241,7 +241,6 @@ function PerfilBusiness(props) {
     data.append("upload_preset", "Bringit");
     setLoading(true);
     dispatch(saveImage(data));
-    console.log("si");
   };
 
   useEffect(() => {

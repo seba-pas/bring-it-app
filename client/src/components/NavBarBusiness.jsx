@@ -15,7 +15,7 @@ export default function NavBarBusiness() {
     const dispatch = useDispatch();
     const history = useHistory();
     const token = gState.businessToken;
-    console.log(gState);
+  
     useEffect(() => {
         dispatch(getAllBusiness());
         dispatch(getCategories());

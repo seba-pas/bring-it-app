@@ -156,7 +156,6 @@ export default function rootReducer(state = initialState, action) {
         business: "clean",
       };
     case "PASS_RECOVER":
-      console.log(action.payload);
       return {
         ...state,
         recuperandoContraseña: action.payload,
@@ -454,7 +453,6 @@ export default function rootReducer(state = initialState, action) {
       let itemInCart = state.cart.find(
         (item) => item.id === productoCantidad.id
       );
-      console.log(itemInCart);
 
       return itemInCart
         ? {

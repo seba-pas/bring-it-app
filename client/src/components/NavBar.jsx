@@ -5,7 +5,14 @@ import styles from "../styles/NavBar.module.css";
 import SearchBar from "./SearchBar"; //AGREGAR
 
 import logo from "./img/logo2-removebg-preview.png";
-import { getUsers, getCart, clearCart , desactivateUser, cleanUsers, getAllEmail} from "../actions";
+import {
+  getUsers,
+  getCart,
+  clearCart,
+  desactivateUser,
+  cleanUsers,
+  getAllEmail,
+} from "../actions";
 
 import userProfile from "./img/userPerfilImage.jpg";
 import Modal from "react-bootstrap/Modal";
@@ -18,16 +25,15 @@ import { Avatar, AvatarBadge } from "@chakra-ui/react";
 
 //seba
 export default function NavBar() {
-  const emails= useSelector(state=>state.allEmail);
+  const emails = useSelector((state) => state.allEmail);
   const [search, setSearch] = useState("");
   const gState = useSelector((state) => state);
   const stateCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  const usuario  = useSelector((state) => state.user)
+  const usuario = useSelector((state) => state.user);
   const history = useHistory();
   useEffect(() => {
-   
     dispatch(getUsers());
   }, [dispatch]);
   const [opening, setOpening] = useState(false);
@@ -37,7 +43,7 @@ export default function NavBar() {
   });
 
   const userAvatar = gState.user;
-  console.log(gState.user)
+  // console.log(gState.user)
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -52,7 +58,6 @@ export default function NavBar() {
   }, [gState]);
 
   useEffect(() => {
-
     if (input.perfil === "email") {
       history.push("/persona/perfilUser");
     }
@@ -79,7 +84,7 @@ export default function NavBar() {
 
   const handleOnChange = (event) => {
     event.preventDefault();
-    console.log(emails);
+    // console.log(emails);
     setInput((prevInput) => {
       return {
         ...prevInput,
@@ -102,7 +107,6 @@ export default function NavBar() {
 
   return (
     <div className={styles.navbar}>
-       
       <div className={styles.imagen}>
         <a onClick={() => history.goBack()} style={{ cursor: "pointer" }}>
           <img
@@ -125,11 +129,12 @@ export default function NavBar() {
             marginTop: "33px",
           }}
         >
-
-          
-
-          <button id={styles.botonCart} onClick={handleShow} /*style={{  fontSize: '12px', borderColor: '#8c52ff', marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px', marginLeft:'70px'}}*/>
-
+          <button
+            id={styles.botonCart}
+            onClick={
+              handleShow
+            } /*style={{  fontSize: '12px', borderColor: '#8c52ff', marginTop: '0px', paddingBottom: '10px', paddingBottom: '10px', marginLeft:'70px'}}*/
+          >
             {/* <FaShoppingBag/> */}
             <span
               style={{ color: "white", margin: "0px", fontSize: "18px" }}
@@ -206,14 +211,17 @@ export default function NavBar() {
             cursor: "pointer",
           }}
         >
-         
           <Avatar
-          size='lg'
+            size="lg"
             onClick={() => history.push("/persona/usuarioE")}
             name={`${userAvatar.name} ${userAvatar.lastname}`}
             src={userAvatar.image}
           >
-            <AvatarBadge boxSize="0.08m" bg="springgreen" borderColor='springgreen' />
+            <AvatarBadge
+              boxSize="0.08m"
+              bg="springgreen"
+              borderColor="springgreen"
+            />
           </Avatar>
         </div>
       </div>

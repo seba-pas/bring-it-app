@@ -10,7 +10,6 @@ function OlvidastePassword() {
   const [input, setInput] = useState({
     email: ''
   })
-  console.log(input)
 
   const dispatch = useDispatch()
 

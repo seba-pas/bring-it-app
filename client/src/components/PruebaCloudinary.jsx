@@ -17,9 +17,9 @@ function PruebaCloudinary() {
       }
     );
     const file = await res.json();
-    console.log(res);
+
     setImage(file.secure_url);
-    console.log(file.secure_url)
+
     setLoading(false);
   };
   return (

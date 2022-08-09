@@ -16,7 +16,7 @@ import {
   getActiveUser,
   getAllEmail,
   logoutGoogleSession,
-  clearCart
+  clearCart,
 } from "../actions";
 
 import swal from "sweetalert";
@@ -87,8 +87,7 @@ const Usuario = () => {
 
   return (
     <div style={{ height: "70vh", background: "white", marginTop: "30vh" }}>
-      { user !== "clean" && Object.entries(user).length > 0 ? (
-
+      {user !== "clean" && Object.entries(user).length > 0 ? (
         <div>
           <div>
             <Avatar

@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import swal from "sweetalert";
-import moment from 'moment';
+import moment from "moment";
 // import NavBar from "./NavBar";
 
 function FormPurchase() {
@@ -30,11 +30,11 @@ function FormPurchase() {
     userEmail: gState.user.email,
     items: cart,
     totalPrice: cart
-    .reduce((acc, item) => acc + item.quantity * item.price, 0)
-    .toFixed(2),
-    province: ""
+      .reduce((acc, item) => acc + item.quantity * item.price, 0)
+      .toFixed(2),
+    province: "",
   });
-  console.log(gState.businessEmail)
+  // console.log(gState.businessEmail)
   const handleInputChange = (event) => {
     event.preventDefault();
     setInput((prevInput) => {
@@ -57,19 +57,19 @@ function FormPurchase() {
     style: {
       base: {
         color: "#32325d",
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: "Arial, sans-serif",
         fontSmoothing: "antialiased",
         fontSize: "25px",
         "::placeholder": {
-          color: "#32325d"
-        }
+          color: "#32325d",
+        },
       },
       invalid: {
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: "Arial, sans-serif",
         color: "#fa755a",
-        iconColor: "#fa755a"
-      }
-    }
+        iconColor: "#fa755a",
+      },
+    },
   };
   const stripe = useStripe();
   const elements = useElements();
@@ -78,7 +78,6 @@ function FormPurchase() {
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
-      
     });
 
     if (!error) {
@@ -88,7 +87,7 @@ function FormPurchase() {
         amount: totalAmount * 100,
         name: input.name, // son 20 dólares
         email: input.userEmail,
-        emailBusiness: gState.businessEmail
+        emailBusiness: gState.businessEmail,
       });
 
       elements.getElement(CardElement).clear();
@@ -105,7 +104,10 @@ function FormPurchase() {
     <div>
       {/* <NavBar/> */}
       <Container>
-        <h1 className="shadow-sm mt-5 p-3 text-center rounded" style={{color:"#8c52ff"}}>
+        <h1
+          className="shadow-sm mt-5 p-3 text-center rounded"
+          style={{ color: "#8c52ff" }}
+        >
           Finalizar Compra
         </h1>
         <Row>
@@ -140,35 +142,35 @@ function FormPurchase() {
                         }}
                       >
                         <td>
-                          <div style={{marginLeft: "70px"}}>
-                          <img
-                            src={productGroup.image}
-                            alt=""
-                            style={{
-                              width: "100px",
-                              height: "90px",
-                              objetFit: "cover",
-                            }}
-                          />
+                          <div style={{ marginLeft: "70px" }}>
+                            <img
+                              src={productGroup.image}
+                              alt=""
+                              style={{
+                                width: "100px",
+                                height: "90px",
+                                objetFit: "cover",
+                              }}
+                            />
                           </div>
                         </td>
                         <td
                           className="item-name"
-                          style={{ paddingTop: "30px",marginRight: "50px" }}
+                          style={{ paddingTop: "30px", marginRight: "50px" }}
                         >
                           {productGroup.name}
                         </td>
                         <td
                           className="item-price"
-                          style={{ paddingTop: "30px",marginRight: "50px" }}
+                          style={{ paddingTop: "30px", marginRight: "50px" }}
                         >
                           ${productGroup.price * productGroup.quantity}
                         </td>
                         <td
                           className="item-quantity"
-                          style={{ paddingTop: "30px",marginRight:"100px" }}
+                          style={{ paddingTop: "30px", marginRight: "100px" }}
                         >
-                           {productGroup.quantity}
+                          {productGroup.quantity}
                         </td>
                       </tr>
                     </div>
@@ -251,7 +253,7 @@ function FormPurchase() {
                 </Form.Select>
               </Form.Group>
 
-              <Form.Group style={{marginBottom:"30px"}}>
+              <Form.Group style={{ marginBottom: "30px" }}>
                 <Form.Label></Form.Label>
                 <Form.Control
                   type="text"
@@ -263,9 +265,9 @@ function FormPurchase() {
                   onChange={(e) => handleInputChange(e)}
                 />
               </Form.Group>
-              
-                <CardElement className="tarjetaCredito" options={cardStyle} />
-              
+
+              <CardElement className="tarjetaCredito" options={cardStyle} />
+
               <Row>
                 <Col
                   lg={6}
@@ -274,8 +276,13 @@ function FormPurchase() {
                   className="text-center p-5 m-auto rounded-lg"
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <Button onClick={() => history.goBack()} style={{width: "50%"}}>ATRAS</Button>
-                  <Button type="submit" >COMPRAR</Button>
+                  <Button
+                    onClick={() => history.goBack()}
+                    style={{ width: "50%" }}
+                  >
+                    ATRAS
+                  </Button>
+                  <Button type="submit">COMPRAR</Button>
                 </Col>
               </Row>
             </Form>

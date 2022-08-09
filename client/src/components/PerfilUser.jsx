@@ -40,7 +40,7 @@ function PerfilUser(props) {
     setLoading(true);
     dispatch(saveImage(data));
 
-    console.log("si");
+   
   };
 
   // NUEVO CELE Y AGUSES PARA MANEJAR LA RTA DE LA RUTA EDITAR (SI HIZO EL CAMBIO, EN POS DE LA AUTORIZACION)

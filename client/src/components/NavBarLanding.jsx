@@ -51,7 +51,7 @@ export default function NavBarLanding() {
 
   function handleCallbackResponse(response) {
     var userObject = jwt_decode(response.credential);
-    console.log(userObject);
+
     setUsuario(userObject);
   }
 

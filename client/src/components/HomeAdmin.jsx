@@ -28,7 +28,6 @@ export default function HomeAdmin() {
   const userPurchase = useSelector((state) => state.user);
   const USERS = useSelector((state) => state.users);
   const gState = useSelector((state) => state);
-  console.log(gState);
   const purchases = useSelector((state) => state.purchases);
   const products = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
@@ -120,7 +119,7 @@ export default function HomeAdmin() {
     );
   }
 
-   /* function searchPurchases(rows) {
+  /* function searchPurchases(rows) {
     return rows.filter((row) => 
     console.log(row) && 
      row.id.toLowerCase().indexOf(q) > -1 ||
@@ -154,7 +153,6 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button style={{ display: "flex" }}>
-          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteBusiness(e)}
@@ -185,7 +183,6 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button style={{ display: "flex" }}>
-          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteUsers(e)}
@@ -216,7 +213,6 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button style={{ display: "flex" }}>
-          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteUsers(e)}
@@ -240,7 +236,6 @@ export default function HomeAdmin() {
       button: true,
       cell: (row) => (
         <button style={{ display: "flex" }}>
-          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => banearUsers(e, row.email)}
@@ -268,7 +263,6 @@ export default function HomeAdmin() {
       button: true,
       cell: (row) => (
         <button style={{ display: "flex" }}>
-         
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => banearBusiness(e, row.email)}
@@ -308,10 +302,10 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
@@ -333,10 +327,10 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
@@ -357,10 +351,10 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
@@ -381,10 +375,10 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
@@ -406,10 +400,10 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
