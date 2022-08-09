@@ -14,6 +14,7 @@ import swal from "sweetalert";
 import styles from "../styles/ProductDetail.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import AddFavourites from "./AddFavourites";
+import Reviews from "./Reviews";
 
 export const ProductDetail = () => {
   const history = useHistory();
@@ -167,7 +168,12 @@ export const ProductDetail = () => {
               </div>
             </div>
           </div>
+          <div>
+          <Reviews/>
+          </div>
         </div>
+        
+            
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed
