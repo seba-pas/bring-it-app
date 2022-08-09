@@ -18,7 +18,7 @@ import {
   logoutGoogleSession,
   clearCart
 } from "../actions";
-
+import NavBarProvince from './NavBarProvince';
 import swal from "sweetalert";
 import UserTravels from "./UserTravels";
 import HomeUserPurchase from "./HomeUserPurchase.jsx";
@@ -86,11 +86,12 @@ const Usuario = () => {
   }
 
   return (
-    <div style={{ height: "70vh", background: "white", marginTop: "30vh" }}>
+    <div >
+      <NavBarProvince/>
       { user !== "clean" && Object.entries(user).length > 0 ? (
 
         <div>
-          <div>
+         {/*  <div>
             <Avatar
               size="lg"
               name={`${user.name} ${user.lastname}`}
@@ -102,7 +103,7 @@ const Usuario = () => {
                 borderColor="springgreen"
               />
             </Avatar>
-          </div>
+          </div> */}
           <div>
             <button
               className="btn btn-primary"

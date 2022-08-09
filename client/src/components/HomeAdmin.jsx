@@ -120,25 +120,27 @@ export default function HomeAdmin() {
     );
   }
 
-   /* function searchPurchases(rows) {
+    function searchPurchases(rows) {
     return rows.filter((row) => 
     console.log(row) && 
-     row.id.toLowerCase().indexOf(q) > -1 ||
+    //  row.id.toLowerCase().indexOf(q) > -1 ||
     // row.purchaseitems.toLowerCase().indexOf(q) > -1 ||
     row.maxDeliveryDate.toLowerCase().indexOf(q) > -1 
     // row.name.toLowerCase().indexOf(q) > -1 ||
     // row.quantity.toLowerCase().indexOf(q) > - 1 ||
     // row.totalPrice.toLowerCase().indexOf(q) > - 1
     );
-  };  */
+  };  
 
   const columnasPurchases = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
+    { name: "Comprador", selector: (row) => row.userEmail, sortable: true },
     {
       name: "Producto",
       selector: (row) => row.purchaseitems.map((e) => `${e.product.name}, `),
       sortable: true,
     },
+    { name: "Estado de pago", selector: (row) => row.status, sortable: true },
     {
       name: "Fecha de max de espera",
       selector: (row) => formatDate(row.maxDeliveryDate),
