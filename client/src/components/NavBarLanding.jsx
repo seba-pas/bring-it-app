@@ -357,7 +357,7 @@ export default function NavBarLanding() {
 
   const redirectToGoogle = async () => {
     let timer = null;
-    const googleLoginURL = "http://localhost:3001/auth/login/google";
+    const googleLoginURL = "https://bringit-arg.herokuapp.com/auth/login/google";
     const newWindow = window.open(
       googleLoginURL,
       "_blank",
