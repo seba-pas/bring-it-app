@@ -506,7 +506,7 @@ export default function NavBarLanding() {
                   </Form.Group>
                   <Row style={{ paddingBottom: "15px", cursor: "pointer" }}>
                     <Col>
-                      <Link to="/recuperarPassword">
+                      <Link to="/recuperarContraseniaBusiness">
                         <a className="link">Olvidaste tu contraseña?</a>
                       </Link>
                     </Col>
