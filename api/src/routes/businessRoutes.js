@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
         const cityName = (await City.findByPk(cityId)).nombre;
         const businessBranchName = `${businessName} - sede ${cityName}`;
         const newBusinessBranch = await Businessbranch.create({ businessBranchName, businessEmail, cityId, province, address });
-
+        console.log(newBusiness);
         // holis
         // nodemailer
         let transporter = nodemailer.createTransport({
@@ -71,7 +71,7 @@ router.post('/', async (req, res) => {
 
 
     } catch (error) {
-        return res.send('error:' + error.message);
+        return res.send('error:' + error);
     }
 });
 
@@ -296,7 +296,7 @@ router.get('/', (req, res) => {
 
 //Olvide mi contraseña 
 
-router.put('/recover/password/olv/:email', async (req,res )=>{
+router.put('/recover/password/olv/pass', async (req,res )=>{
     const passN= Math.floor(Math.random(10000000 - 9000000) * 100000000);
     console.log(req.body.email);
     const userEmail= await Business.findByPk(req.body.email);
@@ -314,24 +314,25 @@ router.put('/recover/password/olv/:email', async (req,res )=>{
           }
         })
           // nodemailer
-        // let transporter = nodemailer.createTransport({
-        //   host: 'smtp.gmail.com',
-        //   port: 465,
-        //   secure: true,
-        //   auth: {
-        //     user: "bringitservices2022@gmail.com",
-        //     pass: 'owtgyxnzmbchbhjj'
-        //   }
-        // });
+        let transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 465,
+          secure: true,
+          auth: {
+            user: "bringitservices2022@gmail.com",
+            pass: 'rgmizokemaustfnd'
+          }
+        });
   
-        // const email = await transporter.sendMail({
-        //   from: "Bring It App <bringitservices2022@gmail.com>",
-        //   to: req.params.email,
-        //   subject: "Cambio de contraseña",
-        //   html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
-        //   <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
-        //   `
-        // })
+        await transporter.sendMail({
+          from: "Bring It App <bringitservices2022@gmail.com>",
+          to: req.body.email,
+          subject: "Cambio de contraseña",
+          html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
+          <p>tu contraseña nueva es ${passN}</p>
+          <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
+          `
+        })
         
         res.status(200).send('listo');
       } catch (error) {

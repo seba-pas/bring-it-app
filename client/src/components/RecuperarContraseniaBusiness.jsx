@@ -23,10 +23,9 @@ console.log(recuperandoContraseña) */
   };
 
   function handleSubmit(e){
-    e.preventDefault();
-    dispatch(changePassword(recuperandoContraseña, input));
-    swal('Su contraseña se modifico correctamente',"", "success")
-    dispatch(cleanRecoverPassword())
+    e.preventDefault(); 
+    swal('se ha enviado un correo',"", "success")
+
   };
   function handleChange(e){
     setInput({
