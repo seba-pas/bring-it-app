@@ -144,7 +144,7 @@ function UserTravels() {
           </Row>
         </div>
       ) : (
-        <div style={{ background: 'white', fontSize: '20px', height: '200px' }}>
+        <div style={{ background: 'white', color:'#8c52ff', fontSize: '20px', height: '200px' }}>
           <br />
           <Row>
             <div style={{ marginTop: '50px' }}>
