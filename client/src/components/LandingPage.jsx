@@ -58,7 +58,7 @@ function LandingPage1() {
               </Button>
 
               <Link to={"/conocemas"}>
-                <Button id={style.boton}>CONOCE MAS</Button>
+                <Button id={style.boton}>CONOCE MÁS</Button>
               </Link>
               <Link to={"/vidriera"}>
                 <Button id={style.boton}>VER PRODUCTOS</Button>

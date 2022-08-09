@@ -42,7 +42,7 @@ function TableMatchTravels() {
       if (matchOk === "clean") {
         return ;
       } else if (matchOk === "Matcheado con éxito") {
-        swal("Match correcto", "Verifique su correo electronico asi podra contactarse con el viajero", "success");
+        swal("Match correcto", "Verifique su correo electrónico así podrá contactarse con el viajero", "success");
         dispatch(cleanMatch());
       } else if (matchOk === "La compra ya cuenta con viajero") {
         swal("La compra ya cuenta con viajero", "Lo sentimos", "error");

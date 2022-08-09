@@ -279,7 +279,7 @@ function PerfilBusiness(props) {
   function closeSesion() {
     dispatch(cleanBusinessState());
     swal(
-      "Tu sesion ha sido cerrada con éxito",
+      "Tu sesión ha sido cerrada con éxito",
       "Gracias por usar Bring it!",
       "success"
     );
