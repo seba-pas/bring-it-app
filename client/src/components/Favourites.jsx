@@ -36,8 +36,11 @@ export default function Favourites() {
           <ProductCards currentProducts={favoriteProducts} />
         </div>
       ) : (
-        <div>
-          <span>Loading ...</span>
+        <div style={{ background: 'white',color: '#8c52ff', fontSize: '20px', height: '200px' }}>
+          <br />
+            <div style={{ marginTop: '50px' }}>
+              <h1 >Tu lista de favoritos está vacía</h1>
+            </div>
         </div>
       )}
     </div>

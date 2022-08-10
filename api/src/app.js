@@ -37,8 +37,13 @@ server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
-server.use((req, res, next) => { //Alej
-  res.header("Access-Control-Allow-Origin", "bring-it-app.vercel.app"); // update to match the domain you will make the request from
+server.use((req, res, next) => { //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  res.header("Access-Control-Allow-Origin", "https://bring-it-app.vercel.app");// update to match the domain you will make the request from
+
+  // res.header("Access-Control-Allow-Origin", "*");// update to match the domain you will make the request from
+
+
+
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -108,6 +113,7 @@ passport.use(
         name: profile.name.givenName,
         lastname: profile.name.familyName,
         googleId: profile.id,
+        image: profile.photos[0].value
       };
 
       const user = await User.findOrCreate({
@@ -143,7 +149,7 @@ server.get(
   (req, res) => {
     //autenticacion exitosa, redirige al la ruta del FRONT donde se renderiza el componente q cierra solo
     //console.log("Ruta http://localhost:3001/auth/google/callback, req.user: ", req.user); //req.user se obtuvo de nuestra bd, viene de la deserializacion    
-    res.redirect("https://bring-it-app.vercel.app/login/success");
+    res.redirect('https://bring-it-app.vercel.app/login/success');
   }
 );
 
@@ -160,7 +166,7 @@ server.get("/auth/authenticatedUser", (req, res) => {
       //console.log(req.user);
       return res.status(200).json(req.user);
     }
-    res.status(401).send("error falopa");
+    res.status(401).send("error de authenticate user");
   } catch (error) {
     res.status(403).send("error 403");
   }

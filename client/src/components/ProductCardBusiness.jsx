@@ -15,8 +15,22 @@ function ProductCardBusiness({ id, image, productName, amount, description }) {
 
     async function handleClick(event) {
         event.preventDefault();
-        dispatch(desactivateProduct(id, businessToken, businessEmail));
-        swal("El producto ha sido eliminado con éxito", "Gracias por usar Bring it!", "success");
+        swal({
+            title: "¿Está seguro que quiere eliminar este producto?",
+            text: "Si elimina el producto, no podrá comercializarlo más",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }).then((willDelete) => {
+            if (willDelete) {
+              swal("El producto ha sido eliminado con éxito", {
+                icon: "success",
+              });
+              dispatch(desactivateProduct(id, businessToken, businessEmail));
+            } else {
+              swal("El producto no ha sido eliminado");
+            }
+          });
     }
     return (
         <tr>

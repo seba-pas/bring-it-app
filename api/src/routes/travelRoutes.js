@@ -8,6 +8,32 @@ const { verifyToken } = require ("../middlewares/verifyToken");
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport')
 
+
+//POST JSON 
+// /travel/json
+router.post('/json', async (req,res) => {
+    try {
+        const jsonTravel = req.body;
+        const travelLoad = jsonTravel.forEach( async (t) => {     
+            await Travel.findOrCreate({
+              where: {
+                userEmail: t.userEmail,
+                travelProvince: t.travelProvince,
+                travelCityId: t.travelCityId,
+                arrivalProvince: t.arrivalProvince,
+                arrivalCityId: t.arrivalCityId,
+                startDate: t.startDate,
+                arrivalDate: t.arrivalDate
+              }
+            })
+          }) ;
+          res.status(201).send('Travels saved successfully') ;
+      }catch(e){
+        res.status(404).send(`error en postTravelJson: ${e.message}`)
+      }
+})
+
+
 //GET trae todos los travel
 router.get('/', async (req, res) => {
     const allTravel = await getTravel();
@@ -63,14 +89,25 @@ router.put('/:id', async (req, res) => {
 })
 
 //DELETE TRAVEL
-// http://localhost:3001/api/travel/:id
+// http://localhost:3001/travel/:id
 router.delete('/:id', async (req, res) => {
     try {
         let { id } = req.params;
-        await Travel.destroy({
-            where: { id: id }
-        });
-        res.status(201).send('Viajes eliminados:')
+
+        let foundPurchaseTravelId = await Purchase.findOne({
+            where: {
+            travelId : {
+                [Op.eq]: id
+            }}});
+        if (foundPurchaseTravelId){
+            res.send(`No se puede eliminar el viaje xq tiene la compra ${foundPurchaseTravelId.id} asociada`);
+        }
+        else{
+            await Travel.destroy({
+                where: { id: id }
+            });
+            res.status(201).send('Viajes eliminados')
+        }        
     } catch (e) {
         res.send('error:' + e.message)
     }

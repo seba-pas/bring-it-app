@@ -1,11 +1,42 @@
 const { Router } = require("express");
-const { Purchase, User, Product, Purchaseitem } = require("../db");
+const { Purchase, User, Product, Purchaseitem, Travel } = require("../db");
 const { getPurchase } = require("../controllers/purchaseControllers");
+const {Op} = require('sequelize');
 
 const router = Router();
 
-// ruta de actualizacion purchase
+//POST JSON 
+// /purchase/json
+router.post('/json', async (req,res) => {
+  try {
+      const jsonPurchase = req.body;
+      const purchaseLoad = jsonPurchase.forEach( async (p) => {     
+        const createdPurchase = await Purchase.findOrCreate({
+          where: {
+            totalPrice: p.totalPrice,
+            maxDeliveryDate: p.maxDeliveryDate,
+            arrivalCityId: p.arrivalCityId,
+            province: p.province,
+            userEmail: p.userEmail,
+          }})
+          const addItems = p.items.forEach(async (i) => {
+            await Purchaseitem.findOrCreate({
+              where: {
+              purchaseId: createdPurchase[0].id,
+              productId: i.id,
+              quantity: i.quantity,
+              productName: i.name
+              }
+            });
+      }) 
+    }); res.status(201).send('Purchases saved successfully') ;
+    }catch(e){
+      res.status(404).send(`error en postPurchaseJson: ${e.message}`)
+    }
+})
 
+
+// ruta de actualizacion purchase
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { totalPrice, maxDeliveryDate, arrivalCityId } = req.body;
@@ -40,6 +71,32 @@ router.delete("/:id", function (req, res) {
       .catch((err) => console.log(err));
   });
 });
+
+
+//Ruta para saber cuales purchases ya estan asociadas a un travel
+router.get("/withtravel", async (req, res) => {  
+  try {
+    let foundPurchasesWithTravel = await Purchase.findAll({
+      where: { travelId: {
+        [Op.ne]: null
+      } },
+      include: [
+        {
+          model: Travel          
+        },
+      ],
+    });
+    if (foundPurchasesWithTravel.length>0){
+      res.status(200).send(foundPurchasesWithTravel);
+    }
+    else{
+      res.status(200).send("No se encontraron compras con viajes asociados");
+    }    
+  } catch (error) {
+    res.status(404).send(`Error: ${error.message}`);
+  }
+});
+
 
 //ruta get para purchase por id
 router.get("/:id", async (req, res) => {
@@ -97,6 +154,7 @@ router.post("/", async (req, res) => {
       arrivalCityId, //pasar a id
       userEmail,
       province,
+      status,
       items,
     } = req.body;
 
@@ -105,6 +163,7 @@ router.post("/", async (req, res) => {
       maxDeliveryDate,
       arrivalCityId,
       province,
+      status,
       userEmail,
     });
     //AGREGADO DE ITEMS A PURCHASEITEMS
@@ -131,5 +190,6 @@ router.post("/", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
 
 module.exports = router;

@@ -47,7 +47,10 @@ export default function NavBarLanding() {
   const [input, setInput] = useState({
     email: "",
     password: "",
+    active: true
   });
+
+   console.log(business)
 
   function handleCallbackResponse(response) {
     var userObject = jwt_decode(response.credential);
@@ -196,7 +199,9 @@ export default function NavBarLanding() {
           "Para más información comuniquese con bringit662@gmail.com",
           "error"
         );
-      } else if (!business.active) {
+      } else if (business?.active === false) {
+       
+       
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -258,6 +263,7 @@ export default function NavBarLanding() {
       setInput({
         email: "",
         password: "",
+   
       });
     } else {
       swal(
@@ -306,7 +312,7 @@ export default function NavBarLanding() {
           "Para más información comuniquese con bringit662@gmail.com",
           "error"
         );
-      } else if (!user.active) {
+      } else if (user?.active === false) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -325,7 +331,7 @@ export default function NavBarLanding() {
             history.push("/");
           }
         });
-      } else if (user.active) {
+      } else if (user.active ) {
         swal("Buen trabajo!", "Entró al sistema correctamente!", "success");
         setInput({
           email: "",
@@ -343,33 +349,33 @@ export default function NavBarLanding() {
   const handleShow = () => setShow(true);
 
   // //fc relacionadas a la aut con Google:
-  // const getAuthenticatedUser = async () => {
-  //   const response = await axios
-  //     .get("https://bringit-arg.herokuapp.com/auth/authenticatedUser", { withCredentials: true })
-  //     .catch((err) => {
-  //       console.log(`No se loggeo correctamente`);
-  //     });
-  //   if (response && response.data) {
-  //     console.log("Usuario loggeado: ", response.data);
-  //     dispatch(loginUserGoogle(response.data));
-  //   }
-  // };
-
-  const getAuthenticatedUser = () => {
-    axios
-      .get("https://bringit-arg.herokuapp.com/auth/authenticatedUser", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response && response.data) {
-          console.log("Usuario loggeado: ", response.data);
-          dispatch(loginUserGoogle(response.data));
-        }
-      })
+  const getAuthenticatedUser = async () => {
+    const response = await axios
+      .get('https://bringit-arg.herokuapp.com/auth/authenticatedUser', { withCredentials: true })
       .catch((err) => {
         console.log(`No se loggeo correctamente`);
       });
+    if (response && response.data) {
+      console.log("Usuario loggeado: ", response.data);
+      dispatch(loginUserGoogle(response.data));
+    }
   };
+
+  // const getAuthenticatedUser = () => {
+  //   axios
+  //     .get('http://bringit-arg.herokuapp.com/auth/authenticatedUser', {
+  //       withCredentials: true,
+  //     })
+  //     .then((response) => {
+  //       if (response && response.data) {
+  //         console.log("Usuario loggeado: ", response.data);
+  //         dispatch(loginUserGoogle(response.data));
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(`No se loggeo correctamente`);
+  //     });
+  // };
 
   const redirectToGoogle = async () => {
     let timer = null;

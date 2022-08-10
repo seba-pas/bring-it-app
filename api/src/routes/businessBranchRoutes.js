@@ -6,6 +6,28 @@ const { verifyToken } = require ("../middlewares/verifyToken");
 
 //Este archivo no tiene su Controllers, toda la logica esta aca
 
+//POST JSON 
+// /businessbranch/json
+router.post('/json', async (req,res) => {
+    try {
+        const jsonBranch = req.body;
+        const businessesbranchLoad = jsonBranch.forEach( async (b) => {     
+            await Businessbranch.findOrCreate({
+              where: {
+                businessEmail: b.businessEmail,           
+                businessBranchName: b.businessBranchName,           
+                province: b.province,
+                address: b.address,
+                cityId: b.cityId
+              }
+            })
+          }) ;
+          res.status(201).send('Businessbranches saved successfully') ;
+      }catch(e){
+        res.status(404).send(`error en postBranchJson: ${e.message}`)
+      }
+})
+
 //POST new BusinessBranch
 // http://localhost:3001/businessbranch
 router.post('/', verifyToken, async (req,res) => {

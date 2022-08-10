@@ -13,13 +13,6 @@
     "address": "Aca a la vuelta 123",
     "cityId": "660035"
   }, { 
-    "businessEmail": "guillermo@gmail.com",    
-    "businessName": "Guille's Business",    
-    "businessBranchName": "Guille's Business - sede Bahía Blanca",
-    "province": "Buenos Aires",
-    "address": "Aca a la vuelta 123",
-    "cityId": "060056"
-  }, { 
     "businessEmail": "alejandro@gmail.com",    
     "businessName": "Ale's Business",    
     "businessBranchName": "Ale's Business - sede Hualfín",

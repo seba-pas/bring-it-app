@@ -9,7 +9,28 @@ const { Op } = require('sequelize');
 const sendgridTransport = require('nodemailer-sendgrid-transport')
 const { verifyToken } = require("../middlewares/verifyToken");
 
-
+//POST JSON 
+// /business/json
+router.post("/json", async (req, res) => {
+    try {
+      const jsonBusiness = req.body;
+      const businessesLoad = jsonBusiness.forEach( async (b) => {
+        await Business.findOrCreate({
+          where: {
+            email: b.email,
+            password: CryptoJS.AES.encrypt(b.password, process.env.PASS_SEC).toString(),
+            businessName: b.businessName,
+            cuit: b.cuit,
+            taxBracket: b.taxBracket,
+            phone: b.phone
+          }
+        })
+      }) ;
+      res.status(201).send('Business saved successfully') ;
+    }catch(e){
+      res.status(404).send(`error en postBusinessJson: ${e.message}`)
+    }
+  });
 
 //get all emails
 router.get('/email', async (req, res) => {

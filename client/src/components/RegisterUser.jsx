@@ -13,53 +13,7 @@ import "react-phone-number-input/style.css";
 import moment from 'moment'
 
 
-const validateUsers = (input) => {
-  const errors = {};
 
-  if (
-    !input.email ||
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)
-  ) {
-    errors.email = "❌ Debe escribir una direccion de email correcta.";
-  } else {
-    errors.email = "✅Email valido";
-  }
-  if (
-    !input.password ||
-    !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)
-  ) {
-    errors.password = "La contraseña debe tener entre 8 y 16 caracteres";
-  } else {
-    errors.password = "✅ Contraseña valida";
-  }
-  if (!input.name || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.name)) {
-    errors.name = "❌ La primera letra debe estar en mayúscula";
-  } else {
-    errors.name = "✅Hecho!";
-  }
-  if (!input.lastname || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.lastname)) {
-    errors.lastname = "❌ La primera letra debe estar en mayúscula";
-  } else {
-    errors.lastname = "✅Hecho!";
-  }
-  if (input.birthDate[0] === " " || input.birthDate === "") {
-    errors.birthDate = "Debe ingresar su fecha de nacimiento";
-  } else {
-    errors.birthDate = "✅Hecho!"
-  }
-  if (!/^[0-9]{0,10}$/.test(input.phone) || input.phone[0] === " " || input.phone === "") {
-    errors.phone = "Debe ingresar su número de contacto";
-  } else {
-    errors.birthDate = "✅Hecho!"
-  }
-  if (input.confirmPassword !== input.password) {
-    errors.confirmPassword = "las contraseñas no coinciden";
-  } else {
-    errors.confirmPassword = "✅Hecho!"
-  }
-
-  return errors;
-};
 
 function RegisterUser() {
   const dispatch = useDispatch();
@@ -75,6 +29,7 @@ function RegisterUser() {
     birthDate: moment().format("YYYY-MM-DD"),
     /* age: "1", */
     phone: "",
+    active: true,
   });
   const [error, setError] = useState({
     erroremail: "",
@@ -97,13 +52,14 @@ function RegisterUser() {
     let errorbirthDate = "";
     let errorphone = "";
 
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)) erroremail = "❌ Debe escribir una direccion de email correcta.";
-    if (!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)) errorpassword = "La contraseña debe tener entre 8 y 16 caracteres";
-    if (input.confirmPassword !== input.password) errorconfirmPassword = "las contraseñas no coinciden";
-    if (!/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.name)) errorname = "❌ La primera letra debe estar en mayúscula";
-    if (!/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.lastname)) errorlastname = "❌ La primera letra debe estar en mayúscula";
-    if (input.birthDate[0] === " " || input.birthDate === "") errorbirthDate = "Debe ingresar su fecha de nacimiento";
-    if (!/^[0-9]{0,10}$/.test(input.phone) || input.phone[0] === " " || input.phone === "") errorphone = "Debe ingresar su número de contacto";
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)) { erroremail = "❌ Debe escribir una direccion de email correcta." } else { erroremail = "✅Email valido" }
+    if (!input.password || !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)) { errorpassword = "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula." } else { errorpassword = "✅ Contraseña valida" }
+    // if (!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)) { errorpassword = "La contraseña debe tener entre 8 y 16 caracteres" } else { errorpassword = "✅ Contraseña valida" }
+    if (input.confirmPassword === "" || input.confirmPassword !== input.password) { errorconfirmPassword = "las contraseñas no coinciden" } else { errorconfirmPassword = "✅" }
+    if (!/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.name)) { errorname = "❌ La primera letra debe estar en mayúscula" } else { errorname = "✅Hecho!" }
+    if (!/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.lastname)) { errorlastname = "❌ La primera letra debe estar en mayúscula" } else { errorlastname = "✅Hecho" }
+    if (input.birthDate[0] === " " || input.birthDate === "") { errorbirthDate = "Debe ingresar su fecha de nacimiento" } else { errorbirthDate = "✅Hecho!" }
+    if (!/^[0-9]{0,10}$/.test(input.phone) || input.phone[0] === " " || input.phone === "") { errorphone = "Debe ingresar su número de contacto" } else { errorphone = "✅Hecho!" }
 
 
     setError((prevInput) => {
@@ -124,12 +80,12 @@ function RegisterUser() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    setErrors(
-      validateUsers({
-        ...input,
-        [e.target.name]: e.target.name,
-      })
-    );
+    // setErrors(
+    //   validateUsers({
+    //     ...input,
+    //     [e.target.name]: e.target.name,
+    //   })
+    // );
   }
 
   function handleSubmit(e) {
@@ -221,7 +177,7 @@ function RegisterUser() {
                     required
                     onChange={(e) => handleChange(e)}
                   />
-                  {errors.email && <p>{errors.email}</p>}
+                  {error.erroremail && <p>{error.erroremail}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Password</Form.Label>
@@ -234,7 +190,7 @@ function RegisterUser() {
                     id="password"
                     required
                   />
-                  {errors.password && <p>{errors.password}</p>}
+                  {error.errorpassword && <p>{error.errorpassword}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Confirmar password</Form.Label>
@@ -247,7 +203,7 @@ function RegisterUser() {
                     id="confirmPassword"
                     required
                   />
-                  {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+                  {error.errorconfirmPassword && <p>{error.errorconfirmPassword}</p>}
                   {/* {errors.password && <p>{errors.password}</p>} */}
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -261,7 +217,7 @@ function RegisterUser() {
                     id="name"
                     required
                   />
-                  {errors.name && <p>{errors.name}</p>}
+                  {error.errorname && <p>{error.errorname}</p>}
                 </Form.Group>
 
                 <Form.Group className="mb-3">
@@ -275,7 +231,7 @@ function RegisterUser() {
                     id="lastname"
                     required
                   />
-                  {errors.lastname && <p>{errors.lastname}</p>}
+                  {error.errorlastname && <p>{error.errorlastname}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Fecha nacimiento</Form.Label>
@@ -288,7 +244,7 @@ function RegisterUser() {
                     id="birthDate"
                     required
                   />
-                  {errors.birthDate && <p>{errors.birthDate}</p>}
+                  {error.errorbirthDate && <p>{error.errorbirthDate}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Agrega tu numero de contacto</Form.Label>
@@ -301,7 +257,7 @@ function RegisterUser() {
                     placeholder="Ingresa tu número de contacto"
                     onChange={(e) => handleChange(e)}
                   />
-                  {errors.phone && <p>{errors.phone}</p>}
+                  {error.errorphone && <p>{error.errorphone}</p>}
                 </Form.Group>
                 <Button
                   disabled={error.erroremail === "❌ Debe escribir una direccion de email correcta." || error.errorpassword === "La contraseña debe tener entre 8 y 16 caracteres " || error.errorname === "❌ La primera letra debe estar en mayúscula" || error.errorlastname === "❌ La primera letra debe estar en mayúscula" || error.errorbirthDate === "Debe ingresar su fecha de nacimiento" || error.errorphone === "Debe ingresar su número de contacto" || error.errorconfirmPassword === "las contraseñas no coinciden"}
