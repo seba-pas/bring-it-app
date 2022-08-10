@@ -1,8 +1,26 @@
 const { Router } = require ("express");
 const { addCategory, getCategory } = require ('../controllers/categoryControllers');
 const { verifyToken } = require("../middlewares/verifyToken");
-
+const { Category } = require('./../db');
 const router = Router();
+
+//POST JSON 
+// /category/json
+router.post("/json", async (req, res) => {
+    try {
+      const jsonCategory = req.body;
+      const categoryLoad = jsonCategory.forEach( async (c) => {
+        await Category.findOrCreate({
+          where: {
+            name: c.name
+          }
+        })
+      }) ;
+      res.status(201).send('Categories saved successfully') ;
+    }catch(e){
+      res.status(404).send(`error en postcategoryJson: ${e.message}`)
+    }
+  });
 
 //POST Category (solo el admin puede agregar categorías)
 // http://localhost:3001/category

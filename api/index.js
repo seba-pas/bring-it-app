@@ -56,11 +56,11 @@ io.on("connection", (socket) => {
 });
 
 // // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: true}).then(() => {
   servidor.listen(process.env.PORT || 3001, async () => {
     await apiProvince();
     await apiCity();
-    await loadDB();
+    // await loadDB(); //comentado para ver si arregla HEROKU
     console.log("BRING IT ON! Listening..."); // eslint-disable-line no-console
   });
 });

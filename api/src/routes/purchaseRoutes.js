@@ -4,8 +4,38 @@ const { getPurchase } = require("../controllers/purchaseControllers");
 
 const router = Router();
 
-// ruta de actualizacion purchase
+//POST JSON 
+// /purchase/json
+router.post('/json', async (req,res) => {
+  try {
+      const jsonPurchase = req.body;
+      const purchaseLoad = jsonPurchase.forEach( async (p) => {     
+        const createdPurchase = await Purchase.findOrCreate({
+          where: {
+            totalPrice: p.totalPrice,
+            maxDeliveryDate: p.maxDeliveryDate,
+            arrivalCityId: p.arrivalCityId,
+            province: p.province,
+            userEmail: p.userEmail,
+          }})
+          const addItems = p.items.forEach(async (i) => {
+            await Purchaseitem.findOrCreate({
+              where: {
+              purchaseId: createdPurchase[0].id,
+              productId: i.id,
+              quantity: i.quantity,
+              productName: i.name
+              }
+            });
+      }) 
+    }); res.status(201).send('Purchases saved successfully') ;
+    }catch(e){
+      res.status(404).send(`error en postPurchaseJson: ${e.message}`)
+    }
+})
 
+
+// ruta de actualizacion purchase
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { totalPrice, maxDeliveryDate, arrivalCityId } = req.body;
