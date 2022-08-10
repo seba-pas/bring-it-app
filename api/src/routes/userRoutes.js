@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
 const router = Router();
+const sendgridTransport = require('nodemailer-sendgrid-transport')
 const { verifyToken } = require ("../middlewares/verifyToken");
 
 
@@ -71,30 +72,26 @@ router.post("/", async (req, res) => {
           password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString()
         }
       });
-      
-      // nodemailer
-      let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          user: "bringitservices2022@gmail.com",
-          pass: "rgmizokemaustfnd"
-        }
-      });
 
-      const email = await transporter.sendMail({
-        from: "Bring It App <bringitservices2022@gmail.com>",
-        to: req.body.email,
-        subject: "¡Bienvenido/a!",
-        html: `<h3>Bienvenido a Bring It App, ${req.body.name}!</h3>
-        <p>Estamos muy contentos de que formes parte de esta gran comunidad
-        te invito a que te suscribas a nuestra newsletter
-        <br />
-        para recibir ofertas interesantes a futuro
-        </p>
-        `
-      })
+      // nodemailer
+      const transporter = nodemailer.createTransport(sendgridTransport({
+            auth: {
+               api_key: "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",
+            },
+         }))
+
+         await transporter.sendMail({
+            to: req.body.email,
+            from: "bringitservices2022@gmail.com",
+            subject: "Correo recibido satisfactoriamente",
+            html: `<h3>Bienvenido a Bring It App, ${req.body.name}!</h3>
+              <p>Estamos muy contentos de que formes parte de esta gran comunidad
+              te invito a que te suscribas a nuestra newsletter
+              <br />
+              para recibir ofertas interesantes a futuro
+              </p>
+              `,
+         });
 
       res.status(201).send(newUser[1] ? "Usuario creado" : "El usuario ya existe");
     } catch (e) {
@@ -193,26 +190,22 @@ router.put("/recover/password/:email", async (req, res) => {
             email:  req.params.email,
           }
         })
-        
-        // nodemailer
-      let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          user: "bringitservices2022@gmail.com",
-          pass: "rgmizokemaustfnd"
-        }
-      });
 
-      const email = await transporter.sendMail({
-        from: "Bring It App <bringitservices2022@gmail.com>",
-        to: req.params.email,
-        subject: "Cambio de contraseña",
-        html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
+        const transporter = nodemailer.createTransport(sendgridTransport({
+            auth: {
+               api_key: "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",
+            },
+         }))
+
+
+         await transporter.sendMail({
+            to: req.body.email,
+            from: "bringitservices2022@gmail.com",
+            subject: "Correo recibido satisfactoriamente",
+            html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
         <p>Ya podes iniciar sesion con tu contraseña nueva <a href="https://bring-it-app.vercel.app/modificarContrasenia">aqui</a></p>
-        `
-      })
+        `,
+         });
 
         res.json("contraseña cambiada")
       } catch(error) {

@@ -3,46 +3,43 @@ const router = Router();
 const nodemailer = require('nodemailer')
 const { Business } = require("../db")
 const CryptoJS = require("crypto-js")
+// const apikey = "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"
+const sendgridTransport = require('nodemailer-sendgrid-transport')
 
-router.post("/", async(req, res) => {
-
-	const { email } = req.body
-	console.log("1", email)
+router.post("/", async(req, res, next) => {
+	console.log("1", req.body.email)
 	try {
-			// nodemailer
-			let transporter = nodemailer.createTransport({
-        	host: 'smtp.gmail.com',
-        	port: 465,
-        	secure: true,
-        	auth: {
-          	user: "bringitservices2022@gmail.com",
-          	pass: "rgmizokemaustfnd"
-       		}
-      	});
-
-      	await transporter.sendMail({
-        	from: "Bring It App <bringitservices2022@gmail.com>",
-        	to: email,
-        	subject: "Cambio de contraseña",
-        	html: `<h3>Solicitaste un cambio de contraseña, podrás hacerlo haciendo click en este <p><a href="http://localhost:3000/recuperarContrasenia">enlace</a></p></h3>`
-      	})
-      	console.log("2", email)
+         // SENDGRID
+         const transporter = nodemailer.createTransport(sendgridTransport({
+            auth: {
+               api_key: "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",
+            },
+         }))
 
 
-      res.status(200).send(email)
+         await transporter.sendMail({
+            to: req.body.email,
+            from: "bringitservices2022@gmail.com",
+            subject: "Correo recibido satisfactoriamente",
+            html: `<p>Este es el cuerpo del email de confirmación</p>
+            <p>Podés cambiar tu contraseña haciendo click en este <a href="bring-it-app.vercel.app/recuperarContrasenia">enlace</a></p>`,
+         });
+
+
+      res.status(200).json("email enviado")
 	} catch(error) {
-		res.status(404).json(error);
+		next(error);
 	}
 })
 
 
-
+// correo cambio de contraseña business
 router.put('/recover/password/olv', async (req,res )=>{
     const passN= Math.floor(Math.random(10000000 - 9000000) * 100000000);
     console.log(req.body.email);
     const userEmail = await Business.findByPk(req.body.email);
     console.log("contraseña nueva: ", passN.toString());
-    // if(userEmail){
+    if(userEmail){
       const email = userEmail.email;
       console.log("email: ", email)
       console.log('EMAIL: ',email);
@@ -56,37 +53,32 @@ router.put('/recover/password/olv', async (req,res )=>{
           }
         })
           // nodemailer
-        let transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
-          port: 465,
-          secure: true,
-          auth: {
-            user: "bringitservices2022@gmail.com",
-            pass: 'rgmizokemaustfnd'
-          }
-        });
-  
-        await transporter.sendMail({
-          from: "Bring It App <bringitservices2022@gmail.com>",
-          to: req.body.email,
-          subject: "Cambio de contraseña",
-          html: `<h3>Tu contraseña se modifico correctamente!</h3>
+          const transporter = nodemailer.createTransport(sendgridTransport({
+            auth: {
+               api_key: "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",
+            },
+         }))
+
+
+         await transporter.sendMail({
+            to: req.body.email,
+            from: "bringitservices2022@gmail.com",
+            subject: "Correo recibido satisfactoriamente",
+            html: `<h3>Tu contraseña se modifico correctamente!</h3>
           <p>Tienes que iniciar sesón con la siguiente contraseña: ${passN}</p>
           <p>Ya podés iniciar sesión con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
           <p>Recordá que es una contraseña provisoria, vas a tener que ingresar a tu panel de usuario para modificar la contraseña</p>
-          `
-        })
+          `,
+         });
         
         res.status(200).send('Correo enviado satisfactoriamente!');
       } catch (error) {
         console.log(error);
       }
-    // }else{
-    //   res.send('email no registrado');
-    // }
+    } else{
+      res.send('email no registrado');
+    }
     
-    
-  
   })
 
 
