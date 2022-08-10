@@ -6,6 +6,7 @@ const router = Router();
 const {Op} = require('sequelize');
 const { verifyToken } = require ("../middlewares/verifyToken");
 const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport')
 
 //GET trae todos los travel
 router.get('/', async (req, res) => {
@@ -119,23 +120,21 @@ router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
             where: {id: idPurchase}
         });
     // nodemailer
-      let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          user: "bringitservices2022@gmail.com",
-          pass: "rgmizokemaustfnd"
-        }
-      });
+      const transporter = nodemailer.createTransport(sendgridTransport({
+            auth: {
+               api_key: "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",
+            },
+         }))
       // holis
       // mail a viajero
+
+
       const purchaser = await User.findByPk(purchase.userEmail);
       const traveler = await User.findByPk((await Travel.findByPk(travelId)).userEmail);
       const emailTraveler = await transporter.sendMail({
         from: "Bring It App <bringitservices2022@gmail.com>",
         to: traveler.email,
-        subject: "¡Nuevo paquete para transportar!",
+        subject: "Correo recibido satisfactoriamente",
         html: `<h3>¡Felicitaciones, vas a transportar la compra de ${purchaser.name}!</h3>
         <p>Estamos muy contentos de que puedas aprovechar tu viaje para 
         transportar una compra más de la comunidad.

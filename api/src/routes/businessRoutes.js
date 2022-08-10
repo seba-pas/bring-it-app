@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer')
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
+const sendgridTransport = require('nodemailer-sendgrid-transport')
 const { verifyToken } = require("../middlewares/verifyToken");
 
 
@@ -43,29 +44,25 @@ router.post('/', async (req, res) => {
         const businessBranchName = `${businessName} - sede ${cityName}`;
         const newBusinessBranch = await Businessbranch.create({ businessBranchName, businessEmail, cityId, province, address });
 
-        // holis
-        // nodemailer
-        let transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
+        
+        const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-                user: "bringitservices2022@gmail.com",
-                pass: "rgmizokemaustfnd"
-            }
-        });
+               api_key: "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",
+            },
+         }))
 
-        const email = await transporter.sendMail({
-            from: "Bring It App <bringitservices2022@gmail.com>",
+         await transporter.sendMail({
             to: req.body.email,
-            subject: "¡Bienvenido a Bring It Empresas!",
+            from: "bringitservices2022@gmail.com",
+            subject: "Correo recibido satisfactoriamente",
             html: `<h3>Bienvenido a Bring It App, ${req.body.businessName}!</h3>
             <p>Estamos muy contentos de que formes parte de esta gran comunidad de 
             empresas alrededor del país. Desde Bring It les deseamos el mejor de los
             éxitos en su emprendimiento.
             </p>
-            `
-        })
+            `,
+         });
+
 
         res.send(newBusiness[1] ? "Empresa y sede creada" : "La empresa ya existe");
 
@@ -263,26 +260,23 @@ router.get('/', (req, res) => {
             email: req.params.email,
           }
         })
-        
-        // nodemailer
-      let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          user: "bringitservices2022@gmail.com",
-          pass: "rgmizokemaustfnd"
-        }
-      });
 
-      const email = await transporter.sendMail({
-        from: "Bring It App <bringitservices2022@gmail.com>",
-        to: req.params.email,
-        subject: "Cambio de contraseña",
-        html: `<h3>Tu contraseña se modificó correctamente!</h3>
-        <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
-        `
-      })
+        // nodemailer
+        const transporter = nodemailer.createTransport(sendgridTransport({
+            auth: {
+               api_key: "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",
+            },
+         }))
+
+         await transporter.sendMail({
+            to: req.body.email,
+            from: "bringitservices2022@gmail.com",
+            subject: "Correo recibido satisfactoriamente",
+            html: `<h3>Tu contraseña se modificó correctamente!</h3>
+            <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
+            `,
+         });
+        
 
 
         res.json("contraseña cambiada")
@@ -313,27 +307,26 @@ router.put('/recover/password/olv/:email', async (req,res )=>{
             email: email,
           }
         })
-          // nodemailer
-        // let transporter = nodemailer.createTransport({
-        //   host: 'smtp.gmail.com',
-        //   port: 465,
-        //   secure: true,
-        //   auth: {
-        //     user: "bringitservices2022@gmail.com",
-        //     pass: 'rgmizokemaustfnd'
-        //   }
-        // });
-  
-        // const email = await transporter.sendMail({
-        //   from: "Bring It App <bringitservices2022@gmail.com>",
-        //   to: req.body.email,
-        //   subject: "Cambio de contraseña",
-        //   html: `<h3>Tu contraseña se modifico correctamente!</h3>
-        //   <p>Tienes que iniciar sesón con la siguiente contraseña: ${passN}</p>
-        //   <p>Ya podés iniciar sesión con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
-        //   <p>Recordá que es una contraseña provisoria, vas a tener que ingresar a tu panel de usuario para modificar la contraseña</p>
-        //   `
-        // })
+
+
+        // nodemailer
+        const transporter = nodemailer.createTransport(sendgridTransport({
+            auth: {
+               api_key: "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",
+            },
+         }))
+
+         await transporter.sendMail({
+            to: req.body.email,
+            from: "bringitservices2022@gmail.com",
+            subject: "Correo recibido satisfactoriamente",
+            html: `<h3>Tu contraseña se modifico correctamente!</h3>
+            <p>Tienes que iniciar sesón con la siguiente contraseña: ${passN}</p>
+            <p>Ya podés iniciar sesión con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
+            <p>Recordá que es una contraseña provisoria, vas a tener que ingresar a tu panel de usuario para modificar la contraseña</p>
+            `,
+         });
+
         
         res.status(200).send('Correo enviado satisfactoriamente!');
       } catch (error) {
