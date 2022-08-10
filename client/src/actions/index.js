@@ -87,6 +87,7 @@ import {
   GET_ALL_PURCHASES,
   LOGOUT_GOOGLE_SESSION,
   SET_REVIEWS,
+  DELETE_TRAVEL,
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -1028,6 +1029,23 @@ export const getReviews = (idProduct) => {
       });
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+
+export const deleteTravel = (id) => {
+  console.log("delete action", id)
+  return async function (dispatch) {
+    try {
+      const res = await axios.delete(
+        `/travel/${id}`);
+      return dispatch({
+        type: DELETE_TRAVEL,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error.message);
     }
   };
 };

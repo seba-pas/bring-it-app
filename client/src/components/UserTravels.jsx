@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPurchases, getAllTravel } from "../actions";
+import { deleteTravel, getAllPurchases, getAllTravel } from "../actions";
 import styles from "../styles/UserTravels.module.css";
 import ProducTravelCard from "./ProducTravelCard";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -24,7 +24,7 @@ function UserTravels() {
   useEffect(() => {
     dispatch(getAllTravel());
     dispatch(getAllPurchases());
-  }, [dispatch]);
+  }, [dispatch, gState.deleteTravel]);
 
   useEffect(() => {
     setInput((prevInput) => {
@@ -58,15 +58,13 @@ function UserTravels() {
   const idsTravels = changedCityNames.map(e => e.id)
   // const allPurchasesA = gState.allPurchases.filter(e => e.travelId !== null).filter(el => idsTravels.includes(el.travelId)).map(ele => swal("Felicitaciones", `el usuario ${ele.user.email} acepto que transporte sus productos`, "success"))
 
-
-
-  function deleteTravel(id) {
-
+  const handleDelete = (id) => {
+    dispatch(deleteTravel(id))
   }
 
-  function editUsers() {
-    alert("PROXIMAMENTE!!!");
-  }
+
+
+
 
   const conditionalRowStyles = [
     {
@@ -106,19 +104,15 @@ function UserTravels() {
     { name: "Ciudad", selector: (row) => row.arrivalCityId, sortable: true },
     {
       button: true,
-      cell: () => (
-        <button>
-          {/* <FaPencilAlt
-            style={{ marginRight: "15px", fontSize: "20px" }}
-            onClick={(e) => editTravel(e)}
-          /> */}
+      cell: (row) => (
+        <button style={{ display: "flex", fontSize: "20px" }}>
           <FaTrashAlt
             style={{ fontSize: "20px" }}
-            onClick={(e) => deleteTravel(e)}
+            onClick={() => handleDelete(row.id)}
           />
         </button>
       ),
-    },
+    }
   ];
 
   return (
@@ -144,7 +138,7 @@ function UserTravels() {
           </Row>
         </div>
       ) : (
-        <div style={{ background: 'white', color:'#8c52ff', fontSize: '20px', height: '200px' }}>
+        <div style={{ background: 'white', color: '#8c52ff', fontSize: '20px', height: '200px' }}>
           <br />
           <Row>
             <div style={{ marginTop: '50px' }}>

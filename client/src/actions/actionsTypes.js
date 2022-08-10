@@ -99,3 +99,5 @@ export const LOGOUT_GOOGLE_SESSION = "LOGOUT_GOOGLE_SESSION";
 
 export const SET_REVIEWS = "SET_REVIEWS";
 
+
+export const DELETE_TRAVEL = "DELETE_TRAVEL";

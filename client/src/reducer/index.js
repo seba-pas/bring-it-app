@@ -51,7 +51,7 @@ const initialState = {
   favourites: [],
   allPurchases: [],
   reviews: [],
-
+  deleteTravel: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -521,6 +521,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         allTravels: action.payload,
+        deleteTravel: "",
       };
     case "POST_REVIEW":
       return {
@@ -613,6 +614,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         favourites: action.payload,
+      };
+    case "DELETE_TRAVEL":
+      return {
+        ...state,
+        deleteTravel: action.payload,
       };
 
     //login con Google
