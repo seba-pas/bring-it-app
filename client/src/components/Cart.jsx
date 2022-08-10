@@ -28,10 +28,12 @@ export default function Cart() {
       dispatch(removeOneFromCart(productId));
       swal("Buen trabajo!", "El producto fue eliminado con exito!", "success");
     }
+    dispatch(getCart())
   }
 
   function handleClearCart(e) {
     dispatch(clearCart(e.target.value));
+    dispatch(getCart())
   }
   function handleClick(e) {
     e.preventDefault();
@@ -56,7 +58,7 @@ export default function Cart() {
         <table id="cart">
           <thead>
             <tr style={{ display: "flex", justifyContent: "space-around" }}>
-              
+
               <th className="first">Imagen</th>
               <th className="second">Cant.</th>
               <th className="third">Product</th>
@@ -68,28 +70,28 @@ export default function Cart() {
             {cart.map((productGroup) => (
               <div style={{ width: "100%" }}>
                 <tr className="productitm">
-                  <td style={{ height: "125px"}}>
-                    <div style={{width: "40px", marginLeft: "15px"}}>
-                    <img
-                      src={productGroup.image}
-                      className="thumb"
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        border: "none",
-                        objectFit: "cover",
-                      }}
-                    />
+                  <td style={{ height: "125px" }}>
+                    <div style={{ width: "40px", marginLeft: "15px" }}>
+                      <img
+                        src={productGroup.image}
+                        className="thumb"
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          border: "none",
+                          objectFit: "cover",
+                        }}
+                      />
                     </div>
                   </td>
-                  
-                  <td><div style={{marginLeft:"15px"}}>{productGroup.quantity}</div></td>
-                  <td><div style={{marginLeft:"25px"}}>{productGroup.name}</div></td>
-                  <td><div style={{marginLeft:"10px"}}>${productGroup.price * productGroup.quantity}</div></td>
+
+                  <td><div style={{ marginLeft: "15px" }}>{productGroup.quantity}</div></td>
+                  <td><div style={{ marginLeft: "25px" }}>{productGroup.name}</div></td>
+                  <td><div style={{ marginLeft: "10px" }}>${productGroup.price * productGroup.quantity}</div></td>
                   <td>
                     <div>
-                      <BsFillTrashFill onClick={() => handleRemoveOne(productGroup.id)}/>
-{/*                       <img
+                      <BsFillTrashFill onClick={() => handleRemoveOne(productGroup.id)} />
+                      {/*                       <img
                         src="https://i.imgur.com/h1ldGRr.png"
                         alt="X"
                         onClick={() => handleRemoveOne(productGroup.id)}
@@ -99,7 +101,7 @@ export default function Cart() {
                 </tr>
               </div>
             ))}
-            <tr style={{textAlign:"end",marginRight:"5px"}}>
+            <tr style={{ textAlign: "end", marginRight: "5px" }}>
               Precio total:{''}{cart
                 .reduce((acc, item) => acc + item.quantity * item.price, 0)
                 .toFixed(2)}
