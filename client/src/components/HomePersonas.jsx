@@ -22,6 +22,7 @@ import {
   filterByProvinceCity,
   clearCart,
   getAllBranches,
+  getCart,
 } from "../actions";
 import FormTravel from "./FormTravel";
 
@@ -101,6 +102,7 @@ export default function HomePersonas() {
     dispatch(getAllBusiness());
     dispatch(getAllProvinces());
     dispatch(getAllBranches());
+    dispatch(getCart());
   }, [dispatch]);
 
   if (BRANCHES === "No se encontraron sedes en la bd")
