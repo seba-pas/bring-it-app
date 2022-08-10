@@ -47,7 +47,10 @@ export default function NavBarLanding() {
   const [input, setInput] = useState({
     email: "",
     password: "",
+    active: true
   });
+
+   console.log(business)
 
   function handleCallbackResponse(response) {
     var userObject = jwt_decode(response.credential);
@@ -196,7 +199,9 @@ export default function NavBarLanding() {
           "Para más información comuniquese con bringit662@gmail.com",
           "error"
         );
-      } else if (!business.active) {
+      } else if (business?.active === false) {
+       
+       
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -258,6 +263,7 @@ export default function NavBarLanding() {
       setInput({
         email: "",
         password: "",
+   
       });
     } else {
       swal(
@@ -306,7 +312,7 @@ export default function NavBarLanding() {
           "Para más información comuniquese con bringit662@gmail.com",
           "error"
         );
-      } else if (!user.active) {
+      } else if (user?.active === false) {
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -325,7 +331,7 @@ export default function NavBarLanding() {
             history.push("/");
           }
         });
-      } else if (user.active) {
+      } else if (user.active ) {
         swal("Buen trabajo!", "Entró al sistema correctamente!", "success");
         setInput({
           email: "",

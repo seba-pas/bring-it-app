@@ -13,7 +13,7 @@ export default function ProductCards({ currentProducts }) {
       }}
     >
       <div className="row" style={{ justifyContent: "space-evenly", minWidth: '100%' }}>
-        {currentProducts.map((el) => (
+        {currentProducts?.map((el) => (
           <ProductCard
             key={el.id}
             name={el.name}

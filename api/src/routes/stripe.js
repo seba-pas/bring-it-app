@@ -2,6 +2,7 @@ const express = require('express');
 const Stripe = require('stripe');
 const nodemailer = require('nodemailer')
 const { verifyTokenUser } = require('../middlewares/verifyToken')
+const sendgridTransport = require('nodemailer-sendgrid-transport')
 
 
 const router = express.Router();
@@ -36,18 +37,17 @@ router.post('/payment', async (req, res) => {
 
         // holis
 		// nodemailer
-        let transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
+
+
+
+        const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-            user: "bringitservices2022@gmail.com",
-            pass: "rgmizokemaustfnd"
-            }
-        });
+               api_key: process.env.CREDENTIAL,
+            },
+         }))
 
         await transporter.sendMail({
-            from: "Bring It App <bringitservices2022@gmail.com>",
+            from: "Bring It App <pruebabringit@gmail.com>",
             to: email,
             subject: "Pago realizado satisfactoriamente",
             html: `<h3>¡Muchas gracias por tu compra, ${name}!</h3>

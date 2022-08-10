@@ -46,12 +46,15 @@ export const ProductDetail = () => {
           "error"
         );
       } else {
-
         if (cart.filter((e) => e.id === product.id).length > 0) {
           if (cart[0].quantity < product.stock) {
             dispatch(addToCart(product));
 
-            swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
+            swal(
+              "Buen trabajo!",
+              "El producto fue agregado con éxito!",
+              "success"
+            );
             return;
           } else {
             swal(
@@ -63,24 +66,23 @@ export const ProductDetail = () => {
           }
         } else {
           dispatch(addToCart(product));
-          swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
+          swal(
+            "Buen trabajo!",
+            "El producto fue agregado con éxito!",
+            "success"
+          );
           return;
         }
-
       }
-
     } else {
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
     }
-
-
   }
-
+  console.log(product);
   return (
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
-
 
       {Object.entries(product).length > 0 ? (
         <div className={styles.cont}>
@@ -98,8 +100,8 @@ export const ProductDetail = () => {
                 <span>Empresa: </span>
 
                 {product.businessbranch.businessBranchName === null ||
-                  product.categories === undefined ||
-                  product.businessbranch.businessBranchName.length == 0
+                product.categories === undefined ||
+                product.businessbranch.businessBranchName.length == 0
                   ? ""
                   : product.businessbranch.businessBranchName.split(" - ")[0]}
               </p>
@@ -113,8 +115,8 @@ export const ProductDetail = () => {
               <p className="card-text" id={styles.empresa}>
                 <span id={styles.categoria}>En: </span>
                 {product.categories === null ||
-                  product.categories === undefined ||
-                  product.categories.length == 0
+                product.categories === undefined ||
+                product.categories.length == 0
                   ? "No tiene categoría"
                   : product.categories[0].name}
               </p>
@@ -149,7 +151,6 @@ export const ProductDetail = () => {
                     COMPRAR
                   </a>
                 </div> */}
-
                 Agregar a mis Favoritos: <AddFavourites />
                 <button
                   className="btn btn-primary"
@@ -167,12 +168,11 @@ export const ProductDetail = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </div>          
           <div>
             <Reviews />
           </div>
         </div>
-
 
       ) : (
         <div className={styles.spinner}>
