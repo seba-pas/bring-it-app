@@ -1,6 +1,7 @@
 const { Router } = require("express");
-const { Purchase, User, Product, Purchaseitem } = require("../db");
+const { Purchase, User, Product, Purchaseitem, Travel } = require("../db");
 const { getPurchase } = require("../controllers/purchaseControllers");
+const {Op} = require('sequelize');
 
 const router = Router();
 
@@ -70,6 +71,32 @@ router.delete("/:id", function (req, res) {
       .catch((err) => console.log(err));
   });
 });
+
+
+//Ruta para saber cuales purchases ya estan asociadas a un travel
+router.get("/withtravel", async (req, res) => {  
+  try {
+    let foundPurchasesWithTravel = await Purchase.findAll({
+      where: { travelId: {
+        [Op.ne]: null
+      } },
+      include: [
+        {
+          model: Travel          
+        },
+      ],
+    });
+    if (foundPurchasesWithTravel.length>0){
+      res.status(200).send(foundPurchasesWithTravel);
+    }
+    else{
+      res.status(200).send("No se encontraron compras con viajes asociados");
+    }    
+  } catch (error) {
+    res.status(404).send(`Error: ${error.message}`);
+  }
+});
+
 
 //ruta get para purchase por id
 router.get("/:id", async (req, res) => {
@@ -161,5 +188,6 @@ router.post("/", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
 
 module.exports = router;
