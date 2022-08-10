@@ -113,6 +113,7 @@ passport.use(
         name: profile.name.givenName,
         lastname: profile.name.familyName,
         googleId: profile.id,
+        image: profile.photos[0].value
       };
 
       const user = await User.findOrCreate({
