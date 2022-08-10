@@ -343,38 +343,38 @@ export default function NavBarLanding() {
   const handleShow = () => setShow(true);
 
   // //fc relacionadas a la aut con Google:
-  // const getAuthenticatedUser = async () => {
-  //   const response = await axios
-  //     .get("https://bringit-arg.herokuapp.com/auth/authenticatedUser", { withCredentials: true })
-  //     .catch((err) => {
-  //       console.log(`No se loggeo correctamente`);
-  //     });
-  //   if (response && response.data) {
-  //     console.log("Usuario loggeado: ", response.data);
-  //     dispatch(loginUserGoogle(response.data));
-  //   }
-  // };
-
-  const getAuthenticatedUser = () => {
-    axios
-      .get('http://bringit-arg.herokuapp.com/auth/authenticatedUser', {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response && response.data) {
-          console.log("Usuario loggeado: ", response.data);
-          dispatch(loginUserGoogle(response.data));
-        }
-      })
+  const getAuthenticatedUser = async () => {
+    const response = await axios
+      .get('https://bringit-arg.herokuapp.com/auth/authenticatedUser', { withCredentials: true })
       .catch((err) => {
         console.log(`No se loggeo correctamente`);
       });
+    if (response && response.data) {
+      console.log("Usuario loggeado: ", response.data);
+      dispatch(loginUserGoogle(response.data));
+    }
   };
+
+  // const getAuthenticatedUser = () => {
+  //   axios
+  //     .get('http://bringit-arg.herokuapp.com/auth/authenticatedUser', {
+  //       withCredentials: true,
+  //     })
+  //     .then((response) => {
+  //       if (response && response.data) {
+  //         console.log("Usuario loggeado: ", response.data);
+  //         dispatch(loginUserGoogle(response.data));
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(`No se loggeo correctamente`);
+  //     });
+  // };
 
   const redirectToGoogle = async () => {
     let timer = null;
     const googleLoginURL =
-      "http://bringit-arg.herokuapp.com/auth/login/google";
+      "https://bringit-arg.herokuapp.com/auth/login/google";
     const newWindow = window.open(
       googleLoginURL,
       "_blank",
