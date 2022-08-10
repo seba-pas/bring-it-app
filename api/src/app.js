@@ -148,7 +148,7 @@ server.get(
   (req, res) => {
     //autenticacion exitosa, redirige al la ruta del FRONT donde se renderiza el componente q cierra solo
     //console.log("Ruta http://localhost:3001/auth/google/callback, req.user: ", req.user); //req.user se obtuvo de nuestra bd, viene de la deserializacion    
-    res.redirect("https://bring-it-app.vercel.app/login/success");
+    res.redirect("http://bring-it-app.vercel.app/login/success");
   }
 );
 
@@ -165,7 +165,7 @@ server.get("/auth/authenticatedUser", (req, res) => {
       //console.log(req.user);
       return res.status(200).json(req.user);
     }
-    res.status(401).send("error falopa");
+    res.status(401).send("error de authenticate user");
   } catch (error) {
     res.status(403).send("error 403");
   }
