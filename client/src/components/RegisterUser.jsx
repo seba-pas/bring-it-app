@@ -29,6 +29,7 @@ function RegisterUser() {
     birthDate: moment().format("YYYY-MM-DD"),
     /* age: "1", */
     phone: "",
+    active: true,
   });
   const [error, setError] = useState({
     erroremail: "",
