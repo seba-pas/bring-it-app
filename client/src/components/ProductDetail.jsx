@@ -78,6 +78,7 @@ export const ProductDetail = () => {
       dispatch(addToCart(product));
       swal("Buen trabajo!", "El producto fue agregado con éxito!", "success");
     }
+    dispatch(getCart());
   }
   console.log(product);
   return (
@@ -100,8 +101,8 @@ export const ProductDetail = () => {
                 <span>Empresa: </span>
 
                 {product.businessbranch.businessBranchName === null ||
-                product.categories === undefined ||
-                product.businessbranch.businessBranchName.length == 0
+                  product.categories === undefined ||
+                  product.businessbranch.businessBranchName.length == 0
                   ? ""
                   : product.businessbranch.businessBranchName.split(" - ")[0]}
               </p>
@@ -115,8 +116,8 @@ export const ProductDetail = () => {
               <p className="card-text" id={styles.empresa}>
                 <span id={styles.categoria}>En: </span>
                 {product.categories === null ||
-                product.categories === undefined ||
-                product.categories.length == 0
+                  product.categories === undefined ||
+                  product.categories.length == 0
                   ? "No tiene categoría"
                   : product.categories[0].name}
               </p>
@@ -168,7 +169,7 @@ export const ProductDetail = () => {
                 </a>
               </div>
             </div>
-          </div>          
+          </div>
           <div>
             <Reviews />
           </div>
