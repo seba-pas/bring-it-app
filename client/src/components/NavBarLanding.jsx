@@ -35,6 +35,7 @@ export default function NavBarLanding() {
   const userToken = useSelector((state) => state.userToken);
   const business = useSelector((state) => state.business);
   const businessToken = useSelector((state) => state.businessToken);
+  const gState = useSelector((state) => state)
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -407,6 +408,7 @@ export default function NavBarLanding() {
         justifyContent: "space-between",
       }}
     >
+      
       <img
         src={image}
         style={{
@@ -421,6 +423,8 @@ export default function NavBarLanding() {
         }}
         alt="Logo no encontrado"
       />
+   
+      
 
       <div className={styles.SearchBar}></div>
 
@@ -462,7 +466,7 @@ export default function NavBarLanding() {
           <Avatar
             onClick={() => history.push("/empresas")}
             name={`${business?.businessName}`}
-            src=""
+            src={`${gState.businessEditInfo?.logo}`}
           >
             <AvatarBadge
               boxSize="0.08m"

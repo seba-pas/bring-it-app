@@ -5,6 +5,7 @@ import { addProduct, editProduct, getCategories, saveImage } from '../actions';
 import styles from "../styles/ProductManager.module.css"
 import swal from "sweetalert";
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import NavBarBusiness from './NavBarBusiness';
 function ProductManager(props) {
 
     const gState = useSelector((state) => state);
@@ -212,6 +213,7 @@ function ProductManager(props) {
 
     return (
         <div className={styles.ProductManager}>
+            <NavBarBusiness />
             <form className={styles.container} onSubmit={handleSubmit}>
                 <div className={styles.nameContainer}>
                     <label htmlFor='name'>Producto:</label>
