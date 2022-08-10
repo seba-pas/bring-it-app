@@ -154,6 +154,7 @@ router.post("/", async (req, res) => {
       arrivalCityId, //pasar a id
       userEmail,
       province,
+      status,
       items,
     } = req.body;
 
@@ -162,6 +163,7 @@ router.post("/", async (req, res) => {
       maxDeliveryDate,
       arrivalCityId,
       province,
+      status,
       userEmail,
     });
     //AGREGADO DE ITEMS A PURCHASEITEMS
