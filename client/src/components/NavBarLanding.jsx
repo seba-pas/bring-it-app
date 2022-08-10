@@ -357,7 +357,7 @@ export default function NavBarLanding() {
 
   const getAuthenticatedUser = () => {
     axios
-      .get("http://bringit-arg.herokuapp.com/auth/authenticatedUser", {
+      .get('http://bringit-arg.herokuapp.com/auth/authenticatedUser', {
         withCredentials: true,
       })
       .then((response) => {
