@@ -68,13 +68,13 @@ router.post('/', async (req, res) => {
         
         const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-               api_key: "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",
+               api_key: process.env.CREDENTIAL,
             },
          }))
 
          await transporter.sendMail({
             to: req.body.email,
-            from: "bringitservices2022@gmail.com",
+            from: "pruebabringit@gmail.com",
             subject: "Correo recibido satisfactoriamente",
             html: `<h3>Bienvenido a Bring It App, ${req.body.businessName}!</h3>
             <p>Estamos muy contentos de que formes parte de esta gran comunidad de 
@@ -285,13 +285,13 @@ router.get('/', (req, res) => {
         // nodemailer
         const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-               api_key: "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",
+               api_key: process.env.CREDENTIAL,
             },
          }))
 
          await transporter.sendMail({
             to: req.body.email,
-            from: "bringitservices2022@gmail.com",
+            from: "pruebabringit@gmail.com",
             subject: "Correo recibido satisfactoriamente",
             html: `<h3>Tu contraseña se modificó correctamente!</h3>
             <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
@@ -333,13 +333,13 @@ router.put('/recover/password/olv/:email', async (req,res )=>{
         // nodemailer
         const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-               api_key: "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",
+               api_key: process.env.CREDENTIAL,
             },
          }))
 
          await transporter.sendMail({
             to: req.body.email,
-            from: "bringitservices2022@gmail.com",
+            from: "pruebabringit@gmail.com",
             subject: "Correo recibido satisfactoriamente",
             html: `<h3>Tu contraseña se modifico correctamente!</h3>
             <p>Tienes que iniciar sesón con la siguiente contraseña: ${passN}</p>

@@ -42,12 +42,12 @@ router.post('/payment', async (req, res) => {
 
         const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-               api_key: "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",
+               api_key: process.env.CREDENTIAL,
             },
          }))
 
         await transporter.sendMail({
-            from: "Bring It App <bringitservices2022@gmail.com>",
+            from: "Bring It App <pruebabringit@gmail.com>",
             to: email,
             subject: "Pago realizado satisfactoriamente",
             html: `<h3>¡Muchas gracias por tu compra, ${name}!</h3>

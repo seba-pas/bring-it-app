@@ -12,14 +12,14 @@ router.post("/", async(req, res, next) => {
          // SENDGRID
          const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-               api_key: "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",
+               api_key: process.env.CREDENTIAL,
             },
          }))
 
 
          await transporter.sendMail({
             to: req.body.email,
-            from: "bringitservices2022@gmail.com",
+            from: "pruebabringit@gmail.com",
             subject: "Correo recibido satisfactoriamente",
             html: `<p>Este es el cuerpo del email de confirmación</p>
             <p>Podés cambiar tu contraseña haciendo click en este <a href="bring-it-app.vercel.app/recuperarContrasenia">enlace</a></p>`,
@@ -55,14 +55,14 @@ router.put('/recover/password/olv', async (req,res )=>{
           // nodemailer
           const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-               api_key: "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",
+               api_key: process.env.CREDENTIAL,
             },
          }))
 
 
          await transporter.sendMail({
             to: req.body.email,
-            from: "bringitservices2022@gmail.com",
+            from: "pruebabringit@gmail.com",
             subject: "Correo recibido satisfactoriamente",
             html: `<h3>Tu contraseña se modifico correctamente!</h3>
           <p>Tienes que iniciar sesón con la siguiente contraseña: ${passN}</p>

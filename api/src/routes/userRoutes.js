@@ -76,13 +76,13 @@ router.post("/", async (req, res) => {
       // nodemailer
       const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-               api_key: "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",
+               api_key: process.env.CREDENTIAL,
             },
          }))
 
          await transporter.sendMail({
             to: req.body.email,
-            from: "bringitservices2022@gmail.com",
+            from: "pruebabringit@gmail.com",
             subject: "Correo recibido satisfactoriamente",
             html: `<h3>Bienvenido a Bring It App, ${req.body.name}!</h3>
               <p>Estamos muy contentos de que formes parte de esta gran comunidad
@@ -193,14 +193,14 @@ router.put("/recover/password/:email", async (req, res) => {
 
         const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-               api_key: "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",
+               api_key: process.env.CREDENTIAL,
             },
          }))
 
 
          await transporter.sendMail({
             to: req.body.email,
-            from: "bringitservices2022@gmail.com",
+            from: "pruebabringit@gmail.com",
             subject: "Correo recibido satisfactoriamente",
             html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
         <p>Ya podes iniciar sesion con tu contraseña nueva <a href="https://bring-it-app.vercel.app/modificarContrasenia">aqui</a></p>
