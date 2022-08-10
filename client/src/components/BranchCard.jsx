@@ -9,14 +9,13 @@ function BranchCard({ id, name, city, province, address }) {
     const dispatch = useDispatch();
     const businessToken = useSelector((state) => state.businessToken);
     const businessEmail = useSelector((state) => state.businessEmail);
-    async function handleEdit(event) {
-        event.preventDefault();
-        //dispatch(editBranch(id));
 
-    }
+
     async function handleDelete(event) {
         event.preventDefault();
+        console.log("borrar")
         dispatch(deleteBranch(id, businessToken, businessEmail));
+
     }
 
     return (

@@ -313,7 +313,7 @@ function ProductManager(props) {
                         <select name="branch" value={input.branch} onChange={handleInputChange}>
                             <option value="">{ }</option>
                             {
-                                gState.businessEditInfo.businessbranches?.map(e => <option key={e.id} value={e.id}>{e.businessBranchName}</option>)
+                                gState.businessEditInfo.businessbranches?.filter(c => c.active).map(e => <option key={e.id} value={e.id}>{e.businessBranchName}</option>)
                             }
                         </select>
                     </div>
