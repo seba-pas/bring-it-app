@@ -357,7 +357,7 @@ export default function NavBarLanding() {
 
   const getAuthenticatedUser = () => {
     axios
-      .get("https://bringit-arg.herokuapp.com/auth/authenticatedUser", {
+      .get('http://bringit-arg.herokuapp.com/auth/authenticatedUser', {
         withCredentials: true,
       })
       .then((response) => {
@@ -374,7 +374,7 @@ export default function NavBarLanding() {
   const redirectToGoogle = async () => {
     let timer = null;
     const googleLoginURL =
-      "https://bringit-arg.herokuapp.com/auth/login/google";
+      "http://bringit-arg.herokuapp.com/auth/login/google";
     const newWindow = window.open(
       googleLoginURL,
       "_blank",
