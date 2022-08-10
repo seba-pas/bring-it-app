@@ -7,6 +7,32 @@ const {Op} = require('sequelize');
 const { verifyToken } = require ("../middlewares/verifyToken");
 const nodemailer = require('nodemailer');
 
+
+//POST JSON 
+// /travel/json
+router.post('/json', async (req,res) => {
+    try {
+        const jsonTravel = req.body;
+        const travelLoad = jsonTravel.forEach( async (t) => {     
+            await Travel.findOrCreate({
+              where: {
+                userEmail: t.userEmail,
+                travelProvince: t.travelProvince,
+                travelCityId: t.travelCityId,
+                arrivalProvince: t.arrivalProvince,
+                arrivalCityId: t.arrivalCityId,
+                startDate: t.startDate,
+                arrivalDate: t.arrivalDate
+              }
+            })
+          }) ;
+          res.status(201).send('Travels saved successfully') ;
+      }catch(e){
+        res.status(404).send(`error en postTravelJson: ${e.message}`)
+      }
+})
+
+
 //GET trae todos los travel
 router.get('/', async (req, res) => {
     const allTravel = await getTravel();

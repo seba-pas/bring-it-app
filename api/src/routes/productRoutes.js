@@ -5,6 +5,35 @@ const { verifyToken } = require("../middlewares/verifyToken");
 const { Product } = require('./../db');
 const router = Router();
 
+
+//POST JSON 
+// /product/json
+router.post('/json', async (req,res) => {
+    try {
+        const jsonProduct = req.body;
+        const productsLoad = jsonProduct.forEach( async (p) => {
+          const newProduct = await Product.findOrCreate({
+             where: {
+               name: p.name,
+               price: p.price,
+               weight: p.weight,
+               image: p.image,
+               stock: p.stock,
+               description: p.description,
+               businessbranchId: p.businessbranchId
+             }
+           })
+           const newProduct2 = await Product.findByPk(newProduct[0].dataValues.id);
+           await newProduct2.addCategory(p.categoryId);
+       })
+      ;
+      res.status(201).send('Products saved successfully') ;
+      }catch(e){
+        res.status(404).send(`error en postProductJson: ${e.message}`)
+      }
+  })
+
+
 //POST new Product
 // http://localhost:3001/product
 router.post('/', verifyToken, async (req, res) => {

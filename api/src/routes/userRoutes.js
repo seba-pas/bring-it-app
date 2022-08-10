@@ -7,6 +7,31 @@ const CryptoJS = require('crypto-js');
 const router = Router();
 const { verifyToken } = require ("../middlewares/verifyToken");
 
+
+//POST JSON 
+// /user/json
+router.post("/json", async (req, res) => {
+  try {
+    const jsonUser = req.body;
+    const usersLoad = jsonUser.forEach( async (u) => {
+      await User.findOrCreate({
+        where: {
+          email: u.email,
+          password: CryptoJS.AES.encrypt(u.password, process.env.PASS_SEC).toString(),
+          name: u.name,
+          lastname: u.lastname,
+          birthDate: u.birthDate,
+          isAdmin: u.isAdmin,
+          phone: u.phone
+        }
+      })
+    }) ;
+    res.status(201).send('Users saved successfully') ;
+  }catch(e){
+    res.status(404).send(`error en postUserJson: ${e.message}`)
+  }
+});
+
 //PUT / baneo de User (SOLO LO PUEDE HACER ADMIN)
 // http://localhost:3001/user/baneo/:email
 router.put("/baneo/:email", verifyToken, async (req, res) => {
