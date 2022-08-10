@@ -62,14 +62,25 @@ router.put('/:id', async (req, res) => {
 })
 
 //DELETE TRAVEL
-// http://localhost:3001/api/travel/:id
+// http://localhost:3001/travel/:id
 router.delete('/:id', async (req, res) => {
     try {
         let { id } = req.params;
-        await Travel.destroy({
-            where: { id: id }
-        });
-        res.status(201).send('Viajes eliminados:')
+
+        let foundPurchaseTravelId = await Purchase.findOne({
+            where: {
+            travelId : {
+                [Op.eq]: id
+            }}});
+        if (foundPurchaseTravelId){
+            res.send(`No se puede eliminar el viaje xq tiene la compra ${foundPurchaseTravelId.id} asociada`);
+        }
+        else{
+            await Travel.destroy({
+                where: { id: id }
+            });
+            res.status(201).send('Viajes eliminados')
+        }        
     } catch (e) {
         res.send('error:' + e.message)
     }
