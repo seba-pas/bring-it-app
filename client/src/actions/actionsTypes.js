@@ -91,10 +91,11 @@ export const GET_ALL_FAVOURITES = 'GET_ALL_FAVOURITES';
 
 
 export const PASS_CHANGE_BUSINESS = "PASS_CHANGE_BUSINESS";
-
+export const GET_REVIEWS = "GET_REVIEWS";
 //login con google
 export const POST_LOGIN_GOOGLE = "POST_LOGIN_GOOGLE";
 
 export const LOGOUT_GOOGLE_SESSION = "LOGOUT_GOOGLE_SESSION";
 
+export const SET_REVIEWS = "SET_REVIEWS";
 

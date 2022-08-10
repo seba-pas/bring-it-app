@@ -43,38 +43,38 @@ function PerfilBusiness(props) {
 
   useEffect(() => {
     dispatch(getAllBusiness());
-  }, [dispatch, gState.branchAdded, gState.brancDeleted, gState.branchPut]);
+  }, [dispatch, gState.branchAdded, gState.branchDeleted, gState.branchPut]);
 
   const [input, setInput] = useState(
     id
       ? {
-          businessEmail: infoBusiness.email,
-          businessName: infoBusiness.businessName,
-          businessbranches: infoBusiness.businessbranches,
-          cuit: infoBusiness.cuit,
-          email: infoBusiness.email,
-          logo: "",
-          phone: infoBusiness.phone,
-          taxBracket: infoBusiness.taxBracket,
-          arrayInfo: [],
-          province: branchId[0].province || "",
-          address: branchId[0].address || "",
-          city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
-        }
+        businessEmail: infoBusiness.email,
+        businessName: infoBusiness.businessName,
+        businessbranches: infoBusiness.businessbranches,
+        cuit: infoBusiness.cuit,
+        email: infoBusiness.email,
+        logo: "",
+        phone: infoBusiness.phone,
+        taxBracket: infoBusiness.taxBracket,
+        arrayInfo: [],
+        province: branchId[0].province || "",
+        address: branchId[0].address || "",
+        city: "", //gState.allCities.filter(e => parseInt(e.id) === parseInt(branchId[0].cityId))[0].nombre || "",
+      }
       : {
-          businessEmail: infoBusiness.email,
-          businessName: infoBusiness.businessName,
-          businessbranches: infoBusiness.businessbranches,
-          cuit: infoBusiness.cuit,
-          email: infoBusiness.email,
-          logo: "",
-          phone: infoBusiness.phone,
-          taxBracket: infoBusiness.taxBracket,
-          arrayInfo: [],
-          province: "",
-          address: "",
-          city: "",
-        }
+        businessEmail: infoBusiness.email,
+        businessName: infoBusiness.businessName,
+        businessbranches: infoBusiness.businessbranches,
+        cuit: infoBusiness.cuit,
+        email: infoBusiness.email,
+        logo: "",
+        phone: infoBusiness.phone,
+        taxBracket: infoBusiness.taxBracket,
+        arrayInfo: [],
+        province: "",
+        address: "",
+        city: "",
+      }
   );
   //console.log("input", input)
   const [error, setError] = useState({
@@ -203,30 +203,31 @@ function PerfilBusiness(props) {
     event.preventDefault();
     id
       ? dispatch(
-          editBranch(
-            id,
-            {
-              businessName: input.businessName,
-              businessEmail: input.businessEmail,
-              cityId: input.city,
-              province: input.province,
-              address: input.address,
-            },
-            tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
-          )
+        editBranch(
+          id,
+          {
+            businessName: input.businessName,
+            businessEmail: input.businessEmail,
+            cityId: input.city,
+            province: input.province,
+            address: input.address,
+          },
+          tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
         )
+      )
       : dispatch(
-          postBranch(
-            {
-              businessName: input.businessName,
-              businessEmail: input.businessEmail,
-              cityId: input.city,
-              province: input.province,
-              address: input.address,
-            },
-            tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
-          )
-        );
+        postBranch(
+          {
+            businessName: input.businessName,
+            businessEmail: input.businessEmail,
+            cityId: input.city,
+            province: input.province,
+            address: input.address,
+            active: true,
+          },
+          tokenBusiness //envio de 3er parametro para enviar los headers en la accion (envio de token al back)
+        )
+      );
 
     history.push("/empresas/perfil");
   };
@@ -271,10 +272,26 @@ function PerfilBusiness(props) {
     swal("Buen trabajo!", "Editado satisfactoriamente!", "success");
   };
   function handleDesactivate() {
-    dispatch(desactivateBusiness(infoBusiness.email, tokenBusiness));
-    history.push("/");
-    dispatch(cleanBusinessState());
+    swal({
+      title: "¿Está seguro que quiere desactivar su cuenta?",
+      text: "Si desactiva su cuenta ya no podrás vender tus productos",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Su cuenta ha sido desactivada!", {
+          icon: "success",
+        });
+        dispatch(desactivateBusiness(infoBusiness.email, tokenBusiness));
+        history.push("/");
+        dispatch(cleanBusinessState());
+      } else {
+        swal("Su cuenta no ha sido desactivada");
+      }
+    });
   }
+  console.log("branch", input.businessbranches)
 
   function closeSesion() {
     dispatch(cleanBusinessState());
@@ -471,7 +488,7 @@ function PerfilBusiness(props) {
                         </tr>
                       </thead>
                       <tbody>
-                        {input.businessbranches?.map((c) => {
+                        {input.businessbranches?.filter(e => e.active).map((c) => {
                           return (
                             <BranchCard
                               key={c.id}
@@ -498,7 +515,7 @@ function PerfilBusiness(props) {
                     value={input.province}
                     onChange={(e) => handleInputChange(e)}
                   >
-                    <option value="">{} </option>
+                    <option value="">{ } </option>
                     {gState.provinces?.map((e) => (
                       <option key={e.id} value={e.nombre}>
                         {e.nombre}
@@ -523,22 +540,22 @@ function PerfilBusiness(props) {
                     value={input.city}
                     onChange={(e) => handleInputChange(e)}
                   >
-                    <option value="">{} </option>
+                    <option value="">{ } </option>
 
                     {input.province
                       ? gState.allCities
-                          ?.filter(
-                            (e) =>
-                              e.provinceId ===
-                              gState.provinces?.filter(
-                                (e) => e.nombre === input.province
-                              )[0].id
-                          )
-                          ?.map((e) => (
-                            <option key={e.id} value={e.id}>
-                              {e.nombre}
-                            </option>
-                          ))
+                        ?.filter(
+                          (e) =>
+                            e.provinceId ===
+                            gState.provinces?.filter(
+                              (e) => e.nombre === input.province
+                            )[0].id
+                        )
+                        ?.map((e) => (
+                          <option key={e.id} value={e.id}>
+                            {e.nombre}
+                          </option>
+                        ))
                       : ""}
                   </Form.Select>
                   {!error.errorcity ? (

@@ -18,14 +18,15 @@ import imgIcon from "./img/programmer.png";
 import "../styles/RegisterBusiness.css";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+
+
 function RegisterBusiness() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [errors, setErrors] = useState({});
   let PROVINCES = useSelector((state) => state.provinces);
   PROVINCES = PROVINCES.sort((a, b) => {
-    if(a.nombre > b.nombre) return  1;
-    if(b.nombre > a.nombre) return -1;
+    if (a.nombre > b.nombre) return 1;
+    if (b.nombre > a.nombre) return -1;
     return 0;
   })
   const gState = useSelector((state) => state);
@@ -33,8 +34,8 @@ function RegisterBusiness() {
 
   let CITIES = useSelector((state) => state.allCities);
   CITIES = CITIES.sort((a, b) => {
-    if(a.nombre > b.nombre) return 1;
-    if(b.nombre > a.nombre) return -1;
+    if (a.nombre > b.nombre) return 1;
+    if (b.nombre > a.nombre) return -1;
     return 0;
   })
 
@@ -49,9 +50,75 @@ function RegisterBusiness() {
     cityId: "",
     address: "",
     province: "",
-    logo: "f",
+    logo: "",
     phone: "",
+    active: true,
   });
+
+  const [error, setError] = useState({
+    erroremail: "",
+    errorpassword: "",
+    errorconfirmPassword: "",
+    errorbusinessName: "",
+    errorcuit: "",
+    errortaxBracket: "",
+    errorprovince: "",
+    errorcityId: "",
+    erroraddress: "",
+    errorlogo: "",
+    errorphone: "",
+  });
+
+  useEffect(() => {
+    validate();
+  }, [input.email, input.password, input.confirmPassword, input.businessName, input.cuit, input.taxBracket, input.province, input.cityId, input.address, input.logo, input.phone]);
+
+  const validate = () => {
+    let erroremail = "";
+    let errorpassword = "";
+    let errorconfirmPassword = "";
+    let errorbusinessName = "";
+    let errorcuit = "";
+    let errortaxBracket = "";
+    let errorprovince = "";
+    let errorcityId = "";
+    let erroraddress = "";
+    let errorlogo = "";
+    let errorphone = "";
+    console.log("h")
+    if (!input.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email) || input.email[0] === " ") { erroremail = "❌ Debe escribir una dirección de email correcta."; } else { erroremail = "✅ Email valido" }
+    if (!input.password || !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)) { errorpassword = "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula." } else { errorpassword = "✅ Contraseña valida" }
+    if (input.confirmPassword === "" || input.password !== input.confirmPassword) { errorconfirmPassword = "❌ Las contraseñas no coinciden" } else { errorconfirmPassword = "✅" }
+    if (!input.businessName || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.businessName) || input.businessName[0] === " ") { errorbusinessName = "❌ La primera letra debe estar en mayúscula"; } else { errorbusinessName = "✅Hecho!" }
+    if (!input.cuit || !/^[1-9]\d*(\.\d+)?$/.test(input.cuit) || input.cuit[0] === " ") { errorcuit = "❌ Solo números"; } else { errorcuit = "✅Hecho!" }
+    if (!input.taxBracket) { errortaxBracket = "❌ Seleccione una de las opciones" } else { errortaxBracket = "✅Hecho!" }
+    if (!input.province) { errorprovince = "❌ Seleccione una provincia" } else { errorprovince = "✅Hecho!" }
+    if (!input.cityId) { errorcityId = "❌ Seleccione una ciudad" } else { errorcityId = "✅Hecho!" }
+    if (!input.address || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.address) || input.address[0] == " ") { erroraddress = "❌ La primera letra debe estar en mayúscula"; } else { erroraddress = "✅Hecho!" }
+
+
+    setError((prevInput) => {
+      return {
+        erroremail: erroremail,
+        errorpassword: errorpassword,
+        errorconfirmPassword: errorconfirmPassword,
+        errorbusinessName: errorbusinessName,
+        errorcuit: errorcuit,
+        errortaxBracket: errortaxBracket,
+        errorprovince: errorprovince,
+        errorcityId: errorcityId,
+        erroraddress: erroraddress,
+        errorlogo: errorlogo,
+        errorphone: errorphone,
+      }
+    });
+
+
+  }
+
+
+
+
   const handleInputChange = (event) => {
     event.preventDefault();
     setInput((prevInput) => {
@@ -62,58 +129,21 @@ function RegisterBusiness() {
     });
   };
 
-  const validateUsers = (input) => {
-    const errors = {};
 
-    if (
-      !input.email ||
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)
-    ) {
-      errors.email = "❌ Debe escribir una direccion de email correcta.";
-    } else {
-      errors.email = "✅ Email valido";
-    }
-    if (
-      !input.password ||
-      !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password)
-    ) {
-      errors.password = "La contraseña debe tener entre 8 y 16 caracteres";
-    } else {
-      errors.password = "✅ Contraseña valida";
-    }
-    if (
-      !input.businessName ||
-      !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.businessName)
-    ) {
-      errors.businessName = "❌ La primera letra debe estar en mayúscula";
-    } else {
-      errors.businessName = "✅Hecho!";
-    }
-    if (!input.cuit || !/^[1-9]\d*(\.\d+)?$/.test(input.cuit)) {
-      errors.cuit = "❌ Solo numeros";
-    } else {
-      errors.cuit = "✅Hecho!";
-    }
-    if (!input.address || !/^[A-Z]+[A-Za-z0-9\s]+$/g.test(input.address)) {
-      errors.address = "❌ La primera letra debe estar en mayúscula";
-    } else {
-      errors.address = "✅Hecho!";
-    }
-
-    return errors;
-  };
 
   function handleChange(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
+    setInput((prevInput) => {
+      return {
+        ...prevInput,
+        [e.target.name]: e.target.value,
+      };
     });
-    setErrors(
-      validateUsers({
-        ...input,
-        [e.target.name]: e.target.name,
-      })
-    );
+    // setErrors(
+    //   validateUsers({
+    //     ...input,
+    //     [e.target.name]: e.target.name,
+    //   })
+    // );
   }
 
   function handleSubmit(e) {
@@ -245,7 +275,7 @@ function RegisterBusiness() {
                   placeholder="Enter email"
                   onChange={(e) => handleChange(e)}
                 />
-                {errors.email && <p>{errors.email}</p>}
+                {error.erroremail && <p>{error.erroremail}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
@@ -258,7 +288,7 @@ function RegisterBusiness() {
                   id="password"
                   required
                 />
-                {errors.password && <p>{errors.password}</p>}
+                {error.errorpassword && <p>{error.errorpassword}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Confirmar password</Form.Label>
@@ -271,7 +301,7 @@ function RegisterBusiness() {
                   id="confirmPassword"
                   required
                 />
-                {errors.password && <p>{errors.password}</p>}
+                {error.errorconfirmPassword && <p>{error.errorconfirmPassword}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Empresa nombre </Form.Label>
@@ -284,7 +314,7 @@ function RegisterBusiness() {
                   id="businessName"
                   required
                 />
-                {errors.businessName && <p>{errors.businessName}</p>}
+                {error.errorbusinessName && <p>{error.errorbusinessName}</p>}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Cuit</Form.Label>
@@ -297,7 +327,7 @@ function RegisterBusiness() {
                   placeholder="Ingrese su numero de Cuit"
                   onChange={(e) => handleChange(e)}
                 />
-                {errors.cuit && <p>{errors.cuit}</p>}
+                {error.errorcuit && <p>{error.errorcuit}</p>}
               </Form.Group>
 
               <Form.Label>Categoría Tributaria </Form.Label>
@@ -316,6 +346,7 @@ function RegisterBusiness() {
                     Categoría tributaria 3
                   </option>
                 </select>
+                {error.errortaxBracket && <p>{error.errortaxBracket}</p>}
               </Form.Group>
 
               <Form.Label>Provincia</Form.Label>
@@ -326,13 +357,14 @@ function RegisterBusiness() {
                   value={input.province}
                   onChange={(e) => handleInputChange(e)}
                 >
-                  <option value="">{} </option>
+                  <option value="">{ } </option>
                   {PROVINCES?.map((e) => (
                     <option key={e.id} value={e.nombre}>
                       {e.nombre}
                     </option>
                   ))}
                 </select>
+                {error.errorprovince && <p>{error.errorprovince}</p>}
               </Form.Group>
 
               <Form.Label>Ciudad</Form.Label>
@@ -343,27 +375,28 @@ function RegisterBusiness() {
                   value={input.cityId}
                   onChange={(e) => handleInputChange(e)}
                 >
-                  <option value="">{} </option>
+                  <option value="">{ } </option>
 
                   {
                     // gState.cities?.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)
                     input.province
                       ? CITIES
-                          ?.filter(
-                            (e) =>
-                              e.provinceId ===
-                              gState.provinces?.filter(
-                                (e) => e.nombre === input.province
-                              )[0].id
-                          )
-                          ?.map((e) => (
-                            <option key={e.id} name={e.nombre} value={e.id}>
-                              {e.nombre}
-                            </option>
-                          ))
+                        ?.filter(
+                          (e) =>
+                            e.provinceId ===
+                            gState.provinces?.filter(
+                              (e) => e.nombre === input.province
+                            )[0].id
+                        )
+                        ?.map((e) => (
+                          <option key={e.id} name={e.nombre} value={e.id}>
+                            {e.nombre}
+                          </option>
+                        ))
                       : ""
                   }
                 </select>
+                {error.errorcityId && <p>{error.errorcityId}</p>}
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -377,6 +410,7 @@ function RegisterBusiness() {
                   placeholder="Ingresa tu direccion"
                   onChange={(e) => handleChange(e)}
                 />
+                {error.erroraddress && <p>{error.erroraddress}</p>}
               </Form.Group>
               <Form.Group>
                 <Form.Label>Agrega tu número de contacto</Form.Label>
@@ -389,10 +423,12 @@ function RegisterBusiness() {
                   placeholder="Ingresa tu número de contacto"
                   onChange={(e) => handleChange(e)}
                 />
+                {error.errorphone && <p>{error.errorphone}</p>}
               </Form.Group>
-            
+
               <div>
                 <Button
+                  disabled={error.errorpassword === "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula." || error.errorconfirmPassword === "❌ Las contraseñas no coinciden" || error.erroremail === "❌ Debe escribir una dirección de email correcta." || error.errorbusinessName === "❌ La primera letra debe estar en mayúscula" || error.errorcuit === "❌ Solo números" || error.errortaxBracket === "❌ Seleccione una de las opciones" || error.errorprovince === "❌ Seleccione una provincia" || error.errorcityId === "❌ Seleccione una ciudad" || error.erroraddress === "❌ La primera letra debe estar en mayúscula"}
                   variant="primary btn btn-block w-100 mt-3"
                   type="submit"
                 >

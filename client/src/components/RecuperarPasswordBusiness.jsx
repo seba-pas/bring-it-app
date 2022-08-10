@@ -5,7 +5,6 @@ import { changePasswordBusiness } from "../actions/index";
 import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
 function RecuperarPasswordBusiness(props) {
-  const email= useSelector(state=>state.business.email);
 
   const handleBack = (event) => {
     event.preventDefault();
@@ -28,6 +27,9 @@ function RecuperarPasswordBusiness(props) {
       [e.target.name]: e.target.value,
     });
   }
+
+
+
   return (
     <div>
       {/* <NavBarLanding/> */}

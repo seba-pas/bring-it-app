@@ -43,27 +43,44 @@ export default function HomeAdmin() {
 
   function banearUsers(e, email) {
     e.preventDefault();
-    dispatch(deleteUser(email, userToken));
-    swal(
-      "El usuario ha sido bloqueado con éxito",
-      "Gracias por usar Bring it!",
-      "success"
-    );
+    swal({
+      title: "¿Está seguro que quiere eliminar este usuario?",
+      text: "Si elimina el usuario, no podrá acceder más a su cuenta",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("El usuario ha sido eliminado", {
+          icon: "success",
+        });
+        dispatch(deleteUser(email, userToken));
+      } else {
+        swal("El usuario no ha sido eliminado");
+      }
+    });
   }
 
   function banearBusiness(e, email) {
     e.preventDefault();
-    dispatch(deleteBusiness(email, userToken));
-    swal(
-      "La empresa ha sido bloqueada con éxito",
-      "Gracias por usar Bring it!",
-      "success"
-    );
+    swal({
+      title: "¿Está seguro que quiere eliminar esta empresa?",
+      text: "Si elimina la empresa, no podrá acceder más a su cuenta",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("La empresa ha sido eliminado", {
+          icon: "success",
+        });
+        dispatch(deleteBusiness(email, userToken));
+      } else {
+        swal("La empresa no ha sido eliminado");
+      }
+    });
   }
 
-  function editUsers() {
-    alert("PROXIMAMENTE!!!");
-  }
   function editBusiness() {
     alert("PROXIMAMENTE!!!");
   }
@@ -120,25 +137,27 @@ export default function HomeAdmin() {
     );
   }
 
-   /* function searchPurchases(rows) {
+    function searchPurchases(rows) {
     return rows.filter((row) => 
     console.log(row) && 
-     row.id.toLowerCase().indexOf(q) > -1 ||
+    //  row.id.toLowerCase().indexOf(q) > -1 ||
     // row.purchaseitems.toLowerCase().indexOf(q) > -1 ||
     row.maxDeliveryDate.toLowerCase().indexOf(q) > -1 
     // row.name.toLowerCase().indexOf(q) > -1 ||
     // row.quantity.toLowerCase().indexOf(q) > - 1 ||
     // row.totalPrice.toLowerCase().indexOf(q) > - 1
     );
-  };  */
+  };  
 
   const columnasPurchases = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
+    { name: "Comprador", selector: (row) => row.userEmail, sortable: true },
     {
       name: "Producto",
       selector: (row) => row.purchaseitems.map((e) => `${e.product.name}, `),
       sortable: true,
     },
+    { name: "Estado de pago", selector: (row) => row.status, sortable: true },
     {
       name: "Fecha de max de espera",
       selector: (row) => formatDate(row.maxDeliveryDate),

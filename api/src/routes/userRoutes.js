@@ -53,13 +53,13 @@ router.post("/", async (req, res) => {
         port: 465,
         secure: true,
         auth: {
-          user: 'bringit662@gmail.com',
-          pass: 'baiepxymtdopmjuj'
+          user: "bringitservices2022@gmail.com",
+          pass: "rgmizokemaustfnd"
         }
       });
 
       const email = await transporter.sendMail({
-        from: "Bring It App <bringit662@gmail.com>",
+        from: "Bring It App <bringitservices2022@gmail.com>",
         to: req.body.email,
         subject: "¡Bienvenido/a!",
         html: `<h3>Bienvenido a Bring It App, ${req.body.name}!</h3>
@@ -170,24 +170,25 @@ router.put("/recover/password/:email", async (req, res) => {
         })
         
         // nodemailer
-      // let transporter = nodemailer.createTransport({
-      //   host: 'smtp.gmail.com',
-      //   port: 465,
-      //   secure:true,
-      //   auth: {
-      //     user: 'bringit662@gmail.com',
-      //     pass: 'owtgyxnzmbchbhjj'
-      //   }
-      // });
+      let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: "bringitservices2022@gmail.com",
+          pass: "rgmizokemaustfnd"
+        }
+      });
 
-      // const email = await transporter.sendMail({
-      //   from: "Bring It App <bringit662@gmail.com>",
-      //   to: req.params.email,
-      //   subject: "Cambio de contraseña",
-      //   html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
-      //   <p>Ya podes iniciar sesion con tu contraseña nueva <a href="http://localhost:3000/">aqui</a></p>
-      //   `
-      // })
+      const email = await transporter.sendMail({
+        from: "Bring It App <bringitservices2022@gmail.com>",
+        to: req.params.email,
+        subject: "Cambio de contraseña",
+        html: `<h3>Tu contraseña se modifico cotrrectamente!</h3>
+        <p>Ya podes iniciar sesion con tu contraseña nueva <a href="https://bring-it-app.vercel.app/modificarContrasenia">aqui</a></p>
+        `
+      })
+
         res.json("contraseña cambiada")
       } catch(error) {
         console.log('208',error)
