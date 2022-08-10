@@ -161,7 +161,7 @@ export const ProductDetail = () => {
                 <a
                   className="btn btn-primary"
                   id={styles.boton2}
-                  onClick={() => history.goBack()}
+                  onClick={() => history.goBack(dispatch(getCart()))}
                 >
                   VOLVER
                 </a>
@@ -169,11 +169,11 @@ export const ProductDetail = () => {
             </div>
           </div>
           <div>
-          <Reviews/>
+            <Reviews />
           </div>
         </div>
-        
-            
+
+
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed
