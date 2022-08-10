@@ -159,7 +159,7 @@ router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
     // nodemailer
       const transporter = nodemailer.createTransport(sendgridTransport({
             auth: {
-               api_key: "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",
+               api_key: process.env.CREDENTIAL,
             },
          }))
       // holis
@@ -169,7 +169,7 @@ router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
       const purchaser = await User.findByPk(purchase.userEmail);
       const traveler = await User.findByPk((await Travel.findByPk(travelId)).userEmail);
       const emailTraveler = await transporter.sendMail({
-        from: "Bring It App <bringitservices2022@gmail.com>",
+        from: "Bring It App <pruebabringit@gmail.com>",
         to: traveler.email,
         subject: "Correo recibido satisfactoriamente",
         html: `<h3>¡Felicitaciones, vas a transportar la compra de ${purchaser.name}!</h3>
@@ -184,7 +184,7 @@ router.put('/purchase/:idPurchase/:travelId', async (req,res) => {
         </p>`
       })
       const emailPurchaser = await transporter.sendMail({
-        from: "Bring It App <bringitservices2022@gmail.com>",
+        from: "Bring It App <pruebabringit@gmail.com>",
         to: purchaser.email,
         subject: `¡Tu compra Nº${idPurchase} ya tiene transporte!`,
         html: `<h3>¡Felicitaciones, tu compra Nº${idPurchase} ya tiene transporte!!</h3>
