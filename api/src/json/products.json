@@ -51,7 +51,7 @@
     "stock": "78",
     "description": "Tod orgánico",
     "categoryId": [2],
-    "businessbranchId": "5"
+    "businessbranchId": "1"
   },
   { 
    
@@ -106,7 +106,7 @@
     "stock": "1",
     "description": "Pintura al oleo de frida khalo",
     "categoryId": [4,5],
-    "businessbranchId": "5"
+    "businessbranchId": "2"
   },
   { 
   

@@ -6,6 +6,8 @@ const { verifyToken } = require ("../middlewares/verifyToken");
 
 //Este archivo no tiene su Controllers, toda la logica esta aca
 
+
+
 //POST new BusinessBranch
 // http://localhost:3001/businessbranch
 router.post('/', verifyToken, async (req,res) => {
