@@ -47,6 +47,7 @@ export default function NavBarLanding() {
   const [input, setInput] = useState({
     email: "",
     password: "",
+    active: true
   });
 
   function handleCallbackResponse(response) {
@@ -197,6 +198,7 @@ export default function NavBarLanding() {
           "error"
         );
       } else if (!business.active) {
+       
         swal(
           "Tu cuenta se encuentra desactivada, ¿deseas activarla para iniciar sesión?",
           {
@@ -258,6 +260,7 @@ export default function NavBarLanding() {
       setInput({
         email: "",
         password: "",
+        active: true
       });
     } else {
       swal(
