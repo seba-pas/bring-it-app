@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getReviews } from "../actions/index.js";
+import { getReviews, setReviews } from "../actions/index.js";
 
 function Reviews() {
   const dispatch = useDispatch();
@@ -9,7 +9,10 @@ function Reviews() {
   const products = useSelector((state) => state.productsDetail);
   useEffect(() => {
     dispatch(getReviews(products.id));
-  }, []);
+    return () => {
+      dispatch(setReviews());
+    }
+  }, [products.id]);
 
   return (
     <div>

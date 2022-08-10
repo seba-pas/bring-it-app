@@ -86,6 +86,7 @@ import {
   POST_LOGIN_GOOGLE,
   GET_ALL_PURCHASES,
   LOGOUT_GOOGLE_SESSION,
+  SET_REVIEWS,
 } from "./actionsTypes";
 
 //Comienzan action PRODUCT
@@ -156,6 +157,12 @@ export const getAllProductsName = (name) => {
 export const setDetail = () => {
   return {
     type: SET_PRODUCT_DETAIL,
+  };
+};
+
+export const setReviews = () => {
+  return {
+    type: SET_REVIEWS,
   };
 };
 
@@ -663,7 +670,7 @@ export function editBranch(id, body, token) {
 export const deleteBranch = (id, token, email) => {
   return async function (dispatch) {
     try {
-      const body = { active: false , businessEmail: email};
+      const body = { active: false, businessEmail: email };
       const res = await axios.put(`/businessbranch/${id}`, body, {
         headers: { authorization: `Bearer ${token}` }, //falta en ruta
       });

@@ -52,6 +52,7 @@ function RegisterBusiness() {
     province: "",
     logo: "",
     phone: "",
+    active: true,
   });
 
   const [error, setError] = useState({
