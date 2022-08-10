@@ -194,7 +194,7 @@ export default function NavBar() {
           size='lg'
             onClick={() => history.push("/persona/usuarioE")}
             name={`${userAvatar.name} ${userAvatar.lastname}`}
-            src={usuario.image}
+            src={userAvatar.image}
           >
            <AvatarBadge boxSize="0.08m" bg="springgreen" borderColor='springgreen' />
           </Avatar>
