@@ -109,36 +109,38 @@ export default function HomeAdmin() {
     return rows.filter(
       (row) =>
         row.name.toLowerCase().indexOf(q) > -1 ||
-        row.email.toLowerCase().indexOf(q) > -1 
-       
+        row.email.toLowerCase().indexOf(q) > -1 ||
+        row.lastname.toLowerCase().indexOf(q) > -1
     );
   }
 
   function searchBusiness(rows) {
     return rows.filter(
       (row) =>
-        row.email.toLowerCase().indexOf(q) > -1 
+        row.email.toLowerCase().indexOf(q) > -1 ||
+        row.businessName.toLowerCase().indexOf(q) > -1 ||
+        row.cuit.toLowerCase().indexOf(q) > -1 ||
+        row.phone.toLowerCase().indexOf(q) > -1 ||
+        row.taxBracket.toLowerCase().indexOf(q) > -1
     );
   }
 
   function searchTravels(rows) {
     return rows.filter(
       (row) =>
+        row.travelProvince.toLowerCase().indexOf(q) > -1 ||
+        row.arrivalProvince.toLowerCase().indexOf(q) > -1 ||
+        row.startDate.toLowerCase().indexOf(q) > -1 ||
+        row.arrivalDate.toLowerCase().indexOf(q) > -1 ||
         row.userEmail.toLowerCase().indexOf(q) > -1
     );
   }
 
-    function searchPurchases(rows) {
-    return rows.filter((row) => 
-    console.log(row) && 
-    //  row.id.toLowerCase().indexOf(q) > -1 ||
-    // row.purchaseitems.toLowerCase().indexOf(q) > -1 ||
-    row.maxDeliveryDate.toLowerCase().indexOf(q) > -1 
-    // row.name.toLowerCase().indexOf(q) > -1 ||
-    // row.quantity.toLowerCase().indexOf(q) > - 1 ||
-    // row.totalPrice.toLowerCase().indexOf(q) > - 1
+  function searchPurchases(rows) {
+    return rows.filter(
+      (row) => console.log(row) && row.userEmail.toLowerCase().indexOf(q) > -1
     );
-  };  
+  }
 
   const columnasPurchases = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
@@ -164,7 +166,6 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button style={{ display: "flex" }}>
-          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteBusiness(e)}
@@ -195,7 +196,6 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button style={{ display: "flex" }}>
-          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteUsers(e)}
@@ -226,7 +226,6 @@ export default function HomeAdmin() {
       button: true,
       cell: () => (
         <button style={{ display: "flex" }}>
-          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => deleteUsers(e)}
@@ -250,7 +249,6 @@ export default function HomeAdmin() {
       button: true,
       cell: (row) => (
         <button style={{ display: "flex" }}>
-          
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => banearUsers(e, row.email)}
@@ -278,7 +276,6 @@ export default function HomeAdmin() {
       button: true,
       cell: (row) => (
         <button style={{ display: "flex" }}>
-         
           <FaTrashAlt
             style={{ fontSize: "20px" }}
             onClick={(e) => banearBusiness(e, row.email)}
@@ -318,10 +315,10 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
@@ -343,10 +340,10 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
@@ -367,10 +364,10 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
@@ -391,10 +388,10 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
@@ -416,16 +413,16 @@ export default function HomeAdmin() {
                       color: "white",
                       borderRadius: "15px",
                       margin: "20px",
-                      fontSize:'15px',
-                      paddingLeft:'10px',
-                      width:'250px',
-                      height:'27px'
+                      fontSize: "15px",
+                      paddingLeft: "10px",
+                      width: "250px",
+                      height: "27px",
                     }}
                   />
                 </div>
                 <DataTable
                   columns={columnasPurchases}
-                  data={purchases}
+                  data={searchPurchases(purchases)}
                   title="Listado de compras"
                 />
               </Tab>
