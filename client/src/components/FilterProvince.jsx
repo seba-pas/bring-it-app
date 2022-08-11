@@ -75,26 +75,19 @@ export default function FilterProvince() {
   return (
     <div className={styles.div}>
       <NavBar />
-      <FormTravel/>
+      <FormTravel />
       {PRODUCTS &&
       Object.entries(PRODUCTS).length > 0 &&
       typeof PRODUCTS !== "string" ? (
         PRODUCTS == "No se encontraron productos asociados" ? (
-          <div
-            style={{
-              color: "#8c52ff",
-              background: "white",
-              marginTop: "150px",
-            }}
-          >
-            <h1>No se encontraron productos asociados</h1>
-            <button
-              className="btn btn-primary"
-              style={{ marginTop: "40px" }}
-              onClick={(e) => handleClick(e)}
-            >
-              Volver
-            </button>
+          <div className={styles.spinner}>
+            <SpinnerCircularFixed
+              size={250}
+              thickness={90}
+              speed={111}
+              color="rgba(140, 82, 255, 1)"
+              secondaryColor="rgba(74, 57, 172, 0.3)"
+            />
           </div>
         ) : (
           <div>
@@ -157,14 +150,34 @@ export default function FilterProvince() {
           </div>
         )
       ) : (
-        <div className={styles.spinner}>
-          <SpinnerCircularFixed
-            size={250}
-            thickness={90}
-            speed={111}
-            color="rgba(140, 82, 255, 1)"
-            secondaryColor="rgba(74, 57, 172, 0.3)"
-          />
+        <div
+          style={{
+            color: "#8c52ff",
+            background: "white",
+            marginTop: "150px",
+          }}
+        >
+           <div className={styles.spinner}>
+            <SpinnerCircularFixed
+              size={250}
+              thickness={90}
+              speed={111}
+              color="rgba(140, 82, 255, 1)"
+              secondaryColor="rgba(74, 57, 172, 0.3)"
+            />
+          </div>
+          <div style={{marginBottom:'100px'}}>
+          <h1>No se encontraron productos asociados</h1>
+          <button
+            className="btn btn-primary"
+            style={{ justifyContent:'center' }}
+            onClick={(e) => handleClick(e)}
+          >
+            Volver
+          </button>
+
+          </div>
+         
         </div>
       )}
     </div>
