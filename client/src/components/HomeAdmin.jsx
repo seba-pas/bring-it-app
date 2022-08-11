@@ -109,30 +109,21 @@ export default function HomeAdmin() {
     return rows.filter(
       (row) =>
         row.name.toLowerCase().indexOf(q) > -1 ||
-        row.email.toLowerCase().indexOf(q) > -1 ||
-        row.lastname.toLowerCase().indexOf(q) > -1 ||
-        row.birthDate.toLowerCase().indexOf(q) > -1
+        row.email.toLowerCase().indexOf(q) > -1 
+       
     );
   }
 
   function searchBusiness(rows) {
     return rows.filter(
       (row) =>
-        row.email.toLowerCase().indexOf(q) > -1 ||
-        row.businessName.toLowerCase().indexOf(q) > -1 ||
-        row.cuit.toLowerCase().indexOf(q) > -1 ||
-        row.phone.toLowerCase().indexOf(q) > -1 ||
-        row.taxBracket.toLowerCase().indexOf(q) > -1
+        row.email.toLowerCase().indexOf(q) > -1 
     );
   }
 
   function searchTravels(rows) {
     return rows.filter(
       (row) =>
-        row.travelProvince.toLowerCase().indexOf(q) > -1 ||
-        row.arrivalProvince.toLowerCase().indexOf(q) > -1 ||
-        row.startDate.toLowerCase().indexOf(q) > -1 ||
-        row.arrivalDate.toLowerCase().indexOf(q) > -1 ||
         row.userEmail.toLowerCase().indexOf(q) > -1
     );
   }
