@@ -13,8 +13,22 @@ function BranchCard({ id, name, city, province, address }) {
 
     async function handleDelete(event) {
         event.preventDefault();
-        console.log("borrar")
-        dispatch(deleteBranch(id, businessToken, businessEmail));
+        swal({
+            title: "¿Está seguro que quiere eliminar esta sede?",
+            text: "Si elimina esta sede no podra visualizar todos sus productos",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal("El producto ha sido eliminado con éxito", {
+                    icon: "success",
+                });
+                dispatch(deleteBranch(id, businessToken, businessEmail));
+            } else {
+                swal("El producto no ha sido eliminado");
+            }
+        });
 
     }
 

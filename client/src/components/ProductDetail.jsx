@@ -163,7 +163,9 @@ export const ProductDetail = () => {
                 <a
                   className="btn btn-primary"
                   id={styles.boton2}
-                  onClick={() => history.goBack(dispatch(getCart()))}
+                  onClick={() => history.goBack(() => {
+                    window.location.reload(true);
+                  })}
                 >
                   VOLVER
                 </a>

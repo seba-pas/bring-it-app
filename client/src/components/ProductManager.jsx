@@ -212,9 +212,12 @@ function ProductManager(props) {
 
     return (
         <div className={styles.ProductManager}>
+            <h1>Editar o Crear productos</h1>
             <form className={styles.container} onSubmit={handleSubmit}>
                 <div className={styles.nameContainer}>
                     <label htmlFor='name'>Producto:</label>
+
+
                     <input
                         // className={}
                         type="text"
@@ -223,32 +226,40 @@ function ProductManager(props) {
                         placeholder="Producto"
                         onChange={handleInputChange}
                     />
+
+
                     {/* {!error.errorProduct ? <h3><pre>    {null}                                          </pre></h3> : <h3><pre>          {error.errorProduct}             </pre></h3>} */}
                     {!error.errorname ? <label> </label> : <label>          {error.errorname}             </label>}
                 </div>
 
                 <div className={styles.priceContainer}>
                     <label htmlFor='price'>Precio:</label>
-                    <input
-                        type="number"
-                        name="price"
-                        value={input.price}
-                        placeholder="Precio"
-                        onChange={handleInputChange}
-                    />
+                    <div>
+                        {"$ "}
+                        <input
+                            type="number"
+                            name="price"
+                            value={input.price}
+                            placeholder="Precio"
+                            onChange={handleInputChange}
+                        />
+                    </div>
                     {!error.errorPrice ? <label> </label> : <label>          {error.errorPrice}             </label>}
 
                 </div>
 
                 <div className={styles.weightContainer}>
                     <label htmlFor='weight'>Peso:</label>
-                    <input
-                        type="number"
-                        name="weight"
-                        value={input.weight}
-                        placeholder="Peso"
-                        onChange={handleInputChange}
-                    />
+                    <div>
+                        <input
+                            type="number"
+                            name="weight"
+                            value={input.weight}
+                            placeholder="Peso"
+                            onChange={handleInputChange}
+                        />
+                        {"Kg"}
+                    </div>
                     {!error.errorWeight ? <label></label> : <label>          {error.errorWeight}             </label>}
 
                 </div>
