@@ -76,6 +76,7 @@ export default function NavBarBusiness() {
             </div>
             <div className={styles.perfil}>
             <Avatar
+            style={{cursor:'pointer'}}
           size='lg'
             onClick={() => history.push("/empresas/perfil")}
             name={gState.business.businesName}

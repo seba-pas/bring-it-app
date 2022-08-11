@@ -14,6 +14,7 @@ import {
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "./NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
+import FormTravel from "./FormTravel";
 
 export default function FilterProvince() {
   const dispatch = useDispatch();
@@ -74,6 +75,7 @@ export default function FilterProvince() {
   return (
     <div className={styles.div}>
       <NavBar />
+      <FormTravel/>
       {PRODUCTS &&
       Object.entries(PRODUCTS).length > 0 &&
       typeof PRODUCTS !== "string" ? (

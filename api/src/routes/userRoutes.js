@@ -104,7 +104,7 @@ router.post("/", async (req, res) => {
 // http://localhost:3001/user/:email
 //AGREGO EL MIDDLEWARE verifyToken para verificar q el q modifica su cuenta es el usuario en cuestion o el admin
 router.put("/:email", verifyToken, async (req, res) => {
-  const { email } = req.params;
+  const { email } = req.params;   
   const modification = req.body; //json con atributos a modificar y nuevos valores    
   // console.log(`estoy en update user ${email} antes del if, req.headers.authorization: ${req.headers.authorization}`);
   //Agrego verificacion de token, userLogin viene de la fc verifyToken
@@ -113,7 +113,7 @@ router.put("/:email", verifyToken, async (req, res) => {
     // console.log(`soy req.userLogin.isAdmin: ${req.userLogin.isAdmin}`);  
     // console.log(`estoy en update user ${email}`);
     try {
-      const q = await User.update(modification, {
+      const q = await User.update(modification, {         
         where: { email: email },
       });
       res.status(201).send(`${q} Usuarios modificados`);
@@ -121,7 +121,7 @@ router.put("/:email", verifyToken, async (req, res) => {
       res.send("error:" + e.message);
     }      
     
-  } else{
+  } else{ 
     res.status(403).json(`No tiene permiso para modificar esta cuenta`);
   }   
 });

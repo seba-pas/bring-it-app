@@ -39,7 +39,7 @@ function HomeUserPurchase() {
   };
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("esto envio ", input)
+    console.log("esto envio ", input);
     dispatch(postReview(input));
     swal(
       "Muchas gracias por tu feedback",
@@ -80,6 +80,7 @@ function HomeUserPurchase() {
       maxDeliveryDate: e.maxDeliveryDate,
       lastUpdate: e.lastUpdate,
       province: e.province,
+      status: e.status,
       totalPrice: e.totalPrice,
       cantidad: e.purchaseitems.reduce((a, e) => e.quantity + a, 0),
       producto: e.purchaseitems.map((e) => `${e.productName}, `),
@@ -176,6 +177,11 @@ function HomeUserPurchase() {
     {
       name: "Fecha de max de espera",
       selector: (row) => formatDate(row.maxDeliveryDate),
+      sortable: true,
+    },
+    {
+      name: "Estado de compra",
+      selector: (row) => row.status,
       sortable: true,
     },
     { name: "Provincia", selector: (row) => row.province, sortable: true },
@@ -290,8 +296,8 @@ function HomeUserPurchase() {
         <div style={{ background: 'white', color: '#8c52ff', fontSize: '20px', height: '200px' }}>
           <br />
           <Row>
-            <div style={{ marginTop: '50px' }}>
-              <h1 >No se encontraron compras asociadas</h1>
+            <div style={{ marginTop: "50px" }}>
+              <h1>No se encontraron compras asociadas</h1>
             </div>
             <Col
               lg={6}
@@ -299,8 +305,7 @@ function HomeUserPurchase() {
               sm={12}
               className="text-center p-5 m-auto rounded-lg"
               style={{ display: "flex" }}
-            >
-            </Col>
+            ></Col>
           </Row>
         </div>
       )}

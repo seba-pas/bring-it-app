@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 import { Link, useParams, useHistory, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,14 +7,15 @@ import {
   addToCart,
   getCart,
 } from "../actions";
-import { useEffect } from "react";
 import { SpinnerCircularFixed } from "spinners-react";
 import NavBar from "../components/NavBar";
 import swal from "sweetalert";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import styles from "../styles/ProductDetail.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import AddFavourites from "./AddFavourites";
 import Reviews from "./Reviews";
+import Modal from "react-bootstrap/Modal";
 
 export const ProductDetail = () => {
   const history = useHistory();
@@ -23,6 +24,7 @@ export const ProductDetail = () => {
   const cart = useSelector((state) => state.cart);
   const { id } = useParams();
   // const navigate = useNavigate();
+  const [review, setReview] = useState(false);
 
   useEffect(() => {
     dispatch(getCart());
@@ -80,7 +82,9 @@ export const ProductDetail = () => {
     }
     dispatch(getCart());
   }
-  console.log(product);
+  const handleCloseReview = () => setReview(false);
+  const handleShowReview = () => setReview(true);
+
   return (
     <div style={{ marginBottom: "0px", background: "white" }}>
       <NavBar />
@@ -101,8 +105,8 @@ export const ProductDetail = () => {
                 <span>Empresa: </span>
 
                 {product.businessbranch.businessBranchName === null ||
-                  product.categories === undefined ||
-                  product.businessbranch.businessBranchName.length == 0
+                product.categories === undefined ||
+                product.businessbranch.businessBranchName.length == 0
                   ? ""
                   : product.businessbranch.businessBranchName.split(" - ")[0]}
               </p>
@@ -116,8 +120,8 @@ export const ProductDetail = () => {
               <p className="card-text" id={styles.empresa}>
                 <span id={styles.categoria}>En: </span>
                 {product.categories === null ||
-                  product.categories === undefined ||
-                  product.categories.length == 0
+                product.categories === undefined ||
+                product.categories.length == 0
                   ? "No tiene categoría"
                   : product.categories[0].name}
               </p>
@@ -160,6 +164,13 @@ export const ProductDetail = () => {
                 >
                   AGREGAR AL CARRITO
                 </button>
+                <button
+                  className="btn btn-primary"
+                  id={styles.boton2}
+                  onClick={handleShowReview}
+                >
+                  REVIEWS
+                </button>
                 <a
                   className="btn btn-primary"
                   id={styles.boton2}
@@ -169,14 +180,27 @@ export const ProductDetail = () => {
                 >
                   VOLVER
                 </a>
+
               </div>
             </div>
           </div>
           <div>
-            <Reviews />
+            <Modal show={review} onHide={handleCloseReview}>
+              <Modal.Header closeButton>
+                <Modal.Title>REVIEWS</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <Reviews />
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="danger" onClick={handleCloseReview}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </div>
         </div>
-
       ) : (
         <div className={styles.spinner}>
           <SpinnerCircularFixed
