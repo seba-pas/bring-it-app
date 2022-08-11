@@ -87,7 +87,7 @@ function RecuperarPasswordBusiness(props) {
                     md={6}
                     sm={12}
                     className="text-center p-5 m-auto shadow-sm rounded-lg"
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    style={{ justifyContent: "space-between" }}
                   >
                     <Button type="submit">Confirmar</Button>
                     {/* <Button style={{width:"60%", marginRight:"10px"}} onClick={(e) => handleBack(e)}>Atras</Button> */}

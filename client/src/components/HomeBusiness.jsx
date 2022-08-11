@@ -150,7 +150,7 @@ function HomeBusiness() {
                                 <tr>
                                     <th>Imagen</th>
                                     <th>Producto</th>
-                                    <th>cantidad</th>
+                                    <th>Cantidad</th>
                                     <th>Descripción</th>
                                     <th>Actions</th>
                                 </tr>

@@ -11,9 +11,9 @@ export default function FilterBefore() {
   return (
     <div style={{backgroundColor: 'white', justifyContent:'center'}}>
       <NavBarProvince/>
-      <div style={{display:'flex', justifyContent: 'center', marginTop:'40px'}}>
+      <div style={{display:'flex', justifyContent: 'center', marginTop:'40px', marginBottom:'0px'}}>
 
-        <div style={{color: '#8c52ff', display:'flex', marginTop:'40px', marginLeft:'100px', fontSize:'10px' }}>
+        <div style={{color: '#8c52ff', marginTop:'40px', fontSize:'18px' }}>
         <h3>Presiona el mapa para ver por provincias</h3>
         </div>
       <div style={{justifyContent: 'center',height: "80vh", display: 'flex', marginTop: "15vh", textDecoration:'none'}}>

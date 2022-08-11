@@ -37,7 +37,7 @@
     justify-content: center;
     align-items: center;
     font-size: 300%;
-    color: #41d4cf;
+    color: #8c52ff;
 }
 
 .branchManTittle {
@@ -221,7 +221,7 @@
 
 
 .btn {
-    border: solid 2px #41d4cf;
+    border: solid 2px #8c52ff;
     border-radius: 9px;
     width: 8rem;
     height: 4rem;
@@ -229,7 +229,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #41d4cf;
+    color: #8c52ff;
 }
 
 .btnPass {
@@ -241,11 +241,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #41d4cf;
+    color: #8c52ff;
 }
 
 .btnAdd {
-    border: solid 2px #41d4cf;
+    border: solid 2px #8c52ff;
     border-radius: 9px;
     width: 2rem;
     height: 2rem;
@@ -260,9 +260,9 @@ input {
     background-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-bottom-color: #41d4cf;
-    border-bottom-color: #41d4cf;
-    border-right-color: #41d4cf;
+    border-bottom-color: #8c52ff;
+    border-bottom-color: #8c52ff;
+    border-right-color: #8c52ff;
     color: black;
     font-size: 1.3rem;
 }
@@ -270,8 +270,8 @@ input {
 select {
     width: 250px;
     background-color: transparent;
-    border: solid 2px #41d4cf;
-    color: #41d4cf;
+    border: solid 2px #8c52ff;
+    color: #8c52ff;
     font-size: 1.4rem;
 }
 
