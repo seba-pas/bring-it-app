@@ -39,7 +39,7 @@ function HomeUserPurchase() {
   };
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("esto envio ", input)
+    console.log("esto envio ", input);
     dispatch(postReview(input));
     swal(
       "Muchas gracias por tu feedback",
@@ -79,6 +79,7 @@ function HomeUserPurchase() {
       maxDeliveryDate: e.maxDeliveryDate,
       lastUpdate: e.lastUpdate,
       province: e.province,
+      status: e.status,
       totalPrice: e.totalPrice,
       cantidad: e.purchaseitems.reduce((a, e) => e.quantity + a, 0),
       producto: e.purchaseitems.map((e) => `${e.productName}, `),
@@ -177,6 +178,11 @@ function HomeUserPurchase() {
       selector: (row) => formatDate(row.maxDeliveryDate),
       sortable: true,
     },
+    {
+      name: "Estado de compra",
+      selector: (row) => row.status,
+      sortable: true,
+    },
     { name: "Provincia", selector: (row) => row.province, sortable: true },
     { name: "Ciudad", selector: (row) => row.arrivalCityId, sortable: true },
     {
@@ -210,86 +216,101 @@ function HomeUserPurchase() {
   return (
     <div>
       {nameCity?.length > 0 ? (
-      <Row>
-        <Col
-          lg={12}
-          md={12}
-          sm={12}
-          className="text-center p-5 m-auto shadow-sm rounded-lg"
-        >
-          <DataTable
-            columns={columnas}
-            data={nameCity}
-            title="Listado de compras"
-            conditionalRowStyles={conditionalRowStyles}
-          />
-          <hr />
-          <br />
-          <Modal show={show !== null} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>
-                Dejanos tu comentario sobre el producto que compraste
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form onSubmit={(e) => handleSubmit(e)}>
-
-                <select name="productId" value={input.productId} onChange={handleInputChange} >
-                  <option value="">{ }</option>
-                  {filterByProduct?.map((e) => (
-                    <option key={e.productId} value={e.productId}>
-                      {e.productName}
-                    </option>
-                  ))}
-                </select>
-                <br />
-                <Form.Label style={{ paddingBottom: "15px" }}>
-                  Indica del 1 al 5 que tan satisfecho esta con su compra
-                </Form.Label>
-                <input
-                  type="number"
-                  step="0.1"
-                  min="0"
-                  max="5"
-                  name="rating"
-                  rating={avgRating}
-                  value={input.rating}
-                  handleRating={handleRating}
-                  onChange={(e) => handleInputChange(e)}
-                />
-                <br />
-                <br />
-                <StarRating stars={avgRating} />
-                <Form.Group className="mb-3">
-                  <Form.Label>Deja tu comentario</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    value={input.comment}
-                    name="comment"
-                    required
-                    onChange={(e) => handleInputChange(e)}
-                  />
-                </Form.Group>
-                <Button className="mt-3 mb-5 w-100 mt-3" type="submit">
-                  Enviar comentario
-                </Button>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="danger" onClick={handleClose}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Col>
-      </Row>
+        <div>
+          <Row>
+            <Col
+              lg={12}
+              md={12}
+              sm={12}
+              className="text-center p-5 m-auto shadow-sm rounded-lg"
+            >
+              <DataTable
+                columns={columnas}
+                data={nameCity}
+                title="Listado de compras"
+                conditionalRowStyles={conditionalRowStyles}
+              />
+              <hr />
+              <br />
+              <Modal show={show !== null} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>
+                    Dejanos tu comentario sobre el producto que compraste
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form onSubmit={(e) => handleSubmit(e)}>
+                    <select
+                      name="productId"
+                      value={input.productId}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">{}</option>
+                      {filterByProduct?.map((e) => (
+                        <option key={e.productId} value={e.productId}>
+                          {e.productName}
+                        </option>
+                      ))}
+                    </select>
+                    <br />
+                    <Form.Label style={{ paddingBottom: "15px" }}>
+                      Indica del 1 al 5 que tan satisfecho esta con su compra
+                    </Form.Label>
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      max="5"
+                      name="rating"
+                      rating={avgRating}
+                      value={input.rating}
+                      handleRating={handleRating}
+                      onChange={(e) => handleInputChange(e)}
+                    />
+                    <br />
+                    <br />
+                    <StarRating stars={avgRating} />
+                    <Form.Group className="mb-3">
+                      <Form.Label>Deja tu comentario</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        value={input.comment}
+                        name="comment"
+                        required
+                        onChange={(e) => handleInputChange(e)}
+                      />
+                    </Form.Group>
+                    <Button className="mt-3 mb-5 w-100 mt-3" type="submit">
+                      Enviar comentario
+                    </Button>
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="danger" onClick={handleClose}>
+                    Close
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+            </Col>
+          </Row>
+          <Row>
+            <Button style={{marginLeft:"45%"}} onClick={() => history.push(`/persona`)} >VOLVER</Button>
+          </Row>
+        </div>
       ) : (
-        <div style={{ background: 'white',color: '#8c52ff', fontSize: '20px', height: '200px' }}>
+        <div
+          style={{
+            background: "white",
+            color: "#8c52ff",
+            fontSize: "20px",
+            height: "200px",
+          }}
+        >
           <br />
           <Row>
-            <div style={{ marginTop: '50px' }}>
-              <h1 >No se encontraron compras asociadas</h1>
+            <div style={{ marginTop: "50px" }}>
+              <h1>No se encontraron compras asociadas</h1>
             </div>
             <Col
               lg={6}
@@ -297,11 +318,10 @@ function HomeUserPurchase() {
               sm={12}
               className="text-center p-5 m-auto rounded-lg"
               style={{ display: "flex" }}
-            >
-            </Col>
+            ></Col>
           </Row>
         </div>
-      )}  
+      )}
     </div>
   );
 }
