@@ -2,16 +2,22 @@ import React, { useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getReviews, setReviews } from "../actions/index.js";
+import { Avatar, AvatarBadge } from "@chakra-ui/react";
+import "../styles/Reviews.css";
+import StarRating from './StarRating.jsx';
 
 function Reviews() {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews);
   const products = useSelector((state) => state.productsDetail);
+  const gState = useSelector((state) => state);
+  
+
   useEffect(() => {
     dispatch(getReviews(products.id));
     return () => {
       dispatch(setReviews());
-    }
+    };
   }, [products.id]);
 
   return (
@@ -20,14 +26,28 @@ function Reviews() {
         <Row>
           {typeof reviews !== "string" ? (
             reviews.map((e) => (
-              <div style={{ display: "flex" }}>
-                <h4 style={{ marginLeft: "10px" }}>{e.userEmail}</h4>
-                <h4 style={{ marginLeft: "10px" }}>{e.comment}</h4>
-                <h4 style={{ marginLeft: "10px" }}>{e.rating}</h4>
+              <div className="testimonial">
+                <div className="pic">
+                  <Avatar
+                    size="lg"
+                    onClick={() => history.push("/persona/usuarioE")}
+                    name={`${gState.user?.name} ${gState.user?.lastname}`}
+                    src={gState.user.image}
+                  >
+                    <AvatarBadge
+                      boxSize="0.08m"
+                      bg="springgreen"
+                      /* borderColor="springgreen" */
+                    />
+                  </Avatar>
+                </div>
+                <p className="description">{e.comment}</p>
+                <h3 className="title">{gState.user.name}, {gState.user.lastname}</h3>
+                <small className="post"><StarRating stars={e.rating}/></small>
               </div>
             ))
           ) : (
-            <div>{""}</div>
+            <div style={{textAlign:"center", color:"#8c52ff"}}>{"No tiene reviews correspondientes"}</div>
           )}
         </Row>
       </Container>
