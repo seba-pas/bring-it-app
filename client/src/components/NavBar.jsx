@@ -51,7 +51,7 @@ export default function NavBar() {
     });
   }, [gState]);
 
-  useEffect(() => {
+  /* useEffect(() => {
 
     if (input.perfil === "email") {
       history.push("/persona/perfilUser");
@@ -76,7 +76,7 @@ export default function NavBar() {
       history.push("/");
     }
   }, [input.perfil]);
-
+ */
   const handleOnChange = (event) => {
     event.preventDefault();
     console.log(emails);
