@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import styles from "../styles/NavBar.module.css";
+import styles from "../styles/NavBarBusiness.module.css";
 import { Avatar, AvatarBadge } from '@chakra-ui/avatar';
 
 
@@ -69,14 +69,14 @@ export default function NavBarBusiness() {
                 <NavLink exact to="/">
                     <img
                         src={logo}
-                        style={{ width: "auto", height: "100%", objectFit: 'cover' }}
+                        style={{ width: "auto", height: "70%", marginTop:'20px'}}
                         alt="Logo no encontrado"
                     />
                 </NavLink>
             </div>
             <div className={styles.perfil}>
             <Avatar
-            style={{cursor:'pointer'}}
+            style={{cursor:'pointer', marginRight:'80px', marginTop:'50px'}}
           size='lg'
             onClick={() => history.push("/empresas/perfil")}
             name={gState.business.businesName}

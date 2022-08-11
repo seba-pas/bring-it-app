@@ -8,7 +8,7 @@
 .container {
     width: 100vw;
     height: 100vh;
-    margin: 0.5vh 0.5vw;
+    /* margin: 0.5vh 0.5vw; */
     overflow: hidden;
     display: grid;
     grid-template-columns: repeat(35, 1fr);
@@ -70,12 +70,12 @@
 }
 
 .selectPerfil {
-    border: solid 4px #41d4cf;
+    border: solid 4px #8c52ff;
     background-color: transparent;
-    border-left-color: #41d4cf;
-    border-top-color: #41d4cf;
-    border-bottom-color: #41d4cf;
-    border-right-color: #41d4cf;
+    border-left-color: #8c52ff;
+    border-top-color: #8c52ff;
+    border-bottom-color: #8c52ff;
+    border-right-color: #8c52ff;
     color: black;
     font-size: 1.05rem;
 }
@@ -121,6 +121,7 @@ option:hover {
     justify-content: center;
     align-items: flex-start;
     overflow: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.08)
 
 }
 
@@ -130,13 +131,14 @@ option:hover {
     /* background-color: rgba(255, 255, 255, 0.093);
     border-radius: 0.5rem;
     backdrop-filter: blur(4px);*/
-    border: solid 2px rgb(241, 38, 38);
+    border: solid 1px rgb(241, 38, 38);
     grid-row: 3/35;
     /* grid-row: 25/35; */
     grid-column: 18/35;
     justify-content: center;
     align-items: flex-start;
     overflow: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.08)
 
 }
 
@@ -168,7 +170,7 @@ option:hover {
     /* grid-row: 24/25; */
     grid-column: 17/18;
     /* grid-column: 33/35; */
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     /* overflow: auto; */
 
@@ -214,7 +216,7 @@ td {
 }
 
 .btn {
-    border: solid 2px #41d4cf;
+    border: solid 2px #8c52ff;
     border-radius: 9px;
     width: 2rem;
     height: 2rem;
@@ -222,5 +224,16 @@ td {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #41d4cf;
+    color: #8c52ff;
+    padding-bottom:3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)
+}
+
+.btn:hover{
+    transition: border-color 0.2s ease-in, background-color 0.4s ease-in;
+
+
+    background-color: #8c52ff;
+    color: white;
+    border-color: rgb(31, 31, 31);
 }

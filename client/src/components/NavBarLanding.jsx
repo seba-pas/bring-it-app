@@ -416,7 +416,6 @@ export default function NavBarLanding() {
           width: "10%",
           objectFit: "fit",
           paddingBottom: "0px",
-
           marginLeft: "2%",
           marginTop: "3px",
           paddingTop: "5px",
@@ -435,7 +434,7 @@ export default function NavBarLanding() {
             paddingTop: "33px",
             cursor: "pointer",
             marginRight: "0px",
-            marginLeft: "45%",
+            marginLeft: "70%",
           }}
         >
           <Avatar
@@ -460,7 +459,7 @@ export default function NavBarLanding() {
             paddingTop: "33px",
             cursor: "pointer",
             marginRight: "0px",
-            marginLeft: "45%",
+            marginLeft: "70%",
           }}
         >
           <Avatar
