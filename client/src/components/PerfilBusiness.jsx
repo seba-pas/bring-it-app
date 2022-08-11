@@ -516,7 +516,10 @@ function PerfilBusiness(props) {
                     onChange={(e) => handleInputChange(e)}
                   >
                     <option value="">{ } </option>
-                    {gState.provinces?.map((e) => (
+                    {gState.provinces?.sort((a, b) => {
+                                if (a.nombre > b.nombre) return 1;
+                                if (b.nombre > a.nombre) return -1;
+                                return}).map((e) => (
                       <option key={e.id} value={e.nombre}>
                         {e.nombre}
                       </option>
@@ -543,8 +546,11 @@ function PerfilBusiness(props) {
                     <option value="">{ } </option>
 
                     {input.province
-                      ? gState.allCities
-                        ?.filter(
+                      ? gState.allCities?.sort((a, b) => {
+                        if (a.nombre > b.nombre) return 1;
+                        if (b.nombre > a.nombre) return -1;
+                        return})
+                        .filter(
                           (e) =>
                             e.provinceId ===
                             gState.provinces?.filter(
