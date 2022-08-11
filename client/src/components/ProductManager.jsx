@@ -214,9 +214,6 @@ function ProductManager(props) {
     return (
         <div className={styles.ProductManager}>
             <NavBarBusiness />
-            <div>
-              <h1>Editar o Crear productos</h1>
-            <div/>
             <form className={styles.container} onSubmit={handleSubmit}>
                 <div className={styles.nameContainer}>
                     <label htmlFor='name'>Producto:</label>
