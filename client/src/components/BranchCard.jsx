@@ -25,7 +25,6 @@ function BranchCard({ id, name, city, province, address }) {
         swal("Su sede ha sido eliminada!", {
           icon: "success",
         });
-
         dispatch(deleteBranch(id, businessToken, businessEmail));
       } else {
         swal("Su sede no ha sido eliminada");

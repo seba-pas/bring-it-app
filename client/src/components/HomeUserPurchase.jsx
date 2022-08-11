@@ -74,6 +74,7 @@ function HomeUserPurchase() {
   const changeCity = purchases;
   const nameCity = changeCity.map((e) => {
     return {
+      status: e.status,
       productId: e.purchaseitems.map((e) => e.productId),
       id: e.id,
       maxDeliveryDate: e.maxDeliveryDate,
@@ -90,7 +91,7 @@ function HomeUserPurchase() {
     };
   });
 
-  console.log("nameCity", nameCity);
+  // console.log("nameCity", nameCity);
 
   useEffect(() => {
     dispatch(getByPurchaseEmail(user.email));
@@ -191,6 +192,7 @@ function HomeUserPurchase() {
       sortable: true,
     },
     { name: "Precio total", selector: (row) => row.totalPrice, sortable: true },
+    { name: "Status", selector: (row) => row.status, sortable: true },
     {
       button: true,
       cell: (row) => (
@@ -216,97 +218,82 @@ function HomeUserPurchase() {
   return (
     <div>
       {nameCity?.length > 0 ? (
-        <div>
-          <Row>
-            <Col
-              lg={12}
-              md={12}
-              sm={12}
-              className="text-center p-5 m-auto shadow-sm rounded-lg"
-            >
-              <DataTable
-                columns={columnas}
-                data={nameCity}
-                title="Listado de compras"
-                conditionalRowStyles={conditionalRowStyles}
-              />
-              <hr />
-              <br />
-              <Modal show={show !== null} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>
-                    Dejanos tu comentario sobre el producto que compraste
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form onSubmit={(e) => handleSubmit(e)}>
-                    <select
-                      name="productId"
-                      value={input.productId}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">{}</option>
-                      {filterByProduct?.map((e) => (
-                        <option key={e.productId} value={e.productId}>
-                          {e.productName}
-                        </option>
-                      ))}
-                    </select>
-                    <br />
-                    <Form.Label style={{ paddingBottom: "15px" }}>
-                      Indica del 1 al 5 que tan satisfecho esta con su compra
-                    </Form.Label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      min="0"
-                      max="5"
-                      name="rating"
-                      rating={avgRating}
-                      value={input.rating}
-                      handleRating={handleRating}
+        <Row>
+          <Col
+            lg={12}
+            md={12}
+            sm={12}
+            className="text-center p-5 m-auto shadow-sm rounded-lg"
+          >
+            <DataTable
+              columns={columnas}
+              data={nameCity}
+              title="Listado de compras"
+              conditionalRowStyles={conditionalRowStyles}
+            />
+            <hr />
+            <br />
+            <Modal show={show !== null} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>
+                  Dejanos tu comentario sobre el producto que compraste
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form onSubmit={(e) => handleSubmit(e)}>
+
+                  <select name="productId" value={input.productId} onChange={handleInputChange} >
+                    <option value="">{ }</option>
+                    {filterByProduct?.map((e) => (
+                      <option key={e.productId} value={e.productId}>
+                        {e.productName}
+                      </option>
+                    ))}
+                  </select>
+                  <br />
+                  <Form.Label style={{ paddingBottom: "15px" }}>
+                    Indica del 1 al 5 que tan satisfecho esta con su compra
+                  </Form.Label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    max="5"
+                    name="rating"
+                    rating={avgRating}
+                    value={input.rating}
+                    handleRating={handleRating}
+                    onChange={(e) => handleInputChange(e)}
+                  />
+                  <br />
+                  <br />
+                  <StarRating stars={avgRating} />
+                  <Form.Group className="mb-3">
+                    <Form.Label>Deja tu comentario</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      value={input.comment}
+                      name="comment"
+                      required
                       onChange={(e) => handleInputChange(e)}
                     />
-                    <br />
-                    <br />
-                    <StarRating stars={avgRating} />
-                    <Form.Group className="mb-3">
-                      <Form.Label>Deja tu comentario</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        value={input.comment}
-                        name="comment"
-                        required
-                        onChange={(e) => handleInputChange(e)}
-                      />
-                    </Form.Group>
-                    <Button className="mt-3 mb-5 w-100 mt-3" type="submit">
-                      Enviar comentario
-                    </Button>
-                  </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="danger" onClick={handleClose}>
-                    Close
+                  </Form.Group>
+                  <Button className="mt-3 mb-5 w-100 mt-3" type="submit">
+                    Enviar comentario
                   </Button>
-                </Modal.Footer>
-              </Modal>
-            </Col>
-          </Row>
-          <Row>
-            <Button style={{marginLeft:"45%"}} onClick={() => history.push(`/persona`)} >VOLVER</Button>
-          </Row>
-        </div>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="danger" onClick={handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </Col>
+        </Row>
       ) : (
-        <div
-          style={{
-            background: "white",
-            color: "#8c52ff",
-            fontSize: "20px",
-            height: "200px",
-          }}
-        >
+        <div style={{ background: 'white', color: '#8c52ff', fontSize: '20px', height: '200px' }}>
           <br />
           <Row>
             <div style={{ marginTop: "50px" }}>
