@@ -174,9 +174,7 @@ export const ProductDetail = () => {
                 <a
                   className="btn btn-primary"
                   id={styles.boton2}
-                  onClick={() => history.goBack(() => {
-                    window.location.reload(true);
-                  })}
+                  onClick={() => history.push("/persona")}
                 >
                   VOLVER
                 </a>
