@@ -426,6 +426,7 @@ function ProductManager(props) {
                 {input.categoryId.length
                   ? input.categoryId.map((e) => (
                       <div className={styles.cardCategories}>
+
                         {
                           input.allCategories.filter((el) => el.id === e)[0]
                             .name
@@ -481,3 +482,4 @@ function ProductManager(props) {
 }
 
 export default ProductManager;
+

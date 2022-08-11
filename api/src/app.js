@@ -93,37 +93,37 @@ passport.deserializeUser(async (email, cb) => {
 });
 
 
-function randomPhoneGenerator (){
-  let randomPhone = "";
-  for (let i=0; i<10; i++){
-  let randomNum = Math.floor(Math.random() * (9 - 1 + 1) + 1);
-  randomPhone += randomNum;
-  }
-  console.log(randomPhone);
-  return randomPhone; 
-  }  
+// function randomPhoneGenerator (){
+//   let randomPhone = "";
+//   for (let i=0; i<10; i++){
+//   let randomNum = Math.floor(Math.random() * (9 - 1 + 1) + 1);
+//   randomPhone += randomNum;
+//   }
+//   console.log(randomPhone);
+//   return randomPhone; 
+//   }  
   
-  function birthDateGenerator(){
-      let randomBirthDate = "";
-      //set a range of years
-      let min = 1930;
-      let max = 2004;
-      // Math.ceil prevents the value from being 0;
-      let month = Math.ceil(Math.random() * 12);
-      let day = Math.ceil(Math.random() * 28);
-      let year = Math.floor(Math.random() * (max - min) + min);
-      //this ensures that the format will stay mm/dd/yyyy;
-      if(month < 10) {
-          month = "0" + month;
-      }
-      if(day < 10) {
-          day = "0" + day;
-      }
-      //concatenates random dob in mm/dd/yyyy format;
-      randomBirthDate = year + "-" + month + "-" + day;
-      console.log(randomBirthDate);
-      return randomBirthDate;
-  }
+//   function birthDateGenerator(){
+//       let randomBirthDate = "";
+//       //set a range of years
+//       let min = 1930;
+//       let max = 2004;
+//       // Math.ceil prevents the value from being 0;
+//       let month = Math.ceil(Math.random() * 12);
+//       let day = Math.ceil(Math.random() * 28);
+//       let year = Math.floor(Math.random() * (max - min) + min);
+//       //this ensures that the format will stay mm/dd/yyyy;
+//       if(month < 10) {
+//           month = "0" + month;
+//       }
+//       if(day < 10) {
+//           day = "0" + day;
+//       }
+//       //concatenates random dob in mm/dd/yyyy format;
+//       randomBirthDate = year + "-" + month + "-" + day;
+//       console.log(randomBirthDate);
+//       return randomBirthDate;
+//   }
 
 const GOOGLE_CALLBACK_URL = "/auth/google/callback" // //ojo deploy ver esto
 
