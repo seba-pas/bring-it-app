@@ -1,1 +1,3 @@
 #41D4CF    - celeste del logo
+#8c52ff - violeta
+rgb(31, 31, 31) - negro navbar

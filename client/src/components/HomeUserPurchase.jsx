@@ -34,6 +34,8 @@ function HomeUserPurchase() {
     userEmail: gState.user.email,
     productId: 0,
   });
+  console.log('soy estado global',gState)
+  console.log('soy purchases',purchases)
   const handleRating = (input) => {
     setAvgRating(input);
   };

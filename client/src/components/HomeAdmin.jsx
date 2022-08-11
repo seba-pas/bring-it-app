@@ -11,6 +11,7 @@ import {
   getByPurchaseEmail,
   deleteBusiness,
   deleteUser,
+  getAllPurchases
 } from "../actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBarAdmin from "./NavBarAdmin";
@@ -28,14 +29,15 @@ export default function HomeAdmin() {
   const userPurchase = useSelector((state) => state.user);
   const USERS = useSelector((state) => state.users);
   const gState = useSelector((state) => state);
-  console.log(gState);
-  const purchases = useSelector((state) => state.purchases);
+  const purchases = useSelector((state) => state.allPurchases);
+  console.log(purchases);
   const products = useSelector((state) => state.products);
   const BUSINESS = useSelector((state) => state.business2);
   const allTravels = useSelector((state) => state.allTravels);
   const [orden, setOrden] = useState("");
   const userToken = useSelector((state) => state.userToken);
   const [q, setQ] = useState("");
+  
 
   function formatDate(value) {
     return value ? moment(value).format("DD/MM/YYYY") : "";
@@ -81,9 +83,6 @@ export default function HomeAdmin() {
     });
   }
 
-  function editBusiness() {
-    alert("PROXIMAMENTE!!!");
-  }
   useEffect(() => {
     dispatch(getUsers())
   }, [dispatch, gState.deletedUser])
@@ -93,11 +92,12 @@ export default function HomeAdmin() {
   }, [dispatch, gState.deletedBusiness])
 
   useEffect(() => {
-    dispatch(getByPurchaseEmail(userPurchase.email));
+    /* dispatch(getByPurchaseEmail(userPurchase.email)); */
     dispatch(getAllProducts());
     dispatch(getUsers());
     dispatch(getAllBusiness());
     dispatch(getAllTravel());
+    dispatch(getAllPurchases());
   }, [dispatch]);
 
 
@@ -144,18 +144,20 @@ export default function HomeAdmin() {
     );
   }
 
-  function searchPurchases(rows) {
+   function searchPurchases(rows) {
     return rows.filter(
-      (row) => console.log(row) && row.userEmail.toLowerCase().indexOf(q) > -1
+      (row) =>   row.userEmail.toLowerCase().indexOf(q) > -1 ||
+      row.status.toLowerCase().indexOf(q) > -1 ||
+      row.maxDeliveryDate.toLowerCase().indexOf(q) > -1 
     );
-  }
+  } 
 
   const columnasPurchases = [
     { name: "Nro de orden", selector: (row) => row.id, sortable: true },
     { name: "Comprador", selector: (row) => row.userEmail, sortable: true },
     {
       name: "Producto",
-      selector: (row) => row.purchaseitems.map((e) => `${e.product.name}, `),
+      selector: (row) => row.purchaseitems.map((e) => `${e.productName}, `),
       sortable: true,
     },
     { name: "Estado de pago", selector: (row) => row.status, sortable: true },

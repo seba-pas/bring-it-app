@@ -31,7 +31,7 @@ function Reviews() {
                   <Avatar
                     size="lg"
                     onClick={() => history.push("/persona/usuarioE")}
-                    name={`${gState.user?.name} ${gState.user?.lastname}`}
+                    name={`${e.userEmail} `}
                     src={gState.user.image}
                   >
                     <AvatarBadge
@@ -42,7 +42,7 @@ function Reviews() {
                   </Avatar>
                 </div>
                 <p className="description">{e.comment}</p>
-                <h3 className="title">{gState.user.name}, {gState.user.lastname}</h3>
+                <h3 className="title">{e.userEmail}</h3>
                 <small className="post"><StarRating stars={e.rating}/></small>
               </div>
             ))

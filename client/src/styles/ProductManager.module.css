@@ -187,7 +187,7 @@
 
 
 .btn {
-    border: solid 2px #41d4cf;
+    border: solid 2px #8c52ff;
     border-radius: 9px;
     width: 8rem;
     height: 4rem;
@@ -195,11 +195,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #41d4cf;
+    color: #8c52ff;
 }
 
 .btnClose {
-    border: solid 2px #41d4cf;
+    border: solid 2px #8c52ff;
     border-radius: 9px;
     width: 2rem;
     height: 2rem;
@@ -207,7 +207,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #41d4cf;
+    color: #8c52ff;
     margin: 5px;
 }
 
@@ -215,9 +215,9 @@ input {
     background-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-bottom-color: #41d4cf;
-    border-bottom-color: #41d4cf;
-    border-right-color: #41d4cf;
+    border-bottom-color: #8c52ff;
+    border-bottom-color: #8c52ff;
+    border-right-color: #8c52ff;
     color: black;
     font-size: 1.3rem;
 }
@@ -226,9 +226,9 @@ textarea {
     background-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-bottom-color: #41d4cf;
-    border-bottom-color: #41d4cf;
-    border-right-color: #41d4cf;
+    border-bottom-color: #8c52ff;
+    border-bottom-color: #8c52ff;
+    border-right-color: #8c52ff;
     color: black;
     font-size: 1.3rem;
 }
