@@ -331,6 +331,7 @@ export default function rootReducer(state = initialState, action) {
         branchAdded: "",
         branchDeleted: "",
         branchPut: "",
+        deletedBusiness: "",
       };
     case "FILTER_BY_BUSINESS":
       const allBusiness = state.allProducts;
@@ -454,6 +455,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         users: action.payload,
         userEditInfo: action.payload.filter((e) => e.email === state.email)[0],
+        deletedUser: "",
       };
 
     case "ADD_TO_CART":

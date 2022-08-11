@@ -83,6 +83,13 @@ export default function HomeAdmin() {
     });
   }
 
+  useEffect(() => {
+    dispatch(getUsers())
+  }, [dispatch, gState.deletedUser])
+
+  useEffect(() => {
+    dispatch(getAllBusiness())
+  }, [dispatch, gState.deletedBusiness])
 
   useEffect(() => {
     /* dispatch(getByPurchaseEmail(userPurchase.email)); */
@@ -92,6 +99,7 @@ export default function HomeAdmin() {
     dispatch(getAllTravel());
     dispatch(getAllPurchases());
   }, [dispatch]);
+
 
   function searchProduct(rows) {
     return rows.filter(
@@ -236,7 +244,19 @@ export default function HomeAdmin() {
       ),
     },
   ];
+  const conditionalRowStyles = [
+    {
+      when: row => row.deleted === true,
+      style: {
+        backgroundColor: 'red',
+        color: 'white',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
 
+  ];
   const columnas = [
     { name: "Email", selector: (row) => row.email, sortable: true },
     { name: "Nombre", selector: (row) => row.name, sortable: true },
@@ -247,6 +267,7 @@ export default function HomeAdmin() {
       sortable: true,
     },
     /* { name: "Acciones", selector: "acciones", sortable: true }, */
+    // { name: "Estado", selector: (row) => console.log(row.active.toString()), sortable: true },
     {
       button: true,
       cell: (row) => (
@@ -259,7 +280,19 @@ export default function HomeAdmin() {
       ),
     },
   ];
+  const conditionalRowStylesBusiness = [
+    {
+      when: row => row.active === false,
+      style: {
+        backgroundColor: 'red',
+        color: 'white',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
 
+  ];
   const columnsBusiness = [
     { name: "Email", selector: (row) => row.email, sortable: true },
     {
@@ -328,6 +361,7 @@ export default function HomeAdmin() {
                   columns={columnas}
                   data={searchUsers(USERS)}
                   title="Listado de usuarios"
+                  conditionalRowStyles={conditionalRowStyles}
                 />
                 <br />
               </Tab>
@@ -353,6 +387,7 @@ export default function HomeAdmin() {
                   columns={columnsBusiness}
                   data={searchBusiness(BUSINESS)}
                   title="Listado de empresas"
+                  conditionalRowStyles={conditionalRowStylesBusiness}
                 />
               </Tab>
               <Tab eventKey="profile2" title="Listado de productos">
