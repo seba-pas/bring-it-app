@@ -51,18 +51,18 @@ async function loadDB (){
       })
     }) ;
 
-    const businessesbranchLoad = businessbranch.forEach( async (b) => {     
-      await Businessbranch.findOrCreate({
-        where: {
-          businessEmail: b.businessEmail,           
-          businessBranchName: b.businessBranchName,           
-          province: b.province,
-          address: b.address,
-          cityId: b.cityId
-        }
-      })
-    }) ;
-    console.log('Businessbranches saved successfully') ;
+//     const businessesbranchLoad = businessbranch.forEach( async (b) => {     
+//       await Businessbranch.findOrCreate({
+//         where: {
+//           businessEmail: b.businessEmail,           
+//           businessBranchName: b.businessBranchName,           
+//           province: b.province,
+//           address: b.address,
+//           cityId: b.cityId
+//         }
+//       })
+//     }) ;
+//     console.log('Businessbranches saved successfully') ;
     
     // const productsLoad = products.forEach( async (p) => {
     //      const newProduct = await Product.findOrCreate({
