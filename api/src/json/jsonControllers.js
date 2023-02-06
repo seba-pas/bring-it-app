@@ -64,57 +64,56 @@ async function loadDB (){
     }) ;
     console.log('Businessbranches saved successfully') ;
     
-    const productsLoad = products.forEach( async (p) => {
-         const newProduct = await Product.findOrCreate({
-            where: {
-              name: p.name,
-              price: p.price,
-              weight: p.weight,
-              image: p.image,
-              stock: p.stock,
-              description: p.description,
-              businessbranchId: p.businessbranchId
-            }
-          })
-          const newProduct2 = await Product.findByPk(newProduct[0].dataValues.id);
-          await newProduct2.addCategory(p.categoryId);
-      })
-     ;
-    console.log('Products saved successfully') ;
-    const travelLoad = travels.forEach( async (t) => {     
-      await Travel.findOrCreate({
-        where: {
-          userEmail: t.userEmail,
-          travelProvince: t.travelProvince,
-          travelCityId: t.travelCityId,
-          arrivalProvince: t.arrivalProvince,
-          arrivalCityId: t.arrivalCityId,
-          startDate: t.startDate,
-          arrivalDate: t.arrivalDate
-        }
-      })
-    }) ;
-    console.log('Travels saved successfully') ;
-    const purchaseLoad = purchases.forEach( async (p) => {     
-      const createdPurchase = await Purchase.findOrCreate({
-        where: {
-          totalPrice: p.totalPrice,
-          maxDeliveryDate: p.maxDeliveryDate,
-          arrivalCityId: p.arrivalCityId,
-          province: p.province,
-          userEmail: p.userEmail,
-        }})
-        const addItems = p.items.forEach(async (i) => {
-          await Purchaseitem.findOrCreate({
-            where: {
-            purchaseId: createdPurchase[0].id,
-            productId: i.id,
-            quantity: i.quantity,
-            productName: i.name
-            }
-          });
-    }) 
-  }); console.log('Purchases saved successfully') ;
+    // const productsLoad = products.forEach( async (p) => {
+    //      const newProduct = await Product.findOrCreate({
+    //         where: {
+    //           name: p.name,
+    //           price: p.price,
+    //           weight: p.weight,
+    //           image: p.image,
+    //           stock: p.stock,
+    //           description: p.description,
+    //           businessbranchId: p.businessbranchId
+    //         }
+    //       })
+    //       const newProduct2 = await Product.findByPk(newProduct[0].dataValues.id);
+    //       await newProduct2.addCategory(p.categoryId);
+    //   });
+    // console.log('Products saved successfully') ;
+  //   const travelLoad = travels.forEach( async (t) => {     
+  //     await Travel.findOrCreate({
+  //       where: {
+  //         userEmail: t.userEmail,
+  //         travelProvince: t.travelProvince,
+  //         travelCityId: t.travelCityId,
+  //         arrivalProvince: t.arrivalProvince,
+  //         arrivalCityId: t.arrivalCityId,
+  //         startDate: t.startDate,
+  //         arrivalDate: t.arrivalDate
+  //       }
+  //     })
+  //   }) ;
+  //   console.log('Travels saved successfully') ;
+  //   const purchaseLoad = purchases.forEach( async (p) => {     
+  //     const createdPurchase = await Purchase.findOrCreate({
+  //       where: {
+  //         totalPrice: p.totalPrice,
+  //         maxDeliveryDate: p.maxDeliveryDate,
+  //         arrivalCityId: p.arrivalCityId,
+  //         province: p.province,
+  //         userEmail: p.userEmail,
+  //       }})
+  //       const addItems = p.items.forEach(async (i) => {
+  //         await Purchaseitem.findOrCreate({
+  //           where: {
+  //           purchaseId: createdPurchase[0].id,
+  //           productId: i.id,
+  //           quantity: i.quantity,
+  //           productName: i.name
+  //           }
+  //         });
+  //   }) 
+  // }); console.log('Purchases saved successfully') ;
 } else {console.log('Db already loaded')}
 } 
 
