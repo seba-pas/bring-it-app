@@ -26,7 +26,7 @@ server.use(express.json());
 server.use(
   cookieSession({ name: "session", keys: [process.env.COOKIE_KEY], maxAge: 24 * 60 * 60 * 1000 })
 );
-server.use(session({
+server.use(cookieSession({
   secret: [process.env.SESSION_KEY],
   resave: true,
   saveUninitialized: true
