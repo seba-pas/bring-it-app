@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
 require("dotenv").config();
-const session = require("express-session"); //para la aut de 3ros
+// const session = require("express-session"); //para la aut de 3ros
 const cookieSession = require("cookie-session"); //para la aut de 3ros
 const passport = require("passport"); //para la aut de 3ros
 const GoogleStrategy = require('passport-google-oauth20').Strategy; //para la aut de 3ros
@@ -32,7 +32,7 @@ server.use(cookieSession({
   saveUninitialized: true
 })); //para la aut de 3ros
 server.use(passport.initialize());//para la aut de 3ros
-server.use(passport.session());//para la aut de 3ros
+server.use(passport.cookieSession());//para la aut de 3ros
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
